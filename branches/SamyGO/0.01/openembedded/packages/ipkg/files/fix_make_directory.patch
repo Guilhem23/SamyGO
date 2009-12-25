@@ -1,0 +1,128 @@
+diff -ur old/libbb/make_directory.c new/libbb/make_directory.c
+--- old/libbb/make_directory.c	2006-02-06 09:13:02.000000000 +0100
++++ new/libbb/make_directory.c	2009-12-20 14:33:24.000000000 +0100
+@@ -35,37 +35,98 @@
+ 
+ int make_directory (const char *path, long mode, int flags)
+ {
+-	if (!(flags & FILEUTILS_RECUR)) {
+-		if (mkdir (path, 0777) < 0) {
+-			perror_msg ("Cannot create directory `%s'", path);
+-			return -1;
++	mode_t cur_mask;
++	mode_t org_mask;
++	const char *fail_msg;
++	char *s;
++	char c;
++	struct stat st;
++
++	org_mask = cur_mask = (mode_t)-1L;
++	s = path;
++	if (!*s)
++		return -1;
++
++	while (1) {
++		c = '\0';
++
++		if (flags & FILEUTILS_RECUR) {	/* Get the parent */
++			s++;
++			while (*s) {
++				if (*s == '/') {
++					c = *s; /* Save the current char */
++					*s = '\0'; /* and replace it with nul */
++					break;
++				}
++				++s;
++			}
+ 		}
+ 
+-		if (mode != -1 && chmod (path, mode) < 0) {
+-			perror_msg ("Cannot set permissions of directory `%s'", path);
+-			return -1;
++		if (c != '\0') {
++			/* Intermediate dirs: must have wx for user */
++			if (cur_mask == (mode_t)-1L) { /* wasn't done yet? */
++				mode_t new_mask;
++				org_mask = umask(0);
++				cur_mask = 0;
++				/* Clear u=wx in umask - this ensures
++				 * they won't be cleared on mkdir */
++				new_mask = (org_mask & ~(mode_t)0300);
++				//bb_error_msg("org_mask:%o cur_mask:%o", org_mask, new_mask);
++				if (new_mask != cur_mask) {
++					cur_mask = new_mask;
++					umask(new_mask);
++				}
++			}
++		} else {
++			/* Last component: uses original umask */
++			//bb_error_msg("1 org_mask:%o", org_mask);
++			if (org_mask != cur_mask) {
++				cur_mask = org_mask;
++				umask(org_mask);
++			}
+ 		}
+-	} else {
+-		struct stat st;
+ 
+-		if (stat (path, &st) < 0 && errno == ENOENT) {
+-			int status;
+-			char *buf, *parent;
+-			mode_t mask;
+-
+-			mask = umask (0);
+-			umask (mask);
+-
+-			buf = xstrdup (path);
+-			parent = dirname (buf);
+-			status = make_directory (parent, (0777 & ~mask) | 0300,
+-					FILEUTILS_RECUR);
+-			free (buf);
++		if (mkdir(path, 0777) < 0) {
++			/* If we failed for any other reason than the directory
++			 * already exists, output a diagnostic and return -1 */
++			if (errno != EEXIST
++			 || !(flags & FILEUTILS_RECUR)
++			 || ((stat(path, &st) < 0) || !S_ISDIR(st.st_mode))
++			) {
++				fail_msg = "create";
++				break;
++			}
++			/* Since the directory exists, don't attempt to change
++			 * permissions if it was the full target.  Note that
++			 * this is not an error condition. */
++			if (!c) {
++				goto ret0;
++			}
++		}
+ 
+-			if (status < 0 || make_directory (path, mode, 0) < 0)
+-				return -1;
++		if (!c) {
++			/* Done.  If necessary, update perms on the newly
++			 * created directory.  Failure to update here _is_
++			 * an error. */
++			if ((mode != -1) && (chmod(path, mode) < 0)) {
++				fail_msg = "set permissions of";
++				break;
++			}
++			goto ret0;
+ 		}
+-	}
+ 
+-	return 0;
++		/* Remove any inserted nul from the path (recursive mode) */
++		*s = c;
++	} /* while (1) */
++
++	printf("ipkg: can't %s directory '%s'\n", fail_msg, path);
++	flags = -1;
++	goto ret;
++ ret0:
++	flags = 0;
++ ret:
++	//bb_error_msg("2 org_mask:%o", org_mask);
++	if (org_mask != cur_mask)
++		umask(org_mask);
++	return flags;
+ }
