@@ -42,7 +42,7 @@ Toolchain: initialize
 
 initialize: $(OE_BASE)/cache sources $(OE_BASE)/build $(OE_BASE)/build/conf \
 	$(OE_BASE)/build/tmp $(OE_BASE)/build/conf/local.conf \
-	$(OE_BASE)/build/env.source $(OE_BASE)/bb
+	$(OE_BASE)/build/env.source
 
 $(OE_BASE)/build $(OE_BASE)/build/conf $(OE_BASE)/build/tmp $(OE_BASE)/cache: sources
 	mkdir -p $@
