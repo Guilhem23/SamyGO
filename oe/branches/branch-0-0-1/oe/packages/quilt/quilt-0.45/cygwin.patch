@@ -1,0 +1,12 @@
+diff -ur old/Makefile.in new/Makefile.in
+--- old/Makefile.in	2009-12-19 21:31:21.000000000 +0100
++++ new/Makefile.in	2009-12-19 21:40:59.000000000 +0100
+@@ -57,7 +57,7 @@
+ COMPAT_SYMLINKS	:= @COMPAT_SYMLINKS@
+ COMPAT_PROGRAMS	:= @COMPAT_PROGRAMS@
+ 
+-default: all
++default: all lib/backup-files
+ 
+ #-----------------------------------------------------------------------
+ DIRT +=		$(shell $(FIND) . -name '*~')

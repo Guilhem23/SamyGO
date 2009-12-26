@@ -1,0 +1,95 @@
+#!/usr/bin/make -f
+
+# target platform: Chelsea 
+MACHINE = T-CHU7DEUC
+# MACHINE = T-SPHAUSC
+DISTRO = selp-3.2
+SVN_AUTHOR_NAME = arris
+
+# you should not need to change anything below
+BB_VERSION = 1.6.8 
+SVN = svn
+SVN_BITBAKE_PARENT = "svn://svn.berlios.de/bitbake/"
+
+PWD := $(shell pwd)
+
+OE_BASE = $(PWD)
+
+DL_DIR ?= $(OE_BASE)/sources
+
+all: initialize
+	@echo 
+	@echo "SamyGO Openembedded for Samsung (SELP/SamyGO $(MACHINE)) environment has"
+	@echo "been initialized properly. Now you can either:"
+	@echo
+	@echo "  - make the 'Toolchain' to build a Buildenviroment, or"
+	@echo "  - make the 'image'-target to build an image, or"
+	@echo "  - make the 'static-image'-target to build an minimalistic image, or"
+	@echo "  - go into $(OE_BASE)/build/, source env.source and start on your own!"
+	@echo
+	@echo "ps: You need ~5GB free diskspace!"	
+
+$(OE_BASE)/bb: 
+	$(SVN) checkout $(SVN_BITBAKE_PARENT)/tags/bitbake-$(BB_VERSION) $(OE_BASE)/bb
+
+$(OE_BASE)/openembedded:
+	@echo "No OE-Sources??"
+
+.PHONY: all
+
+devshell: initialize 
+	cd $(OE_BASE)/build; . ./env.source; bitbake devshell
+
+image: initialize 
+	cd $(OE_BASE)/build; . ./env.source; bitbake -v $(MACHINE)-$@
+
+static-image: initialize 
+	cd $(OE_BASE)/build; . ./env.source; bitbake -v $(MACHINE)-$@
+
+imaged: initialize 
+	cd $(OE_BASE)/build; . ./env.source; bitbake -v -D $(MACHINE)-image
+
+Toolchain: initialize 
+	cd $(OE_BASE)/build; . ./env.source; bitbake task-samsung-toolchain
+
+initialize: $(OE_BASE)/cache sources $(OE_BASE)/build $(OE_BASE)/build/conf \
+	$(OE_BASE)/build/tmp $(OE_BASE)/openembedded $(OE_BASE)/build/conf/local.conf \
+	$(OE_BASE)/build/env.source $(OE_BASE)/bb
+
+$(OE_BASE)/build $(OE_BASE)/build/conf $(OE_BASE)/build/tmp $(OE_BASE)/cache: sources
+	mkdir -p $@
+
+sources: 
+	mkdir -p $(DL_DIR)
+
+graph: $(OE_BASE)/bb
+	cd $(OE_BASE)/build; . ./env.source; bitbake -g $(MACHINE)-image
+	dot -Tpng -o $(MACHINE)-dep.png build/alldepends.dot
+
+$(OE_BASE)/build/conf/local.conf: 
+	echo 'DL_DIR = "$(DL_DIR)"' > $@
+	echo 'OE_BASE = "$(OE_BASE)"' >> $@
+	echo 'BBFILES = "$${OE_BASE}/oe/packages/*/*.bb"' >> $@
+	echo 'BBMASK = "(nslu.*|.*-sdk.*)"' >> $@
+	echo 'PREFERRED_PROVIDERS += " virtual/$${TARGET_PREFIX}gcc-initial:gcc-cross-initial"' >> $@
+	echo 'PREFERRED_PROVIDERS += " virtual/$${TARGET_PREFIX}gcc:gcc-cross"' >> $@
+	echo 'PREFERRED_PROVIDERS += " virtual/$${TARGET_PREFIX}g++:gcc-cross"' >> $@
+	echo 'MACHINE = "$(MACHINE)"' >> $@
+	echo 'TARGET_OS = "linux-gnueabi"' >> $@
+	echo 'DISTRO = "$(DISTRO)"' >> $@
+	echo 'CACHE = "$(OE_BASE)/cache/oe-cache.$${USER}"' >> $@
+	echo 'ASSUME_PROVIDED += " gmp-native mpfr-native "' >> $@
+	echo 'ASSUME_PROVIDED += " gettext-native "' >> $@
+#	echo 'ASSUME_PROVIDED += " gmp-native mpfr-native python-native "' >> $@
+#	echo 'PARALLEL_MAKE = "-j 3"' >> $@
+
+$(OE_BASE)/build/env.source:
+	echo 'OE_BASE="$(OE_BASE)"' > $@
+	echo 'export BBPATH="$${OE_BASE}/oe/:$${OE_BASE}/bb/:$${OE_BASE}/build/"' >> $@
+	echo 'PATH=$${PATH}:$${OE_BASE}/bb/bin:$${OE_BASE}/build/tmp/cross/bin' >> $@
+	echo 'export PATH' >> $@
+	echo 'export LD_LIBRARY_PATH=' >> $@
+	echo 'export LANG=C' >> $@
+	cat $@
+
+
