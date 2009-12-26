@@ -69,7 +69,7 @@ graph: $(OE_BASE)/bb
 $(OE_BASE)/build/conf/local.conf: 
 	echo 'DL_DIR = "$(DL_DIR)"' > $@
 	echo 'OE_BASE = "$(OE_BASE)"' >> $@
-	echo 'BBFILES = "$${OE_BASE}/openembedded/packages/*/*.bb"' >> $@
+	echo 'BBFILES = "$${OE_BASE}/oe/packages/*/*.bb"' >> $@
 	echo 'BBMASK = "(nslu.*|.*-sdk.*)"' >> $@
 	echo 'PREFERRED_PROVIDERS += " virtual/$${TARGET_PREFIX}gcc-initial:gcc-cross-initial"' >> $@
 	echo 'PREFERRED_PROVIDERS += " virtual/$${TARGET_PREFIX}gcc:gcc-cross"' >> $@
@@ -85,7 +85,7 @@ $(OE_BASE)/build/conf/local.conf:
 
 $(OE_BASE)/build/env.source:
 	echo 'OE_BASE="$(OE_BASE)"' > $@
-	echo 'export BBPATH="$${OE_BASE}/openembedded/:$${OE_BASE}/bb/:$${OE_BASE}/build/"' >> $@
+	echo 'export BBPATH="$${OE_BASE}/oe/:$${OE_BASE}/bb/:$${OE_BASE}/build/"' >> $@
 	echo 'PATH=$${PATH}:$${OE_BASE}/bb/bin:$${OE_BASE}/build/tmp/cross/bin' >> $@
 	echo 'export PATH' >> $@
 	echo 'export LD_LIBRARY_PATH=' >> $@
