@@ -5,7 +5,7 @@ MACHINE = T-CHU7DEUC
 # MACHINE = T-SPHAUSC
 DISTRO = selp-3.2
 
-PWD := $(shell pwd)
+PWD := $(shell /bin/pwd)
 
 OE_BASE = $(PWD)
 
