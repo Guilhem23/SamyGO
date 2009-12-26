@@ -32,7 +32,7 @@ all: initialize
 $(OE_BASE)/bb: 
 	$(SVN) checkout $(SVN_BITBAKE_PARENT)/tags/bitbake-$(BB_VERSION) $(OE_BASE)/bb
 
-$(OE_BASE)/openembedded:
+$(OE_BASE)/oe:
 	@echo "No OE-Sources??"
 
 .PHONY: all
@@ -53,7 +53,7 @@ Toolchain: initialize
 	cd $(OE_BASE)/build; . ./env.source; bitbake task-samsung-toolchain
 
 initialize: $(OE_BASE)/cache sources $(OE_BASE)/build $(OE_BASE)/build/conf \
-	$(OE_BASE)/build/tmp $(OE_BASE)/openembedded $(OE_BASE)/build/conf/local.conf \
+	$(OE_BASE)/build/tmp $(OE_BASE)/oe $(OE_BASE)/build/conf/local.conf \
 	$(OE_BASE)/build/env.source $(OE_BASE)/bb
 
 $(OE_BASE)/build $(OE_BASE)/build/conf $(OE_BASE)/build/tmp $(OE_BASE)/cache: sources
