@@ -5,7 +5,7 @@
 # See image_ipk.oeclass for a usage of this.
 #
 
-DEPENDS_prepend="ipkg-native ipkg-utils-native fakeroot-native "
+DEPENDS_prepend="ipkg-native ipkg-utils-native "
 DEPENDS_append=" ${EXTRA_IMAGEDEPENDS}"
 
 PACKAGES = ""
@@ -112,7 +112,13 @@ log_check() {
 	
 }
 
-fakeroot do_rootfs () {
+
+fakeroot fakeroot_do_rootfs () {
+	rm -rf ${IMAGE_ROOTFS}
+	real_do_rootfs
+}
+
+do_rootfs () {
 	rm -rf ${IMAGE_ROOTFS}
 	real_do_rootfs
 }
