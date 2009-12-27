@@ -16,29 +16,14 @@ all: initialize
 	@echo "SamyGO Openembedded for Samsung (SELP/SamyGO $(MACHINE)) environment has"
 	@echo "been initialized properly. Now you can either:"
 	@echo
-	@echo "  - make the 'Toolchain' to build a Build enviroment, or"
-	@echo "  - make the 'image'-target to build an image, or"
-	@echo "  - make the 'static-image'-target to build an minimalistic image, or"
-	@echo "  - go into $(OE_BASE)/build/, source env.source and start on your own!"
+	@echo "  - go into $(OE_BASE)/build/, source env.source"
+	@echo "  - for nfs boot rootfs do: bitbake $(MACHINE)-nfsboot-image"
 	@echo
-	@echo "ps: You need ~5GB free diskspace!"	
 
 .PHONY: all
 
 devshell: initialize 
 	cd $(OE_BASE)/build; . ./env.source; bitbake devshell
-
-image: initialize 
-	cd $(OE_BASE)/build; . ./env.source; bitbake -v $(MACHINE)-$@
-
-static-image: initialize 
-	cd $(OE_BASE)/build; . ./env.source; bitbake -v $(MACHINE)-$@
-
-imaged: initialize 
-	cd $(OE_BASE)/build; . ./env.source; bitbake -v -D $(MACHINE)-image
-
-Toolchain: initialize 
-	cd $(OE_BASE)/build; . ./env.source; bitbake task-samsung-toolchain
 
 initialize: $(OE_BASE)/cache sources $(OE_BASE)/build $(OE_BASE)/build/conf \
 	$(OE_BASE)/build/tmp $(OE_BASE)/build/conf/local.conf \
