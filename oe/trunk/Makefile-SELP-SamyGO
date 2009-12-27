@@ -3,7 +3,7 @@
 # target platform: Chelsea 
 MACHINE = T-CHU7DEUC
 # MACHINE = T-SPHAUSC
-DISTRO = selp-3.2
+DISTRO = selp
 
 PWD := $(shell /bin/pwd)
 
