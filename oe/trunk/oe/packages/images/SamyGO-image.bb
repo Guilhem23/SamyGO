@@ -6,8 +6,6 @@
 # Date: 18-Sep-09
 
 DESCRIPTION = "<description>"
-MAINTAINER = "Ser Lev Arris <arris@ZsoltTech.Com>"
-HOMEPAGE = "http://stb.ZsoltTech.Com/"
 
 ######################################################################################
 

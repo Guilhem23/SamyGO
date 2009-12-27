@@ -1,6 +1,5 @@
 PACKAGES = task-samsung
 DESCRIPTION = "Meta-package Samsung SELP"
-MAINTAINER = "Ser Lev Arris <arris@ZsoltTech.Com>"
 ALLOW_EMPTY = 1
 PACKAGES = "${PN}"
 

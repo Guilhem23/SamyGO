@@ -1,6 +1,5 @@
 PACKAGES = task-samsung-base
 DESCRIPTION = "Meta-package Samsung SELP (minimal enviroment with busybox)"
-MAINTAINER = "Ser Lev Arris <arris@ZsoltTech.Com>"
 ALLOW_EMPTY = 1
 PACKAGES = "${PN}"
 

@@ -6,8 +6,6 @@
 # Date: 23-Dec-09
 
 DESCRIPTION = "<description>"
-MAINTAINER = "Ser Lev Arris <arris@ZsoltTech.Com>"
-HOMEPAGE = "http://stb.ZsoltTech.Com/"
 
 PROVIDES += "T-SPHAUSC-static-image"
 
