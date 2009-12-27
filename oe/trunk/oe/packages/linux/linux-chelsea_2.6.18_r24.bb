@@ -2,6 +2,7 @@ DESCRIPTION = "Linux kernel for Samsung TV's"
 HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
 DEPENDS = "binutils-cross yes-native"
+FILESPATH = "${@base_set_filespath([ '${FILE_DIRNAME}/linux-chelsea_2.6.18', '${FILE_DIRNAME}/files' ], d)}"
 
 SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
 		http://www.samsung.com/global/opensource/files/LE40B650T2P.zip \
@@ -10,6 +11,7 @@ SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
 SRC_URI_append_selp += "file://selp-gadget.patch;patch=1" 
 SRC_URI_append_selp += "file://selp-ralink-devlist.patch;patch=1;pnum=0" 
 SRC_URI_append_selp += "file://selp-ralink-devlist_2.2.0.0.patch;patch=1;pnum=0" 
+SRC_URI_append_selp += "file://defconfig"
 
 S = "${WORKDIR}/linux/linux-r011"
 
@@ -29,7 +31,7 @@ KERNEL_OUTPUT = "arch/arm/boot/Image"
 KERNEL_OBJECT_SUFFIX = '.ko'
 
 do_unpack2() {
-        tar -xvzf ${WORKDIR}/linux.chelsea.tgz -C ${WORKDIR}/
+	tar -xvzf ${WORKDIR}/linux.chelsea.tgz -C ${WORKDIR}/
 	tar -xvzf ${WORKDIR}/linux.cip.open.tgz -C ${WORKDIR}/ linux/linux-r011/drivers/rt73
 	tar -xvzf ${WORKDIR}/linux.cip.open.tgz -C ${WORKDIR}/ linux/linux-r011/drivers/rt2870
 	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz || true
@@ -43,7 +45,7 @@ addtask unpack2 before do_patch after do_unpack
 do_configure_prepend() {
 	echo ${CROSS_COMPILE} > .mvl_cross_compile
 	echo ${TARGET_ARCH} > .mvl_target_cpu
-	./mkconfig.sh ${MACHINE_KERNEL_CONFIG_CMD_ARGS}  
+	cp ${WORKDIR}/defconfig .config
 	make include/linux/version.h
 
 	gcc_version=`${KERNEL_CC} -dumpversion`
