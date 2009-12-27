@@ -40,9 +40,6 @@ PACKAGES =+ "${PN}-httpd ${PN}-syslog ${PN}-udhcpd"
 # listed in the NEEDED field.
 RRECOMMENDS += "libgcc"
 
-# Make busybox recommend busybox-syslog for those images that expect it
-RRECOMMENDS_${PN} += "libgcc ${PN}-syslog"
-
 FILES_${PN}-httpd = "${sysconfdir}/init.d/busybox-httpd /srv/www"
 FILES_${PN}-syslog = "${sysconfdir}/init.d/syslog ${sysconfdir}/syslog.conf"
 FILES_${PN}-udhcpd = "${sysconfdir}/init.d/busybox-udhcpd"
