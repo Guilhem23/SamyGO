@@ -15,4 +15,23 @@ inherit autotools
 GLIBC_EXTRA_OECONF ?= ""
 INHIBIT_DEFAULT_DEPS = "1"
 
+do_rig_locales() {
+	# If indicated, only build a limited selection of locales
+	if [ "x${LIMIT_BUILT_LOCALES}" != "x" ]; then
+		INFILE="${S}/localedata/SUPPORTED"
+		OUTFILE="${S}/localedata/SUPPORTED.tmp"
+		head -n 3 $INFILE > $OUTFILE
+		for i in ${LIMIT_BUILT_LOCALES}; do
+			echo 
+			grep $i $INFILE >> $OUTFILE
+		done
+		head --lines=-1 $OUTFILE > $INFILE
+		tail --lines=1 $OUTFILE | sed 's#\\##' >> $INFILE
+	fi
+}
+
+addtask rig_locales before do_compile after do_configure
+
+ARM_INSTRUCTION_SET = "arm"
+
 PACKAGES = "glibc catchsegv sln nscd ldd localedef glibc-utils glibc-dev glibc-doc glibc-locale libsegfault glibc-extra-nss glibc-thread-db glibc-pcprofile"
