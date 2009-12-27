@@ -25,10 +25,10 @@ FILES_scsi-includes = "/usr/include/linux/scsi"
 COMPATIBLE_HOST = "arm.*-linux"
 COMPATIBLE_MACHINE = "T-CHU7DEUC"
 
+export ARCH = "arm"
 export OS = "Linux"
-ARCH = "arm"
-KERNEL_OUTPUT = "arch/arm/boot/Image"
-KERNEL_OBJECT_SUFFIX = '.ko'
+
+KERNEL_IMAGETYPE_LIST = "zImage uImage"
 
 do_unpack2() {
 	tar -xvzf ${WORKDIR}/linux.chelsea.tgz -C ${WORKDIR}/
@@ -47,11 +47,6 @@ do_configure_prepend() {
 	echo ${TARGET_ARCH} > .mvl_target_cpu
 	cp ${WORKDIR}/defconfig .config
 	make include/linux/version.h
-
-	gcc_version=`${KERNEL_CC} -dumpversion`
-                if [ "${gcc_version}" == "4.0.1" ] || [ "${gcc_version}" == "4.0.2" ]; then
-                        die "tosa kernel wont work with gcc 4.0.x"
-                fi
 }
 
 do_stage_prepend () {

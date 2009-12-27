@@ -10,7 +10,7 @@ PACKAGES_DYNAMIC += "kernel-image-*"
 
 export OS = "${TARGET_OS}"
 export CROSS_COMPILE = "${TARGET_PREFIX}"
-KERNEL_IMAGETYPE = "zImage"
+KERNEL_IMAGETYPE_LIST ?= "zImage"
 
 KERNEL_PRIORITY = "${@bb.data.getVar('PV',d,1).split('-')[0].split('.')[-1]}"
 
@@ -35,7 +35,6 @@ HOST_LD_KERNEL_ARCH ?= "${TARGET_LD_KERNEL_ARCH}"
 KERNEL_CC = "${CCACHE}${HOST_PREFIX}gcc${KERNEL_CCSUFFIX} ${HOST_CC_KERNEL_ARCH}"
 KERNEL_LD = "${LD}${KERNEL_LDSUFFIX} ${HOST_LD_KERNEL_ARCH}"
 
-KERNEL_OUTPUT = "arch/${ARCH}/boot/${KERNEL_IMAGETYPE}"
 KERNEL_IMAGEDEST = "boot"
 
 #
@@ -81,7 +80,9 @@ kernel_do_compile() {
 	if [ "${KERNEL_MAJOR_VERSION}" != "2.6" ]; then
 		oe_runmake dep CC="${KERNEL_CC}" LD="${KERNEL_LD}"
 	fi
-	oe_runmake ${KERNEL_IMAGETYPE} CC="${KERNEL_CC}" LD="${KERNEL_LD}"
+	for type in ${KERNEL_IMAGETYPE_LIST}; do
+		oe_runmake ${type} CC="${KERNEL_CC}" LD="${KERNEL_LD}"
+	done
 	if (grep -q -i -e '^CONFIG_MODULES=y$' .config); then
 		oe_runmake modules  CC="${KERNEL_CC}" LD="${KERNEL_LD}"
 	else
@@ -150,8 +151,10 @@ kernel_do_stage() {
 		install -d ${STAGING_KERNEL_DIR}/arch/${ARCH}
 		install -m 0644 arch/${ARCH}/Makefile* ${STAGING_KERNEL_DIR}/arch/${ARCH}
 	fi
-	cp -fR include/config* ${STAGING_KERNEL_DIR}/include/	
-	install -m 0644 ${KERNEL_OUTPUT} ${STAGING_KERNEL_DIR}/${KERNEL_IMAGETYPE}
+	cp -fR include/config* ${STAGING_KERNEL_DIR}/include/
+	for type in ${KERNEL_IMAGETYPE_LIST}; do
+		install -m 0644 "arch/${ARCH}/boot/${type}" ${STAGING_KERNEL_DIR}/${type}
+	done
 	install -m 0644 System.map ${STAGING_KERNEL_DIR}/System.map-${KERNEL_RELEASE}
 	[ -e Module.symvers ] && install -m 0644 Module.symvers ${STAGING_KERNEL_DIR}/
 
@@ -168,7 +171,9 @@ kernel_do_install() {
 	
 	install -d ${D}/${KERNEL_IMAGEDEST}
 	install -d ${D}/boot
-	install -m 0644 ${KERNEL_OUTPUT} ${D}/${KERNEL_IMAGEDEST}/${KERNEL_IMAGETYPE}-${KERNEL_RELEASE}
+	for type in ${KERNEL_IMAGETYPE_LIST}; do
+		install -m 0644 "arch/${ARCH}/boot/${type}" ${D}/${KERNEL_IMAGEDEST}/${type}-${KERNEL_RELEASE}
+	done
 	install -m 0644 System.map ${D}/boot/System.map-${KERNEL_RELEASE}
 	install -m 0644 .config ${D}/boot/config-${KERNEL_RELEASE}
 	install -d ${D}/etc/modutils
@@ -187,11 +192,15 @@ kernel_do_configure() {
 }
 
 pkg_postinst_kernel () {
-	update-alternatives --install /${KERNEL_IMAGEDEST}/${KERNEL_IMAGETYPE} ${KERNEL_IMAGETYPE} /${KERNEL_IMAGEDEST}/${KERNEL_IMAGETYPE}-${KERNEL_RELEASE} ${KERNEL_PRIORITY} || true
+	for type in ${KERNEL_IMAGETYPE_LIST}; do
+		update-alternatives --install /${KERNEL_IMAGEDEST}/${type} ${type} /${KERNEL_IMAGEDEST}/${type}-${KERNEL_RELEASE} ${KERNEL_PRIORITY} || true
+	done
 }
 
 pkg_postrm_kernel () {
-	update-alternatives --remove ${KERNEL_IMAGETYPE} /${KERNEL_IMAGEDEST}/${KERNEL_IMAGETYPE}-${KERNEL_RELEASE} || true
+	for type in ${KERNEL_IMAGETYPE_LIST}; do
+		update-alternatives --remove ${type} /${KERNEL_IMAGEDEST}/${type}-${KERNEL_RELEASE} || true
+	done
 }
 
 inherit cml1
@@ -200,7 +209,7 @@ EXPORT_FUNCTIONS do_compile do_install do_stage do_configure
 
 PACKAGES = "kernel kernel-image kernel-dev"
 FILES = ""
-FILES_kernel-image = "/boot/${KERNEL_IMAGETYPE}*"
+FILES_kernel-image = "/boot/*Image*"
 FILES_kernel-dev = "/boot/System.map* /boot/config*"
 RDEPENDS_kernel = "kernel-image-${KERNEL_VERSION}"
 PKG_kernel-image = "kernel-image-${KERNEL_VERSION}"
