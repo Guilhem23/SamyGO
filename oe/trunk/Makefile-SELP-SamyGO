@@ -3,7 +3,7 @@
 # target platform: Chelsea 
 MACHINE = T-CHU7DEUC
 # MACHINE = T-SPHAUSC
-DISTRO = selp
+DISTRO = samygo
 
 PWD := $(shell /bin/pwd)
 

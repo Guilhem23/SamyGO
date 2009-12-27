@@ -51,8 +51,6 @@ SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
            file://etc/ld.so.conf \
            file://generate-supported.mk"
 
-SRC_URI_append_selp = " file://SamyGO-disable-localedata.patch;patch=1 "
-
 # Build fails on sh3 and sh4 without additional patches
 SRC_URI_append_sh3 = " file://no-z-defs.patch;patch=1"
 SRC_URI_append_sh4 = " file://no-z-defs.patch;patch=1"

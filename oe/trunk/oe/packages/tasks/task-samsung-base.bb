@@ -1,5 +1,5 @@
 PACKAGES = task-samsung-base
-DESCRIPTION = "Meta-package Samsung SELP (minimal enviroment with busybox)"
+DESCRIPTION = "Meta-package SamyGO (minimal enviroment with busybox)"
 ALLOW_EMPTY = 1
 PACKAGES = "${PN}"
 

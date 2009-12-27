@@ -41,7 +41,7 @@ dirs755 = "/bin /boot /dev ${sysconfdir} ${sysconfdir}/default \
 	   /mnt /media /media/card /media/cf /media/net /media/ram \
 	   /media/union /media/realroot /media/hdd \
            /media/mmc1"
-dirs755_append_selp = " /mtd_appdata /mtd_boot /mtd_contents \
+dirs755_append_samygo = " /mtd_appdata /mtd_boot /mtd_contents \
 	   /mtd_down /mtd_exe /mtd_ram /mtd_rwarea /mtd_swu \
 	   /mtd_tlib /mtd_wiselink /dtv"
 conffiles = "${sysconfdir}/debian_version ${sysconfdir}/host.conf \
@@ -52,7 +52,7 @@ conffiles = "${sysconfdir}/debian_version ${sysconfdir}/host.conf \
 #
 # set standard hostname, might be a candidate for a DISTRO variable? :M:
 #
-hostname_selp = "localhost"
+hostname_samygo = "localhost"
 
 do_install () {
 	for d in ${dirs755}; do
@@ -108,7 +108,7 @@ do_install () {
 	ln -sf /proc/mounts ${D}${sysconfdir}/mtab
 }
 
-do_install_append_selp() {
+do_install_append_samygo() {
 	# mkdir -p ${D}/mtd_exe/Java
 
 	for i in mtd_chmap mtd_epg mtd_factory mtd_pers mtd_acap ; do

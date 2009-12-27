@@ -7,15 +7,15 @@ FILESPATH = "${@base_set_filespath([ '${FILE_DIRNAME}/linux-chelsea_2.6.18', '${
 SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
 		http://www.samsung.com/global/opensource/files/LE40B650T2P.zip \
 		file://selp-fix_nonlinux_compile.patch;patch=1 \
+		file://selp-gadget.patch;patch=1 \
+		file://selp-ralink-devlist.patch;patch=1;pnum=0 \
+		file://selp-ralink-devlist_2.2.0.0.patch;patch=1;pnum=0 \
+		file://defconfig \
 "
-SRC_URI_append_selp += "file://selp-gadget.patch;patch=1" 
-SRC_URI_append_selp += "file://selp-ralink-devlist.patch;patch=1;pnum=0" 
-SRC_URI_append_selp += "file://selp-ralink-devlist_2.2.0.0.patch;patch=1;pnum=0" 
-SRC_URI_append_selp += "file://defconfig"
 
 S = "${WORKDIR}/linux/linux-r011"
 
-KERNEL_VERSION_selp = ${PV}
+KERNEL_VERSION = ${PV}
 KERNEL_LOCALVERSION = "_SELP-ARM" 
 inherit kernel
 
