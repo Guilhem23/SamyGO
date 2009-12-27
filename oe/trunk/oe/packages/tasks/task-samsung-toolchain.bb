@@ -8,5 +8,3 @@ PR = "r0"
 
 DEPENDS += "virtual/libc "
 RDEPENDS = " "
-
-COMPATIBLE_HOST = 'arm'
