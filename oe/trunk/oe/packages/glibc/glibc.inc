@@ -25,8 +25,9 @@ do_rig_locales() {
 			echo 
 			grep $i $INFILE >> $OUTFILE
 		done
-		head --lines=-1 $OUTFILE > $INFILE
-		tail --lines=1 $OUTFILE | sed 's#\\##' >> $INFILE
+		num=`cat $OUTFILE | wc -l`
+		sed -e "$num,\$d" $OUTFILE > $INFILE
+		tail -n 1 $OUTFILE | sed 's#\\##' >> $INFILE
 	fi
 }
 
