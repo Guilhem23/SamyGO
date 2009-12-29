@@ -44,9 +44,6 @@ $(OE_BASE)/build/conf/local.conf:
 	echo 'OE_BASE = "$(OE_BASE)"' >> $@
 	echo 'BBFILES = "$${OE_BASE}/oe/packages/*/*.bb"' >> $@
 	echo 'BBMASK = ""' >> $@
-	echo 'PREFERRED_PROVIDERS += " virtual/$${TARGET_PREFIX}gcc-initial:gcc-cross-initial"' >> $@
-	echo 'PREFERRED_PROVIDERS += " virtual/$${TARGET_PREFIX}gcc:gcc-cross"' >> $@
-	echo 'PREFERRED_PROVIDERS += " virtual/$${TARGET_PREFIX}g++:gcc-cross"' >> $@
 	echo 'MACHINE = "$(MACHINE)"' >> $@
 	echo 'TARGET_OS = "linux-gnueabi"' >> $@
 	echo 'DISTRO = "$(DISTRO)"' >> $@
