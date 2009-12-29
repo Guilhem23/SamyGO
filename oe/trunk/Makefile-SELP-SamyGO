@@ -43,7 +43,6 @@ $(OE_BASE)/build/conf/local.conf:
 	echo 'DL_DIR = "$(DL_DIR)"' > $@
 	echo 'OE_BASE = "$(OE_BASE)"' >> $@
 	echo 'BBFILES = "$${OE_BASE}/oe/packages/*/*.bb"' >> $@
-	echo 'BBMASK = ""' >> $@
 	echo 'MACHINE = "$(MACHINE)"' >> $@
 	echo 'TARGET_OS = "linux-gnueabi"' >> $@
 	echo 'DISTRO = "$(DISTRO)"' >> $@
