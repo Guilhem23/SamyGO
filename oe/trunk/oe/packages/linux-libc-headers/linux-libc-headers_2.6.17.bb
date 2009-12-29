@@ -21,7 +21,7 @@ SRC_URI = "http://www.samsung.com/global/opensource/files/LE46A956.zip"
 S = "${WORKDIR}/linux_st"
 
 do_unpack2() {
-        tar -xvzf ${WORKDIR}/linux_st.tar.gz -C ${WORKDIR}/ 
+	tar -xvzf ${WORKDIR}/linux_st.tar.gz -C ${WORKDIR}/ 
 	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz || true
 }
 

@@ -69,8 +69,9 @@ EXTRA_OECONF = "--enable-kernel=${OLDEST_KERNEL} \
 EXTRA_OECONF += "${@get_glibc_fpu_setting(bb, d)}"
 
 do_unpack2() {
-        tar --strip-components=2 -xvzf ${WORKDIR}/SELP.3.2.x-Chelsea.src.tgz SELP.3.2.x-Chelsea.src/Toolchain/glibc-2.5.90-9.0.9.tgz
-        tar -xvzf glibc-2.5.90-9.0.9.tgz -C ${WORKDIR}/
+	tar --strip-components=2 -xvzf ${WORKDIR}/SELP.3.2.x-Chelsea.src.tgz SELP.3.2.x-Chelsea.src/Toolchain/glibc-2.5.90-9.0.9.tgz
+	tar -xvzf glibc-2.5.90-9.0.9.tgz -C ${WORKDIR}/
+	rm glibc-2.5.90-9.0.9.tgz
 	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz || true
 }
 

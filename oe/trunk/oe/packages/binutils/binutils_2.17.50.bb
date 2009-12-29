@@ -40,9 +40,10 @@ SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
 	file://detect-makeinfo.patch;patch=1"
 
 do_unpack2() {
-        tar --strip-components=2 -xvzf ${WORKDIR}/SELP.3.2.x-Chelsea.src.tgz SELP.3.2.x-Chelsea.src/Toolchain/binutils-2.17.50.tgz
-        tar -xvzf binutils-2.17.50.tgz -C ${WORKDIR} || true
-        rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz || true
+	tar --strip-components=2 -xvzf ${WORKDIR}/SELP.3.2.x-Chelsea.src.tgz SELP.3.2.x-Chelsea.src/Toolchain/binutils-2.17.50.tgz
+	tar -xvzf binutils-2.17.50.tgz -C ${WORKDIR} || true
+	rm binutils-2.17.50.tgz
+	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz || true
 }
 
 addtask unpack2 before do_patch after do_unpack

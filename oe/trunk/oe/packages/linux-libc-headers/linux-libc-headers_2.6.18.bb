@@ -21,7 +21,7 @@ SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip"
 S = "${WORKDIR}/linux/linux-${PR}"
 
 do_unpack2() {
-        tar -xvzf ${WORKDIR}/linux.chelsea.tgz -C ${WORKDIR}/ 
+	tar -xvzf ${WORKDIR}/linux.chelsea.tgz -C ${WORKDIR}/ 
 	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz || true
 }
 

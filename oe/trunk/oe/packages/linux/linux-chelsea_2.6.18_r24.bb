@@ -1,7 +1,7 @@
 DESCRIPTION = "Linux kernel for Samsung TV's"
 HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
-DEPENDS = "binutils-cross yes-native"
+DEPENDS = "binutils-cross yes-native u-boot"
 FILESPATH = "${@base_set_filespath([ '${FILE_DIRNAME}/linux-chelsea_2.6.18', '${FILE_DIRNAME}/files' ], d)}"
 
 SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
@@ -35,9 +35,9 @@ do_unpack2() {
 	tar -xvzf ${WORKDIR}/linux.cip.open.tgz -C ${WORKDIR}/ linux/linux-r011/drivers/rt73
 	tar -xvzf ${WORKDIR}/linux.cip.open.tgz -C ${WORKDIR}/ linux/linux-r011/drivers/rt2870
 	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz || true
- 	# Branding
+	# Branding
 	perl -pi -e "s/0.994/0.994 \[SamyGO\]/g" ${WORKDIR}/linux/linux-r011/drivers/rt73/Module/rtmp_main.c
-        perl -pi -e "s/1.002\(1.4.0.0\)/1.002\(1.4.0.0\) \[SamyGO\]/g" ${WORKDIR}/linux/linux-r011/drivers/rt2870/os/linux/2870_main_dev.c
+	perl -pi -e "s/1.002\(1.4.0.0\)/1.002\(1.4.0.0\) \[SamyGO\]/g" ${WORKDIR}/linux/linux-r011/drivers/rt2870/os/linux/2870_main_dev.c
 }
 
 addtask unpack2 before do_patch after do_unpack
