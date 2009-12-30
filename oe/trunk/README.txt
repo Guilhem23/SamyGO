@@ -15,7 +15,7 @@ Background Information:
 		http://www.samsung.com
 
 	SVN for Devs:
-		http://svnbook.red-bean.com/en/1.1/svn-book.htmlhttp://svnbook.red-bean.com/en/1.1/svn-book.html
+		http://svnbook.red-bean.com/en/1.1/svn-book.html
 
 Usage Information:
 	make -f Makefile-SELP-SamyGO [DL_DIR=<somedir>] <target>	
@@ -32,7 +32,7 @@ FAQ:
 		glibc			~44 min. 
 		linux-chelsea-2.6.18	~12 min.
 
-	Build T-CHU7DEUC-image from clean svc checkout:
+	Build T-CHU7DEUC-image from clean svn checkout:
 		~2:08:12 (no user interaction required / without download time for sources!)
 
 	Q: Why i get an error on Mac Os X ...
