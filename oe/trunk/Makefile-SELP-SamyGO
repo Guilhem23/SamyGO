@@ -1,8 +1,10 @@
 #!/usr/bin/make -f
 
-# target platform: Chelsea 
-MACHINE = T-CHU7DEUC
-# MACHINE = T-SPHAUSC
+# target platform: Chelsea (Leonid)
+MACHINE = sdp83
+# target platform: A1 (Polaris)
+# MACHINE = sdp75
+
 DISTRO = samygo
 
 PWD := $(shell /bin/pwd)
@@ -13,11 +15,11 @@ DL_DIR ?= $(OE_BASE)/sources
 
 all: initialize
 	@echo 
-	@echo "SamyGO Openembedded for Samsung (SELP/SamyGO $(MACHINE)) environment has"
+	@echo "SamyGO Openembedded for Samsung (SamyGO $(MACHINE)) environment has"
 	@echo "been initialized properly. Now you can either:"
 	@echo
 	@echo "  - go into $(OE_BASE)/build/, source env.source"
-	@echo "  - for nfs boot rootfs do: bitbake $(MACHINE)-nfsboot-image"
+	@echo "  - for nfs boot rootfs do: bitbake samygo-nfsboot-image"
 	@echo
 
 .PHONY: all
@@ -34,10 +36,6 @@ $(OE_BASE)/build $(OE_BASE)/build/conf $(OE_BASE)/build/tmp $(OE_BASE)/cache: so
 
 sources: 
 	mkdir -p $(DL_DIR)
-
-graph: $(OE_BASE)/bb
-	cd $(OE_BASE)/build; . ./env.source; bitbake -g $(MACHINE)-image
-	dot -Tpng -o $(MACHINE)-dep.png build/alldepends.dot
 
 $(OE_BASE)/build/conf/local.conf: 
 	echo 'DL_DIR = "$(DL_DIR)"' > $@
@@ -59,5 +57,4 @@ $(OE_BASE)/build/env.source:
 	echo 'export LD_LIBRARY_PATH=' >> $@
 	echo 'export LANG=C' >> $@
 	cat $@
-
 
