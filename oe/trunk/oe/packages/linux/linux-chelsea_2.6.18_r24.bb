@@ -23,7 +23,7 @@ FILES_dvb-includes = "/usr/include/linux/dvb"
 FILES_scsi-includes = "/usr/include/linux/scsi"
 
 COMPATIBLE_HOST = "arm.*-linux"
-COMPATIBLE_MACHINE = "T-CHU7DEUC"
+COMPATIBLE_MACHINE = "sdp83"
 
 export ARCH = "arm"
 export OS = "Linux"
