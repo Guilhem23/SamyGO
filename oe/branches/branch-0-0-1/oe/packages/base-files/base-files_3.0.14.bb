@@ -43,11 +43,13 @@ dirs755 = "/bin /boot /dev ${sysconfdir} ${sysconfdir}/default \
            /media/mmc1"
 dirs755_append_selp = " /mtd_appdata /mtd_boot /mtd_contents \
 	   /mtd_down /mtd_exe /mtd_ram /mtd_rwarea /mtd_swu \
-	   /mtd_tlib /mtd_wiselink /dtv"
+	   /mtd_tlib /mtd_wiselink /dtv /dev/sam /dev/input"
 conffiles = "${sysconfdir}/debian_version ${sysconfdir}/host.conf \
 	     ${sysconfdir}/inputrc ${sysconfdir}/issue /${sysconfdir}/issue.net \
 	     ${sysconfdir}/nsswitch.conf ${sysconfdir}/profile \
 	     ${sysconfdir}/default"
+
+conffiles_selp = "${sysconfdir}/profile"
 
 #
 # set standard hostname, might be a candidate for a DISTRO variable? :M:
