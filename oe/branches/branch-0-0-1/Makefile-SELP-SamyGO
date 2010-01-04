@@ -10,7 +10,7 @@ MACHINE = T-CHU7DEUC
 # MACHINE = T-SPHAUSC
 #
 # target platform: st[m]
-# MACHINE = T-RBYDEUC
+MACHINE = T-RBYDEUC
 
 DISTRO = selp-3.2
 SVN_AUTHOR_NAME = arris
@@ -50,16 +50,16 @@ devshell: initialize
 	cd $(OE_BASE)/build; . ./env.source; bitbake devshell
 
 image: initialize 
-	cd $(OE_BASE)/build; . ./env.source; bitbake -v $(MACHINE)-$@
+	cd $(OE_BASE)/build; . ./env.source; bitbake -v SamyGO-$@
 
 static-image: initialize 
-	cd $(OE_BASE)/build; . ./env.source; bitbake -v $(MACHINE)-$@
+	cd $(OE_BASE)/build; . ./env.source; bitbake -v SamyGO-$@
 
 imaged: initialize 
-	cd $(OE_BASE)/build; . ./env.source; bitbake -v -D $(MACHINE)-image
+	cd $(OE_BASE)/build; . ./env.source; bitbake -v -D SamyGO-image
 
 imaget: initialize 
-	cd $(OE_BASE)/build; . ./env.source; bitbake --dry-run -v -D $(MACHINE)-image
+	cd $(OE_BASE)/build; . ./env.source; bitbake --dry-run -v -D SamyGO-image
 
 Toolchain: initialize 
 	cd $(OE_BASE)/build; . ./env.source; bitbake task-samsung-toolchain
