@@ -9,14 +9,12 @@ SRC_URI = " \
            file://nsswitch.conf \
            file://motd \
            file://inputrc \
-	   file://inittab \
            file://host.conf \
            file://profile \
            file://fstab \
 	   file://filesystems \
            file://issue.net \
            file://issue \
-           file://preinit \
            file://usbd \
            file://share/dot.bashrc \
            file://share/dot.profile \
@@ -26,6 +24,8 @@ SRC_URI = " \
            file://licenses/LGPL-2.1 \
            file://licenses/Artistic "
 S = "${WORKDIR}"
+
+SRC_URI_append_samygo = "file://preinit file://rcS file://inittab"
 
 docdir_append = "/${P}"
 dirs1777 = "/tmp ${localstatedir}/lock ${localstatedir}/tmp"
@@ -107,9 +107,9 @@ do_install_append_samygo() {
 	done	
 	for i in mtd_cmmlib mtd_drv ; do
 		ln -s mtd_exe ${D}/$i
-	done	
-	
-# Java -> mtd_cmmlib/Java ? Arris ?
+	done
+
+	install -m 0755 ${WORKDIR}/rcS ${D}${sysconfdir}/rcS
 }
 
 PACKAGES = "${PN}-doc ${PN}"
