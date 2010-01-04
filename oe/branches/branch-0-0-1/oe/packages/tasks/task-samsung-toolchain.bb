@@ -12,7 +12,7 @@ RDEPENDS = " "
 LICENSE = GPL
 
 # there is a -march=586 somewhere in the source tree of mythtv
-COMPATIBLE_HOST = 'arm'
+# COMPATIBLE_HOST = 'arm'
 
 CORE_EXTRA_D ?= "virtual/libc"
 CORE_EXTRA_RD ?= ""

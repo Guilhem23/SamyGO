@@ -9,7 +9,7 @@ DESCRIPTION = "<description>"
 MAINTAINER = "Ser Lev Arris <arris@ZsoltTech.Com>"
 HOMEPAGE = "http://stb.ZsoltTech.Com/"
 
-PROVIDES += "T-SPHAUSC-static-image"
+PROVIDES += "${MACHINE}-static-image"
 
 ######################################################################################
 
@@ -28,7 +28,7 @@ task-samsung-static \
 
 # BROKEN BUT NEEDED = libptp2
 #
-export IMAGE_BASENAME = "T-CHU7DEUC-static-image"
+export IMAGE_BASENAME = "${DISTRO_NAME}-static-image"
 export IMAGE_LINGUAS = " "
 
 export IPKG_INSTALL = "${INSTALL_PACKAGES}"

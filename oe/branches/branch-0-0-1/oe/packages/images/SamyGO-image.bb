@@ -27,7 +27,7 @@ task-samsung-base \
 
 # BROKEN BUT NEEDED = libptp2
 #
-export IMAGE_BASENAME = "${MACHINE}-image"
+export IMAGE_BASENAME = "${DISTRO_NAME}-image"
 export IMAGE_LINGUAS = " "
 
 export IPKG_INSTALL = "${INSTALL_PACKAGES}"
