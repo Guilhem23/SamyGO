@@ -4,7 +4,8 @@ PV = "0.0.1"
 PR = "r0"
 PROVIDES += " ${MACHINE}-nfsboot-image "
 
-DEPENDS = "virtual/libc virtual/kernel base-files busybox "
+DEPENDS = "virtual/libc base-files busybox "
+DEPENDS_sdp83 += "linux-chelsea-nfsboot"
 
 RDEPENDS = "\
 	base-files busybox busybox-mdev libc6 kernel-modules \
