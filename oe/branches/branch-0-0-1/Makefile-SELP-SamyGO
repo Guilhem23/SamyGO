@@ -86,7 +86,7 @@ $(OE_BASE)/build/conf/local.conf: Makefile-SELP-SamyGO
 	echo 'INHERIT += "multimachine"' >> $@
 	echo 'MACHINE = "$(MACHINE)"' >> $@
 	echo 'DISTRO = "$(DISTRO)"' >> $@
-	echo 'CACHE = "$(OE_BASE)/cache/oe-cache.$${USER}"' >> $@
+	echo 'CACHE = "$(OE_BASE)/cache/oe-cache.$${USER}-$${MACHINE}"' >> $@
 	echo 'ASSUME_PROVIDED += " gmp-native mpfr-native "' >> $@
 	echo 'ASSUME_PROVIDED += " gettext-native "' >> $@
 #	echo 'ASSUME_PROVIDED += " gmp-native mpfr-native python-native "' >> $@
