@@ -9,12 +9,14 @@ SRC_URI = " \
            file://nsswitch.conf \
            file://motd \
            file://inputrc \
+	   file://inittab \
            file://host.conf \
            file://profile \
            file://fstab \
 	   file://filesystems \
            file://issue.net \
            file://issue \
+           file://preinit \
            file://usbd \
            file://share/dot.bashrc \
            file://share/dot.profile \
@@ -74,24 +76,13 @@ do_install () {
 		echo ${hostname} > ${D}${sysconfdir}/hostname
 	fi
 
-        if [ -n "${DISTRO_NAME}" ]; then
-		printf "${DISTRO_NAME} " > ${D}${sysconfdir}/issue
-		printf "${DISTRO_NAME} " > ${D}${sysconfdir}/issue.net
-		if [ -n "${DISTRO_VERSION}" ]; then
-			printf "${DISTRO_VERSION} " >> ${D}${sysconfdir}/issue
-			printf "${DISTRO_VERSION} " >> ${D}${sysconfdir}/issue.net
-		fi
-		echo "\n \l" >> ${D}${sysconfdir}/issue
-		echo >> ${D}${sysconfdir}/issue
-		echo "%h"    >> ${D}${sysconfdir}/issue.net
-		echo >> ${D}${sysconfdir}/issue.net
-	else
- 	       install -m 0644 ${WORKDIR}/issue ${D}${sysconfdir}/issue
- 	       install -m 0644 ${WORKDIR}/issue.net ${D}${sysconfdir}/issue.net
- 	fi
+	install -m 0644 ${WORKDIR}/issue ${D}${sysconfdir}/issue
+	install -m 0644 ${WORKDIR}/issue.net ${D}${sysconfdir}/issue.net
 
 	install -m 0644 ${WORKDIR}/fstab ${D}${sysconfdir}/fstab
 	install -m 0644 ${WORKDIR}/filesystems ${D}${sysconfdir}/filesystems
+	install -m 0644 ${WORKDIR}/inittab ${D}${sysconfdir}/inittab
+	install -m 0755 ${WORKDIR}/preinit ${D}${sysconfdir}/preinit
 	install -m 0644 ${WORKDIR}/usbd ${D}${sysconfdir}/default/usbd
 	install -m 0644 ${WORKDIR}/profile ${D}${sysconfdir}/profile
 	install -m 0755 ${WORKDIR}/share/dot.profile ${D}${sysconfdir}/skel/.profile
