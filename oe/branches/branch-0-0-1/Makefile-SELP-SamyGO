@@ -10,7 +10,7 @@ MACHINE = T-CHU7DEUC
 # MACHINE = T-SPHAUSC
 #
 # target platform: st[m]
-MACHINE = T-RBYDEUC
+# MACHINE = T-RBYDEUC
 
 DISTRO = selp-3.2
 SVN_AUTHOR_NAME = arris
