@@ -37,6 +37,8 @@ FILES_${PN}-symlinks = " \
 	${bindir}/strip"
 
 SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
+	file://better_file_error.patch;patch=1 \
+	file://ld_makefile.patch;patch=1 \
 	file://detect-makeinfo.patch;patch=1"
 
 do_unpack2() {

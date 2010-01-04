@@ -7,7 +7,7 @@ FILESDIR = "${@os.path.dirname(bb.data.getVar('FILE',d,1))}/binutils-${PV}"
 PACKAGES = ""
 EXTRA_OECONF = "--with-sysroot=${CROSS_DIR}/${TARGET_SYS} \
 		--program-prefix=${TARGET_PREFIX} \
-		 --disable-werror"
+		--disable-werror"
 
 # CFLAGS_FOR_BUILD += " -Wno-array-bounds "
 
