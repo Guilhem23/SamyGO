@@ -14,27 +14,20 @@ DESCRIPTION = "Sanitized set of 2.6 kernel headers for the C library's use."
 LICENSE = "GPL"
 DEFAULT_PREFERENCE = "-1"
 INHIBIT_DEFAULT_DEPS = "1"
-PR = "r011"
+PR = "r01"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip"
+SRC_URI = "http://www.samsung.com/global/opensource/files/LE46A956.zip"
 
-S = "${WORKDIR}/linux/linux-${PR}"
+S = "${WORKDIR}/linux_st"
 
 do_unpack2() {
-        tar -xvzf ${WORKDIR}/linux.chelsea.tgz -C ${WORKDIR}/ 
-	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz || true
+        tar -xvzf ${WORKDIR}/linux_st.tar.gz -C ${WORKDIR}/
+        rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz ${WORKDIR}/Re* ${WORKDIR}/*.bz2 || true
 }
 
 addtask unpack2 before do_patch after do_unpack
 
 do_configure () {
-	# echo ${CROSS_COMPILE} > .mvl_cross_compile
-	echo > .mvl_cross_compile
-	echo ${TARGET_ARCH} > .mvl_target_cpu
-	./mkconfig.sh 2 2 2.6.18_SELP-ARM 
-	make include/linux/version.h
-#	make include/asm-${TARGET_ARCH}/arch 
-#	make prepare 
 	case ${TARGET_ARCH} in
 		alpha*)   ARCH=alpha ;;
 		arm*)     ARCH=arm ;;
@@ -51,18 +44,23 @@ do_configure () {
 		sparc*)   ARCH=sparc ;;
 		x86_64*)  ARCH=x86_64 ;;
 	esac
+	export ARCH=${ARCH}
+        cp samsung_7103_kernel-2.2.cfg .config.old
+        oe_runmake oldconfig
+	rm include/asm-sh/mach/stb7100ref && tar xvzf arch/sh/boards/st/stb7100ref.tar.gz -C include/asm-sh/mach/
 
-	echo $(pwd)
-
-	rm include/asm/arch-ssdtv
-	rm include/asm
+	# not existent in linux_st
+	rm include/asm/arch-ssdtv || true
+	rm -rf include/asm/cpu || true
+	rm include/asm || true
 	
 	cp -pPR "include/asm-$ARCH" "include/asm"
 	if test "$ARCH" = "arm"; then
 		cp -pPR ${WORKDIR}/linux/ssdtv_platform/include/asm-${ARCH}/arch-ssdtv include/asm/arch-ssdtv
 		cp -pPR include/asm/arch-ssdtv include/asm/arch
 	elif test "$ARCH" = "sh"; then
-		cp -pPR include/asm/cpu-${TARGET_ARCH} include/asm/cpu || die "unable to create include/asm/cpu"
+		echo "????"
+		cp -pPR include/asm-${ARCH}/cpu-${TARGET_ARCH} include/asm/cpu || die "unable to create include/asm/cpu"
 	fi
 	echo "all:" > Makefile
 	rm -f ".co*" "*"
@@ -75,7 +73,6 @@ do_stage () {
 	cp -pfLR include/linux ${STAGING_INCDIR}/
 	cp -pfLR include/asm ${STAGING_INCDIR}/
 	cp -pfLR include/asm-generic ${STAGING_INCDIR}/
-#	cp -pfLR include/mtd ${STAGING_INCDIR}/
 	rm -rf ${CROSS_DIR}/${TARGET_SYS}/include/linux
 	rm -rf ${CROSS_DIR}/${TARGET_SYS}/include/asm
 	rm -rf ${CROSS_DIR}/${TARGET_SYS}/include/asm-generic
@@ -83,7 +80,6 @@ do_stage () {
 	cp -pfLR include/linux ${CROSS_DIR}/${TARGET_SYS}/include/
 	cp -pfLR include/asm ${CROSS_DIR}/${TARGET_SYS}/include/
 	cp -pfLR include/asm-generic ${CROSS_DIR}/${TARGET_SYS}/include/
-#	cp -pfLR include/mtd ${CROSS_DIR}/${TARGET_SYS}/include/
 }
 
 do_install() {
