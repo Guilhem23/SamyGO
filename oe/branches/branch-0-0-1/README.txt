@@ -18,7 +18,39 @@ Background Information:
 		http://svnbook.red-bean.com/en/1.1/svn-book.html
 
 Usage Information:
-	make -f Makefile-SELP-SamyGO [DL_DIR=<somedir>] <target>	
+	make -f Makefile-SELP-SamyGO [DL_DIR=<somedir>] [MACHINE=<machine>] <target>
+	Common targets:
+		Toolchain
+		image
+		static-image
+				
+	Available machines:
+		T-CHU7DEUC	(default)
+		T-SPHAUSC
+		T-RBYDEUC	
+
+Status Information:
+	T-CHU7DEUC: arm
+		Toolchain: 
+			build	y
+			usable	y
+		Kernel:
+			build	y
+			usable	y
+	T-SPHAUSC: arm
+		Toolchain: 
+			build	y
+			usable	? 
+		Kernel:
+			build	y
+			usable	?
+	T-RBYDEUC: sh4
+		Toolchain:
+			build	y
+			usable	?
+		Kernel:
+			build	y
+			usable	?
 
 FAQ:
 	Q: How long it takes to build the toolchain?
@@ -32,7 +64,7 @@ FAQ:
 		glibc			~44 min. 
 		linux-chelsea-2.6.18	~12 min.
 
-	Build T-CHU7DEUC-image from clean svn checkout:
+	Build SamyGO-image (for T-CHU7DEUC) from clean svn checkout:
 		~2:08:12 (no user interaction required / without download time for sources!)
 
 	Q: Why i get an error on Mac Os X ...
