@@ -3,7 +3,7 @@ SECTION = "libs"
 PRIORITY = "optional"
 DEPENDS = "alsa-lib mesa virtual/libx11 libxext"
 DEPENDS_avr32 = "alsa-lib virtual/libx11 libxext"
-DEPENDS_selp = " "
+DEPENDS_samygo = " "
 PROVIDES = "virtual/libsdl"
 LICENSE = "LGPL"
 

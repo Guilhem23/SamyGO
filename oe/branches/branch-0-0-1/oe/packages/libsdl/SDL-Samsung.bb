@@ -29,22 +29,22 @@ do_unpack2() {
 
 addtask unpack2 before do_patch after do_unpack
 
-do_configure_selp () {
+do_configure_samygo () {
 	:
 }
 
-do_compile_selp () {
+do_compile_samygo () {
 	:
 }
 
-do_stage_selp () {
+do_stage_samygo () {
 	ls -l
 	oe_libinstall -so -C Lib/CHELSEA libSDL ${STAGING_LIBDIR}/
 	cp -a include ${STAGING_INCDIR}/SDL
 	cp -a sdl-config ${STAGING_BINDIR}/
 }
 
-do_install_selp () {
+do_install_samygo () {
 	install -d ${D}/lib
         install Lib/CHELSEA/libSDL.so ${D}/lib/	
 }
