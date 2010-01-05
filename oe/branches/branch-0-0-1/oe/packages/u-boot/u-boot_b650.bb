@@ -13,7 +13,7 @@ SRC_URI = "\
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 S = ${WORKDIR}/uboot
-# CFLAGS_selp =+ " -DMTD_OLD "
+# CFLAGS_samygo =+ " -DMTD_OLD "
 
 do_compile () {
         unset LDFLAGS

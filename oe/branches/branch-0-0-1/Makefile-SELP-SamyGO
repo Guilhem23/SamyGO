@@ -12,7 +12,7 @@ MACHINE ?= T-CHU7DEUC
 # target platform: st[m]
 # MACHINE = T-RBYDEUC
 
-DISTRO = selp-3.2
+DISTRO = samygo-3.2
 SVN_AUTHOR_NAME = arris
 
 # you should not need to change anything below
@@ -75,7 +75,7 @@ sources:
 	mkdir -p $(DL_DIR)
 
 graph: $(OE_BASE)/bb
-	cd $(OE_BASE)/build; . ./env.source; bitbake -g $(MACHINE)-image
+	cd $(OE_BASE)/build; . ./env.source; bitbake -g SamyGO-image
 	dot -Tpng -o $(MACHINE)-dep.png build/alldepends.dot
 
 $(OE_BASE)/build/conf/local.conf: Makefile-SELP-SamyGO  
