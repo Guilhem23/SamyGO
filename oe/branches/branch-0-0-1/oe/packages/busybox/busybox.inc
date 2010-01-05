@@ -38,10 +38,11 @@ PACKAGES =+ "${PN}-httpd ${PN}-syslog ${PN}-udhcpd"
 # We need this RRECOMMENDS because libc dlopens libgcc
 # and shlib mechanism can not detect it because its not
 # listed in the NEEDED field.
-RRECOMMENDS += "libgcc"
+# Samsung TV has libgcc_s.so.1 in rootfs 
+# RRECOMMENDS += "libgcc"
 
 # Make busybox recommend busybox-syslog for those images that expect it
-RRECOMMENDS_${PN} += "libgcc ${PN}-syslog"
+# RRECOMMENDS_${PN} += "libgcc ${PN}-syslog"
 
 FILES_${PN}-httpd = "${sysconfdir}/init.d/busybox-httpd /srv/www"
 FILES_${PN}-syslog = "${sysconfdir}/init.d/syslog ${sysconfdir}/syslog.conf"
