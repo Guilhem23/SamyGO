@@ -1,0 +1,11 @@
+diff -NurbB linux_st.orig/scripts/mod/sumversion.c linux_st/scripts/mod/sumversion.c
+--- linux_st.orig/scripts/mod/sumversion.c	2008-03-11 01:50:53.000000000 +0100
++++ linux_st/scripts/mod/sumversion.c	2009-12-29 18:40:54.000000000 +0100
+@@ -4,6 +4,7 @@
+ #else
+ #include <stdint.h>
+ #endif
++#include <linux/limits.h>
+ #include <ctype.h>
+ #include <errno.h>
+ #include <string.h>

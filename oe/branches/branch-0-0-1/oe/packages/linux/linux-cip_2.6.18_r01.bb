@@ -3,9 +3,10 @@ HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
 DEPENDS = "binutils-cross yes-native"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
-		http://www.samsung.com/global/opensource/files/LE40B650T2P.zip \
+SRC_URI = "	http://www.samsung.com/global/opensource/files/LE40B650T2P.zip \
 		file://${MACHINE}-dotconfig \
+		file://cip.Makefile.modpost \
+		file://cip.Makefile.modinst \
 		file://selp-fix_nonlinux_compile.patch;patch=1 \
 "
 SRC_URI_append_samygo += "file://selp-gadget.patch;patch=1" 
@@ -22,7 +23,7 @@ FILES_dvb-includes = "/usr/include/linux/dvb"
 FILES_scsi-includes = "/usr/include/linux/scsi"
 
 COMPATIBLE_HOST = "arm.*-linux"
-COMPATIBLE_MACHINE = "T-CHU7DEUC"
+COMPATIBLE_MACHINE = "T-CH.CIPDEUC"
 
 export OS = "Linux"
 ARCH = "arm"
@@ -30,9 +31,7 @@ KERNEL_OUTPUT = "arch/${ARCH}/boot/Image"
 KERNEL_OBJECT_SUFFIX = '.ko'
 
 do_unpack2() {
-        tar -xvzf ${WORKDIR}/linux.chelsea.tgz -C ${WORKDIR}/
-	tar -xvzf ${WORKDIR}/linux.cip.open.tgz -C ${WORKDIR}/ linux/linux-r011/drivers/rt73
-	tar -xvzf ${WORKDIR}/linux.cip.open.tgz -C ${WORKDIR}/ linux/linux-r011/drivers/rt2870
+	tar -xvzf ${WORKDIR}/linux.cip.open.tgz -C ${WORKDIR}/
 	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz || true
  	# Branding
 	perl -pi -e "s/0.994/0.994 \[SamyGO\]/g" ${WORKDIR}/linux/linux-r011/drivers/rt73/Module/rtmp_main.c
@@ -45,11 +44,17 @@ do_configure_prepend() {
 	echo ${CROSS_COMPILE} > .mvl_cross_compile
 	echo ${TARGET_ARCH} > .mvl_target_cpu
 
-	./mkconfig.sh ${MACHINE_KERNEL_CONFIG_CMD_ARGS}  
-	oe_runmake include/linux/version.h
-	
-#	oe_machinstall -m 0644 ${WORKDIR}/${MACHINE}-dotconfig ${S}/.config
-#	oe_runmake oldconfig
+#	./mkconfig.sh ${MACHINE_KERNEL_CONFIG_CMD_ARGS}  
+#	make include/linux/version.h
+
+####### Mod building/handling unknown at this time, so we fake some stuff	
+	oe_machinstall -m 0644 ${WORKDIR}/${MACHINE}-dotconfig ${S}/.config
+	oe_machinstall -m 0755 ${WORKDIR}/cip.Makefile.modpost ${S}/scripts/Makefile.modpost
+	oe_machinstall -m 0755 ${WORKDIR}/cip.Makefile.modinst ${S}/scripts/Makefile.modinst
+        oe_runmake defconfig
+#	perl -pi -e "s/(CONFIG_MODULES)=y/# \1 is not set/" ${S}/.config
+	rm scripts/mod/modpost && oe_runmake SUBDIRS=scripts/mod 
+####### End of Modules stuff
 
 	gcc_version=`${KERNEL_CC} -dumpversion`
                 if [ "${gcc_version}" == "4.0.1" ] || [ "${gcc_version}" == "4.0.2" ]; then
