@@ -5,7 +5,7 @@ ARM_INSTRUCTION_SET = "arm"
 PACKAGES_DYNAMIC = "libc6*"
 RPROVIDES_${PN}-dev = "libc6-dev"
 
-PR = "r0"
+PR = "r1"
 
 # the -isystem in bitbake.conf screws up glibc do_stage
 BUILD_CPPFLAGS = "-I${STAGING_DIR}/${BUILD_SYS}/include"
@@ -15,6 +15,9 @@ TARGET_CPPFLAGS = "-I${STAGING_DIR}/${TARGET_SYS}/include"
 FILESDIR = "${@os.path.dirname(bb.data.getVar('FILE',d,1))}/glibc-${PV}"
 
 GLIBC_ADDONS ?= "ports,nptl,libidn"
+
+GLIBC_ADDONS_samygo ?= "nptl"
+TARGET_CFLAGS_append_sh4 += " -fno-schedule-insns " 
 
 GLIBC_BROKEN_LOCALES ?= "sid_ET tr_TR mn_MN gez_ET gez_ER bn_BD te_IN"
 
@@ -36,14 +39,14 @@ python __anonymous () {
 
 RDEPENDS_${PN}-dev = "linux-libc-headers-dev"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
-           file://arm-longlong.patch;patch=1 \
-           file://fhs-linux-paths.patch;patch=1 \
-           file://dl-cache-libcmp.patch;patch=1 \
-           file://ldsocache-varrun.patch;patch=1 \
-           file://nptl-crosscompile.patch;patch=1 \
+SRC_URI = "http://www.samsung.com/global/opensource/files/LE46A956.zip \
+#           file://arm-longlong.patch;patch=1 \
+#           file://fhs-linux-paths.patch;patch=1 \
+#           file://dl-cache-libcmp.patch;patch=1 \
+#           file://ldsocache-varrun.patch;patch=1 \
+#           file://nptl-crosscompile.patch;patch=1 \
 	   file://zecke-sane-readelf.patch;patch=1 \
-           file://ldd-unbash.patch;patch=1 \
+#           file://ldd-unbash.patch;patch=1 \
 	   file://generic-bits_select.h \
 	   file://generic-bits_types.h \
 	   file://generic-bits_typesizes.h \
@@ -51,14 +54,14 @@ SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
            file://etc/ld.so.conf \
            file://generate-supported.mk"
 
-SRC_URI_append_samygo = " file://SamyGO-disable-localedata.patch;patch=1 "
+# SRC_URI_append_samygo = " file://SamyGO-disable-localedata.patch;patch=1 "
 
 # Build fails on sh3 and sh4 without additional patches
 SRC_URI_append_sh3 = " file://no-z-defs.patch;patch=1"
 SRC_URI_append_sh4 = " file://no-z-defs.patch;patch=1"
 
-S = "${WORKDIR}/glibc-${PV}"
-B = "${WORKDIR}/build-${TARGET_SYS}"
+S = "${WORKDIR}/GLIBC/glibc-2.5"
+B = "${WORKDIR}/GLIBC/build-${TARGET_SYS}"
 
 EXTRA_OECONF = "--enable-kernel=${OLDEST_KERNEL} \
 	        --without-cvs --disable-profile --disable-debug --without-gd \
@@ -71,12 +74,15 @@ EXTRA_OECONF = "--enable-kernel=${OLDEST_KERNEL} \
 EXTRA_OECONF += "${@get_glibc_fpu_setting(bb, d)}"
 
 do_unpack2() {
-        tar --strip-components=2 -xvzf ${WORKDIR}/SELP.3.2.x-Chelsea.src.tgz SELP.3.2.x-Chelsea.src/Toolchain/glibc-2.5.90-9.0.9.tgz
-        tar -xvzf glibc-2.5.90-9.0.9.tgz -C ${WORKDIR}/
-	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz || true
+        tar -xvzf ${WORKDIR}/selp_glibc_2.7.tar.gz -C ${WORKDIR}/
+        rm -f ${WORKDIR}/*.gz ${WORKDIR}/Re* ${WORKDIR}/*.bz2 || true
 }
 
 addtask unpack2 before do_munge after do_unpack
+
+do_munge_samygo(){
+	:
+}
 
 do_munge() {
 	# Integrate ports and libidn into tree
@@ -122,7 +128,8 @@ do_configure () {
 		echo "rpcgen not found.  Install glibc-devel."
 		exit 1
 	fi
-	(cd ${S} && gnu-configize) || die "failure in running gnu-configize"
+	# May no-z-defs.patch handle it already, check later. * Arris *
+	(cd ${S} && echo "no-z-defs=yes" > configparms && gnu-configize) || die "failure in running gnu-configize"
 	CPPFLAGS="" oe_runconf
 }
 
