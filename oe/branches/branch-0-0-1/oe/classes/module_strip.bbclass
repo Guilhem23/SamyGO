@@ -2,9 +2,11 @@
 
 do_strip_modules () {
 	for p in ${PACKAGES}; do
-		if test -e ${WORKDIR}/install/$p/lib/modules; then
+#		if test -e ${WORKDIR}/install/$p/lib/modules; then
 			if [ "${KERNEL_MAJOR_VERSION}" == "2.6" ]; then
-				modules="`find ${WORKDIR}/install/$p/lib/modules -name \*.ko`"
+#				modules="`find ${WORKDIR}/install/$p/lib/modules -name \*.ko`"
+#				modules="`find ${S} -name \*.ko`"
+				modules="`find ${WORKDIR}/image/lib/modules -name \*.ko`"
 			else
 				modules="`find ${WORKDIR}/install/$p/lib/modules -name \*.o`"
 			fi
@@ -16,11 +18,11 @@ do_strip_modules () {
 				done	
 #				NM="${CROSS_DIR}/bin/${HOST_PREFIX}nm" OBJCOPY="${CROSS_DIR}/bin/${HOST_PREFIX}objcopy" strip_module $modules
 			fi
-		fi
+#		fi
 	done
 }
 
-python do_package_append () {
+python do_package_prepend () {
 	if (bb.data.getVar('INHIBIT_PACKAGE_STRIP', d, 1) != '1'):
 		bb.build.exec_func('do_strip_modules', d)
 }
