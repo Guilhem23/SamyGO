@@ -74,4 +74,9 @@ FAQ:
 	   when i try to compile glibc?
 	A: http://crossgcc.rts-software.org/doku.php?id=i386linuxgccformac
 
-	
+Known BUGS:
+	* not striped kernel-modules will be packaged
+	* lot of c99 warnings on busybox build
+	* sh4 wrong gcc used on kernel-module build
+		fixed for fuse-module (CC=KERNEL_CC)
+
