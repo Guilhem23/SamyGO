@@ -103,8 +103,8 @@ def check_sanity(e):
 	if not check_app_exists('bzip2', e.data):
 		raise_sanity_error('Please install the bzip2 utility')
 
-	if not check_app_exists('msgfmt', e.data):
-		raise_sanity_error('Please install the gettext package')
+	#if not check_app_exists('msgfmt', e.data):
+	#	raise_sanity_error('Please install the gettext package')
 
 	if not check_app_exists('wget', e.data):
 		raise_sanity_error('Please install the wget package')
