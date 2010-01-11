@@ -1,28 +1,12 @@
 require busybox.inc
 PR = "${INC_PR}.1"
 
-DEFAULT_PREFERENCE = "-1"
-
 SRC_URI = "\
-  http://www.busybox.net/downloads/busybox-${PV}.tar.gz \
-  file://busybox-1.13.2-awk.patch;patch=1 \
-  file://busybox-1.13.2-depmod.patch;patch=1 \
-  file://busybox-1.13.2-init.patch;patch=1 \
-  file://busybox-1.13.2-killall.patch;patch=1 \
-  file://busybox-1.13.2-mdev.patch;patch=1 \
-  file://busybox-1.13.2-modprobe.patch;patch=1 \
-  file://busybox-1.13.2-printf.patch;patch=1 \
-  file://busybox-1.13.2-syslogd.patch;patch=1 \
-  file://busybox-1.13.2-tar.patch;patch=1 \
-  file://busybox-1.13.2-top24.patch;patch=1 \
-  file://busybox-1.13.2-unzip.patch;patch=1 \
-  file://busybox-1.13.2-wget.patch;patch=1 \
-  \
+  http://www.busybox.net/downloads/busybox-${PV}.tar.bz2 \
   file://udhcpscript.patch;patch=1 \
   file://udhcpc-fix-nfsroot.patch;patch=1 \
   file://B921600.patch;patch=1 \
-  file://get_header_tar.patch;patch=1 \
-  file://busybox-appletlib-dependency.patch;patch=1 \
+  file://fix_compile.patch;patch=1 \
   file://busybox-cron \
   file://busybox-httpd \
   file://busybox-udhcpd \
