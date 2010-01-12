@@ -8,7 +8,7 @@ DEPENDS = "virtual/libc base-files busybox "
 DEPENDS_sdp83 += "linux-chelsea-nfsboot"
 
 RDEPENDS = "\
-	base-files busybox busybox-mdev libc6 kernel-modules \
+	base-files base-passwd busybox busybox-mdev libc6 kernel-modules \
 "
 
 RRECOMMENDS = ""
