@@ -2,10 +2,10 @@ DESCRIPTION = "<description>"
 
 PV = "0.0.1"
 PR = "r0"
-PROVIDES += " ${MACHINE}-nfsboot-image "
+#PROVIDES += " ${MACHINE}-externalboot-image "
 
 DEPENDS = "virtual/libc base-files busybox "
-DEPENDS_sdp83 += "linux-chelsea-nfsboot"
+DEPENDS_sdp83 += "linux-chelsea-externalboot"
 
 RDEPENDS = "\
 	base-files base-passwd busybox busybox-mdev libc6 kernel-modules \

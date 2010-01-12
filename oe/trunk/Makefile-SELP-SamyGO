@@ -19,7 +19,7 @@ all: initialize
 	@echo "been initialized properly. Now you can either:"
 	@echo
 	@echo "  - go into $(OE_BASE)/build/, source env.source"
-	@echo "  - for nfs boot rootfs do: bitbake samygo-nfsboot-image"
+	@echo "  - for nfs boot rootfs do: bitbake samygo-externalboot-image"
 	@echo
 
 .PHONY: all

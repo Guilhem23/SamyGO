@@ -1,6 +1,6 @@
 require linux-chelsea-common_2.6.18.inc
 
-SRC_URI += "file://defconfig_nfsboot \
+SRC_URI += "file://defconfig_externalboot \
 "
 
 KERNEL_IMAGETYPE_LIST = "zImage uImage"
