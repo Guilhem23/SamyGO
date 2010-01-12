@@ -3,6 +3,7 @@ S = "${WORKDIR}/gettext-${PV}"
 FILESDIR = "${@os.path.dirname(bb.data.getVar('FILE',d,1))}/gettext-${PV}"
 inherit native
 PROVIDES = ""
+SRC_URI += "file://fix_macosx_compile.patch;patch=1"
 
 M4 = "\
 lib-ld.m4 \
