@@ -46,7 +46,6 @@ $(OE_BASE)/build/conf/local.conf:
 	echo 'DISTRO = "$(DISTRO)"' >> $@
 	echo 'CACHE = "$(OE_BASE)/cache/oe-cache.$${USER}"' >> $@
 	echo 'ASSUME_PROVIDED += " gmp-native mpfr-native "' >> $@
-	echo 'ASSUME_PROVIDED += " gettext-native "' >> $@
 #	echo 'PARALLEL_MAKE = "-j 3"' >> $@
 
 $(OE_BASE)/build/env.source:
