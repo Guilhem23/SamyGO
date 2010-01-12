@@ -1,5 +1,5 @@
 inherit package
-DEPENDS_prepend="${@["ipkg-utils-native ", ""][(bb.data.getVar('PACKAGES', d, 1) == '')]}"
+DEPENDS_prepend="${@["ipkg-utils-native ipkg-native ", ""][(bb.data.getVar('PACKAGES', d, 1) == '')]}"
 BOOTSTRAP_EXTRA_RDEPENDS += "ipkg-collateral ipkg ipkg-link"
 PACKAGEFUNCS += "do_package_ipk"
 
