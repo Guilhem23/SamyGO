@@ -25,8 +25,6 @@ SRC_URI = " \
            file://licenses/Artistic "
 S = "${WORKDIR}"
 
-SRC_URI_append_samygo = "file://preinit file://rcS file://inittab"
-
 docdir_append = "/${P}"
 dirs1777 = "/tmp ${localstatedir}/lock ${localstatedir}/tmp"
 dirs2775 = "/home ${prefix}/src ${localstatedir}/local"
@@ -81,8 +79,6 @@ do_install () {
 
 	install -m 0644 ${WORKDIR}/fstab ${D}${sysconfdir}/fstab
 	install -m 0644 ${WORKDIR}/filesystems ${D}${sysconfdir}/filesystems
-	install -m 0644 ${WORKDIR}/inittab ${D}${sysconfdir}/inittab
-	install -m 0755 ${WORKDIR}/preinit ${D}${sysconfdir}/preinit
 	install -m 0644 ${WORKDIR}/usbd ${D}${sysconfdir}/default/usbd
 	install -m 0644 ${WORKDIR}/profile ${D}${sysconfdir}/profile
 	install -m 0755 ${WORKDIR}/share/dot.profile ${D}${sysconfdir}/skel/.profile
@@ -108,8 +104,6 @@ do_install_append_samygo() {
 	for i in mtd_cmmlib mtd_drv ; do
 		ln -s mtd_exe ${D}/$i
 	done
-
-	install -m 0755 ${WORKDIR}/rcS ${D}${sysconfdir}/rcS
 }
 
 PACKAGES = "${PN}-doc ${PN}"
