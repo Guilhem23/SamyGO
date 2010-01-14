@@ -8,7 +8,7 @@ DEPENDS = "virtual/libc base-files busybox sysvinit "
 DEPENDS_sdp83 += "linux-chelsea-externalboot"
 
 RDEPENDS = "\
-	base-files base-passwd busybox busybox-mdev libc6 kernel-modules sysvinit \
+	base-files base-passwd busybox busybox-mdev libc6 kernel-modules sysvinit sysvinit-pidof \
 "
 
 RRECOMMENDS = ""
