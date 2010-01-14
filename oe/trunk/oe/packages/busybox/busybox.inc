@@ -11,7 +11,7 @@ LICENSE = "GPL"
 SECTION = "base"
 PRIORITY = "required"
 
-INC_PR = "r23"
+INC_PR = "r24"
 
 SRC_URI = "\
   http://www.busybox.net/downloads/busybox-${PV}.tar.gz \
@@ -33,12 +33,18 @@ SRC_URI_append_nylon = " file://xargs-double-size.patch;patch=1"
 
 export EXTRA_CFLAGS = "${CFLAGS}"
 EXTRA_OEMAKE_append = " CROSS=${HOST_PREFIX}"
-PACKAGES =+ "${PN}-httpd ${PN}-syslog ${PN}-udhcpd"
+PACKAGES =+ "${PN}-mountall ${PN}-httpd ${PN}-syslog ${PN}-udhcpd"
 
 # We need this RRECOMMENDS because libc dlopens libgcc
 # and shlib mechanism can not detect it because its not
 # listed in the NEEDED field.
 RRECOMMENDS += "libgcc"
+
+FILES_${PN}-mountall = "${sysconfdir}/default/mountall"
+RDEPENDS_${PN} += "${PN}-mountall"
+
+# Make busybox recommend busybox-syslog for those images that expect it
+RRECOMMENDS_${PN} += "libgcc ${PN}-syslog"
 
 FILES_${PN}-httpd = "${sysconfdir}/init.d/busybox-httpd /srv/www"
 FILES_${PN}-syslog = "${sysconfdir}/init.d/syslog ${sysconfdir}/syslog.conf"
@@ -117,6 +123,10 @@ do_install () {
                 install -m 0755 ${WORKDIR}/simple.script ${D}${sysconfdir}/udhcpc.d/50default
 		install -m 0755 ${WORKDIR}/default.script ${D}${datadir}/udhcpc/default.script
 	fi
+	if grep "CONFIG_FEATURE_MOUNT_FSTAB=y" ${WORKDIR}/defconfig; then
+		install -d ${D}${sysconfdir}/default
+		install -m 644 ${WORKDIR}/mountall ${D}${sysconfdir}/default/
+	fi
 
 	install -m 0644 ${S}/busybox.links ${D}${sysconfdir}
 }
@@ -167,6 +177,10 @@ pkg_prerm_${PN} () {
 PACKAGES =+ "${PN}-mdev"
 FILES_${PN}-mdev = "${sysconfdir}/mdev ${sysconfdir}/mdev.conf ${sysconfdir}/init.d/mdev"
 RDEPENDS_${PN}-mdev += "${PN}"
+
+PACKAGES =+ "${PN}-linuxrc"
+FILES_${PN}-linuxrc = "linuxrc"
+RDEPENDS_${PN}-linuxrc += "${PN}"
 
 pkg_postinst_${PN}-mdev() {
 if test "x$D" != "x"; then
