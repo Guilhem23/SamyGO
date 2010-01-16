@@ -107,6 +107,9 @@ do_install () {
 	if grep "CONFIG_CROND=y" ${WORKDIR}/defconfig; then
 		install -m 0755 ${WORKDIR}/busybox-cron ${D}${sysconfdir}/init.d/
 	fi
+	if grep "CONFIG_TELNETD=y" ${WORKDIR}/defconfig; then
+		install -m 0755 ${WORKDIR}/busybox-telnetd ${D}${sysconfdir}/init.d/
+	fi
 	if grep "CONFIG_HTTPD=y" ${WORKDIR}/defconfig; then
 		install -m 0755 ${WORKDIR}/busybox-httpd ${D}${sysconfdir}/init.d/
 		install -d ${D}/srv/www
