@@ -18,6 +18,7 @@ SRC_URI = "\
   file://busybox-cron \
   file://busybox-httpd \
   file://busybox-udhcpd \
+  file://busybox-telnetd \
   file://default.script file://simple.script \
   file://dhcp-hostname.patch;patch=1 \
   file://hwclock.sh \
