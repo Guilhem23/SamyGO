@@ -9,7 +9,7 @@ DEPENDS_sdp83 += "linux-chelsea-externalboot"
 
 RDEPENDS = "\
 	base-files base-passwd busybox busybox-mdev libc6 kernel-modules sysvinit sysvinit-pidof \
-	netbase modutils-initscripts tinylogin initscripts \
+	netbase modutils-initscripts tinylogin initscripts tinylogin busybox-telnetd \
 "
 
 RRECOMMENDS = ""

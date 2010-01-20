@@ -18,9 +18,6 @@ SRC_URI = "\
   file://default.script file://simple.script \
   file://hwclock.sh \
   file://mount.busybox \
-  file://mountall \
-  file://syslog \
-  file://syslog.conf \
   file://umount.busybox \
   file://defconfig \
   file://mdev \

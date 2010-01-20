@@ -8,8 +8,6 @@ SRC_URI = "file://functions \
            file://halt \
            file://ramdisk \
            file://umountfs \
-           file://devpts.sh \
-           file://devpts \
            file://hostname.sh \
            file://banner \
            file://finish.sh \
@@ -21,7 +19,6 @@ SRC_URI = "file://functions \
            file://rmnologin \
            file://checkroot \
            file://umountnfs.sh \
-           file://sysfs.sh \
            file://populate-volatile.sh \
            file://volatiles \
            file://save-rtc.sh"
@@ -59,9 +56,6 @@ do_install () {
 	install -m 0755    ${WORKDIR}/sendsigs		${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/single		${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/umountnfs.sh	${D}${sysconfdir}/init.d
-	install -m 0755    ${WORKDIR}/devpts.sh	${D}${sysconfdir}/init.d
-	install -m 0755    ${WORKDIR}/devpts		${D}${sysconfdir}/default
-	install -m 0755    ${WORKDIR}/sysfs.sh		${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/populate-volatile.sh ${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/save-rtc.sh	${D}${sysconfdir}/init.d
 	install -m 0644    ${WORKDIR}/volatiles		${D}${sysconfdir}/default/volatiles/00_core
@@ -100,9 +94,7 @@ do_install () {
 	ln -sf		../init.d/bootmisc.sh	${D}${sysconfdir}/rcS.d/S55bootmisc.sh
 	ln -sf		../init.d/finish.sh	${D}${sysconfdir}/rcS.d/S99finish.sh
 	# udev will run at S04 if installed
-	ln -sf		../init.d/sysfs.sh	${D}${sysconfdir}/rcS.d/S03sysfs
 	ln -sf		../init.d/populate-volatile.sh	${D}${sysconfdir}/rcS.d/S37populate-volatile.sh
-	ln -sf		../init.d/devpts.sh	${D}${sysconfdir}/rcS.d/S38devpts.sh
 	if [ "${TARGET_ARCH}" = "arm" ]; then
 		ln -sf	../init.d/alignment.sh	${D}${sysconfdir}/rcS.d/S06alignment
 	fi

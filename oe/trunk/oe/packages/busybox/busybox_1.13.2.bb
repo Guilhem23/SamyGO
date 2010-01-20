@@ -1,7 +1,7 @@
 require busybox.inc
 PR = "${INC_PR}.1"
 
-DEFAULT_PREFERENCE = "-1"
+#DEFAULT_PREFERENCE = "-1"
 
 SRC_URI = "\
   http://www.busybox.net/downloads/busybox-${PV}.tar.gz \
@@ -26,11 +26,10 @@ SRC_URI = "\
   file://busybox-cron \
   file://busybox-httpd \
   file://busybox-udhcpd \
+  file://busybox-telnetd \
   file://default.script file://simple.script \
   file://hwclock.sh \
   file://mount.busybox \
-  file://syslog \
-  file://syslog.conf \
   file://umount.busybox \
   file://defconfig \
   file://mdev \

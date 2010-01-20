@@ -1,5 +1,7 @@
-none            /proc           proc    defaults        0 0
-none            /sys            sysfs   defaults        0 0
-none            /dev/sam        tmpfs   defaults        0 0
-none            /dev/pts        devpts  defaults        0 0
-none            /dtv            tmpfs   defaults        0 0
+# stock fstab - you probably want to override this with a machine specific one
+
+rootfs               /                    auto       defaults              1  1
+proc                 /proc                proc       defaults              0  0
+devpts               /dev/pts             devpts     mode=0620,gid=5       0  0
+usbdevfs             /proc/bus/usb        usbdevfs   noauto                0  0
+tmpfs                /var                 tmpfs      defaults              0  0
