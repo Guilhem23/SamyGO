@@ -11,7 +11,8 @@ S = "${WORKDIR}/SDL_mixer-${PV}"
 
 LEAD_SONAME = "SDL_mixer.so"
 
-export SDL_CONFIG = "${STAGING_BINDIR}/sdl-config"
+# export SDL_CONFIG = "${STAGING_BINDIR}/sdl-config"
+export SDL_CONFIG = "${STAGING_BINDIR}/sdl-config-${HOST_SYS}"
 
 inherit autotools
 

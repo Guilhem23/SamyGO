@@ -9,6 +9,8 @@ SRC_URI = "http://www.libsdl.org/projects/SDL_ttf/release/SDL_ttf-${PV}.tar.gz \
            file://new-freetype-includes.patch;patch=1"
 S = "${WORKDIR}/SDL_ttf-${PV}"
 
+export SDL_CONFIG = "${STAGING_BINDIR}/sdl-config-${HOST_SYS}"
+
 inherit autotools
 
 do_stage() {

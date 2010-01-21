@@ -13,7 +13,7 @@ S = "${WORKDIR}/SDL_net-${PV}"
 
 inherit autotools
 
-EXTRA_OECONF += "SDL_CONFIG=${STAGING_BINDIR_CROSS}/sdl-config"
+EXTRA_OECONF += "SDL_CONFIG=${STAGING_BINDIR}/sdl-config-${HOST_SYS}"
 
 do_stage() {
 	autotools_stage_all
