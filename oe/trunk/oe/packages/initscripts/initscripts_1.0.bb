@@ -85,8 +85,8 @@ do_install () {
 	ln -sf		../init.d/umountfs	${D}${sysconfdir}/rc0.d/S40umountfs
 	# udev will run at S55 if installed
 	ln -sf		../init.d/halt		${D}${sysconfdir}/rc0.d/S90halt
-	ln -sf		../init.d/save-rtc.sh	${D}${sysconfdir}/rc0.d/S25save-rtc.sh
-	ln -sf		../init.d/save-rtc.sh	${D}${sysconfdir}/rc6.d/S25save-rtc.sh
+#	ln -sf		../init.d/save-rtc.sh	${D}${sysconfdir}/rc0.d/S25save-rtc.sh
+#	ln -sf		../init.d/save-rtc.sh	${D}${sysconfdir}/rc6.d/S25save-rtc.sh
 	ln -sf		../init.d/banner	${D}${sysconfdir}/rcS.d/S02banner
 	ln -sf		../init.d/checkroot		${D}${sysconfdir}/rcS.d/S10checkroot
 	ln -sf		../init.d/hostname.sh	${D}${sysconfdir}/rcS.d/S39hostname.sh
