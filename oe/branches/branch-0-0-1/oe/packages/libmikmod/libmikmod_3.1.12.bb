@@ -22,7 +22,7 @@ EXTRA_OECONF = "\
   --disable-esdtest \
   --enable-threads \
 "
-EXTRA_OECONF_selp = "\
+EXTRA_OECONF_samygo = "\
   --disable-af \
   --disable-alsa \
   --disable-esd \
