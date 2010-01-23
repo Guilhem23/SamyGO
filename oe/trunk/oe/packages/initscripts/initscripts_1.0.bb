@@ -20,8 +20,7 @@ SRC_URI = "file://functions \
            file://checkroot \
            file://umountnfs.sh \
            file://populate-volatile.sh \
-           file://volatiles \
-           file://save-rtc.sh"
+           file://volatiles"
 
 SRC_URI_append_arm = " file://alignment.sh"
 
@@ -57,7 +56,6 @@ do_install () {
 	install -m 0755    ${WORKDIR}/single		${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/umountnfs.sh	${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/populate-volatile.sh ${D}${sysconfdir}/init.d
-	install -m 0755    ${WORKDIR}/save-rtc.sh	${D}${sysconfdir}/init.d
 	install -m 0644    ${WORKDIR}/volatiles		${D}${sysconfdir}/default/volatiles/00_core
 	if [ "${TARGET_ARCH}" = "arm" ]; then
 		install -m 0755 ${WORKDIR}/alignment.sh	${D}${sysconfdir}/init.d
@@ -85,8 +83,6 @@ do_install () {
 	ln -sf		../init.d/umountfs	${D}${sysconfdir}/rc0.d/S40umountfs
 	# udev will run at S55 if installed
 	ln -sf		../init.d/halt		${D}${sysconfdir}/rc0.d/S90halt
-#	ln -sf		../init.d/save-rtc.sh	${D}${sysconfdir}/rc0.d/S25save-rtc.sh
-#	ln -sf		../init.d/save-rtc.sh	${D}${sysconfdir}/rc6.d/S25save-rtc.sh
 	ln -sf		../init.d/banner	${D}${sysconfdir}/rcS.d/S02banner
 	ln -sf		../init.d/checkroot		${D}${sysconfdir}/rcS.d/S10checkroot
 	ln -sf		../init.d/hostname.sh	${D}${sysconfdir}/rcS.d/S39hostname.sh
