@@ -23,6 +23,7 @@ SRC_URI = "\
   file://B921600.patch;patch=1 \
   file://get_header_tar.patch;patch=1 \
   file://busybox-appletlib-dependency.patch;patch=1 \
+  file://job-control-off.patch;patch=1 \
   file://busybox-cron \
   file://busybox-httpd \
   file://busybox-udhcpd \
