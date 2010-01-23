@@ -1,8 +1,6 @@
 require busybox.inc
 PR = "${INC_PR}.0"
 
-DEFAULT_PREFERENCE = "-1"
-
 SRC_URI = "\
   http://www.busybox.net/downloads/busybox-${PV}.tar.gz \
   \
@@ -11,6 +9,7 @@ SRC_URI = "\
   file://B921600.patch;patch=1 \
   file://get_header_tar.patch;patch=1 \
   file://busybox-appletlib-dependency.patch;patch=1 \
+  file://job-control-off.patch;patch=1 \
   file://busybox-cron \
   file://busybox-httpd \
   file://busybox-udhcpd \
