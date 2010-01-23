@@ -169,7 +169,7 @@ pkg_prerm_util-linux-mount () {
 }
 
 pkg_postinst_util-linux-umount () {
-	update-alternatives --install ${base_bindir}/umount umount umount.${PN} 100
+	update-alternatives --install ${base_bindir}/umount umount umount.${PN} 0
 }
 
 pkg_prerm_util-linux-umount () {
