@@ -161,7 +161,7 @@ pkg_prerm_util-linux-fdisk () {
 }
 
 pkg_postinst_util-linux-mount () {
-	update-alternatives --install ${base_bindir}/mount mount mount.${PN} 100
+	update-alternatives --install ${base_bindir}/mount mount mount.${PN} 0
 }
 
 pkg_prerm_util-linux-mount () {

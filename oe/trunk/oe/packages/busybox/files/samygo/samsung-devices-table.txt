@@ -1,0 +1,28 @@
+#<path>	<type> <mode>	<uid>	<gid>	<major>	<minor>	<start>	<inc>	<count>
+#/dev/mem    c      640      0       0       1       1       0        0        -
+#
+#type can be one of: 
+#    f	A regular file
+#    d	Directory
+#    c	Character special device file
+#    b	Block special device file
+#    p	Fifo (named pipe)
+
+/dev/bml0	d	775	0	0	-	-	-	-	-
+/dev/bml0/c	b	640	0	0	137	0	-	-	-
+/dev/bml0/	b	640	0	0	137	1	1	1	20
+/dev/bml1	d	775	0	0	-	-	-	-	-
+/dev/bml1/c	b	640	0	0	137	32	-	-	-
+/dev/bml1/	b	640	0	0	137	33	1	1	20
+#/dev/sam	d	775	0	0	-	-	-	-	-
+/dev/stl0	d	775	0	0	-	-	-	-	-
+/dev/stl0/c	b	640	0	0	138	0	-	-	-
+/dev/stl0/	b	640	0	0	138	1	1	1	20
+/dev/stl1	d	775	0	0	-	-	-	-	-
+/dev/stl1/c	b	640	0	0	138	32	-	-	-
+/dev/stl1/	b	640	0	0	138	33	1	1	20
+#/dev/tsfr02	d	775	0	0	-	-	-	-	-
+#/dev/tsfr02/c	b	640	0	0	139	0	-	-	-
+#/dev/tsfr02/	b	640	0	0	139	1	1	1	20
+/dev/tbml	b	640	0	0	139	1	1	1	20
+/dev/tbmlc	b	640	0	0	139	0	-	-	-

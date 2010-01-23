@@ -96,7 +96,8 @@ do_install () {
 }
 
 do_install_append_samygo() {
-	# mkdir -p ${D}/mtd_exe/Java
+	mkdir -p ${D}/mtd_exe/Java
+	ln -s mtd_exe/Java ${D}/Java
 
 	for i in mtd_chmap mtd_epg mtd_factory mtd_pers mtd_acap ; do
 		ln -s mtd_rwarea ${D}/$i

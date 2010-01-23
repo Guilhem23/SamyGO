@@ -23,6 +23,8 @@ SRC_URI = "\
   file://mdev.conf \
 "
 
+SRC_URI_append_samygo = "file://samsung-devices-table.txt"
+
 EXTRA_OEMAKE += "V=1 ARCH=${TARGET_ARCH} CROSS_COMPILE=${TARGET_PREFIX}"
 
 do_configure_prepend () {
@@ -32,8 +34,13 @@ do_configure_prepend () {
 }
 
 do_install_append() {
-    install -m 0644 ${WORKDIR}/mdev.conf ${D}${sysconfdir}/
-    install -d ${D}${sysconfdir}/init.d/
-    install -d ${D}${sysconfdir}/mdev
-    install -m 0755 ${WORKDIR}/mdev ${D}${sysconfdir}/init.d/
+	install -m 0644 ${WORKDIR}/mdev.conf ${D}${sysconfdir}/
+	install -d ${D}${sysconfdir}/init.d/
+	install -d ${D}${sysconfdir}/mdev
+	install -m 0755 ${WORKDIR}/mdev ${D}${sysconfdir}/init.d/
 }
+
+do_install_append_samygo() {
+	install -m 0644 ${WORKDIR}/samsung-devices-table.txt ${D}${sysconfdir}/
+}
+

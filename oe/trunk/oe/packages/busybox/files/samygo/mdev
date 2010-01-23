@@ -3,3 +3,16 @@
 echo "/sbin/mdev" >/proc/sys/kernel/hotplug
 
 mdev -s
+
+touch /dev/.udev
+
+# Make extraneous links
+ln -sf /proc/self/fd /dev/fd
+ln -sf /proc/self/fd/0 /dev/stdin
+ln -sf /proc/self/fd/1 /dev/stdout
+ln -sf /proc/self/fd/2 /dev/stderr
+ln -sf /proc/kcore /dev/core
+ln -sf /proc/asound/oss/sndstat /dev/sndstat
+
+makedevs -d /etc/samsung-devices-table.txt /
+
