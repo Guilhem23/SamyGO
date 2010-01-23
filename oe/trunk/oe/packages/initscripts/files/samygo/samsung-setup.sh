@@ -21,12 +21,12 @@ if [ $? != 0 ] ; then
 	exit 1
 fi
 
-if [ -e $SWITCH_FLAG00 ]; then
-	echo $SWITCH_FLAG00 " is found..."
+if [ -e $SWITCH_FLAG0 ]; then
+	echo $SWITCH_FLAG0 " is found..."
 	mount -t rfs -r /dev/tbml8 /mtd_exe/
 	mount -t squashfs /dev/tbml9 /mtd_appdata/
-elif [ -e $SWITCH_FLAG10 ]; then
-	echo $SWITCH_FLAG10 " is found..."
+elif [ -e $SWITCH_FLAG1 ]; then
+	echo $SWITCH_FLAG1 " is found..."
 	mount -t rfs -r /dev/tbml10 /mtd_exe/
 	mount -t squashfs /dev/tbml11 /mtd_appdata/
 fi
@@ -35,8 +35,5 @@ echo /dtv/core > /proc/sys/kernel/core_pattern
 echo "32" > /proc/sys/kernel/msgmni
 
 insmod /mtd_drv/samdrv.ko
-
-export LD_LIBRARY_PATH="/lib:/lib/tls:/usr/lib:/Java/lib:/mtd_cmmlib/Comp_LIB:/mtd_cmmlib/InfoLink/lib:/mtd_cmmlib/GAME_LIB:/mtd_cmmlib/DRM_LIB"
-
 
 : exit 0
