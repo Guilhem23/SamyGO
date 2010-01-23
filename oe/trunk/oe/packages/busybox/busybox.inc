@@ -167,7 +167,7 @@ RDEPENDS_${PN}-mdev += "${PN}"
 
 PACKAGES =+ "${PN}-linuxrc"
 FILES_${PN}-linuxrc = "linuxrc"
-#RDEPENDS_${PN}-linuxrc += "${PN}"
+RDEPENDS_${PN}-linuxrc += "${PN}"
 
 pkg_postinst_${PN}-mdev() {
 if test "x$D" != "x"; then
