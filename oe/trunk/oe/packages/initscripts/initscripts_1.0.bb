@@ -22,7 +22,7 @@ SRC_URI = "file://functions \
            file://populate-volatile.sh \
            file://volatiles"
 
-SRC_URI_append_arm = " file://alignment.sh"
+SRC_URI_append_arm = " file://alignment.sh file://samsung-setup.sh"
 
 KERNEL_VERSION = ""
 
@@ -84,7 +84,7 @@ do_install () {
 	# udev will run at S55 if installed
 	ln -sf		../init.d/halt		${D}${sysconfdir}/rc0.d/S90halt
 	ln -sf		../init.d/banner	${D}${sysconfdir}/rcS.d/S02banner
-	ln -sf		../init.d/checkroot		${D}${sysconfdir}/rcS.d/S10checkroot
+	ln -sf		../init.d/checkroot	${D}${sysconfdir}/rcS.d/S10checkroot
 	ln -sf		../init.d/hostname.sh	${D}${sysconfdir}/rcS.d/S39hostname.sh
 	ln -sf		../init.d/mountnfs.sh	${D}${sysconfdir}/rcS.d/S45mountnfs.sh
 	ln -sf		../init.d/bootmisc.sh	${D}${sysconfdir}/rcS.d/S55bootmisc.sh
@@ -94,5 +94,10 @@ do_install () {
 	if [ "${TARGET_ARCH}" = "arm" ]; then
 		ln -sf	../init.d/alignment.sh	${D}${sysconfdir}/rcS.d/S06alignment
 	fi
+}
+
+do_install_append_samygo() {
+	install -m 0755    ${WORKDIR}/samsung-setup.sh	${D}${sysconfdir}/init.d
+	ln -sf		../init.d/samsung-setup.sh	${D}${sysconfdir}/rc5.d/S98samsung-setup.sh
 }
 
