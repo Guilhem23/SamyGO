@@ -1,0 +1,41 @@
+diff -NurbB djmount-0.71.orig/djmount/media_file.c djmount-0.71/djmount/media_file.c
+--- djmount-0.71.orig/djmount/media_file.c	2006-08-27 22:12:20.000000000 +0200
++++ djmount-0.71/djmount/media_file.c	2010-01-24 18:10:49.000000000 +0100
+@@ -78,7 +78,7 @@
+ 	{ "audio/prs.sid",			"m3u",	"sid"	},
+ 	{ "audio/x-scpls",			NULL,	"pls"	},
+ 	{ "audio/x-mpegurl",			NULL,	"m3u"	},
+-	{ "audio/x-matroska",			"m3u",	"mka"	},
++	{ "audio/x-matroska",			NULL,	"mka"	},
+ 	// Default for all other audio files : x-aac, x-ac3, x-ogg, wav, ...
+ 	{ "audio/",				"m3u",	NULL	},
+ 
+@@ -86,12 +86,12 @@
+ 	 * Video files
+ 	 */
+ 	{ "video/vnd.rn-realvideo",		"ram",	"ram"	},
+-	{ "video/x-msvideo",			"m3u",	"avi"	},
++	{ "video/x-msvideo",			NULL,	"avi"	},
+ 	{ "video/x-motion-jpeg",		"m3u",	"mjpg"	},
+ 	{ "video/quicktime",			"m3u",	"mov"	},
+-	{ "video/x-matroska",			"m3u",	"mkv"	},
+-	{ "video/mpeg",				"m3u",	"mpg"	},
+-	{ "video/mp2p",				"m3u",	"vob"	},
++	{ "video/x-matroska",			NULL,	"mkv"	},
++	{ "video/mpeg",				NULL,	"mpg"	},
++	{ "video/mp2p",				NULL,	"vob"	},
+ 	// Default for all other video files : asf, mpeg2, x-ms-wmv, ...
+ 	{ "video/",				"m3u",	NULL	},
+ 
+@@ -118,9 +118,9 @@
+ 	/*
+ 	 * Multimedia files
+ 	 */
+-	{ "application/ogg",			"m3u",	"ogg"	},
++	{ "application/ogg",			NULL,	"ogg"	},
+ 	{ "application/vnd.rn-realmedia",	"ram",	"ram"	},
+-	{ "application/x-matroska",		"m3u",	"mkv"	},
++	{ "application/x-matroska",		NULL,	"mkv"	},
+ 
+ 	/*
+ 	 * Text files (e.g. subtitles)
