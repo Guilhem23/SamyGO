@@ -39,10 +39,10 @@ addtask unpack2 before do_patch after do_unpack
 do_configure_prepend() {
 	rm include/asm-sh/mach/stb7100ref && tar xvzf arch/sh/boards/st/stb7100ref.tar.gz -C include/asm-sh/
 	oe_machinstall -m 0644 samsung_7103_kernel-2.2.cfg .config
-
+	
+	perl -pi -e "s/# (CONFIG_USB_GADGET) .*/\1=m/" ${S}/.config
         echo '# USB Gadget Support
 #
-CONFIG_USB_GADGET=m
 # CONFIG_USB_GADGET_DEBUG_FILES is not set
 CONFIG_USB_GADGET_SELECTED=y
 # CONFIG_USB_GADGET_NET2280 is not set
