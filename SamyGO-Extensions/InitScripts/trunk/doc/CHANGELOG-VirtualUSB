@@ -1,0 +1,11 @@
+2009-11-26 Ser Lev Arris <arris@ZsoltTech.Com> v0.02
+	* just load if realy no usb-storage present
+	* in init-script template for usable virtualfile (may wont't work)
+	* add some sleep timer
+
+2009-11-18 Ser Lev Arris <arris@ZsoltTech.Com> v0.01
+	* create bump release 
+	* etc/init.d/02_04_vusb.init 
+
+
+$Id: CHANGELOG-VirtualUSB 257 2010-01-13 20:07:50Z arris $

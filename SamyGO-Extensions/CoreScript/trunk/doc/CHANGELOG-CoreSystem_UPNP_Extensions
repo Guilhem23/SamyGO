@@ -1,0 +1,17 @@
+2009-11-10 Ser Lev Arris <arris@ZsoltTech.Com> v0.03
+	* moved cifs.ko to extra package 
+	* some changes in SamyGO/etc/rc.sysinit
+	* build combined package with all extensions
+	* first version of gallery/game starter library
+	* added tools for firmware/image manipulation 
+	  (squashfs-tools, cksfv, unzip, unrar)
+	  http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=2&t=68 
+
+2009-10-25 Ser Lev Arris <arris@ZsoltTech.Com> v0.02
+	* wrote some documentation
+	* split to more modular system
+
+2009-10-10 Ser Lev Arris <arris@ZsoltTech.Com> v0.01
+	* create bump release
+	* etc/rc.sysinit 
+

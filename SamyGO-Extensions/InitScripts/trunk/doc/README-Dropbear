@@ -1,0 +1,8 @@
+sshd, replacement for telnet.
+automatic host-key generation -> /mtd_rwarea/dropbear_rsa_host_key
+
+TODO: key authentification -> /mtd_rwarea/authorized_keys
+
+Depends on: Extension-CoreScript, SamyGO-UPNP-Extension
+
+$Id: README-Dropbear 257 2010-01-13 20:07:50Z arris $

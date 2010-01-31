@@ -1,0 +1,48 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id: 03_03_sshd.init 334 2010-01-21 18:58:15Z arris $
+#
+# TODO: more sysv style, more error handling
+#
+. /dtv/SGO.env
+
+KEY_FILE=/mtd_rwarea/dropbear_rsa_host_key
+A_K_FILE=/mtd_rwarea/authorized_keys
+
+case $1 in 
+	start)
+	[ -e "$KEY_FILE" ] || dropbearkey -t rsa -f $KEY_FILE
+	
+	if [ `cat /proc/mounts | grep -c "/dev/pts"` -lt "1" ] ; then
+		mount -t devpts devpts /dev/pts			
+	else
+		echo "/dev/pts is mounted"
+	fi
+
+	if [ -e "$A_K_FILE" ] ; then
+		chmod 0600 "$A_K_FILE"
+		dropbear -s
+		# sleep 30 && killall -KILL telnetd	
+	else
+		dropbear
+		## may test with pidof?
+		# TP=$(pidof telnetd)
+		#[ -z "$TP" ] && /etc/telnetd_start.sh &
+	fi	
+	;;
+	stop)
+	killall -KILL dropbear
+	;;
+	status)
+	;;
+	*)
+	echo "Usage: $0 {start|stop}" 1>&2
+	exit 0
+	;;
+esac

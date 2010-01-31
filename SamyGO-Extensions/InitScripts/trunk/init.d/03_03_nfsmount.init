@@ -1,0 +1,95 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id: 03_03_nfsmount.init 334 2010-01-21 18:58:15Z arris $
+
+. /dtv/SGO.env
+
+##### YOU CAN CHANGE ME HERE ######
+SERVER=""
+# SERVER="10.0.0.1" # if you want a fixed server
+SHARES=""
+# SHARES="Video Music Photo" # if you won't all your shares, but then set SERVER too!!
+##### CHANGE ME END ######
+
+FR_NAME="NFS Server"
+# M_OPTS="soft,udp,async,nolock,rsize=32768,wsize=8192"
+# M_OPTS="rw,soft,udp,nolock,rsize=32768,wsize=32768"
+# M_OPTS="soft,tcp,nolock,rsize=32768,wsize=32768"
+# M_OPTS="soft,tcp,nolock,rsize=8192,wsize=8192"
+M_OPTS="soft,tcp,nolock"
+
+SERVERS="Don't set me!!"
+DEST_DIR=/dtv/usb/nfs
+
+do_mount()
+{
+		$(echo -e "[sdg]\nVendor : NfsMount\nProduct : $FR_NAME\n\
+Serial : Q80VQLFG\nDevpath : 7\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat\n" >> /dtv/usb/log)
+	
+	for i in $S_MOUNTS ; do
+		M_POINT="$DEST_DIR/$1/$(echo -n $i | sed -e "s/\//_/g")"
+		mkdir -p "$M_POINT" 
+		if [ `cat /proc/mounts | grep -c "$M_POINT"` -lt "1" ] ; then
+			mount -o "$M_OPTS" "$1:$i" "$M_POINT"
+		else
+			echo "$M_POINT is mounted!"
+		fi
+	done
+}
+
+get_shares()
+{
+	if [ -z "$SHARES" ] ; then
+		echo -n "Search Shares on: "
+		for i in $SERVERS ; do
+			echo $i
+			# S_MOUNTS=$(showmount --no-headers -e $i | cut -d " " -f1)	
+			S_MOUNTS=$(showmount --no-headers -e $i | sed 's/^\(.*\) *\*/\1/')	
+			[ -n "$S_MOUNTS" ] && do_mount $i
+		done
+	else
+		echo -n "Fixed Server: "
+		for i in $SERVERS ; do
+			echo $i
+			S_MOUNTS=$SHARES
+			[ -n "$S_MOUNTS" ] && do_mount $i
+		done
+	fi
+}
+
+get_servers()
+{
+	if [ -z "$SERVER" ] ; then
+		# SERVERS=$(cat /proc/net/arp | grep -v "IP address" | cut -d " " -f1)
+		SERVERS=$(cat /proc/net/arp | grep -v "IP address" | sed 's/^\(\w*.\w*.\w*.\w*\) *.*/\1/')
+	else
+		SERVERS=$SERVER
+	fi
+}
+
+case $1 in 
+	start)
+	get_servers
+	get_shares
+	;;
+	stop)
+	# may can fail if device access the mount from content library
+	# hope there no nfsd on the tv ;-)
+	# for i in $(cat /proc/mounts | grep nfs | cut -d " " -f2) ; do
+	for i in $(cat /proc/mounts | grep nfs | sed 's/^\(.*\) \(.*\) nfs .*/\2/') ; do
+		umount $i
+	done
+	;;
+	status)
+	;;
+	*)
+	echo "Usage: $0 {start|stop}" 1>&2
+	exit 0
+	;;
+esac

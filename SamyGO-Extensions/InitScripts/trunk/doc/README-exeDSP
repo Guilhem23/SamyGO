@@ -1,0 +1,9 @@
+put your exeDSP into SamyGO/bin and rename
+SamyGO/etc/init.d/99_99_start_exeDSP.init.disabled_by_default_to_protect_the_innocent
+to
+SamyGO/etc/init.d/99_99_start_exeDSP.init
+
+i hope you know what you do!
+ps: Untested!
+
+$Id: README-exeDSP 263 2010-01-14 08:01:49Z arris $

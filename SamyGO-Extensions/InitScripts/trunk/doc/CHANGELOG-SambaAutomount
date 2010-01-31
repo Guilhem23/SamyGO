@@ -1,0 +1,15 @@
+2009-11-12 Ser Lev Arris <arris@ZsoltTech.Com> v0.02
+	* check for user and pw setting, if one of them 
+	  not set exit
+	* skip some system and hidden shares
+	* change mount detection
+	* fixed typo
+
+2009-11-10 Ser Lev Arris <arris@ZsoltTech.Com> v0.01
+	* create bump release 
+	* smbclient/libs
+	* moved cifs.ko into package
+	* etc/init.d/04_04_samba.init 
+
+
+$Id: CHANGELOG-SambaAutomount 257 2010-01-13 20:07:50Z arris $

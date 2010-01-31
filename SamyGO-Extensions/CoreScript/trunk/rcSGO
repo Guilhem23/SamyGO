@@ -1,0 +1,81 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com 
+#	by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+# 	donated for the SamyGo Project
+#	http://samygo.sourceforge.net/ 
+#
+#	Version: SamyGO-CoreScript svn $Id: rcSGO 345 2010-01-25 11:44:05Z arris $
+
+# do some background checks (not implemented/need)
+
+# some helper stuff
+alias .='source'
+
+# if running as real linuxrc 
+if [ ! -e /proc/mounts ]; then
+	mount -n -t proc /proc /proc
+	mount -n -t sysfs /sys /sys >/dev/null 2>&1
+fi
+
+# for lsusb
+# mount -n -t usbfs usbfs /proc/bus/usb
+
+if [ -x /etc/rc.early.local ]; then
+	echo ". /etc/rc.early.local" 1>&2
+fi
+
+# do the work (try to find SamyGO or start telnetd)
+# other user scripts are not supported SamyGO has 
+# extensions for automount etc...
+# feature requests at: http://samygo.sourceforge.net/
+
+# just here for testing
+S_SCRIPT="echo Bummer > /dev/kmsg"
+
+# http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=4&t=207&start=0&hilit=libSamyGO
+# samyGo use on LN52A850 (T-SPHAUSC v.1004)
+# Postby tskitishvili » Wed Dec 16, 2009 2:56 am 
+# ... no cut in busybox
+
+if [ ! -z $1 ] ; then
+	if [ -x "$1"/etc/rc.sysinit ] ; then
+		S_SCRIPT="cd $1 ; ./etc/rc.sysinit 2>&1 &"
+	fi
+elif [ -x /dtv/usb/sda/SamyGO/etc/rc.sysinit ] ; then
+	S_SCRIPT="cd /dtv/usb/sda/SamyGO ; ./etc/rc.sysinit 2>&1 &"
+elif [ -x /dtv/usb/sda1/SamyGO/etc/rc.sysinit ] ; then
+	S_SCRIPT="cd /dtv/usb/sda1/SamyGO ; ./etc/rc.sysinit 2>&1 &"
+elif [ -x /mtd_tlib/SamyGO/etc/rc.sysinit ] ; then
+	S_SCRIPT="cd /mtd_tlib/SamyGO ; ./etc/rc.sysinit 2>&1 &"
+elif [ -x /mtd_tlib/swf/SamyGO/etc/rc.sysinit ] ; then
+	S_SCRIPT="cd /mtd_tlib/swf/SamyGO ; ./etc/rc.sysinit 2>&1 &"
+elif [ -x /mtd_tlib/GGame/SamyGO/etc/rc.sysinit ] ; then
+	S_SCRIPT="cd /mtd_tlib/GGame/SamyGO ; ./etc/rc.sysinit 2>&1 &"
+elif [ -x /mtd_down/SamyGO/etc/rc.sysinit ] ; then
+	S_SCRIPT="cd /mtd_down/SamyGO ; ./etc/rc.sysinit 2>&1 &"
+elif [ -x /mtd_wiselink/SamyGO/etc/rc.sysinit ] ; then
+	S_SCRIPT="cd /mtd_wiselink/SamyGO ; ./etc/rc.sysinit 2>&1 &"
+elif [ -x /dtv/usb/sda/SEC_GAME/SamyGO/etc/rc.sysinit ] ; then
+	S_SCRIPT="cd /dtv/usb/sda/SEC_GAME/SamyGO ; ./etc/rc.sysinit 2>&1 &"
+elif [ -x /dtv/usb/sda1/SEC_GAME/SamyGO/etc/rc.sysinit ] ; then
+	S_SCRIPT="cd /dtv/usb/sda1/SEC_GAME/SamyGO ; ./etc/rc.sysinit 2>&1 &"
+	# no extension installed try telnet
+elif [ -x /etc/telnetd_start.sh ] ; then
+	S_SCRIPT="/etc/telnetd_start.sh &"
+else
+	echo "Unsupported Platform"
+# TV has no nic -> first get usb wifi working
+#	# T-RBYDEU -> no telnet start script, has inetd
+#	ifconfig lo 127.0.0.1
+#	# hmm
+#	mount -t devpts devpts /dev/pts
+#	S_SCRIPT="/usr/sbin/inetd >/dev/null 2>&1 &"
+fi
+
+# go to sed due busybox on T-SPHAUSC
+# echo "SYSROOT=\"$(echo "$S_SCRIPT" | cut -d " " -f2)\"" > /dtv/SGO.env
+echo "SYSROOT=\"$(echo "$S_SCRIPT" | sed 's/cd \(.*\) ;.*/\1/')\"" > /dtv/SGO.env
+eval $S_SCRIPT
+

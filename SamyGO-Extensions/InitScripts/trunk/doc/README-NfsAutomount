@@ -1,0 +1,7 @@
+Addon for autommaticaly mount your nfs-servers.
+
+TODO: more testing?
+
+Depends on: Extension-CoreScript, SamyGO-UPNP-Extension 
+
+$Id: README-NfsAutomount 257 2010-01-13 20:07:50Z arris $

@@ -1,0 +1,11 @@
+2009-11-11 Ser Lev Arris <arris@ZsoltTech.Com> v0.02
+	* disabled telnet stuff in init-script
+	* if you just want to use telnet, delete SamyGO/etc/rc.sysinit
+	  (no other extensions will than work!)
+
+2009-10-25 Ser Lev Arris <arris@ZsoltTech.Com> v0.01
+	* create bump release
+	* binary & libs & init-script 
+
+
+$Id: CHANGELOG-Dropbear 257 2010-01-13 20:07:50Z arris $

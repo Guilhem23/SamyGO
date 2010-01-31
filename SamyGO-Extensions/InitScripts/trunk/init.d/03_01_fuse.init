@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id: 03_01_fuse.init 329 2010-01-20 15:27:22Z arris $
+#
+# TODO: more sysv style, more error handling
+#
+. /dtv/SGO.env
+
+DEV_FILE=/dtv/fuse
+
+case $1 in 
+    start)
+    	insmod $SYSROOT/lib/modules/fuse.ko
+	[ -e "$DEV_FILE" ] || mknod $DEV_FILE -m 0666 c 10 229
+	;;
+    stop)
+    	rmmod fuse
+	;;
+    status)
+	;;
+    *)
+    echo "Usage: $0 {start|stop}" 1>&2
+    exit 0
+    ;;
+esac

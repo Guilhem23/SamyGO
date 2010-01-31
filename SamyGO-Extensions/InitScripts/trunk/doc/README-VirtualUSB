@@ -1,0 +1,12 @@
+fake an usb device than you can access your mounted
+network shares without usage of usb-storage on tv
+
+copy SamyGO directory into extensions structure
+or to the right location for your system
+
+Depends on: Extension-CoreScript, SamyGO-UPNP-Extension
+
+TODO: automatic virtual file creation (from module)
+	fix timing
+
+$Id: README-VirtualUSB 257 2010-01-13 20:07:50Z arris $

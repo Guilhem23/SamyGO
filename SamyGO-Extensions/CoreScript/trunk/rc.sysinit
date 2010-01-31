@@ -1,0 +1,87 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com 
+#	by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+# 	donated for the SamyGo Project
+#	http://samygo.sourceforge.net/ 
+#
+#	Version: SamyGO-sysinit svn $Id: rc.sysinit 260 2010-01-13 20:13:24Z arris $ 
+
+# do some background checks (not implemented)
+
+# some vars
+# set -m
+
+# SYSROOT="/mtd_down/SamyGO"
+# DISTROOT="/mtd_down/SamyGO/opt"
+
+# some helper stuff
+alias .='source'
+# alias insmod='true'
+# alias ll='/bin/ls -l'
+
+bummer()
+{
+	echo "$1"
+	exit 0
+}
+
+p_from_rel_info()
+{
+	if [ -e $1 ]; then
+		# DISTROOT="$SYSROOT/opt/$(head -n 1 "$1" | cut -d " " -f1)"
+		DISTROOT="$SYSROOT/opt/$(head -n 1 "$1" | sed 's/^\(\w*\) *.*/\1/')"
+	else
+		DISTROOT="$SYSROOT"
+	fi
+}
+
+find_self()
+{
+	# on start holds export SYSROOT="<whatever>", written from 
+	# starterlib or rcSGO
+	source /dtv/SGO.env
+}
+
+# get some information
+
+# if running as real rc.sysinit
+if [ ! -e /proc/mounts ]; then
+	mount -n -t proc /proc /proc
+	mount -n -t sysfs /sys /sys >/dev/null 2>&1
+fi
+if [ -x /etc/rc.early.local ]; then
+	echo ". /etc/rc.early.local" 1>&2
+fi
+
+# build runtime enviroment (set path and lib locations)
+find_self
+p_from_rel_info $SYSROOT/etc/release
+export LD_LIBRARY_PATH="$DISTROOT/lib:$DISTROOT/usr/lib:$SYSROOT/lib:$SYSROOT/usr/lib:$LD_LIBRARY_PATH"
+export PATH="$DISTROOT/sbin:$DISTROOT/bin:$DISTROOT/usr/bin:$DISTROOT/usr/sbin:$SYSROOT/sbin:$SYSROOT/bin:$SYSROOT/usr/bin:$SYSROOT/usr/sbin:$PATH"
+# export LD_PRELOAD=""
+echo "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH\"" >> /dtv/SGO.env
+echo "PATH=\"$PATH\"" >> /dtv/SGO.env
+
+# load modules
+for i in $SYSROOT/lib/modules/*.ko ; do
+	# may problematic (implement modprobe)
+	insmod $i
+done
+
+# try change modules
+for i in $SYSROOT/lib/modules/treasure/*.ko ; do
+	# todo (may sed)
+	echo "Replace $i"
+done
+
+# we don't use real init (for now)
+#  v0.03 disabled stop sequence 
+# for i in `ls -r $SYSROOT/etc/init.d/*.init` ; do
+# echo	$i stop		# hmmmmm
+# done
+for i in $SYSROOT/etc/init.d/*.init ; do
+	$i start	# hmmmmm
+done
+

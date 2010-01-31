@@ -1,0 +1,44 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id: 03_03_djmount.init 334 2010-01-21 18:58:15Z arris $
+
+. /dtv/SGO.env
+
+DEST_DIR=/dtv/usb/upnp
+# ENABLE_DEBUG=" -ddebug "
+
+case $1 in 
+	start)
+	lsmod | grep fuse
+	if [ "$?" -eq "0" ] ; then
+		mkdir $DEST_DIR
+		if [ `mount | grep -c "$DEST_DIR"` -lt "1" ] ; then
+			djmount $ENABLE_DEBUG -o fsname=vfat,iocharset=utf8 $DEST_DIR && \
+			$(echo -e "[sde]\nVendor : FuseMount\nProduct : UPNP Server\n\
+Serial : Q80VQLFE\nDevpath : 5\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat\n" >> /dtv/usb/log)
+		else
+			echo "$M_OPTS is mounted!"	
+		fi
+	else
+		echo "Fuse must 1st started, not me!" 1>&2
+		exit 0
+	fi
+	;;
+	stop)
+	killall -QUIT djmount 
+	sleep 2
+	umount $DEST_DIR && rm -rf $DEST_DIR
+	;;
+	status)
+	;;
+	*)
+	echo "Usage: $0 {start|stop}" 1>&2
+	exit 0
+	;;
+esac

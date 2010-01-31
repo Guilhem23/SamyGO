@@ -1,0 +1,8 @@
+first set password and username in 
+SamyGO/etc/init.d/04_04_samba.init!!
+
+if jou are lucky your windows/samba shares are mounted
+
+Depends on: Extension-CoreScript, SamyGO-UPNP-Extension
+
+$Id: README-SambaAutomount 257 2010-01-13 20:07:50Z arris $

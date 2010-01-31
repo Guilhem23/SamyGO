@@ -1,0 +1,93 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id: 04_04_samba.init 346 2010-01-25 11:47:28Z arris $
+#
+
+. /dtv/SGO.env
+
+##### CHANGE MEEEEE !!!!! ######
+USER=""
+PASSWD=""
+PERM="rw" # can be ro or rw
+##### CHANGE MEEEEE END ######
+
+[ -e /mtd_rwarea/smb_userdata ] && source /mtd_rwarea/smb_userdata
+
+[ -z $USER ] && exit 1
+[ -z $PASSWD ] && exit 1
+
+DEST_DIR=/dtv/usb/smb
+SERVER=""
+# SERVER="10.0.0.1" # if you want a fixed server
+SHARES=""
+FR_NAME="Samba Server"
+# M_OPTS="rw,user=${USER},password=${PASSWD}"
+M_OPTS="$PERM,user=${USER},password=${PASSWD}"
+
+SERVERS="Don't set me!!"
+
+do_mount()
+{
+		$(echo -e "[sdh]\nVendor : CifsMount\nProduct : $FR_NAME\n\
+Serial : Q80VQLFH\nDevpath : 8\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat\n" >> /dtv/usb/log)
+
+	for i in $S_MOUNTS ; do
+		M_POINT="$DEST_DIR/$1/$(echo -n $i | sed -e "s/\\\$/_/g")"
+		mkdir -p "$M_POINT" 
+		if [ `cat /proc/mounts | grep -c "$M_POINT"` -lt "1" ] ; then	
+			mount -o "${M_OPTS}" -t cifs "//$1/$i" "$M_POINT"
+		else
+			echo "$M_POINT is mounted!"
+		fi
+
+	done
+}
+
+get_shares()
+{
+	echo "Search Shares" 
+	for i in $SERVERS ; do
+	echo "on: $i" 
+		S_MOUNTS=$(smbclient -s "$SYSROOT/etc/samba/smb.conf" -U ${USER}%${PASSWD} \
+		-g -L $i | grep "Disk|" | grep -v "\\$" | grep -v " Service" | sed -r 's/.*\|(.*)\|.*/\1/')	
+		# -g -L $i | grep "Disk|" | grep -v "\\$" | grep -v " Service" | cut -d "|" -f2)	
+	[ -n "$S_MOUNTS" ] && do_mount $i
+	done
+}
+
+get_servers()
+{
+	if [ -z "$SERVER" ] ; then
+		# SERVERS=$(cat /proc/net/arp | grep -v "IP address" | cut -d " " -f1)
+		SERVERS=$(cat /proc/net/arp | grep -v "IP address" | sed 's/^\(\w*.\w*.\w*.\w*\) *.*/\1/')
+	else
+		SERVERS=$SERVER
+	fi
+}
+
+case $1 in 
+	start)
+	insmod $SYSROOT/lib/modules/cifs.ko
+	get_servers
+	get_shares
+	;;
+	stop)
+	# may can fail if device access the mount from content library
+	# for i in $(cat /proc/mounts | grep cifs | cut -d " " -f2) ; do
+	for i in $(cat /proc/mounts | grep cifs | sed 's/^\(.*\) \(.*\) cifs .*/\2/') ; do
+		umount $i 
+	done
+	;;
+	status)
+	;;
+	*)
+	echo "Usage: $0 {start|stop}" 1>&2
+	exit 0
+	;;
+esac

@@ -1,0 +1,37 @@
+rcSGO is the "universal" start-script for starting telnetd and 
+other [SamyGO] extensions (if installed).
+the system is modular, you need this script and the core-package
+named SamyGO-UPNP-Extension (or the All-Extensions pack). 
+other packages are optional.
+
+put your own init-scripts into SamyGO/etc/init.d/ there
+will be automaticaly executed if you follow the naming convention:
+<nn>_<nn>_<whatewer>.init (nn controls start order)
+
+you can source /dtv/SGO.env to get SYSROOT 
+and get PATH + LD_LIBRARY_PATH exported
+
+don't forget to study the README files and scripts :-)
+
+v0.02 comes with starter library for the game gallery
+you can start telnetd without patching your firmware.
+
+move SamyGO directory to usb-pen
+on tv go content -> setup -> usb
+in categorie games select SamyGO-Extensions
+on your remote press OK and from dropdown-menue Play
+
+you can copy the the application also to your tv's
+flash memory -> yellow button...
+
+or
+
+enable temporary telnet (rename SamyGO/etc/rc.sysinit to
+SamyGO/etc/rc.sysinit.off and start the extensions from gallery)
+ 
+copy SamyGO/rcSGO to /mtd_rwarea/rcSGO and patch your firmwares exe.img
+to call '/mtd_rwarea/rcSGO &' instead of '/etc/telnetd_start.sh &'
+
+don't forget to rename SamyGO/etc/rc.sysinit.off to SamyGO/etc/rc.sysinit
+
+may more info at: http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=5&t=96 

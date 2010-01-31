@@ -1,0 +1,10 @@
+2009-12-04 Ser Lev Arris <arris@ZsoltTech.Com> v0.02
+	* configurable SHARES in init-script
+	* printout fix in init-script
+
+2009-10-25 Ser Lev Arris <arris@ZsoltTech.Com> v0.01
+	* create bump release
+	* binary & init-script 
+	* change mount options (configurable in etc/init.d/03_03_nfsmount.init)
+
+$Id: CHANGELOG-NfsAutomount 257 2010-01-13 20:07:50Z arris $
