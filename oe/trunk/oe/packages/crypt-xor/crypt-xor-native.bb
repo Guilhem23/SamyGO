@@ -3,7 +3,9 @@ SECTION = "console/utils"
 PV = "2.1"
 PR = "2"
 
-SRC_URI = "http://crypt-xor.sourceforge.net/stable/crypt-xor_${PV}-${PR}.tar.gz"
+SRC_URI = "http://crypt-xor.sourceforge.net/stable/crypt-xor_${PV}-${PR}.tar.gz \
+	file://fix_compile.patch;patch=1 \
+"
 
 inherit native
 
