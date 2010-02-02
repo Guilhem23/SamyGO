@@ -5,6 +5,9 @@ MACHINE ?= T-CHU7DEUC
 # MACHINE = T-CHUCIPDEUC
 # MACHINE = T-CHLCIPDEUC
 #
+# just for testing Samsung encryption won't work !!!!!!
+# MACHINE = T-CHE9AUSC
+#
 # untested toolchains, prepare for multimachine arm same board
 # but dif. kernel & ARCH sh4
 # MACHINE = T-SPHAUSC
@@ -57,6 +60,9 @@ static-image: initialize
 
 imaged: initialize 
 	cd $(OE_BASE)/build; . ./env.source; bitbake -v -D SamyGO-image
+
+gallery: initialize 
+	cd $(OE_BASE)/build; . ./env.source; bitbake -v -D SamyGO-Extensions-image 
 
 imaget: initialize 
 	cd $(OE_BASE)/build; . ./env.source; bitbake --dry-run -v -D SamyGO-image
