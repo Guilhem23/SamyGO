@@ -1,0 +1,10 @@
+--- squashfs.orig/squashfs-tools/unsquashfs.c	2008-04-28 13:36:02.000000000 +0300
++++ squashfs/squashfs-tools/unsquashfs.c	2008-04-28 13:36:11.000000000 +0300
+@@ -1797,6 +1797,7 @@
+ 		SQUASHFS_SWAP_SUPER_BLOCK(&sblk, &sBlk);
+ 		memcpy(&sBlk, &sblk, sizeof(squashfs_super_block));
+ 		swap = 1;
++		break;
+ 	default:
+ 		ERROR("Can't find a SQUASHFS superblock on %s\n", source);
+ 		goto failed_mount;
