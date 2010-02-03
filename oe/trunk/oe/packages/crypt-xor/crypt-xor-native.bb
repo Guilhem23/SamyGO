@@ -2,6 +2,7 @@ DESCRIPTION = "xor files"
 SECTION = "console/utils"
 PV = "2.1"
 PR = "2"
+S = "${WORKDIR}/crypt-xor-${PV}"
 
 SRC_URI = "http://crypt-xor.sourceforge.net/stable/crypt-xor_${PV}-${PR}.tar.gz \
 	file://fix_compile.patch;patch=1 \
@@ -10,7 +11,6 @@ SRC_URI = "http://crypt-xor.sourceforge.net/stable/crypt-xor_${PV}-${PR}.tar.gz 
 inherit native
 
 do_compile() {
-	cp ${WORKDIR}/crypt-xor-${PV}/crypt-XOR.c .
 	${CXX} -I. -o crypt-xor crypt-XOR.c
 }
 

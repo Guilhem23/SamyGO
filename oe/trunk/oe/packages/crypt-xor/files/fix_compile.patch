@@ -1,4 +1,4 @@
-diff -ur old/crypt-XOR.c new/crypt-XOR.c
+diff -ur old//crypt-XOR.c new/crypt-XOR.c
 --- old/crypt-XOR.c	2010-01-24 13:45:23.000000000 +0100
 +++ new/crypt-XOR.c	2010-01-24 13:44:53.000000000 +0100
 @@ -69,7 +69,9 @@
