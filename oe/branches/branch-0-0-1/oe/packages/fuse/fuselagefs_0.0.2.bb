@@ -4,7 +4,7 @@ MAINTAINER = "http://sourceforge.net/users/monkeyiq"
 
 LICENSE_${PN} = "GPL"
 
-DEPENDS = "fakeroot-native fuse popt libattr" 
+DEPENDS = "fuse popt libattr" 
 RRECOMMENDS_${PN} = "fuse-module"
 
 SRC_URI="${SOURCEFORGE_MIRROR}/project/witme/${PN}/${PV}/${P}.tar.bz2"
@@ -14,12 +14,6 @@ inherit autotools autotools_stage pkgconfig
 EXTRA_OECONF += " --disable-nls --includedir=${STAGING_INCDIR} "
 
 do_configure() {
-#	autotools_do_configure
         oe_runconf
 }
-
-# do_stage () {
-#        autotools_stage_includes
-#        oe_libinstall -so -C .libs libpopt ${STAGING_LIBDIR}/
-#}
 
