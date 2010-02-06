@@ -4,6 +4,8 @@ MAINTAINER = "http://sourceforge.net/users/monkeyiq"
 
 LICENSE_${PN} = "GPL"
 
+PR = "r01"
+
 DEPENDS = "fuse popt libattr" 
 RRECOMMENDS_${PN} = "fuse-module"
 
@@ -17,6 +19,13 @@ do_configure() {
         oe_runconf
 }
 
+do_install_append(){
+	mkdir -p ${D}/usr/include/${PN}/
+	install -m 644 src/${PN}.hh ${D}/usr/include/${PN}
+}
+
 do_stage(){
 	autotools_stage_all || true
+	mkdir -p ${STAGING_INCDIR}/${PN}
+	install -m 644 src/${PN}.hh ${STAGING_INCDIR}/${PN}
 }
