@@ -6,8 +6,11 @@ do_patch () {
 	cd "${S}"
 	ls -l ./
 	for i in exe.img appdata.img ; do
+		# cip decrypt if .sec file present
 		if [ -e ${MACHINE}/image/$i.sec ] ; then
+		# mprotect's decrypt_update tool
 		#	decrypt_update ${MACHINE}/image/$i.sec ${MACHINE}/image/$i
+		# or decrypt with openssl
 			ENDE=$(stat ${MACHINE}/image/$i.sec | grep Size: | cut -d ":" -f2 | cut -f1)
 			SHORT=$((${ENDE} - 260))
 			dd if=${MACHINE}/image/$i.sec of=${MACHINE}/image/$i.sec.cut bs=${SHORT} count=1	
@@ -15,6 +18,8 @@ do_patch () {
 		fi
 		crypt-xor -f "${MACHINE}/image/$i.enc" -K "${MACHINE}" -force -q -outfile "${MACHINE}/image/$i"
 		rm -f "${MACHINE}/image/$i.enc"
+	# extract files for later inspection
+	unsquashfs ${MACHINE}/image/$i || $(mkdir tt && mount -o loop,noatime ${MACHINE}/image/$i tt ; cp -a tt/* ./ ; umount tt ; rm -rf tt)
 	done
 	crypt-xor -f "${MACHINE}/run.sh.enc" -K "${MACHINE}" -force -q -outfile run.sh || true
 	# method 1.
@@ -32,6 +37,8 @@ do_patch () {
 		fi
 #		rm -f "${MACHINE}/image/$i"
 		mv "${MACHINE}/image/$i" ./
+		mkdir -p ./Patched || true
+		unsquashfs -dest ./Patched ./$i || $(mkdir -p ./tt && mount -o loop,noatime ./$i ./tt ; cp -a tt/* ./Patched/ ; umount tt ; rm -rf tt)
         done
 	
 }

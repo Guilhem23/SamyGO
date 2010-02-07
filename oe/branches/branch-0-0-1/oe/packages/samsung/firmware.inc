@@ -6,7 +6,7 @@ LICENSE = "Proprietary"
 
 # sure is sure
 # DEPENDS += " coreutils-native crypt-xor-native cksfv-native "
-DEPENDS += " crypt-xor-native cksfv-native "
+DEPENDS += " crypt-xor-native cksfv-native squashfs-tools-native"
 
 inherit autotools
 
