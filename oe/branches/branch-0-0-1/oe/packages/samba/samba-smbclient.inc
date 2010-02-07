@@ -11,11 +11,11 @@ S = "${WORKDIR}/samba-${PV}/source"
 
 inherit autotools
 
-EXTRA_OECONF += '--disable-cups --with-readline=${STAGING_LIBDIR}/.. \
+EXTRA_OECONF += '--disable-cups --disable-nls --with-readline=${STAGING_LIBDIR}/.. \
 	      --without-ads --without-automount --without-smbmount --without-syslog \
 	      --without-ldapsam --without-quotas --without-nisplus-home \
-	      --without-sys-quotas --without-libsmbclient --without-winbind \
-	      --without-acl-support --without-cups'
+	      --without-sys-quotas --without-winbind \
+	      --without-acl-support --without-cups --without-web --without-utils'
 	      
 do_configure_prepend () {
 	./script/mkversion.sh
@@ -30,7 +30,7 @@ do_compile () {
 }
 
 do_install(){
-	:
+	oe_runmake 'DESTDIR=${D}' install	
 }
 
 do_install_append() {

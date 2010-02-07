@@ -1,24 +1,11 @@
 # require ${PN}.inc
 require samba_${PV}.bb
 require ${PN}.inc
-inherit update-rc.d
 
-PR = "r05"
-
-SRC_URI += " \
-	file://init-essential \
-	file://smb-essential.conf \
-	file://smb-essential-inactive.conf \
-	file://Managing-Samba.txt \
-"
+PR = "r06"
 
 RCONFLICTS = "samba"
 
-INITSCRIPT_NAME = "samba"
-# No dependencies, goes in at level 20 (NOTE: take care with the
-# level, later levels put the shutdown later too - see the links
-# in rc6.d, the shutdown must precede network shutdown).
-INITSCRIPT_PARAMS = "defaults"
 CONFFILES_${PN} = "${sysconfdir}/samba/smb.conf"
 
 # The file system settings --foodir=dirfoo and overridden unconditionally
@@ -46,25 +33,12 @@ do_install_append() {
 	install -c -m 755 ${WORKDIR}/init-essential ${D}${sysconfdir}/init.d/samba
 
 	install -d "${D}${sysconfdir}/samba"
-	install -d "${D}/usr/share/samba/help"
-
-	install -m 0644 ${WORKDIR}/smb-essential-inactive.conf "${D}${sysconfdir}/samba/"
-
-	install -m 0644 ${WORKDIR}/Managing-Samba.txt  ${D}/usr/share/samba/help
-
 }
 
-do_configure_append() {
-	distro_up="`echo "${DISTRO}" | awk '{printf("%s\n",toupper($0))}'`"
-
-	cat ${WORKDIR}/smb-essential-inactive.conf | sed "s/MYWORKGROUP/${distro_up}/" > ${WORKDIR}/smb-essential-inactive.conf_
-	mv  ${WORKDIR}/smb-essential-inactive.conf_ ${WORKDIR}/smb-essential-inactive.conf
-
-	cat ${WORKDIR}/smb-essential.conf | sed "s/MYWORKGROUP/${distro_up}/" > ${WORKDIR}/smb-essential.conf_
-	mv  ${WORKDIR}/smb-essential.conf_ ${WORKDIR}/smb-essential.conf
-}
-
-FILES_${PN} = "${bindir}/smbpasswd \
+FILES_${PN} = " \
 	       ${bindir}/smbclient \
 	       /usr/share/samba \
+${libdir}libnsl.so.1 \
+${libdir}libtdb.so.1 \
+${libdir}libtalloc.so.1 \
 	       /etc"
