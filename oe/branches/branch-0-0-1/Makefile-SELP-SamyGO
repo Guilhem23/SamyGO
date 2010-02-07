@@ -1,19 +1,34 @@
 #!/usr/bin/make -f
 
+DL_DIR = /usr/src/Tuxbox/Archive
 # target platform: Chelsea
 MACHINE ?= T-CHU7DEUC
-# MACHINE = T-CHUCIPDEUC
 # MACHINE = T-CHLCIPDEUC
+
+# Experimental (arm)
+# MACHINE = T-CHU7DAUC
+# MACHINE = T-CHL5DEUC
+# MACHINE = T-CHL7DEUC
+# MACHINE = T-CHL6CIPDSEUC
+# MACHINE = T-CHUCIPDEUC
+# MACHINE = T-CHE6AUSC
+# MACHINE = T-CHEAUSC
+# MACHINE = T-CHE7AUSC
+# MACHINE = T-CHL7DAUC
+# MACHINE = T-CHEAEAC # <- something is strange here
+# MACHINE = T-CHU7DAUC
+# prepare for multimachine arm same board
+# but dif. kernel-patchlevel 
+# MACHINE = T-SPHAUSC
+#
+# Experimental (sh, target platform: st[m])
+# MACHINE = T-RBYDEUC
+# MACHINE = T-RBYAUSC
+# MACHINE = T-AMBDFRC
 #
 # just for testing Samsung encryption won't work !!!!!!
 # MACHINE = T-CHE9AUSC
 #
-# untested toolchains, prepare for multimachine arm same board
-# but dif. kernel & ARCH sh4
-# MACHINE = T-SPHAUSC
-#
-# target platform: st[m]
-# MACHINE = T-RBYDEUC
 
 DISTRO = samygo-3.2
 SVN_AUTHOR_NAME = arris
@@ -61,6 +76,9 @@ static-image: initialize
 imaged: initialize 
 	cd $(OE_BASE)/build; . ./env.source; bitbake -v -D SamyGO-image
 
+PatchFirm: initialize 
+	cd $(OE_BASE)/build; . ./env.source; bitbake -v -D SamyGO-PatchedFirmware-image 
+
 gallery: initialize 
 	cd $(OE_BASE)/build; . ./env.source; bitbake -v -D SamyGO-Extensions-image 
 
@@ -88,7 +106,7 @@ $(OE_BASE)/build/conf/local.conf: Makefile-SELP-SamyGO
 	echo 'DL_DIR = "$(DL_DIR)"' > $@
 	echo 'OE_BASE = "$(OE_BASE)"' >> $@
 	echo 'BBFILES = "$${OE_BASE}/oe/packages/*/*.bb"' >> $@
-	echo 'BBMASK = "(nslu.*|.*-sdk.*)"' >> $@
+	echo 'BBMASK = "(nslu.*|.*-sdk.*|non-public)"' >> $@
 	echo 'INHERIT += "multimachine"' >> $@
 	echo 'MACHINE = "$(MACHINE)"' >> $@
 	echo 'DISTRO = "$(DISTRO)"' >> $@

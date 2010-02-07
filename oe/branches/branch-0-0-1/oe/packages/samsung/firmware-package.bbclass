@@ -5,6 +5,7 @@ do_patch () {
 	echo "$(pwd) AT -> ${P_OFFSET} Line -> ${P_LINE} SOURCE -> ${S}"
 	cd "${S}"
 	ls -l ./
+	echo "### Big fat warning! sh4 (& unencoded appdata + exe img) arch is to implement!!"
 	for i in exe.img appdata.img ; do
 		# cip decrypt if .sec file present
 		if [ -e ${MACHINE}/image/$i.sec ] ; then

@@ -22,10 +22,13 @@ Background Information:
 
 Usage Information:
 	make -f Makefile-SELP-SamyGO [DL_DIR=<somedir>] [MACHINE=<machine>] <target>
+		(it's safer to set the MACHINE direct in the Makefile)
 	Common targets:
 		Toolchain
 		image
 		static-image
+		PatchFirm
+		gallery
 				
 	Available machines:
 		T-CHU7DEUC	(default)
@@ -43,10 +46,10 @@ Status Information:
 	T-SPHAUSC: arm
 		Toolchain: 
 			build	y
-			usable	? 
+			usable	y 
 		Kernel:
 			build	y
-			usable	?
+			usable	y
 	T-RBYDEUC: sh4
 		Toolchain:
 			build	y
@@ -75,7 +78,7 @@ FAQ:
 	A: http://crossgcc.rts-software.org/doku.php?id=i386linuxgccformac
 
 Known BUGS:
-	* not striped kernel-modules will be packaged
+	* not striped kernel-modules will be packaged -> fixed
 	* lot of c99 warnings on busybox build
 	* sh4 wrong gcc used on kernel-module build
 		fixed for fuse-module (CC=KERNEL_CC)

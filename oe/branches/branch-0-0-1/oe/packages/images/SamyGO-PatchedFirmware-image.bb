@@ -12,8 +12,8 @@ HOMEPAGE = "http://stb.ZsoltTech.Com/"
 ######################################################################################
 
 PV = "0.0.1"
-PR = "r05"
-PROVIDES += " ${MACHINE}-${DISTRO_NAME}-Extensions-image "
+PR = "r01"
+PROVIDES += " ${MACHINE}-${DISTRO_NAME}-PatchedFirmware-image "
 
 ######################################################################################
 DEPENDS = " "
@@ -25,12 +25,12 @@ EXTRA_IMAGEDEPENDS = ""
 # dropbare util-linux-mount util-linux-umount cksfv crypt-xor won't install 
 # if RRECOMMENDS in InitScripts ?? * Arris *
 INSTALL_PACKAGES = " \
-task-samsung cksfv crypt-xor squashfs-tools StarterLib InitScripts \
+samsung-firmware \
 "
 
 # BROKEN BUT NEEDED = libptp2
 #
-export IMAGE_BASENAME = "${DISTRO_NAME}-Extensions-image"
+export IMAGE_BASENAME = "${DISTRO_NAME}-PatchedFirmware-image"
 export IMAGE_LINGUAS = ""
 
 export IPKG_INSTALL = "${INSTALL_PACKAGES}"
@@ -47,23 +47,10 @@ export NFOT = '${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.desc'
 
 IMAGE_FSTYPES = "zip"
 IMAGE_CMD_zip = " \
-		rm -rf ${IMAGE_ROOTFS}/usr/lib/ipkg ; \
-		for j in ${IMAGE_ROOTFS}/lib/modules/2* ; \
-		do \
-		for i in $(find ${IMAGE_ROOTFS}/lib/modules/$(basename $j) -name "*.ko") ; \ 
-		do mv $i ${IMAGE_ROOTFS}/lib/modules/ ; done ; done ; \
-		mv ${IMAGE_ROOTFS}/mtd_rwarea/bluetooth ${IMAGE_ROOTFS}/etc/ ; \
-		for i in etc usr bin sbin lib ; \ 
-		do cp -RL ${IMAGE_ROOTFS}/$i ${IMAGE_ROOTFS}/mtd_tlib/${DISTRO_NAME}/ || true ; \
-		rm -rf ${IMAGE_ROOTFS}/$i || true ; done ; \
-		mv ${IMAGE_ROOTFS}/rcSGO ${IMAGE_ROOTFS}/mtd_tlib/${DISTRO_NAME}/ ; \
-		find ${IMAGE_ROOTFS} -name .debug -type d | xargs rm -rf ; \
-		find ${IMAGE_ROOTFS} -name "*.util-linux" -type f | xargs rm -f ; \
-#		find ${IMAGE_ROOTFS} -name "*[0-9]" -type f | xargs rm -f ; \
-		rm -f ${IMAGE_ROOTFS}/mtd_tlib/${DISTRO_NAME}/etc/init.d/[a-z]* ; \
-#		mv ${IMAGE_ROOTFS}/mtd_tlib/${DISTRO_NAME}/lib/libutil-2.5.90.so \
-#			${IMAGE_ROOTFS}/mtd_tlib/${DISTRO_NAME}/lib/libutil.so.1 ; \
-		cd ${IMAGE_ROOTFS}/mtd_tlib && zip ${EXTRA_IMAGECMD} \
+		rm -rf ${IMAGE_ROOTFS}/usr ; \
+		rm -rf ${IMAGE_ROOTFS}/dev ; \
+		rm -rf ${IMAGE_ROOTFS}/etc/ipkg ; \
+		cd ${IMAGE_ROOTFS} && zip ${EXTRA_IMAGECMD} \
 		${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.zip ."
 
 EXTRA_IMAGECMD_zip = "-r"
