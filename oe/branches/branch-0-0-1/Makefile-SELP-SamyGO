@@ -20,10 +20,10 @@ MACHINE ?= T-CHU7DEUC
 # prepare for multimachine arm same board
 # but dif. kernel-patchlevel 
 # MACHINE = T-SPHAUSC
+# MACHINE = T-RBYAUSC
 #
 # Experimental (sh, target platform: st[m])
 # MACHINE = T-RBYDEUC
-# MACHINE = T-RBYAUSC
 # MACHINE = T-AMBDFRC
 #
 # just for testing Samsung encryption won't work !!!!!!
