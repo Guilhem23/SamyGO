@@ -1,11 +1,15 @@
 FILES_${PN} = ${MACHINE}
 
 do_patch () {
+	# Temporary fix
         echo "############ Install from package.class #################"
 	echo "$(pwd) AT -> ${P_OFFSET} Line -> ${P_LINE} SOURCE -> ${S}"
 	cd "${S}"
 	ls -l ./
-	echo "### Big fat warning! sh4 (& unencoded appdata + exe img) arch is to implement!!"
+	# temporary fix
+	if [ -d "T-RBYDEU" ] ; then
+	 cp -a T-RBYDEU T-RBYDEUC
+	fi
 	SEC="no" ; ENC="no"
 	for i in exe.img appdata.img ; do
 		# cip decrypt if .sec file present
@@ -50,7 +54,7 @@ do_patch () {
 	fi
 	for i in exe.img appdata.img ; do
 		mkdir -p ${MACHINE}-patched
-		unsquashfs -dest ${MACHINE}-patched/$i ${MACHINE}/image/$i  || (mkdir -p tt && mount -o loop,noatime ${MACHINE}/image/$i tt ; cp -a tt/* ${MACHINE}-patched/ ; umount tt ; rm -rf tt)
+		unsquashfs -dest ${MACHINE}-patched/$i ${MACHINE}/image/$i  || $(mkdir -p tt && mount -o loop,noatime ${MACHINE}/image/$i tt ; cp -a tt/* ${MACHINE}-patched/ ; umount tt ; rm -rf tt)
 		if [ $ENC = "yes" ] ; then
 		oedebug "Firmware was x-ored, regenerate it"
                 crypt-xor -f "${MACHINE}/image/$i" -K "${MACHINE}" -force -q -outfile "${MACHINE}/image/$i.enc"
