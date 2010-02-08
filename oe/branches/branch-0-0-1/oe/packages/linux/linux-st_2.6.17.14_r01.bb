@@ -22,7 +22,7 @@ FILES_dvb-includes = "/usr/include/linux/dvb"
 FILES_scsi-includes = "/usr/include/linux/scsi"
 
 COMPATIBLE_HOST = "sh.*-linux"
-COMPATIBLE_MACHINE = "T-RBYDEUC"
+COMPATIBLE_MACHINE = "(T-RBYDEUC|T-AMBDFRC)"
 
 export OS = "Linux"
 ARCH = "sh"

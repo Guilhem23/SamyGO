@@ -14,6 +14,7 @@ DESCRIPTION = "Sanitized set of 2.6 kernel headers for the C library's use."
 LICENSE = "GPL"
 DEFAULT_PREFERENCE = "-1"
 DEFAULT_PREFERENCE_T-SPHAUSC = "-99"
+DEFAULT_PREFERENCE_T-RBYAUSC = "-99"
 INHIBIT_DEFAULT_DEPS = "1"
 PR = "r24"
 
