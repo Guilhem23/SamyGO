@@ -23,7 +23,6 @@ FILES_scsi-includes = "/usr/include/linux/scsi"
 
 COMPATIBLE_HOST = "sh.*-linux"
 COMPATIBLE_MACHINE = "T-RBYDEUC"
-COMPATIBLE_MACHINE = "T-RB.*C"
 
 export OS = "Linux"
 ARCH = "sh"
