@@ -4,7 +4,7 @@ SECTION = "Gallery/Games"
 MAINTAINER = "Ser Lev Arris <arris@ZsoltTech.Com>"
 HOMEPAGE = "http://samygo.sourceforge.net"
 
-PR = "r01"
+PR = "r02"
 
 # RECOMMENDS = ""
 RRECOMMENDS += " StarterLib CoreScript nfs-utils-discover djmount dropbear util-linux-mount util-linux-umount \
