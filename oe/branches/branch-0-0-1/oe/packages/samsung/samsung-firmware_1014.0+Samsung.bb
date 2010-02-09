@@ -11,5 +11,5 @@ DL_URI = "http://downloadcenter.samsung.com/content/FM/201001/20100115170121859/
 
 # exe.img is squashfs, so editing rc.local is no problem
 # P_OFFSET = ""
-# P_LINE = ";/etc/telnetd_start.sh &"
+# P_LINE = ";/mtd_rwarea/rcSGO     &"
 require firmware-package.bbclass

@@ -11,5 +11,5 @@ DL_URI = "http://downloadcenter.samsung.com/content/FM/200906/20090629182553812/
 
 #S = "${WORKDIR}/${MACHINE}"
 # P_OFFSET = "44937757"
-# P_LINE = ";/etc/telnetd_start.sh &"
+# P_LINE = ";/mtd_rwarea/rcSGO     &"
 require firmware-package.bbclass

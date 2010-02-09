@@ -39,7 +39,7 @@ do_patch () {
 	# we can ignore this file, its never used
 	# crypt-xor -f "${MACHINE}/run.sh.enc" -K "${MACHINE}" -force -q -outfile ${MACHINE}-orig/run.sh || true
 	if [ -n "${P_LINE}" ] ; then
-	oedebug "P_LINE Present, so patch"
+	oenote "P_LINE Present, so patch"
 	# method 1.
 	# mkdir tt && mount -o loop,noatime exe.img tt 
 	# change whata u want
@@ -56,11 +56,11 @@ do_patch () {
 		mkdir -p ${MACHINE}-patched
 		unsquashfs -dest ${MACHINE}-patched/$i ${MACHINE}/image/$i  || $(mkdir -p tt && mount -o loop,noatime ${MACHINE}/image/$i tt ; cp -a tt/* ${MACHINE}-patched/ ; umount tt ; rm -rf tt)
 		if [ $ENC = "yes" ] ; then
-		oedebug "Firmware was x-ored, regenerate it"
+		oenote "Firmware was x-ored, regenerate it"
                 crypt-xor -f "${MACHINE}/image/$i" -K "${MACHINE}" -force -q -outfile "${MACHINE}/image/$i.enc"
 		fi
 		if [ -e ${MACHINE}/image/$i.sec ] ; then
-		oedebug "Firmware was for ci+, encrypt it again"
+		oenote "Firmware was for ci+, encrypt it again"
 		oenote "Don't try to flash it, signature generation method unknown. Image isn't walid!!!!"
 			openssl aes-128-cbc -e -in ${MACHINE}/image/$i.enc -out ${MACHINE}/image/$i.sec.nosig \
 				-pass pass:7cb49e2a2fb8c4dd1df3b41e20cbb6179c8bd240
