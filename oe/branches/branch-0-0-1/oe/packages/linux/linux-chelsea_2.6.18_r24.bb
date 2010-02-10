@@ -23,6 +23,7 @@ FILES_scsi-includes = "/usr/include/linux/scsi"
 
 COMPATIBLE_HOST = "arm.*-linux"
 COMPATIBLE_MACHINE = "T-CH.*C"
+COMPATIBLE_MACHINE = "T-C.*C"
 
 export OS = "Linux"
 ARCH = "arm"

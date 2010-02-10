@@ -4,10 +4,10 @@ SECTION = "Gallery/Games"
 MAINTAINER = "Ser Lev Arris <arris@ZsoltTech.Com>"
 HOMEPAGE = "http://samygo.sourceforge.net"
 
-PR = "r02"
+PR = "r03"
 
 # RECOMMENDS = ""
-RRECOMMENDS += " StarterLib CoreScript nfs-utils-discover djmount dropbear util-linux-mount util-linux-umount \
+RRECOMMENDS += " StarterLib CoreScript nfs-utils-discover djmount dropbear vsftpd util-linux-mount util-linux-umount \
 		kernel-module-cifs kernel-module-dummy-hcd kernel-module-g-file-storage kernel-module-hci-usb kernel-module-bluetooth kernel-module-bnep kernel-module-rfcomm kernel-module-l2cap kernel-module-hidp \
 		samba bluez-utils-nodbus "
 # DEPENDS = ""

@@ -1,15 +1,16 @@
 #!/usr/bin/make -f
 
-DL_DIR = /usr/src/Tuxbox/Archive
+DL_DIR ?= /usr/src/Tuxbox/Archive
 # target platform: Chelsea
 MACHINE ?= T-CHU7DEUC
-# MACHINE = T-CHLCIPDEUC
 
 # Experimental (arm)
 # MACHINE = T-CHU7DAUC
 # MACHINE = T-CHL5DEUC
 # MACHINE = T-CHL7DEUC
+# MACHINE = T-CHL5CIPDSEUC
 # MACHINE = T-CHL6CIPDSEUC
+# MACHINE = T-CHLCIPDEUC
 # MACHINE = T-CHUCIPDEUC
 # MACHINE = T-CHE6AUSC
 # MACHINE = T-CHEAUSC
@@ -17,6 +18,8 @@ MACHINE ?= T-CHU7DEUC
 # MACHINE = T-CHL7DAUC
 # MACHINE = T-CHEAEAC # <- something is strange here
 # MACHINE = T-CHU7DAUC
+# MACHINE = T-AMBAUSC # <- squashfs?
+#
 # prepare for multimachine arm same board
 # but dif. kernel-patchlevel 
 # MACHINE = T-SPHAUSC
@@ -29,6 +32,11 @@ MACHINE ?= T-CHU7DEUC
 # just for testing Samsung encryption won't work !!!!!!
 # MACHINE = T-CHE9AUSC
 #
+# unknown testing section
+# has firm (*.bin) , but arch unknown
+# MACHINE = T-CRLPEUHC
+# has firm, but arch unknown
+# MACHINE = T-AMBPEUMD
 
 DISTRO = samygo-3.2
 SVN_AUTHOR_NAME = arris
