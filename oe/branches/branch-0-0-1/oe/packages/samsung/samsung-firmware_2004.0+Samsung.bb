@@ -8,6 +8,7 @@ require firmisrar.inc
 PR = "r0"
 # Firm with Merge.bin
 DL_URI = "http://downloadcenter.samsung.com/content/FM/200910/20091012170754437/${MACHINE}.exe"
+DL_URI_T-CRLPEUWC = "http://downloadcenter.samsung.com/content/FM/200912/20091228105941859/${MACHINE}.exe"
 
 # S = "${WORKDIR}
 # P_OFFSET = "52204062"
