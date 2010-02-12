@@ -35,6 +35,7 @@ MACHINE ?= T-CHU7DEUC
 # unknown testing section
 # has firm (*.bin) , but arch unknown
 # MACHINE = T-CRLPEUHC
+# MACHINE = T-CRLPEUWC
 # has firm, but arch unknown
 # MACHINE = T-AMBPEUMD
 
@@ -120,7 +121,7 @@ $(OE_BASE)/build/conf/local.conf: Makefile-SELP-SamyGO
 	echo 'DISTRO = "$(DISTRO)"' >> $@
 	echo 'CACHE = "$(OE_BASE)/cache/oe-cache.$${USER}-$${MACHINE}"' >> $@
 	echo 'ASSUME_PROVIDED += " gmp-native mpfr-native "' >> $@
-	echo 'ASSUME_PROVIDED += " gettext-native "' >> $@
+#	echo 'ASSUME_PROVIDED += " gettext-native "' >> $@
 #	echo 'ASSUME_PROVIDED += " gmp-native mpfr-native python-native "' >> $@
 #	echo 'PARALLEL_MAKE = "-j 3"' >> $@
 
