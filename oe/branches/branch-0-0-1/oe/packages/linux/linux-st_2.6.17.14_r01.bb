@@ -1,13 +1,15 @@
 DESCRIPTION = "Linux kernel for Samsung TV's"
 HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
-DEPENDS = "binutils-cross yes-native"
+DEPENDS = "binutils-cross yes-native u-boot-mkimage-selp-native"
 
 SRC_URI = "http://www.samsung.com/global/opensource/files/LE46A956.zip \
 		file://${MACHINE}-dotconfig \
 		file://selp-fix-MAX_PATH.patch;patch=1 \
 "
-SRC_URI_append_samygo += "file://selp-gadget.patch;patch=1" 
+SRC_URI_append_samygo += "file://selp-gadget.patch;patch=1 \
+		file://selp-remove-yongsik-crippling-from-stasc.patch;patch=1 \
+" 
 
 S = "${WORKDIR}/linux_st"
 
@@ -26,8 +28,10 @@ COMPATIBLE_MACHINE = "(T-RBYDEUC|T-AMBDFRC)"
 
 export OS = "Linux"
 ARCH = "sh"
-KERNEL_OUTPUT = "arch/${ARCH}/boot/zImage"
+# KERNEL_OUTPUT = "arch/${ARCH}/boot/${KERNEL_IMAGETYPE}"
 KERNEL_OBJECT_SUFFIX = '.ko'
+
+EXTRA_OEMAKE += "'SHELL=/bin/bash'"
 
 do_unpack2() {
         tar -xvzf ${WORKDIR}/linux_st.tar.gz -C ${WORKDIR}/
@@ -38,8 +42,9 @@ addtask unpack2 before do_patch after do_unpack
 
 do_configure_prepend() {
 	rm include/asm-sh/mach/stb7100ref && tar xvzf arch/sh/boards/st/stb7100ref.tar.gz -C include/asm-sh/
-	oe_machinstall -m 0644 samsung_7103_kernel-2.2.cfg .config
+#	oe_machinstall -m 0644 samsung_7103_kernel-2.2.cfg .config
 	
+	perl -pi -e "s/# (CONFIG_CIFS) .*/\1=m/" ${S}/.config
 	perl -pi -e "s/# (CONFIG_USB_GADGET) .*/\1=m/" ${S}/.config
         echo '# USB Gadget Support
 #
@@ -60,7 +65,6 @@ CONFIG_USB_GADGET_DUALSPEED=y
 CONFIG_USB_FILE_STORAGE=m
 CONFIG_USB_FILE_STORAGE_TEST=y
 # CONFIG_USB_G_SERIAL is not set
-CONFIG_CIFS=m
 ' >> ${S}/.config
 
 	gcc_version=`${KERNEL_CC} -dumpversion`

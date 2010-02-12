@@ -1,0 +1,135 @@
+# See:
+# http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=5&t=373&p=2893#p2893 
+# http://volny.cz/vanekt/sam/samygo-eo-branch-0-0-1-sh4.patch
+# 
+# Index: oe/packages/linux/files/selp-remove-yongsik-crippling-from-stasc.patch
+# ===================================================================
+# --- oe/packages/linux/files/selp-remove-yongsik-crippling-from-stasc.patch	(revision 0)
+#+++ oe/packages/linux/files/selp-remove-yongsik-crippling-from-stasc.patch	(revision 0)
+# @@ -0,0 +1,126 @@
+diff -ur -x '*.o' -x '*.ko' -x '*.o.cmd' a/drivers/serial/stasc.c b/drivers/serial/stasc.c
+--- a/drivers/serial/stasc.c	2008-04-01 10:07:25.000000000 +0200
++++ b/drivers/serial/stasc.c	2010-02-02 11:00:29.544365084 +0100
+@@ -74,7 +74,7 @@
+ # define KGDBPORT asc_ports[kgdbasc_ttyAS]
+ #endif /* CONFIG_KGDB_ST_ASC */
+ 
+-struct uart_port *port_test;
++//struct uart_port *port_test;
+ 
+ /*---- Forward function declarations---------------------------*/
+ static int  asc_request_irq(struct uart_port *);
+@@ -90,7 +90,7 @@
+ static int __init serial_console_setup (struct console *, char *);
+ #endif
+ 
+-extern int yongval;
++//extern int yongval;
+ /*---- Inline function definitions ---------------------------*/
+ 
+ /* Some simple utility functions to enable and disable interrupts.
+@@ -499,10 +499,10 @@
+ 	unsigned int ctrl_val;
+ 	unsigned long flags;
+ 
+-	if(baud == 115200)
+-	{
+-		port_test = &ascport->port;
+-	}
++//	if(baud == 115200)
++//	{
++//		port_test = &ascport->port;
++//	}
+ 
+ 	/* wait for end of current transmission */
+ 	while (!asc_tx_empty(port)){};
+@@ -514,16 +514,16 @@
+ 
+ 	/* stop serial port and reset value */
+ 	asc_out (port, CTL, (ctrl_val & ~ASC_CTL_RUN));
+-	if((baud == 115200)&&(yongval!=1)){
++//	if((baud == 115200)&&(yongval!=1)){
+ //	if(yongval==0){
+ //		printk(KERN_ALERT "@@@@@@@@ Serial OFF : %d @@@@@@@@ \r\n\r\n", yongval);
+-		ctrl_val = ASC_CTL_FIFOENABLE;
+-	}
+-	else{
++//		ctrl_val = ASC_CTL_FIFOENABLE;
++//	}
++//	else{
+ //		
+ //		printk(KERN_ALERT "@@@@@@@@ Serial ON : %d @@@@@@@@ \r\n\r\n", yongval);
+ 		ctrl_val = ASC_CTL_RXENABLE | ASC_CTL_FIFOENABLE;
+-	}
++//	}
+ 
+ 	/* reset fifo rx & tx */
+ 	asc_out (port, TXRESET, 1);
+@@ -600,6 +600,7 @@
+ 
+ asmlinkage long sys_serial_msg_on(void)
+ {
++#if 0
+         unsigned int ctrl_val;
+ 
+          ctrl_val = asc_in (port_test, CTL);
+@@ -614,7 +615,7 @@
+ 
+  
+         printk("############################## sys_serial_msg_on() : 0x%x\r\n", ctrl_val);
+-
++#endif
+         return 0;
+ }
+ 
+@@ -626,6 +627,7 @@
+ 
+ asmlinkage long sys_serial_msg_off(void)
+ {
++#if 0
+         unsigned int ctrl_val;
+ 
+         ctrl_val = asc_in (port_test, CTL);
+@@ -638,7 +640,7 @@
+         asc_out (port_test, CTL, (ctrl_val | ASC_CTL_RUN));
+ 
+         printk("############################# sys_serial_msg_off() : 0x%x\r\n", ctrl_val);
+-
++#endif
+        return 0;
+ }
+ 
+diff -ur -x '*.o' -x '*.ko' -x '*.o.cmd' a/init/main.c b/init/main.c
+--- a/init/main.c	2008-07-16 09:36:13.000000000 +0200
++++ b/init/main.c	2010-01-29 18:30:33.132217047 +0100
+@@ -124,7 +124,7 @@
+ /* Setup configured maximum number of CPUs to activate */
+ static unsigned int max_cpus = NR_CPUS;
+ 
+-extern int yongval = 0;
++//extern int yongval = 0;
+ 
+ /*
+  * Setup routine for controlling SMP activation
+@@ -207,6 +207,7 @@
+ 	return 1;
+ }
+ 
++#if 0
+ static int __init yongsik_kernel(char *str)
+ {
+ 	if (*str)
+@@ -215,11 +216,12 @@
+ 	printk(KERN_ALERT "@@@@@@@@@@@@@ Serial On @@@@@@@@@@@@@@@\r\n\r\n");
+ 	return 1;
+ }
++__setup("yongsik", yongsik_kernel);
++#endif
+ 
+ 
+ __setup("debug", debug_kernel);
+ __setup("quiet", quiet_kernel);
+-__setup("yongsik", yongsik_kernel);
+ 
+ static int __init loglevel(char *str)
+ {
