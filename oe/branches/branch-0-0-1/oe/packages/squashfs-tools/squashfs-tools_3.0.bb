@@ -9,6 +9,7 @@ CFLAGS += "-I."
 
 SRC_URI = "${SOURCEFORGE_MIRROR}/squashfs/squashfs${@bb.data.getVar('PV',d,1).replace('r','-r')}.tar.gz \
 	   file://Makefile-3.0 \
+	   file://fix-return-ok.patch;patch=1 \
 "
 
 S = "${WORKDIR}/squashfs${@bb.data.getVar('PV',d,1).replace('r','-r')}/squashfs-tools"
