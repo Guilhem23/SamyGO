@@ -15,7 +15,7 @@ export KF_SLEEP_READ=-2
 echo 30000 > /mtd_rwarea/DelayValue.txt
 #touch /mtd_rwarea/DoPrintYahoo.txt
 export KF_NO_INTERACTIVE=1
-export KF_LOG=/dev/null;
+export KF_LOG=/dev/null
 cd /mtd_exe/
 
 ./exeDSP
