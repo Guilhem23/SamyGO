@@ -1,0 +1,47 @@
+# Index: oe/packages/linux/files/selp-bash-not-default-sh.patch
+# ===================================================================
+# --- oe/packages/linux/files/selp-bash-not-default-sh.patch	(revision 0)
+# +++ oe/packages/linux/files/selp-bash-not-default-sh.patch	(revision 0)
+# @@ -0,0 +1,42 @@
+diff -ur -x '*.o' -x '*.ko' -x '*.o.cmd' a/arch/sh/boot/compressed/Makefile b/arch/sh/boot/compressed/Makefile
+--- a/arch/sh/boot/compressed/Makefile	2008-03-10 01:56:59.000000000 +0100
++++ b/arch/sh/boot/compressed/Makefile	2010-01-24 14:18:07.372666249 +0100
+@@ -26,20 +26,20 @@
+ ifdef CONFIG_ZIMAGE_ROM
+ 
+ # ZTEXT_ADDR is the text address of the compression loader (in ROM)
+-ZTEXT_ADDR = $(shell printf "0x%8x" $$[0x80000000+$(CONFIG_ZIMAGE_ROM_START)])
++ZTEXT_ADDR = $(shell /bin/bash -c 'printf "0x%8x" $$[0x80000000+$(CONFIG_ZIMAGE_ROM_START)]')
+ 
+ # ZDATA_ADDR is the data address for the compression loader (in RAM)
+ # This is placed at an offset of 2M + 64K from the start of RAM
+ # (2M for the decompressed kernel and 64K for use by the previous loader).
+-ZDATA_ADDR = $(shell printf "0x%8x" $$[0x80000000+$(CONFIG_MEMORY_START)+$(CONFIG_BOOT_LINK_OFFSET)])
++ZDATA_ADDR = $(shell /bin/bash -c 'printf "0x%8x" $$[0x80000000+$(CONFIG_MEMORY_START)+$(CONFIG_BOOT_LINK_OFFSET)]')
+ 
+ LDFLAGS_vmlinux := -Ttext $(ZTEXT_ADDR) -Tdata $(ZDATA_ADDR) -e startup -T
+ 
+ else
+ 
+-IMAGE_OFFSET	:= $(shell printf "0x%08x" $$[$(CONFIG_PAGE_OFFSET)  + \
++IMAGE_OFFSET	:= $(shell /bin/bash -c 'printf "0x%08x" $$[$(CONFIG_PAGE_OFFSET)  + \
+ 					      $(CONFIG_MEMORY_START) + \
+-					      $(CONFIG_BOOT_LINK_OFFSET)])
++					      $(CONFIG_BOOT_LINK_OFFSET)]')
+ 
+ LIBGCC	:= $(shell $(CC) $(CFLAGS) -print-libgcc-file-name)
+ 
+diff -ur -x '*.o' -x '*.ko' -x '*.o.cmd' a/arch/sh/boot/Makefile b/arch/sh/boot/Makefile
+--- a/arch/sh/boot/Makefile	2008-03-10 01:57:03.000000000 +0100
++++ b/arch/sh/boot/Makefile	2010-01-24 14:07:52.080705010 +0100
+@@ -23,8 +23,8 @@
+ CONFIG_ZERO_PAGE_OFFSET ?= 0
+ 
+ MKIMAGE := $(srctree)/scripts/mkuboot.sh
+-ULOADADDR := $(shell printf "0x%8x" $$[0x80000000 + $(CONFIG_MEMORY_START) + $(CONFIG_ZERO_PAGE_OFFSET)])
+-UENTRYADDR := $(shell printf "0x%8x" $$[$(ULOADADDR) + 0x1000])
++ULOADADDR := $(shell /bin/bash -c 'printf "0x%8x" $$[0x80000000 + $(CONFIG_MEMORY_START) + $(CONFIG_ZERO_PAGE_OFFSET)]')
++UENTRYADDR := $(shell /bin/bash -c 'printf "0x%8x" $$[$(ULOADADDR) + 0x1000]')
+ 
+ quiet_cmd_uimage = UIMAGE  $@
+       cmd_uimage = $(CONFIG_SHELL) $(MKIMAGE) -A sh -O linux -T kernel \

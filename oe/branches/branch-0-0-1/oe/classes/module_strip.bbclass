@@ -3,7 +3,8 @@
 do_strip_modules () {
 	for p in ${PACKAGES}; do
 #		if test -e ${WORKDIR}/install/$p/lib/modules; then
-			if [ "${KERNEL_MAJOR_VERSION}" == "2.6" ]; then
+#			if [ "${KERNEL_MAJOR_VERSION}" == "2.6" ]; then
+			if [ "${KERNEL_MAJOR_VERSION}" = "2.6" ]; then
 #				modules="`find ${WORKDIR}/install/$p/lib/modules -name \*.ko`"
 #				modules="`find ${S} -name \*.ko`"
 				modules="`find ${WORKDIR}/image/lib/modules -name \*.ko`"

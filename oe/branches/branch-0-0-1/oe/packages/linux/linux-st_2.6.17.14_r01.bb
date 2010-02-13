@@ -6,6 +6,7 @@ DEPENDS = "binutils-cross yes-native u-boot-mkimage-selp-native"
 SRC_URI = "http://www.samsung.com/global/opensource/files/LE46A956.zip \
 		file://${MACHINE}-dotconfig \
 		file://selp-fix-MAX_PATH.patch;patch=1 \
+		file://selp-bash-not-default-sh.patch;patch=1 \
 "
 SRC_URI_append_samygo += "file://selp-gadget.patch;patch=1 \
 		file://selp-remove-yongsik-crippling-from-stasc.patch;patch=1 \
@@ -28,11 +29,10 @@ COMPATIBLE_MACHINE = "(T-RBYDEUC|T-AMBDFRC)"
 export OS = "Linux"
 ARCH = "sh"
 
-EXTRA_OEMAKE += "'SHELL=/bin/bash'"
-
 do_unpack2() {
         tar -xvzf ${WORKDIR}/linux_st.tar.gz -C ${WORKDIR}/
 	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz ${WORKDIR}/Re* ${WORKDIR}/*.bz2 || true
+	find ${WORKDIR}/ \( -name '*.[ch]' -o -name 'Makefile*' -o -name 'K[bc]*' \) -exec chmod 644 {} \;
 }
 
 addtask unpack2 before do_patch after do_unpack
