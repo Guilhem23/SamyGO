@@ -3,6 +3,11 @@ SamyGO/etc/init.d/04_04_samba.init!!
 
 if jou are lucky your windows/samba shares are mounted
 
+Tuning: http://www.vido.info/wordpress/2009/05/28/cifs-performance/
+
+insmod cifs CIFSMaxBufSize=0x130048 cifs_min_rcv=0x64 cifs_min_small=0x256 cifs_max_pending=0x256
+mountoptions: rsize=130048,nobrl
+
 Depends on: Extension-CoreScript, SamyGO-UPNP-Extension
 
 $Id: README-SambaAutomount 257 2010-01-13 20:07:50Z arris $
