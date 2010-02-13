@@ -16,7 +16,6 @@ S = "${WORKDIR}/linux_st"
 KERNEL_CCSUFFIX = "-4.1.1"
 
 KERNEL_VERSION_samygo = ${PV}
-KERNEL_LOCALVERSION = "-Samsung_7103" 
 KERNEL_LOCALVERSION = "_stm22_0039-Samsung_7103" 
 inherit kernel
 
@@ -28,8 +27,6 @@ COMPATIBLE_MACHINE = "(T-RBYDEUC|T-AMBDFRC)"
 
 export OS = "Linux"
 ARCH = "sh"
-# KERNEL_OUTPUT = "arch/${ARCH}/boot/${KERNEL_IMAGETYPE}"
-KERNEL_OBJECT_SUFFIX = '.ko'
 
 EXTRA_OEMAKE += "'SHELL=/bin/bash'"
 

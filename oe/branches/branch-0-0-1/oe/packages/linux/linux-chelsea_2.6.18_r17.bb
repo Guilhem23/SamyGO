@@ -1,7 +1,7 @@
 DESCRIPTION = "Linux kernel for Samsung TV's"
 HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
-DEPENDS = "binutils-cross yes-native"
+DEPENDS = "binutils-cross yes-native u-boot-mkimage-selp-native"
 
 # LN46A750.zip & LN52A750.zip same md5sum
 SRC_URI = "http://www.samsung.com/global/opensource/files/LN52A750.zip \
@@ -24,8 +24,6 @@ COMPATIBLE_MACHINE = "(T-SPHAUSC|T-RBYAUSC)"
 
 export OS = "Linux"
 ARCH = "arm"
-KERNEL_OUTPUT = "arch/${ARCH}/boot/Image"
-KERNEL_OBJECT_SUFFIX = '.ko'
 
 do_unpack2() {
         tar -xvf ${WORKDIR}/linux_A1.tar -C ${WORKDIR}/

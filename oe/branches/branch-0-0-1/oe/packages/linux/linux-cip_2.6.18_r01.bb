@@ -1,7 +1,7 @@
 DESCRIPTION = "Linux kernel for Samsung TV's"
 HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
-DEPENDS = "binutils-cross yes-native"
+DEPENDS = "binutils-cross yes-native u-boot-mkimage-selp-native"
 
 SRC_URI = "	http://www.samsung.com/global/opensource/files/LE40B650T2P.zip \
 		file://${MACHINE}-dotconfig \
@@ -9,9 +9,10 @@ SRC_URI = "	http://www.samsung.com/global/opensource/files/LE40B650T2P.zip \
 		file://cip.Makefile.modinst \
 		file://selp-fix_nonlinux_compile.patch;patch=1 \
 "
-SRC_URI_append_samygo += "file://selp-gadget.patch;patch=1" 
-SRC_URI_append_samygo += "file://selp-ralink-devlist.patch;patch=1;pnum=0" 
-SRC_URI_append_samygo += "file://selp-ralink-devlist_2.2.0.0.patch;patch=1;pnum=0" 
+SRC_URI_append_samygo += "file://selp-gadget.patch;patch=1 \ 
+		file://selp-ralink-devlist.patch;patch=1;pnum=0 \ 
+		file://selp-ralink-devlist_2.2.0.0.patch;patch=1;pnum=0 \
+" 
 
 S = "${WORKDIR}/linux/linux-r011"
 
@@ -27,8 +28,6 @@ COMPATIBLE_MACHINE = "T-CH.CIPDEUC"
 
 export OS = "Linux"
 ARCH = "arm"
-KERNEL_OUTPUT = "arch/${ARCH}/boot/Image"
-KERNEL_OBJECT_SUFFIX = '.ko'
 
 do_unpack2() {
 	tar -xvzf ${WORKDIR}/linux.cip.open.tgz -C ${WORKDIR}/
