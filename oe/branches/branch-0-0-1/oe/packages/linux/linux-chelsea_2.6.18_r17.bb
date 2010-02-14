@@ -48,6 +48,7 @@ do_stage_prepend () {
        rm -f ${S}/include/asm-${TARGET_ARCH}/arch-ssdtv || true
        rm -f ${S}/include/asm-${TARGET_ARCH}/arch || true
        cp -avf ${WORKDIR}/linux/include/asm-${TARGET_ARCH}/arch-ssdtv ${S}/include/asm-${TARGET_ARCH}/ || true
+       cp -avf ${WORKDIR}/linux/include/asm-${TARGET_ARCH}/arch-ssdtv ${S}/include/asm/arch || true
 }
 
 do_stage_append () {
