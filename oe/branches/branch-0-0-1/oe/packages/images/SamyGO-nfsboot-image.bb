@@ -22,7 +22,7 @@ RDEPENDS += "${INSTALL_PACKAGES}"
 
 # INSTALL_PACKAGES = "task-samsung init-over-swf wlan-rt73 wlan-rt2870 \
 INSTALL_PACKAGES = " \
-task-samsung-base libgcc kernel-image \
+task-samsung-base kernel kernel-modules busybox \
 "
 
 # BROKEN BUT NEEDED = libptp2
