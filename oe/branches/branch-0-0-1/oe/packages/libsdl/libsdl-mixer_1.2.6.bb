@@ -2,7 +2,6 @@ DESCRIPTION = "Simple DirectMedia Layer mixer library."
 SECTION = "libs"
 PRIORITY = "optional"
 DEPENDS = "virtual/libsdl libmikmod libvorbis smpeg"
-DEPENDS = "virtual/libsdl libmikmod libvorbis"
 LICENSE = "LGPL"
 PR = "r3"
 
@@ -13,10 +12,12 @@ LEAD_SONAME = "SDL_mixer.so"
 
 # export SDL_CONFIG = "${STAGING_BINDIR}/sdl-config"
 export SDL_CONFIG = "${STAGING_BINDIR}/sdl-config-${HOST_SYS}"
+export SMPEG_CONFIG = "${STAGING_BINDIR}/smpeg-config-${HOST_SYS}"
 
 inherit autotools
 
 EXTRA_OECONF = "--disable-music-mp3"
+EXTRA_OECONF_samygo = "--enable-music-mp3"
 # although we build smpeg... need to find out how
 # to deal with optional dependencies
 
