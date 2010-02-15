@@ -4,7 +4,7 @@ MAINTAINER = "Koen Kooi <koen@linuxtogo.org>"
 
 LICENSE_${PN} = "LGPL"
 
-DEPENDS = "fakeroot-native fuse" 
+DEPENDS = "fakeroot-native fuse glib-2.0" 
 RRECOMMENDS_${PN} = "fuse-module"
 
 SRC_URI="${SOURCEFORGE_MIRROR}/fuse/${P}.tar.gz"
