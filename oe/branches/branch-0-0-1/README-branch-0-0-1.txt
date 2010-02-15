@@ -35,6 +35,16 @@ Usage Information:
 		T-SPHAUSC
 		T-RBYDEUC	
 
+Qemu:
+	You can test your binaries:
+		generate one of the "image" targets and qemu-native, or
+		...
+
+		SH4: ./build/tmp/staging/i686-linux/bin/qemu-sh4 build/tmp/rootfs/lib/ld-linux.so.2 --library-path "build/tmp/rootfs/lib" build/tmp/rootfs/bin/ps
+
+		ARM: ./build/tmp/staging/i686-linux/bin/qemu-arm build/tmp/rootfs/lib/ld-linux.so.3 --library-path "build/tmp/rootfs/lib" build/tmp/rootfs/bin/ps
+
+
 Status Information:
 	T-CHU7DEUC: arm
 		Toolchain: 
