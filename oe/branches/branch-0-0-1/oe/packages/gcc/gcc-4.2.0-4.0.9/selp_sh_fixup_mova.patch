@@ -1,0 +1,21 @@
+sh_reorg might insert a new mova in SH_FIXUP_PCLOAD phase.
+When untangle_mova looks this mova insn, it may not be associated
+with the insn address yet but the current code takes its undefined
+address.  It seems that this mova should be skipped there because
+it will be handled later.  I'm testing the attached patch.
+# more at: http://gcc.gnu.org/viewcvs/branches/gcc-4_2-branch/gcc/config/sh/sh.c?view=log&pathrev=141487 
+# * Arris *
+-----------------------------------------------------------------------
+--- a/gcc/config/sh/sh.c	2008/03/09 23:39:51	133066
++++ b/gcc/config/sh/sh.c	2008/10/31 03:50:02	141487
+@@ -3477,6 +3477,10 @@
+ 
+   if (optimize)
+     {
++      /* If NEW_MOVA has no address yet, it will be handled later.  */
++      if (INSN_ADDRESSES_SIZE() <= (unsigned) INSN_UID (new_mova))
++	return -1;
++
+       n_addr = INSN_ADDRESSES (INSN_UID (new_mova));
+       n_target = INSN_ADDRESSES (INSN_UID (XEXP (MOVA_LABELREF (new_mova), 0)));
+       if (n_addr > n_target || n_addr + 1022 < n_target)
