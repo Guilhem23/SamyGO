@@ -81,6 +81,19 @@ do_install() {
 	rm -f ${D}/etc/rpc
 }
 
+do_install_samygo() {
+	oe_runmake install_root=${D} install
+	install -m 0644 ${WORKDIR}/etc/ld.so.conf ${D}/${sysconfdir}/
+	install -d ${D}${libdir}/locale
+	make -f ${WORKDIR}/generate-supported.mk IN="${S}/localedata/SUPPORTED" OUT="${WORKDIR}/SUPPORTED"
+	# get rid of some broken files...
+	for i in ${GLIBC_BROKEN_LOCALES}; do
+		grep -v $i ${WORKDIR}/SUPPORTED > ${WORKDIR}/SUPPORTED.tmp || true
+		mv ${WORKDIR}/SUPPORTED.tmp ${WORKDIR}/localedata/SUPPORTED || true
+	done
+	rm -f ${D}/etc/rpc
+}
+
 TMP_LOCALE="/tmp/locale${libdir}/locale"
 
 locale_base_postinst() {

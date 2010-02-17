@@ -1,0 +1,79 @@
+The functions tan and atan were not declared as weak aliases like all
+other functions.
+
+Ok to commit?
+
+Andreas
+
+2005-09-16  Andreas Jaeger  <aj@suse.de>, Peter Bergner <bergner@vnet.ibm.com>
+
+	[BZ #987]
+	* sysdeps/ieee754/dbl-64/s_tan.c: Use weak alias for function.
+	* sysdeps/ieee754/dbl-64/s_atan.c: Likewise.
+
+============================================================
+Index: sysdeps/ieee754/dbl-64/s_tan.c
+--- a/sysdeps/ieee754/dbl-64/s_tan.c	26 Aug 2002 22:40:36 -0000	1.11
++++ b/sysdeps/ieee754/dbl-64/s_tan.c	16 Sep 2005 12:40:54 -0000
+@@ -1,7 +1,7 @@
+ /*
+  * IBM Accurate Mathematical Library
+  * written by International Business Machines Corp.
+- * Copyright (C) 2001 Free Software Foundation
++ * Copyright (C) 2001, 2005 Free Software Foundation
+  *
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU Lesser General Public License as published by
+@@ -42,7 +42,7 @@
+ static double tanMp(double);
+ void __mptan(double, mp_no *, int);
+ 
+-double tan(double x) {
++double __tan(double x) {
+ #include "utan.h"
+ #include "utan.tbl"
+ 
+@@ -481,6 +481,8 @@ static double tanMp(double x)
+   return y;
+ }
+ 
++weak_alias (__tan, tan)
+ #ifdef NO_LONG_DOUBLE
+-weak_alias (tan, tanl)
++weak_alias (__tan, __tanl)
++weak_alias (__tan, tanl)
+ #endif
+============================================================
+Index: sysdeps/ieee754/dbl-64/s_atan.c
+--- a/sysdeps/ieee754/dbl-64/s_atan.c	26 Aug 2002 22:40:36 -0000	1.9
++++ b/sysdeps/ieee754/dbl-64/s_atan.c	16 Sep 2005 12:40:54 -0000
+@@ -1,7 +1,7 @@
+ /*
+  * IBM Accurate Mathematical Library
+  * written by International Business Machines Corp.
+- * Copyright (C) 2001 Free Software Foundation
++ * Copyright (C) 2001,2005 Free Software Foundation
+  *
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU Lesser General Public License as published by
+@@ -49,7 +49,7 @@ static double atanMp(double,const int[])
+ double __signArctan(double,double);
+ /* An ultimate atan() routine. Given an IEEE double machine number x,    */
+ /* routine computes the correctly rounded (to nearest) value of atan(x). */
+-double atan(double x) {
++double __atan(double x) {
+ 
+ 
+   double cor,s1,ss1,s2,ss2,t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,u,u2,u3,
+@@ -225,6 +225,8 @@ for (i=0; i<M; i++) {
+   return y1; /*if unpossible to do exact computing */
+ }
+ 
++weak_alias (__atan, atan)
+ #ifdef NO_LONG_DOUBLE
+-weak_alias (atan, atanl)
++weak_alias (__atan, __atanl)
++weak_alias (__atan, atanl)
+ #endif
+
+
