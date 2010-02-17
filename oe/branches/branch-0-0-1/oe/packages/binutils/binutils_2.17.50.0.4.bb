@@ -37,7 +37,9 @@ FILES_${PN}-symlinks = " \
 	${bindir}/strip"
 
 SRC_URI = "http://www.samsung.com/global/opensource/files/LE46A956.zip \
-	file://detect-makeinfo.patch;patch=1"
+	file://detect-makeinfo.patch;patch=1 \
+	file://selp_attr_packed.patch;patch=1 \
+"
 
 do_unpack2() {
         tar -xvjf ${WORKDIR}/binutils-2.17.50.0.4.tar.bz2 -C ${WORKDIR}
