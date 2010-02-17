@@ -25,7 +25,7 @@ inherit autotools pkgconfig module
 EXTRA_OECONF = "  --with-kernel=${STAGING_KERNEL_DIR} "
 
 # Kernel data not imported??? for what the hell we inherit module??? *Arris *
-KERNEL_MAJOR_VERSION = "2.6"
+KERNEL_MAJOR_VERSION = "${MACHINE_KERNEL_VERSION}" 
 
 do_configure() {
 # cd ${S} ; oe_runconf

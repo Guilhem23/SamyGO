@@ -1,0 +1,83 @@
+--- a/gcc/config/sh/sh.c	2006/10/21 02:41:38	117923
++++ b/gcc/config/sh/sh.c	2008/03/09 23:39:51	133066
+@@ -1,6 +1,6 @@
+ /* Output routines for GCC for Renesas / SuperH SH.
+    Copyright (C) 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002,
+-   2003, 2004, 2005, 2006 Free Software Foundation, Inc.
++   2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
+    Contributed by Steve Chamberlain (sac@cygnus.com).
+    Improved by Jim Wilson (wilson@cygnus.com).
+ 
+@@ -8,7 +8,7 @@
+ 
+ GCC is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+-the Free Software Foundation; either version 2, or (at your option)
++the Free Software Foundation; either version 3, or (at your option)
+ any later version.
+ 
+ GCC is distributed in the hope that it will be useful,
+@@ -17,9 +17,8 @@
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+-along with GCC; see the file COPYING.  If not, write to
+-the Free Software Foundation, 51 Franklin Street, Fifth Floor,
+-Boston, MA 02110-1301, USA.  */
++along with GCC; see the file COPYING3.  If not see
++<http://www.gnu.org/licenses/>.  */
+ 
+ #include "config.h"
+ #include "system.h"
+@@ -3531,6 +3530,7 @@
+   rtx barrier_before_mova = 0, found_barrier = 0, good_barrier = 0;
+   int si_limit;
+   int hi_limit;
++  rtx orig = from;
+ 
+   /* For HImode: range is 510, add 4 because pc counts from address of
+      second instruction after this one, subtract 2 for the jump instruction
+@@ -3754,7 +3754,8 @@
+       /* If we exceeded the range, then we must back up over the last
+ 	 instruction we looked at.  Otherwise, we just need to undo the
+ 	 NEXT_INSN at the end of the loop.  */
+-      if (count_hi > hi_limit || count_si > si_limit)
++      if (PREV_INSN (from) != orig
++	  && (count_hi > hi_limit || count_si > si_limit))
+ 	from = PREV_INSN (PREV_INSN (from));
+       else
+ 	from = PREV_INSN (from);
+@@ -5295,7 +5296,13 @@
+ 	      temp = scavenge_reg (&temps);
+ 	    }
+ 	  if (temp < 0 && live_regs_mask)
+-	    temp = scavenge_reg (live_regs_mask);
++	    {
++	      HARD_REG_SET temps;
++
++	      COPY_HARD_REG_SET (temps, *live_regs_mask);
++	      CLEAR_HARD_REG_BIT (temps, REGNO (reg));
++	      temp = scavenge_reg (&temps);
++	    }
+ 	  if (temp < 0)
+ 	    {
+ 	      rtx adj_reg, tmp_reg, mem;
+@@ -5344,6 +5351,9 @@
+ 	      emit_move_insn (adj_reg, mem);
+ 	      mem = gen_tmp_stack_mem (Pmode, gen_rtx_POST_INC (Pmode, reg));
+ 	      emit_move_insn (tmp_reg, mem);
++	      /* Tell flow the insns that pop r4/r5 aren't dead.  */
++	      emit_insn (gen_rtx_USE (VOIDmode, tmp_reg));
++	      emit_insn (gen_rtx_USE (VOIDmode, adj_reg));
+ 	      return;
+ 	    }
+ 	  const_reg = gen_rtx_REG (GET_MODE (reg), temp);
+@@ -8618,7 +8628,7 @@
+       else if (TARGET_SH4
+ 	       && get_attr_type (insn) == TYPE_DYN_SHIFT
+ 	       && get_attr_any_int_load (dep_insn) == ANY_INT_LOAD_YES
+-	       && reg_overlap_mentioned_p (SET_DEST (PATTERN (dep_insn)),
++	       && reg_overlap_mentioned_p (SET_DEST (single_set (dep_insn)),
+ 					   XEXP (SET_SRC (single_set (insn)),
+ 						 1)))
+ 	cost++;

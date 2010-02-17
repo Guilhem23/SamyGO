@@ -12,8 +12,7 @@ DESCRIPTION = "Sanitized set of 2.6 kernel headers for the C library's use."
 #   standard linux kernel license applies. 
 # since we assume GPL for linux i think we can also assume it here
 LICENSE = "GPL"
-DEFAULT_PREFERENCE = "-99"
-# DEFAULT_PREFERENCE_T-CHU7DEUC = "-99"
+DEFAULT_PREFERENCE = "-1"
 DEFAULT_PREFERENCE_T-SPHAUSC = "1"
 DEFAULT_PREFERENCE_T-RBYAUSC = "1"
 

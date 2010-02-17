@@ -14,7 +14,7 @@ SRC_URI_append_samygo += "file://selp-gadget.patch;patch=1 \
 
 S = "${WORKDIR}/linux_st"
 
-KERNEL_CCSUFFIX = "-4.1.1"
+# KERNEL_CCSUFFIX = "-4.1.1"
 
 KERNEL_VERSION_samygo = ${PV}
 KERNEL_LOCALVERSION = "_stm22_0039-Samsung_7103" 
