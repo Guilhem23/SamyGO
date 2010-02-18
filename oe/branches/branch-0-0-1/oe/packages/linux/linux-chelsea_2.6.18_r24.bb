@@ -50,6 +50,8 @@ do_configure_prepend() {
 #	oe_machinstall -m 0644 ${WORKDIR}/${MACHINE}-dotconfig ${S}/.config
 #	oe_runmake oldconfig
 
+        perl -pi -e "s/# (CONFIG_SMB_FS) .*/\1=m/" ${S}/.config
+# CONFIG_SMB_NLS_DEFAULT is not set
         perl -pi -e "s/# (CONFIG_CIFS) .*/\1=m/" ${S}/.config
         perl -pi -e "s/# (CONFIG_USB_GADGET) .*/\1=m/" ${S}/.config
         echo '# USB Gadget Support
