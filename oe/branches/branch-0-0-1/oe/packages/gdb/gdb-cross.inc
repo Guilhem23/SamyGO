@@ -5,6 +5,9 @@ DEPENDS = "ncurses-native"
 EXTRA_OEMAKE = "'SUBDIRS=intl mmalloc libiberty opcodes bfd sim gdb etc utils' LDFLAGS='${BUILD_LDFLAGS}'"
 
 EXTRA_OECONF = "--with-curses --with-readline"
+# EXTRA_OECONF_append_arm = " --enable-sim=yes --enable-sim-arm --enable-sim-stdio"
+# EXTRA_OECONF_append_arm = " --target=arm-linux-eabi --program-transform-name='s/-eabi/-gnueabi/'"
+EXTRA_OECONF_append_arm = " --target=arm-linux-eabi --program-prefix=${TARGET_PREFIX}"
 
 do_configure () {
 # override this function to avoid the autoconf/automake/aclocal/autoheader
