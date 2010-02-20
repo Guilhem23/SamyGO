@@ -2,16 +2,21 @@ LICENSE     = "LGPL"
 DESCRIPTION = "Implementation of the Stringprep, Punycode and IDNA specifications defined by the IETF Internationalized Domain Names (IDN) working group."
 SECTION = "libs"
 PRIORITY    = "optional"
-PR          = "r0"
+PR          = "r01"
+
+DEPENDS = "virtual/libintl"
 
 inherit pkgconfig autotools
 
-SRC_URI = "http://josefsson.org/libidn/releases/${P}.tar.gz"
+SRC_URI = "ftp://alpha.gnu.org/gnu/libidn/${P}.tar.gz"
 
-EXTRA_OECONF = " --disable-tld"
+EXTRA_OECONF = " --disable-tld --disable-nls"
 
-do_configure_prepend () {
-	autoreconf -f -i -s
+do_configure(){
+	oe_runconf
+}
+do_compile(){
+	oe_runmake
 }
 
 do_stage () {
