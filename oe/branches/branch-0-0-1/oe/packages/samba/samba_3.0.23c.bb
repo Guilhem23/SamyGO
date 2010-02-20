@@ -9,6 +9,7 @@ PR = "r7"
 EXTRA_OECONF += "\
 	--with-smbmount \
 	"
+TARGET_CFLAGS = "-fno-schedule-insns"
 
 PACKAGES =+ " smbfs smbfs-doc"
 RCONFLICTS_smbfs-doc = "smbfs-ads-doc"
