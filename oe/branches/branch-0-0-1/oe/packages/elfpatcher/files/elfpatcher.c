@@ -34,6 +34,8 @@ char *const*parg;
 int pid;
 int verbosity;
 int compare;
+int nocheck;
+int check_failed;
 
 char *d_fn;
 int d_fd;
@@ -51,25 +53,27 @@ Elf32_Ehdr *s_ehdr;
 Elf32_Shdr *s_shdr;
 size_t s_ndx;
 Elf_Data *s_data;
+char *s_sectname;
 
 void usage(void)
 {
 	printf(
 			"\n"
-			"elfpatcher 1.0\n"
+			"elfpatcher 1.1\n"
 			"Takes one or more elf32 files and writes the content of segments named .patch*\n"
 			"Patching a binary file is potentially dangerous, use solely at your own risk\n"
 			"\n"
 			"Usage:\n"
-			"	elfpatcher [-v] -p pid elf-patch-file...\n"
-			"	elfpatcher [-v] [-c] -e original-elf-file elf-patch-file...\n"
+			"	elfpatcher [-v] [-c|-n]-p pid elf-patch-file...\n"
+			"	elfpatcher [-v] [-c|-n] -e elf-file-to be patched elf-patch-file...\n"
 			"\n"
 			"-p pid.... stops running process using PTRACE, patches text or data\n"
 			"           in process memory and continues the process\n"
 			"-e file... writes patches to appropriate segments of elf32 file\n"
 			"-c........ do not write, just check if patches are applied\n"
+			"-n........ do not check if segments other than .patch* compare to orig data\n"
 			"-v........ verbose: shows hex representation of patch\n"
-			"-v -V..... double verbose: shows original data before applying patches too\n"
+			"-v -v..... double verbose: shows original data before applying patches too\n"
 			"\n"
 	      );
 }
@@ -88,8 +92,6 @@ void ElfErr(const char *fn_name)
 
 int GetNextPatchSection()
 {
-	char *sectname;
-
 	while (1) {
 		if (!s_elf) {
 			if (!*parg || !**parg) {
@@ -132,18 +134,14 @@ int GetNextPatchSection()
 			continue;
 		}
 
-		sectname = elf_strptr(s_elf, s_ndx, s_shdr->sh_name);
-		if (!sectname) {
+		s_sectname = elf_strptr(s_elf, s_ndx, s_shdr->sh_name);
+		if (!s_sectname) {
 			fprintf(stderr, "src noname section?!\n");
 			continue;
 		}
-		//      fprintf(stderr, "src section %s\n", sectname);
+		//      fprintf(stderr, "src section %s\n", s_sectname);
 		if (s_shdr->sh_type != SHT_PROGBITS || ~s_shdr->sh_flags & SHF_ALLOC) {
 			//	fprintf(stderr, "src non PROGBITS or non alloc flag\n");
-			continue;
-		}
-
-		if (strncmp(".patch", sectname, 6)) {
 			continue;
 		}
 
@@ -158,8 +156,6 @@ int GetNextPatchSection()
 		}
 		break;
 	}
-	fprintf(stderr, "%s %d bytes at 0x%07x\n",
-			sectname, s_shdr->sh_size, s_shdr->sh_addr);
 	return 0;
 }
 
@@ -167,10 +163,18 @@ int FindDestSection(int addr)
 {
 	char *sectname;
 
+	if (d_shdr) {
+		if (addr < d_shdr->sh_addr) {
+			d_scn = NULL;
+			d_shdr = NULL;
+			d_data = NULL;
+		}
+	}
+
 	while (1) {
 		if (d_shdr && d_data) {
 			if (addr < d_shdr->sh_addr) {
-				fprintf(stderr, "Sort patches by increasing address! Aborted!\n");
+				fprintf(stderr, "Cannot find section by address\n");
 				return 1;
 			}
 			if (addr < d_shdr->sh_addr + d_shdr->sh_size) {
@@ -184,8 +188,8 @@ int FindDestSection(int addr)
 
 		d_scn = elf_nextscn(d_elf, d_scn);
 		if (!d_scn) {
-			d_shdr= NULL;
-			d_data= NULL;
+			d_shdr = NULL;
+			d_data = NULL;
 			if (elf_errno()) {
 				ElfErr("dest elf_getscn");
 				continue;
@@ -250,9 +254,9 @@ int PtracePoke(unsigned const char *bf, int addr, int size)
 		unsigned char b[2];
 	} d;
 
-	for (i = 0; i < s_shdr->sh_size;) {
-		d.b[0] = bf[i++];
-		d.b[1] = bf[i++];
+	for (i = 0; i < s_shdr->sh_size; i+= 2) {
+		d.b[0] = bf[i];
+		d.b[1] = bf[i+1];
 		pr = ptrace(PTRACE_POKETEXT, pid, addr + i, d.w);
 		if (pr == -1) {
 			perror("ptrace poke");
@@ -271,13 +275,16 @@ int main(int argc, char *const argv[])
 	int result = 0;
 	int w_fd= -1;
 
-	while ((opt = getopt(argc, argv, "vcp:e:")) != -1) {
+	while ((opt = getopt(argc, argv, "vcinp:e:")) != -1) {
 		switch (opt) {
 			case 'v':
 				verbosity++;
 				break;
 			case 'c':
 				compare = 1;
+				break;
+			case 'n':
+				nocheck = 1;
 				break;
 			case 'p':
 				pid = atoi(optarg);
@@ -332,11 +339,6 @@ int main(int argc, char *const argv[])
 			goto err_exit2;
 		}
 		d_ndx = d_ehdr->e_shstrndx;
-
-		if (FindDestSection(s_shdr->sh_addr)) {
-			result= 3;
-			goto err_exit2;
-		}
 	}
 
 	if (pid) {
@@ -358,49 +360,87 @@ int main(int argc, char *const argv[])
 	}
 
 	do {
-		Elf32_Addr addr;
+		enum { OP_SKIP, OP_CHECK, OP_COMPARE, OP_WRITE } op;
+		const char* op_name[]= {
+			"Skiping",
+			"Checking",
+			"Comparing",
+			"Writing"
+		};
+		Elf32_Addr addr = s_shdr->sh_addr;
 		Elf32_Off off = s_shdr->sh_addr;
-		if (d_shdr)
-			off += d_shdr->sh_offset - d_shdr->sh_addr;
-		// convert to destination file offset
+		unsigned char *pbf = NULL, *d_orig = NULL;
+
+		if (check_failed) {
+			op= OP_COMPARE;
+		} else if (strncmp(".patch", s_sectname, 6)) {
+			op = nocheck ? OP_SKIP :
+				compare ? OP_COMPARE : OP_CHECK;
+		} else {
+			op = compare ? OP_COMPARE : OP_WRITE;
+		}
+
+		if (d_elf) {
+			if (FindDestSection(addr)) {
+				result = 3;
+				op = OP_SKIP;
+			} else if (d_shdr) {
+				off += d_shdr->sh_offset - d_shdr->sh_addr;
+				// convert to destination file offset
+
+				addr -= d_shdr->sh_addr;
+				// convert to destination section offset
+			}
+		}
+
+		fprintf(stderr, "%s %s %d bytes at 0x%07x\n",
+			op_name[op], s_sectname, s_shdr->sh_size, s_shdr->sh_addr);
 
 		if (verbosity) {
 			printf("0x%07x:", off);
 		}
 
-		addr = s_shdr->sh_addr;
-		if (d_shdr)
-			addr -= d_shdr->sh_addr;
-		// convert to destination section offset
-
-		if (verbosity >= 2) {
+		if (op == OP_COMPARE || op == OP_CHECK || verbosity >= 2) {
 			if (pid) {
-				unsigned char *pbf;
-
 				pbf = (unsigned char *)malloc(s_shdr->sh_size);
 				if (pbf) {
 					if (!PtracePeek(pbf, addr, s_shdr->sh_size)) {
-						PrintHex(pbf, s_shdr->sh_size);
+						d_orig = pbf;
 					}
-					free(pbf);
 				}
 			} else if (d_data) {
-				PrintHex(d_data->d_buf + addr, s_shdr->sh_size);
+				d_orig = d_data->d_buf + addr;
 			}
+		}
+
+		if (verbosity >= 2 && d_orig) {
+			PrintHex(d_orig, s_shdr->sh_size);
 			printf(" :");
 		}
 
-		if (pid) {
-			PtracePoke(s_data->d_buf, addr, s_shdr->sh_size);
-		} else if (d_data) {
-			if (compare) {
-				if (memcmp(d_data->d_buf + addr, s_data->d_buf, s_shdr->sh_size)) {
-					result = 1;
-					if (verbosity) {
-						fprintf(stderr, "Segment differs\n");
-					}
-				}
+		if (op == OP_CHECK) {
+			if (! d_orig) {
+				check_failed = 5;
+				fprintf(stderr, "Cannot read data to check segment - write aborted\n");
+			} else if (memcmp(d_orig, s_data->d_buf, s_shdr->sh_size)) {
+				check_failed = 4;
+				fprintf(stderr, "Segment differs - write aborted\n");
+			}
+		}
+
+		if (op == OP_COMPARE && d_orig) {
+			if (memcmp(d_orig, s_data->d_buf, s_shdr->sh_size)) {
+				result = 1;
+				fprintf(stderr, "Segment differs\n");
 			} else {
+				fprintf(stderr, "Segment data equal\n");
+			}
+		}
+
+		if (op == OP_WRITE) {
+			if (pid) {
+				PtracePoke(s_data->d_buf, addr, s_shdr->sh_size);
+			} else if (d_data) {
 				r = lseek(w_fd, off, SEEK_SET);
 				if (r < 0) {
 					perror("lseek");
@@ -419,6 +459,10 @@ int main(int argc, char *const argv[])
 		if (verbosity) {
 			PrintHex(s_data->d_buf, s_shdr->sh_size);
 			printf("\n\n");
+		}
+
+		if (pbf) {
+			free(pbf);
 		}
 
 		r = GetNextPatchSection();
@@ -440,6 +484,7 @@ err_exit2:
 	elf_end(d_elf);
 err_exit1:
 	elf_end(s_elf);
+	if (check_failed) return check_failed;
 	return result;
 }
 
