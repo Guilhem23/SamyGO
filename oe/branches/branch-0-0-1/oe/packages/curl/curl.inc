@@ -2,12 +2,15 @@ DESCRIPTION = "Command line tool and library for client-side URL transfers."
 LICENSE = "MIT"
 SECTION = "console/network"
 
+# needs to update to libssh2 but for now it pulls openssl depency * Arris *
+DEPENDS_append_samygo = "libssh"
+
 SRC_URI = "http://curl.haxx.se/download/curl-${PV}.tar.bz2 \
            file://pkgconfig_fix.patch;patch=1"
 S = "${WORKDIR}/curl-${PV}"
 
 CURL_FEATURES ?= "zlib,gnutls,cookies,crypto-auth,dict,file,ftp,http,telnet,tftp"
-CURL_FEATURES_samygo = "zlib,file,ftp,http,telnet,tftp"
+CURL_FEATURES_samygo = "zlib,cookies,crypto-auth,file,ftp,http,telnet,tftp"
 # other allowed features: ipv6, ares
 
 inherit autotools pkgconfig binconfig
@@ -18,6 +21,12 @@ EXTRA_OECONF = " \
 		--without-libidn \
                 --without-ssl \
 		"
+EXTRA_OECONF_samygo = " \
+                --without-libssh2 \
+                --with-random=/dev/urandom \
+                --with-libidn \
+                --with-ssl \
+"
 
 python __anonymous() {
 	f = bb.data.getVar("CURL_FEATURES", d, True).split(",")

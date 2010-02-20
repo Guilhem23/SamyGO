@@ -6,6 +6,8 @@ SECTION = "libs/network"
 SRC_URI = "http://www.openssl.org/source/openssl-${PV}.tar.gz"
 S = "${WORKDIR}/openssl-${PV}"
 
+DEPENDS_append_samygo = "zlib"
+
 AR_append = " r"
 CFLAG = "${@base_conditional('SITEINFO_ENDIANESS', 'le', '-DL_ENDIAN', '-DB_ENDIAN', d)} \
 	-DTERMIO ${FULL_OPTIMIZATION} -Wall"
@@ -15,7 +17,7 @@ CFLAG_mtx-1 := "${@'${CFLAG}'.replace('-O2', '')}"
 CFLAG_mtx-2 := "${@'${CFLAG}'.replace('-O2', '')}"
 
 export DIRS = "crypto ssl apps"
-export EX_LIBS = "-lgcc -ldl"
+export EX_LIBS = "-lgcc -ldl -lz -L${STAGING_LIBDIR}"
 export AS = "${CC} -c"
 
 PACKAGES =+ "libcrypto libssl"
@@ -73,7 +75,8 @@ do_configure () {
 	esac
 	# inject machine-specific flags
 	sed -i -e "s|^\(\"$target\",\s*\"[^:]\+\):\([^:]\+\)|\1:${CFLAG}|g" Configure
-	perl ./Configure shared --prefix=${prefix} --openssldir=${libdir}/ssl $target
+	perl ./Configure shared zlib --prefix=${prefix} \
+	--openssldir=${libdir}/ssl $target
 }
 
 do_compile () {
