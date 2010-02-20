@@ -8,7 +8,7 @@ PR = "r03"
 
 # RECOMMENDS = ""
 RRECOMMENDS += " StarterLib CoreScript nfs-utils-discover djmount dropbear vsftpd util-linux-mount util-linux-umount \
-		kernel-module-cifs kernel-module-dummy-hcd kernel-module-g-file-storage kernel-module-hci-usb kernel-module-bluetooth kernel-module-bnep kernel-module-rfcomm kernel-module-l2cap kernel-module-hidp \
+		kernel-module-cifs kernel-module-dummy-hcd kernel-module-g-file-storage \
 		samba bluez-utils-nodbus "
 # DEPENDS = ""
 # RDEPENDS = ""
