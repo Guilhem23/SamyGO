@@ -49,7 +49,7 @@ do_install() {
 	install -m 0755 arfix ${D}/etc/init.d/
 	mkdir -p ${D}/usr/share/elfpatches
 	install -m 0644 ${ELF} ${D}/usr/share/elfpatches/
-	cp README ${D}/README-arfix
+	cp README ${D}/usr/share/elfpatches/README-arfix
 	do_simple_install
 }
 

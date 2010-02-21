@@ -16,7 +16,7 @@ is used.
 
 Known problems
 --------------
-When playing H.264 content, original scaling control routines returns an error
+When playing H.264 content, original scaling control routines return an error
 and video is played fullscreen independently of menu setting.
 
 
