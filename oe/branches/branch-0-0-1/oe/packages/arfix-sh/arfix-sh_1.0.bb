@@ -11,6 +11,7 @@ RDEPENDS = "elfpatcher"
 SRC_URI = " \
 	file://${PN}.c \
 	file://${LDSCRIPT} \
+	file://README \
 "
 
 COMPATIBLE_HOST = "sh4-linux"
@@ -48,12 +49,13 @@ do_install() {
 	install -m 0755 arfix ${D}/etc/init.d/
 	mkdir -p ${D}/usr/share/elfpatches
 	install -m 0644 ${ELF} ${D}/usr/share/elfpatches/
-	do_simple_tar
+	cp README ${D}/README-arfix
+	do_simple_install
 }
 
 DT = ${WORKDIR}/${PNF}
 
-do_simple_tar() {
+do_simple_install() {
 	echo '#! /bin/sh' > arfix.sh
 	echo >> arfix.sh
 	echo './elfpatcher -p $(pidof exeDSP)' ${ELF} >> arfix.sh
@@ -61,9 +63,11 @@ do_simple_tar() {
 	install -m 0755 arfix.sh ${DT}/
 	install -m 0755 ${STAGING_DIR}/sh4-linux/bin/elfpatcher ${DT}/
 	install -m 0644 ${ELF} ${DT}/
-	mkdir -p ${DEPLOY_DIR_TAR}
-	/bin/tar -c -v -f ${DEPLOY_DIR_TAR}/${PNF}.tar -C ${WORKDIR} ${PNF}
-	/bin/gzip -f ${DEPLOY_DIR_TAR}/${PNF}.tar
+	cp README ${DT}/
+	zip -r -b ${WORKDIR} ${DEPLOY_DIR}/SamyGO-${PNF}.zip ${PNF}
+#	mkdir -p ${DEPLOY_DIR_TAR}
+#	/bin/tar -c -v -f ${DEPLOY_DIR_TAR}/${PNF}.tar -C ${WORKDIR} ${PNF}
+#	/bin/gzip -f ${DEPLOY_DIR_TAR}/${PNF}.tar
 }
 
 FILES_${PN} = "/etc/init.d /usr/share/elfpatches"
