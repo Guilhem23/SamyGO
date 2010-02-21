@@ -39,7 +39,7 @@ addtask unpack2 before do_patch after do_unpack
 
 do_configure_prepend() {
 	rm include/asm-sh/mach/stb7100ref && tar xvzf arch/sh/boards/st/stb7100ref.tar.gz -C include/asm-sh/
-#	oe_machinstall -m 0644 samsung_7103_kernel-2.2.cfg .config
+	oe_machinstall -m 0644 ${WORKDIR}/${MACHINE}-dotconfig ${S}/.config
 	
 	perl -pi -e "s/# (CONFIG_CIFS) .*/\1=m/" ${S}/.config
 	perl -pi -e "s/# (CONFIG_USB_GADGET) .*/\1=m/" ${S}/.config
