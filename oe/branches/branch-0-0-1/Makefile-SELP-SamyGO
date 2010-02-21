@@ -38,6 +38,10 @@ MACHINE ?= T-CHU7DEUC
 # MACHINE = T-CRLPEUWC
 # has firm, but arch unknown
 # MACHINE = T-AMBPEUMD
+# new for analyse
+# MACHINE = T-PRLAUS
+# MACHINE = T-STL5PAUSFC
+#
 
 DISTRO = samygo-3.2
 SVN_AUTHOR_NAME = arris
