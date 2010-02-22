@@ -8,6 +8,7 @@ Background Information:
 		http://www.ailis.de/~k/archives/19-ARM-cross-compiling-howto.html
 	
 	OpenEmbedded:
+		http://wiki.openembedded.org/index.php/OEandYourDistro
 		http://en.wikipedia.org/wiki/Openembedded
 		http://de.wikipedia.org/wiki/OpenEmbedded
 
@@ -52,21 +53,39 @@ Status Information:
 			usable	y
 		Kernel:
 			build	y
+			usable	?
+		Modules:
+			build	y
 			usable	y
+		u-boot:
+			build	y
+			usable	?
 	T-SPHAUSC: arm
 		Toolchain: 
 			build	y
 			usable	y 
 		Kernel:
 			build	y
+			usable	?
+		Modules:
+			build	y
 			usable	y
+		u-boot:
+			build	y
+			usable	?
 	T-RBYDEUC: sh4
 		Toolchain:
 			build	y
-			usable	?
+			usable	y
 		Kernel:
 			build	y
-			usable	?
+			usable	y
+		Modules:
+			build	y
+			usable	y
+		u-boot:
+			build	y
+			usable	? not any of b650/750 version?
 
 FAQ:
 	Q: How long it takes to build the toolchain?

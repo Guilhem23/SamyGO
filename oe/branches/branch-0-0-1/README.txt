@@ -5,6 +5,7 @@ Background Information:
 		http://www.ailis.de/~k/archives/19-ARM-cross-compiling-howto.html
 	
 	OpenEmbedded:
+		http://wiki.openembedded.org/index.php/OEandYourDistro
 		http://en.wikipedia.org/wiki/Openembedded
 		http://de.wikipedia.org/wiki/OpenEmbedded
 
