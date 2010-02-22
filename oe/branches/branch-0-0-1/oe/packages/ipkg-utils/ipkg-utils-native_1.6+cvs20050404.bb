@@ -3,7 +3,7 @@ SRC_URI += "file://ipkg-utils-fix.patch;patch=1 \
 	file://remove_f_from_ar_param.patch;patch=1"
 
 RDEPENDS = ""
-PR = "r8"
+PR = "r09"
 
 inherit native
 

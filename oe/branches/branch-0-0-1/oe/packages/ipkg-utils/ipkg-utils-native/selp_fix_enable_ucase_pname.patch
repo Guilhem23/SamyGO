@@ -1,0 +1,12 @@
+diff -NurbB a/ipkg-utils/ipkg-build b/ipkg-utils/ipkg-build
+--- a/ipkg-utils/ipkg-build	2010-02-19 19:50:42.000000000 +0100
++++ b/ipkg-utils/ipkg-build	2010-02-22 12:45:19.000000000 +0100
+@@ -118,7 +118,7 @@
+ 	disallowed_filename=`disallowed_field Filename`
+ 	[ "$?" -ne 0 ] && PKG_ERROR=1
+ 
+-	if echo $pkg | grep '[^a-z0-9.+-]'; then
++	if echo $pkg | grep '[^a-zA-Z0-9.+-]'; then
+ 		echo "*** Error: Package name $name contains illegal characters, (other than [a-z0-9.+-])" >&2
+ 		PKG_ERROR=1;
+ 	fi

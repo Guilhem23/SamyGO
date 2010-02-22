@@ -5,10 +5,12 @@ LICENSE = "GPL"
 CONFLICTS = "ipkg-link"
 RDEPENDS = "python"
 SRCDATE = "20050404"
-PR = "r12"
+PR = "r13"
 
 SRC_URI = "${HANDHELDS_CVS};module=ipkg-utils \
            file://index_speedup.patch;patch=1"
+
+SRC_URI_append_selp = " file://selp_fix_enable_ucase_pname.patch;patch=1"
 
 S = "${WORKDIR}/ipkg-utils"
 
