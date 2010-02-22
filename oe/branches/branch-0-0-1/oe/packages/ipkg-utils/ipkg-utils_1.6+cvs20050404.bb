@@ -10,8 +10,6 @@ PR = "r13"
 SRC_URI = "${HANDHELDS_CVS};module=ipkg-utils \
            file://index_speedup.patch;patch=1"
 
-SRC_URI_append_selp = " file://selp_fix_enable_ucase_pname.patch;patch=1"
-
 S = "${WORKDIR}/ipkg-utils"
 
 INSTALL = "ipkg-build ipkg-deb-unbuild ipkg-unbuild ipkg-compare-versions ipkg-upload ipkg-make-index ipkg-link ipkg.py"

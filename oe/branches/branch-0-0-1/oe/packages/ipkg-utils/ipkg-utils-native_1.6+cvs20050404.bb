@@ -1,6 +1,8 @@
 require ipkg-utils_${PV}.bb
 SRC_URI += "file://ipkg-utils-fix.patch;patch=1 \
-	file://remove_f_from_ar_param.patch;patch=1"
+	file://remove_f_from_ar_param.patch;patch=1 \
+	file://selp_fix_enable_ucase_pname.patch;patch=1 \
+"
 
 RDEPENDS = ""
 PR = "r09"

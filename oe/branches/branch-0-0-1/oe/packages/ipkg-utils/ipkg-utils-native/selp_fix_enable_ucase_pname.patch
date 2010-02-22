@@ -1,6 +1,6 @@
-diff -NurbB a/ipkg-utils/ipkg-build b/ipkg-utils/ipkg-build
---- a/ipkg-utils/ipkg-build	2010-02-19 19:50:42.000000000 +0100
-+++ b/ipkg-utils/ipkg-build	2010-02-22 12:45:19.000000000 +0100
+diff -NurbB a/ipkg-build b/ipkg-build
+--- a/ipkg-build	2010-02-19 19:50:42.000000000 +0100
++++ b/ipkg-build	2010-02-22 12:45:19.000000000 +0100
 @@ -118,7 +118,7 @@
  	disallowed_filename=`disallowed_field Filename`
  	[ "$?" -ne 0 ] && PKG_ERROR=1
