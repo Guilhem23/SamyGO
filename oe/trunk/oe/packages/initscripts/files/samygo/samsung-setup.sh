@@ -9,6 +9,11 @@ mount -t tmpfs none /mtd_ram -o size=10M,mode=1777
 
 # copy original fsr and rfs modules
 mount -t squashfs /dev/tbml7 /mtd_boot
+if [ $? != 0 ] ; then
+	echo "Error mounting /mtd_boot"
+	exit 1
+fi
+mkdir -p /lib/modules/2.6.18_SELP-ARM/kernel/drivers/fsr/ /lib/modules/2.6.18_SELP-ARM/kernel/fs/rfs1g/
 cp /mtd_boot/modules/fsr.ko /lib/modules/2.6.18_SELP-ARM/kernel/drivers/fsr/
 cp /mtd_boot/modules/fsr_stl.ko /lib/modules/2.6.18_SELP-ARM/kernel/drivers/fsr/
 cp /mtd_boot/modules/rfs.ko /lib/modules/2.6.18_SELP-ARM/kernel/fs/rfs1g/
