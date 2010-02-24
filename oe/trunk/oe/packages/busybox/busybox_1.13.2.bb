@@ -2,7 +2,7 @@ require busybox.inc
 PR = "${INC_PR}.1"
 
 SRC_URI = "\
-  http://www.busybox.net/downloads/busybox-${PV}.tar.gz \
+  http://www.busybox.net/downloads/busybox-${PV}.tar.bz2 \
   file://busybox-1.13.2-awk.patch;patch=1 \
   file://busybox-1.13.2-depmod.patch;patch=1 \
   file://busybox-1.13.2-init.patch;patch=1 \

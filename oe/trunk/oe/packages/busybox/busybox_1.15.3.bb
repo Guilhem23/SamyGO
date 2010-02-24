@@ -2,7 +2,7 @@ require busybox.inc
 PR = "${INC_PR}.0"
 
 SRC_URI = "\
-  http://www.busybox.net/downloads/busybox-${PV}.tar.gz \
+  http://www.busybox.net/downloads/busybox-${PV}.tar.bz2 \
   \
   file://udhcpscript.patch;patch=1 \
   file://udhcpc-fix-nfsroot.patch;patch=1 \

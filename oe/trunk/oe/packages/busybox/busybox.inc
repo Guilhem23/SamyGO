@@ -14,7 +14,7 @@ PRIORITY = "required"
 INC_PR = "r24"
 
 SRC_URI = "\
-  http://www.busybox.net/downloads/busybox-${PV}.tar.gz \
+  http://www.busybox.net/downloads/busybox-${PV}.tar.bz2 \
   file://busybox-cron \
   file://busybox-httpd \
   file://busybox-udhcpd \
