@@ -52,7 +52,7 @@ export LANG=C" > ${OE_BASE}/build/env.source
 cd build && source env.source
 
 echo
-echo "--- Setup SamyGO OE environment finished ---"
+echo "--- SamyGO OE environment setup finished ---"
 echo
 echo "--- Usage example: bitbake samygo-externalboot-image ---"
 echo
