@@ -36,8 +36,8 @@ do_configure () {
 	fi
 	target="$os-${HOST_ARCH}"
 	case $target in
-	linux-arm)
-		target=linux-elf-arm
+	linux-arm|linux-gnueabi-arm)
+		target="linux-elf-arm no-asm"
 		;;
 	linux-armeb)
 		target=linux-elf-armeb
@@ -78,6 +78,11 @@ do_configure () {
 	perl ./Configure shared zlib --prefix=${prefix} \
 	--openssldir=${libdir}/ssl $target
 }
+
+#do_configure_append_samygo(){
+#	       perl ./Configure shared zlib no-asm --prefix=${prefix} \
+# 	       --openssldir=${libdir}/ssl $target
+#}
 
 do_compile () {
 	oe_runmake
