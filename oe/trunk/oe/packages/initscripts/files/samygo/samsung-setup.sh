@@ -49,6 +49,4 @@ fi
 echo /dtv/core > /proc/sys/kernel/core_pattern
 echo "32" > /proc/sys/kernel/msgmni
 
-insmod /mtd_drv/samdrv.ko
-
 : exit 0

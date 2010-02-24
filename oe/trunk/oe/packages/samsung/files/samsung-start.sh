@@ -18,5 +18,9 @@ export KF_NO_INTERACTIVE=1
 export KF_LOG=/dev/null
 cd /mtd_exe/
 
+if [ ! "`lsmod | grep samdrv`" ]; then
+	insmod /mtd_drv/samdrv.ko
+fi
+
 ./exeDSP
 
