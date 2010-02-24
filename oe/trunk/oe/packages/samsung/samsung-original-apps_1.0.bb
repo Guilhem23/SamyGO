@@ -1,7 +1,7 @@
 DESCRIPTION = "Samsung original apps and data extracted from firmware"
 SECTION = "base"
 LICENCE = "closed"
-DEPENDS = "samsung-firmware squashfs-tools-native"
+DEPENDS = "samsung-firmware squashfs-tools-native mtools-native"
 
 do_install () {
 	install -d ${D}
