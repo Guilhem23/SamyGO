@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
 	struct termios newtio;
 
 	fd = open("/dev/ttyS0", O_RDWR | O_NOCTTY);
-	if (fd <0) {
+	if (fd < 0) {
 		printf("Error open /dev/ttyS0\n");
 		return -1;
 	}
