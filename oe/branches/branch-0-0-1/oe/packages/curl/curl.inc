@@ -24,7 +24,8 @@ EXTRA_OECONF = " \
 EXTRA_OECONF_samygo = " \
                 --without-libssh2 \
                 --with-random=/dev/urandom \
-                --with-libidn \
+#                --with-libidn \
+                --without-libidn \
                 --with-ssl \
 "
 
