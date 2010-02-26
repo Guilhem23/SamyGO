@@ -1,7 +1,7 @@
 DESCRIPTION = "Linux kernel for Samsung TV's"
 HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
-DEPENDS = "binutils-cross yes-native u-boot"
+DEPENDS = "binutils-cross yes-native u-boot-mkimage-selp-native"
 FILESPATH = "${@base_set_filespath([ '${FILE_DIRNAME}/linux-chelsea_2.6.18', '${FILE_DIRNAME}/files' ], d)}"
 
 SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
