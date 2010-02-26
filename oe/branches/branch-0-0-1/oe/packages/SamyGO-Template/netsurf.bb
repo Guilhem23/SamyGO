@@ -18,7 +18,7 @@ DEPENDS = "virtual/libsdl libiconv libidn lemon-native re2c-native \
 		openssl curl libxml2 libnsbmp hubbub libnsgif lcms libsdl-ttf"
 
 EXTRA_OEMAKE = "TARGET=framebuffer HOST=SamsungDTV CURDIR=${S} DESTDIR=${D} PREFIX=${prefix} WARNFLAGS='-Wno-error -fgnu89-inline'"
-EXTRA_OEMAKE_append = " GCCSDK_INSTALL_ENV=${STAGING_LIBDIR}/../ "
+EXTRA_OEMAKE_append = " GCCSDK_INSTALL_ENV=${STAGING_LIBDIR}/../ EXETARGET=libNetSurf.so"
 
 do_configure() {
 	make clean
