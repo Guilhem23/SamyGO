@@ -1,12 +1,15 @@
 SECTION = "base"
 PRIORITY = "standard"
 DESCRIPTION = "Manage symlinks in /etc/rcN.d"
-MAINTAINER = "Phil Blundell <pb@handhelds.org>"
 LICENSE = "GPL"
 S = "${WORKDIR}/update-rc.d"
-PR = "r0"
+INHIBIT_DEFAULT_DEPS = "1"
+PR = "r1"
 
-SRC_URI = "${HANDHELDS_CVS};module=apps/update-rc.d;tag=r0_7"
+SRC_URI = "${HANDHELDS_CVS};module=apps/update-rc.d;tag=r0_7 \
+           file://add-verbose.patch;patch=1"
+
+PACKAGE_ARCH = "all"
 
 do_compile() {
 }
