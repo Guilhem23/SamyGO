@@ -30,6 +30,9 @@ modprobe rfs
 mount -t rfs /dev/stl0/14 /mtd_rwarea
 if [ $? != 0 ] ; then
 	echo "Error mounting /mtd_rwarea"
+	echo "Do not start Samsung exeDSP application !"
+	echo "It may lead to inpredicted situation"
+	echo "not synced NVRAM/EPROM with /mtd_rware ."
 	exit 1
 fi
 
