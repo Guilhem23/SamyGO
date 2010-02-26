@@ -1,7 +1,7 @@
 DESCRIPTION = "Miscellaneous files for the base system."
 SECTION = "base"
 PRIORITY = "required"
-PR = "r60"
+PR = "r89"
 
 LICENSE = "GPL"
 
@@ -12,7 +12,7 @@ SRC_URI = " \
            file://host.conf \
            file://profile \
            file://fstab \
-	   file://filesystems \
+    	   file://filesystems \
            file://issue.net \
            file://issue \
            file://usbd \
@@ -20,13 +20,16 @@ SRC_URI = " \
            file://share/dot.profile \
            file://licenses/BSD \
            file://licenses/GPL-2 \
+    	   file://licenses/GPL-3 \
            file://licenses/LGPL-2 \
            file://licenses/LGPL-2.1 \
+    	   file://licenses/LGPL-3 \
+    	   file://licenses/GFDL-1.2 \
            file://licenses/Artistic "
 S = "${WORKDIR}"
 
 docdir_append = "/${P}"
-dirs1777 = "/tmp ${localstatedir}/lock ${localstatedir}/tmp"
+dirs1777 = "/tmp ${localstatedir}/volatile/lock ${localstatedir}/volatile/tmp"
 dirs2775 = "/home ${prefix}/src ${localstatedir}/local"
 dirs755 = "/bin /boot /dev ${sysconfdir} ${sysconfdir}/default \
 	   ${sysconfdir}/skel /lib /mnt /proc /home/root /sbin \
@@ -34,16 +37,23 @@ dirs755 = "/bin /boot /dev ${sysconfdir} ${sysconfdir}/default \
 	   ${libdir} ${sbindir} ${datadir} \
 	   ${datadir}/common-licenses ${datadir}/dict ${infodir} \
 	   ${mandir} ${datadir}/misc ${localstatedir} \
-	   ${localstatedir}/backups ${localstatedir}/cache \
-	   ${localstatedir}/lib /sys ${localstatedir}/lib/misc \
-	   ${localstatedir}/lock/subsys ${localstatedir}/log \
-	   ${localstatedir}/run ${localstatedir}/spool \
+	   ${localstatedir}/backups ${localstatedir}/lib \
+	   /sys ${localstatedir}/lib/misc ${localstatedir}/spool \
+	   ${localstatedir}/volatile ${localstatedir}/volatile/cache \
+	   ${localstatedir}/volatile/lock/subsys \
+	   ${localstatedir}/volatile/log \
+	   ${localstatedir}/volatile/run \
 	   /mnt /media /media/card /media/cf /media/net /media/ram \
 	   /media/union /media/realroot /media/hdd \
            /media/mmc1"
 dirs755_append_samygo = " /mtd_appdata /mtd_boot /mtd_contents \
 	   /mtd_down /mtd_exe /mtd_ram /mtd_rwarea /mtd_swu \
 	   /mtd_tlib /mtd_wiselink /dtv"
+
+media = "card cf net ram"
+media_samygo = ""
+
+volatiles = "cache run log lock tmp"
 conffiles = "${sysconfdir}/debian_version ${sysconfdir}/host.conf \
 	     ${sysconfdir}/inputrc ${sysconfdir}/issue /${sysconfdir}/issue.net \
 	     ${sysconfdir}/nsswitch.conf ${sysconfdir}/profile \
@@ -52,6 +62,7 @@ conffiles = "${sysconfdir}/debian_version ${sysconfdir}/host.conf \
 #
 # set standard hostname, might be a candidate for a DISTRO variable? :M:
 #
+hostname = "openembedded"
 hostname_samygo = "localhost"
 
 do_install () {
@@ -64,7 +75,12 @@ do_install () {
 	for d in ${dirs2775}; do
 		install -m 2755 -d ${D}$d
 	done
-	for d in card cf net ram; do
+	for d in ${volatiles}; do
+		if [ -d ${D}${localstatedir}/volatile/$d ]; then
+			ln -sf volatile/$d ${D}/${localstatedir}/$d
+		fi
+	done
+	for d in ${media}; do
 		ln -sf /media/$d ${D}/mnt/$d
 	done
 
@@ -88,7 +104,7 @@ do_install () {
 	install -m 0644 ${WORKDIR}/host.conf ${D}${sysconfdir}/host.conf
 	install -m 0644 ${WORKDIR}/motd ${D}${sysconfdir}/motd
 
-	for license in BSD GPL-2 LGPL-2 LGPL-2.1 Artistic; do
+	for license in  BSD GPL-2 LGPL-2 LGPL-2.1 Artistic GPL-3 LGPL-3 GFDL-1.2; do
 		install -m 0644 ${WORKDIR}/licenses/$license ${D}${datadir}/common-licenses/
 	done
 
@@ -107,8 +123,11 @@ do_install_append_samygo() {
 	done
 }
 
-PACKAGES = "${PN}-doc ${PN}"
-FILES_${PN} = "/"
+PACKAGES = "${PN}-dbg ${PN}-doc ${PN}"
+FILES_${PN} = "/*"
 FILES_${PN}-doc = "${docdir} ${datadir}/common-licenses"
+
+# M&N specific packaging
+PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 CONFFILES_${PN} = "${sysconfdir}/fstab ${sysconfdir}/hostname"
