@@ -1,0 +1,44 @@
+Dmitry Artamonow mad_soft at inbox.ru
+Sat Feb 23 15:47:37 GMT 2008
+
+    * Previous message: Commits list spam
+    * Next message: Netsurf on Linux PDA (ipaq h2200 + Angstrom)
+    * Messages sorted by: [ date ] [ thread ] [ subject ] [ author ]
+
+Hello!
+
+Recently I've succeeded in cross-compiling Netsurf GTK for my iPaq h2200
+PDA with Angstrom linux ( http://www.angstrom-distribution.org ) 
+using OpenEmbedded ( http://www.openembedded.org/ ). 
+
+It works ok, but there's a little problem - scrollbars doesn't fit 
+in tiny QVGA (240x320) screen, making netsurf nearly unusable. Here's
+screenshot:
+http://mad.is-a-geek.org/netsurf/netsurf.png
+
+On "big  PC" netsurf's window can't be resized less than about 488 pixels
+width, so I guessed that it's hardcoded somewhere. After some poking at 
+the code i finally found the place - it was in glade file, the width of 
+statusbar label, measured in chars! After removing this property of label, 
+scrollbars finally appeared:
+http://mad.is-a-geek.org/netsurf/netsurf-patched.png
+
+Here's my patch:
+
+Index: gtk/res/netsurf.glade
+===================================================================
+--- gtk/res/netsurf.glade       (revision 3862)
++++ gtk/res/netsurf.glade       (working copy)
+@@ -799,7 +799,6 @@
+                     <property name="label" translatable="yes">Status bar text goes here</property>
+                     <property name="selectable">True</property>
+                     <property name="ellipsize">PANGO_ELLIPSIZE_MIDDLE</property>
+-                    <property name="width_chars">50</property>
+                   </widget>
+                   <packing>
+                     <property name="resize">False</property>
+
+
+
+I'm planning to submit my building recipes to OpenEmbedded soon,
+
