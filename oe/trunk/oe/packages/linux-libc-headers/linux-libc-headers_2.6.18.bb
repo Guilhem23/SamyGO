@@ -16,7 +16,9 @@ DEFAULT_PREFERENCE = "-1"
 INHIBIT_DEFAULT_DEPS = "1"
 PR = "r011"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip"
+SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
+	file://procinfo.h \
+	file://arm-syscall-define.patch;patch=1"
 
 S = "${WORKDIR}/linux/linux-${PR}"
 
@@ -72,6 +74,9 @@ do_configure () {
 do_stage () {
 	install -d ${STAGING_INCDIR}
 	rm -rf ${STAGING_INCDIR}/linux ${STAGING_INCDIR}/asm ${STAGING_INCDIR}/asm-generic
+	if [ "$ARCH" = "arm" ]; then
+		cp ${WORKDIR}/procinfo.h include/asm/
+	fi
 	cp -pfLR include/linux ${STAGING_INCDIR}/
 	cp -pfLR include/asm ${STAGING_INCDIR}/
 	cp -pfLR include/asm-generic ${STAGING_INCDIR}/
@@ -93,3 +98,6 @@ do_install() {
 	cp -pfLR include/asm-generic ${D}${includedir}/
 }
 
+do_install_append_arm() {
+	cp ${WORKDIR}/procinfo.h ${D}${includedir}/asm/
+}
