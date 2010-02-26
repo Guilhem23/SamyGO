@@ -1,12 +1,16 @@
-LICENSE = "GPL"
-require module-init-tools_${PV}.bb
+
+require module-init-tools.inc
 inherit cross
 DEFAULT_PREFERENCE = "0"
 PROVIDES += "virtual/${TARGET_PREFIX}depmod virtual/${TARGET_PREFIX}depmod-2.6"
 
-SRC_URI += "file://fix_build_native_nonlinux.patch;patch=1"
+# Remove the RDEPENDS we picked up from the "require";
+# it's simply extraneous for the cross package
+RDEPENDS_${PN} = ""
 
 EXTRA_OECONF_append = " --program-prefix=${TARGET_PREFIX}"
+
+SRC_URI += "file://fix_build_native_nonlinux.patch;patch=1"
 
 do_stage () {
         oe_runmake install
