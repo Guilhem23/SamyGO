@@ -13,6 +13,10 @@ if [ ! -f /lib/modules/$kernel_release/kernel/drivers/fsr/fsr.ko ]; then
 	mount -t squashfs /dev/tbml7 /mtd_boot
 	if [ $? != 0 ] ; then
 		echo "Error mounting /mtd_boot"
+		echo "Do not start Samsung exeDSP application !"
+		echo "/mtd_rwarea is not mounted."
+		echo "It may lead to unpredicted situation while"
+		echo "not synced NVRAM/EPROM with /mtd_rwarea ."
 		exit 1
 	fi
 	mkdir -p /lib/modules/$kernel_release/kernel/drivers/fsr/ /lib/modules/$kernel_release/kernel/fs/rfs1g/
