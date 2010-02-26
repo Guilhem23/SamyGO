@@ -3,33 +3,29 @@ HOMEPAGE = "http://www.gnu.org/software/ncurses/ncurses.html"
 LICENSE = "MIT"
 SECTION = "libs"
 DEPENDS = "ncurses-native"
-PACKAGES_prepend = "ncurses-tools "
-PACKAGES_append = " ncurses-terminfo"
-FILES_ncurses_append = " ${datadir}/tabset"
-RSUGGESTS_${PN} = "ncurses-terminfo"
-RPROVIDES = "libncurses5"
 
 inherit autotools
 
-# This keeps only tput/tset in ncurses
-# clear/reset are in already busybox
-FILES_ncurses-tools = "${bindir}/tic ${bindir}/toe ${bindir}/infotocap ${bindir}/captoinfo ${bindir}/infocmp ${bindir}/clear.${PN} ${bindir}/reset.${PN} ${bindir}/tack "
-FILES_ncurses-terminfo = "${datadir}/terminfo"
-FILES_${PN} = "${bindir}/tput ${bindir}/tset ${libdir}/lib*.so.* usr/share/tabset etc/terminfo"
-
 PARALLEL_MAKE=""
 
-EXTRA_OECONF = "--with-shared \
-	        --without-profile \
-	        --without-debug \
-	        --disable-rpath \
-	        --enable-echo \
-	        --enable-const \
-	        --without-ada \
-	        --enable-termcap \
-	        --without-cxx-binding \
-	        --with-terminfo-dirs=${sysconfdir}/terminfo:${datadir}/terminfo \
-	        --enable-overwrite"
+FILESPATH = "${FILE_DIRNAME}/local:${FILE_DIRNAME}/ncurses-${PV}-${PR}:${FILE_DIRNAME}/ncurses-${PV}:${FILE_DIRNAME}/ncurses:${FILE_DIRNAME}"
+
+EXTRA_OECONF = "\
+  --enable-static \
+  --with-shared \
+  --with-libtool \
+  --without-profile \
+  --without-debug \
+  --disable-rpath \
+  --enable-echo \
+  --enable-const \
+  --without-ada \
+  --enable-termcap \
+  --without-cxx-binding \
+  --with-terminfo-dirs=${sysconfdir}/terminfo:${datadir}/terminfo \
+  --enable-overwrite \
+"
+
 export BUILD_CCFLAGS = "-I${S}/ncurses -I${S}/include ${BUILD_CFLAGS}"
 export BUILD_LDFLAGS = ""
 export EXTRA_OEMAKE = '"BUILD_LDFLAGS=" "BUILD_CCFLAGS=${BUILD_CCFLAGS}"'
@@ -72,19 +68,56 @@ do_install() {
 	then
 		ln -sf xterm-color ${D}${sysconfdir}/terminfo/x/xterm
 	fi
+	ln -sf rxvt ${D}${sysconfdir}/terminfo/r/rxvt-unicode
 
-	mv ${D}${bindir}/clear ${D}${bindir}/clear.${PN}
-	mv ${D}${bindir}/reset ${D}${bindir}/reset.${PN}
+	if [ "${PN}" = "ncurses" ]; then
+		mv ${D}${bindir}/clear ${D}${bindir}/clear.${PN}
+		mv ${D}${bindir}/reset ${D}${bindir}/reset.${PN}
+	fi
 }
 		
 		
 pkg_postinst_ncurses-tools () {
-	update-alternatives --install ${bindir}/clear clear clear.${PN} 100
-	update-alternatives --install ${bindir}/reset reset reset.${PN} 100
+	if [ "${PN}" = "ncurses" ]; then
+		update-alternatives --install ${bindir}/clear clear clear.${PN} 100
+		update-alternatives --install ${bindir}/reset reset reset.${PN} 100
+	fi
 }
 				
 			
 pkg_prerm_ncurses-tools () {
-	update-alternatives --remove clear clear.${PN}
-	update-alternatives --remove reset reset.${PN}
+	if [ "${PN}" = "ncurses" ]; then
+		update-alternatives --remove clear clear.${PN}
+		update-alternatives --remove reset reset.${PN}
+	fi
 }
+
+PACKAGES =+ "${PN}-tools ${PN}-terminfo"
+
+# clear and reset are already in busybox
+FILES_${PN} = "\
+  ${bindir}/tput \
+  ${bindir}/tset \
+  ${libdir}/lib*.so.* \
+  ${datadir}/tabset \
+  ${sysconfdir}/terminfo \
+"
+FILES_${PN}-tools = "\
+  ${bindir}/tic \
+  ${bindir}/toe \
+  ${bindir}/infotocap \
+  ${bindir}/captoinfo \
+  ${bindir}/infocmp \
+  ${bindir}/clear.${PN} \
+  ${bindir}/reset.${PN} \
+  ${bindir}/tack \
+"
+FILES_${PN}-terminfo = "\
+  ${datadir}/terminfo \
+"
+  
+RSUGGESTS_${PN} = "ncurses-terminfo"
+RPROVIDES_${PN} = "libncurses5"
+RCONFLICTS_${PN} = "libncurses5"
+RREPLACES_${PN} = "libncurses5"
+
