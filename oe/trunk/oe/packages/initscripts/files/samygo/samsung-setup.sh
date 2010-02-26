@@ -31,8 +31,8 @@ mount -t rfs /dev/stl0/14 /mtd_rwarea
 if [ $? != 0 ] ; then
 	echo "Error mounting /mtd_rwarea"
 	echo "Do not start Samsung exeDSP application !"
-	echo "It may lead to unpredicted situation"
-	echo "not synced NVRAM/EPROM with /mtd_rware ."
+	echo "It may lead to unpredicted situation while"
+	echo "not synced NVRAM/EPROM with /mtd_rwarea ."
 	exit 1
 fi
 
