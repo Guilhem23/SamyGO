@@ -20,10 +20,12 @@ void *_ZN16CResourceManager10GetWStringEi(void *a, unsigned b){
 unsigned char g_ToolResMgr[80];
 /* end of functions from exeDSP */
 
+int InputKeyState, InputKeyData;
+
 int main(int argc, const char *argv[])
 {
 	void *lib_handle;
-	char *error, *lib_dir, *lib_toopen, *lib_name;
+	char *error, *lib_dir, lib_toopen[100], *lib_name;
 	int (*fn)(char *, char *), len;
 
 	if(argc < 2)
@@ -43,7 +45,7 @@ int main(int argc, const char *argv[])
 	len = strlen(lib_dir);
 	strcpy(lib_toopen, lib_dir);
 	fprintf(stdout,"Lib to load: %s\n",lib_toopen);
-	strcat(lib_toopen, *&lib_name);
+	strncat(lib_toopen, lib_name, strlen(lib_name));
 	fprintf(stdout,"Lib to load: %s\n",lib_toopen);
 
 	lib_handle = dlopen(lib_toopen, RTLD_LAZY);
