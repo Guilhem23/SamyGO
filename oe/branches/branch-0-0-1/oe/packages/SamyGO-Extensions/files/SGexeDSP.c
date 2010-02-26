@@ -20,7 +20,7 @@ void *_ZN16CResourceManager10GetWStringEi(void *a, unsigned b){
 unsigned char g_ToolResMgr[80];
 /* end of functions from exeDSP */
 
-int InputKeyState, InputKeyData;
+// int InputKeyState, InputKeyData;
 
 int main(int argc, const char *argv[])
 {
