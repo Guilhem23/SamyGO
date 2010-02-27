@@ -19,12 +19,14 @@ do_install () {
 	rm ${D}/mtd_exe/\$RFS_LOG.LO\$
 	chmod +x ${D}/mtd_exe/exeDSP
 	chmod +x ${D}/mtd_exe/JadeTarget
+	chmod +x ${D}/mtd_exe/ddr_margin
+	chmod +x ${D}/mtd_exe/memalloc
 	echo "${FIRMWARE_NAME}" > ${D}/.info
 	echo "${FLASH_RFS_VERSION} ${FIRMWARE_NAME}" > ${D}/.version
 	install -d ${D}/mtd_tlib/swf
-	install -m 0755 ${S}/T_Library.swf ${D}/mtd_tlib/swf
+	install -m 0644 ${S}/T_Library.swf ${D}/mtd_tlib/swf
 }
 
-FILES_${PN} += "/mtd_appdata /mtd_exe /mtd_tlib"
+FILES_${PN} += "/mtd_appdata /mtd_exe /mtd_tlib /.*"
 
 PACKAGE_ARCH = "all"
