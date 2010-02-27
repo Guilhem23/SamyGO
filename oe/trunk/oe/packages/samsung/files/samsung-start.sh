@@ -23,7 +23,7 @@ T-CHL7DEUC)
 	if [ ! "`lsmod | grep samdrv`" ]; then
 		insmod /mtd_drv/samdrv.ko
 	fi
-	if [ ! "`grep -q /mtd_rwarea /proc/mounts`" ]; then
+	if [ ! "`grep /mtd_rwarea /proc/mounts`" ]; then
 		echo "Do not start Samsung exeDSP application !"
 		echo "/mtd_rwarea is not mounted."
 		echo "It may lead to unpredicted situation while"
