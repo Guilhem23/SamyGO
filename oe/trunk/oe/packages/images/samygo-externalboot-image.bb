@@ -2,9 +2,9 @@ DESCRIPTION = "<description>"
 
 PV = "0.0.1"
 PR = "r0"
-#PROVIDES += " ${MACHINE}-externalboot-image "
 
-#DEPENDS = "virtual/libc base-files busybox sysvinit "
+COMPATIBLE_MACHINE = "sdp83"
+
 DEPENDS_sdp83 += "linux-chelsea-externalboot"
 
 RDEPENDS = "\
