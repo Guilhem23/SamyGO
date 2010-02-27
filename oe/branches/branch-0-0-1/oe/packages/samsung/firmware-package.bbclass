@@ -4,8 +4,8 @@ DEPENDS =+ " mtools-native"
 
 do_patch () {
 	# Temporary fix
-        echo "############ Install from package.class #################"
-	echo "$(pwd) AT -> ${P_OFFSET} Line -> ${P_LINE} SOURCE -> ${S}"
+        oenote "############ Patch from package.class #################"
+	oenote "$(pwd) AT -> ${P_OFFSET} Line -> ${P_LINE} SOURCE -> ${S}"
 	cd "${S}"
 	ls -l ./
 	# temporary fix
@@ -35,7 +35,7 @@ do_patch () {
 		rm -f "${MACHINE}/image/$i.enc"
 		fi
 	# extract files for later inspection
-	unsquashfs -dest ${MACHINE}-orig/$i -i ${MACHINE}/image/$i || $(mkdir -p ${MACHINE}-orig/$i ; mcopy -sQnv -i ${MACHINE}/image/$i ::* ${MACHINE}-orig/$i)
+	unsquashfs -i -dest ${MACHINE}-orig/$i ${MACHINE}/image/$i || $(mkdir -p ${MACHINE}-orig/$i ; mcopy -sQnv -i ${MACHINE}/image/$i ::* ${MACHINE}-orig/$i)
 	done
 	# we can ignore this file, its never used
 	# crypt-xor -f "${MACHINE}/run.sh.enc" -K "${MACHINE}" -force -q -outfile ${MACHINE}-orig/run.sh || true
@@ -56,7 +56,7 @@ do_patch () {
 	cksfv -b ${MACHINE}/image/*.img > ${MACHINE}/image/validinfo.txt
 	fi
 	for i in exe.img appdata.img ; do
-		unsquashfs -dest ${MACHINE}-patched/$i -i ${MACHINE}/image/$i  || $(mkdir -p ${MACHINE}-patched/$i ; mcopy -sQnv -i ${MACHINE}/image/$i ::* ${MACHINE}-patched/$i)
+		unsquashfs -i -dest ${MACHINE}-patched/$i ${MACHINE}/image/$i  || $(mkdir -p ${MACHINE}-patched/$i ; mcopy -sQnv -i ${MACHINE}/image/$i ::* ${MACHINE}-patched/$i)
 		if [ $ENC = "yes" ] ; then
 		oenote "Firmware was x-ored, regenerate it"
                 crypt-xor -f "${MACHINE}/image/$i" -K "${MACHINE}" -force -q -outfile "${MACHINE}/image/$i.enc"
@@ -73,18 +73,23 @@ do_patch () {
 	# extract some extra image files
 	for i in cmm.img chip.img boot.img rootfs.img ; do
 	if [ -e ${MACHINE}/image/$i ] ; then
-		unsquashfs -dest ${MACHINE}-orig/$i -i ${MACHINE}/image/$i || echo "Bummer fo $i"
+		unsquashfs -i -dest ${MACHINE}-orig/$i ${MACHINE}/image/$i || echo "Bummer fo $i"
 	fi
 	done
 	
 }
 
 do_install() {
-	echo "############ Install from package.class #################"
-	echo "SOURCE ${S} DEST ${D} WORK ${WORKDIR}"
+	oenote "############ Install from package.class #################"
+	oenote "SOURCE ${S} DEST ${D} WORK ${WORKDIR}"
 	mkdir -p ${D}
 #	for i in ${S}/* ; do
 		cp -a ${S}/${MACHINE} ${D}/
 #	done
 }
 
+do_stage(){
+# ar rcs my_library.a file1.o file2.o
+        oenote "Stage from firmware-package.bbclass = ${FILE}"
+	:
+}
