@@ -17,8 +17,8 @@ do_install () {
 	rm ${D}/mtd_exe/\$RFS_LOG.LO\$
 	chmod +x ${D}/mtd_exe/exeDSP
 	chmod +x ${D}/mtd_exe/JadeTarget
-	install -d ${D}/mtd_tlib
-	install -m 0755 ${S}/T_Library.swf ${D}/mtd_tlib/
+	install -d ${D}/mtd_tlib/swf
+	install -m 0755 ${S}/T_Library.swf ${D}/mtd_tlib/swf
 }
 
 FILES_${PN} += "/mtd_appdata /mtd_exe /mtd_tlib"
