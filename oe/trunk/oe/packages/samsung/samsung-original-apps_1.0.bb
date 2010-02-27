@@ -30,3 +30,5 @@ do_install () {
 FILES_${PN} += "/mtd_appdata /mtd_exe /mtd_tlib /.*"
 
 PACKAGE_ARCH = "all"
+
+INHIBIT_PACKAGE_STRIP = "1"
