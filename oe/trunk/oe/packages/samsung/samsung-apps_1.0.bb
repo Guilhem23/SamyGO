@@ -4,7 +4,7 @@ PRIORITY = "required"
 LICENSE = "GPL"
 
 SRC_URI = "file://samsung-start.sh \
-file://MicomCtrl.c \
+	file://MicomCtrl.c \
 "
 
 do_configure () {

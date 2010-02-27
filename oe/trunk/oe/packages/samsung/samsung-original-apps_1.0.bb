@@ -3,6 +3,12 @@ SECTION = "base"
 LICENCE = "closed"
 DEPENDS = "samsung-firmware squashfs-tools-native mtools-native"
 
+SRC_URI = "file://T_Library.swf"
+
+do_configure () {
+	install -m 0644 ${WORKDIR}/T_Library.swf ${S}/
+}
+
 do_install () {
 	install -d ${D}
 	install -d ${D}/mtd_exe
@@ -11,8 +17,10 @@ do_install () {
 	rm ${D}/mtd_exe/\$RFS_LOG.LO\$
 	chmod +x ${D}/mtd_exe/exeDSP
 	chmod +x ${D}/mtd_exe/JadeTarget
+	install -d ${D}/mtd_tlib
+	install -m 0755 ${S}/T_Library.swf ${D}/mtd_tlib/
 }
 
-FILES_${PN} += "/mtd_appdata /mtd_exe"
+FILES_${PN} += "/mtd_appdata /mtd_exe /mtd_tlib"
 
 PACKAGE_ARCH = "all"
