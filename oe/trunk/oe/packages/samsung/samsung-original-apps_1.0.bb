@@ -3,6 +3,8 @@ SECTION = "base"
 LICENCE = "closed"
 DEPENDS = "samsung-firmware squashfs-tools-native mtools-native"
 
+require firmware-${FIRMWARE_NAME}.inc
+
 SRC_URI = "file://T_Library.swf"
 
 do_configure () {
@@ -17,6 +19,8 @@ do_install () {
 	rm ${D}/mtd_exe/\$RFS_LOG.LO\$
 	chmod +x ${D}/mtd_exe/exeDSP
 	chmod +x ${D}/mtd_exe/JadeTarget
+	echo "${FIRMWARE_NAME}" > ${D}/.info
+	echo "${FLASH_RFS_VERSION} ${FIRMWARE_NAME}" > ${D}/.version
 	install -d ${D}/mtd_tlib/swf
 	install -m 0755 ${S}/T_Library.swf ${D}/mtd_tlib/swf
 }
