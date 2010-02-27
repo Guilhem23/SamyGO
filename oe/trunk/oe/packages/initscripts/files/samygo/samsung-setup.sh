@@ -39,7 +39,7 @@ T-CHL7DEUC)
 	mount -t rfs /dev/stl0/14 /mtd_rwarea
 	if [ $? != 0 ] ; then
 		echo "Error mounting /mtd_rwarea"
-		echo "Do not start Samsung exeDSP application !"
+		echo "Do not start Samsung exeDSP application!"
 		echo "It may lead to unpredicted situation while"
 		echo "not synced NVRAM/EPROM with /mtd_rwarea ."
 		exit 1
@@ -60,14 +60,18 @@ T-CHL7DEUC)
 
 	echo /dtv/core > /proc/sys/kernel/core_pattern
 	echo "32" > /proc/sys/kernel/msgmni
+
+	echo "**********************************************************************"
 	echo "Samsung Setup finished."
 	echo "You may run samsung-start.sh to launch exeDSP"
-	echo "You can also set variable CUSTOM_EXEDSP_CMD with own exeDSP command,"
-	echo "Like CUSTOM_EXEDSP_CMD=\"gdb ./exeDSP\" and run samsung-start.sh ."
+	echo "You can also set own exeDSP command for samsung-start.sh script."
+	echo "Write it in \"/.custom_exedsp_cmd\" file, example: \"gdb ./exeDSP\" and"
+	echo "run samsung-start.sh ."
+	echo "**********************************************************************"
 	;;
 
 *)
-	echo "samsung-setup.sh: Failed, unknown device."
+	echo "samsung-setup.sh: Failed, unknown device!"
 	exit 1
 	;;
 esac

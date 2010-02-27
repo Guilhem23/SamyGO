@@ -31,15 +31,20 @@ T-CHL7DEUC)
 		exit 1
 	fi
 
+	if [ -f /.custom_exedsp_cmd ]; then
+		CUSTOM_EXEDSP_CMD=`cat "/.custom_exedsp_cmd"`
+	fi
+	echo "*** Starting exeDSP ***"
 	if [ ! "$CUSTOM_EXEDSP_CMD" ]; then
 		./exeDSP
 	else
 		$CUSTOM_EXEDSP_CMD
 	fi
+	echo "*** Finished exeDSP ***"
 	;;
 
 *)
-	echo "samsung-start.sh: Failed, unknown device."
+	echo "samsung-start.sh: Failed, unknown device!"
 	;;
 esac
 
