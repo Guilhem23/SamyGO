@@ -28,7 +28,8 @@ MACHINE=${MACHINE:=sdp83}
 
 mkdir -p  ${OE_BASE}/build/conf
 
-echo "DL_DIR = \"${DL_DIR}\"
+if [ ! -f ${OE_BASE}/build/conf/local.conf ] || [ ! -f ${OE_BASE}/build/env.source ] || [ "$1" = "--force" ]; then
+	echo "DL_DIR = \"${DL_DIR}\"
 OE_BASE = \"${OE_BASE}\"
 BBFILES = \"\${OE_BASE}/oe/packages/*/*.bb\"
 MACHINE = \"${MACHINE}\"
@@ -37,17 +38,19 @@ DISTRO = \"${DISTRO}\"
 CACHE = \"${OE_BASE}/cache/oe-cache.\${USER}\"
 ASSUME_PROVIDED += \" gmp-native mpfr-native \"" > ${OE_BASE}/build/conf/local.conf
 
-if [ $OE_NUM_THREADS ] && [ $OE_NUM_THREADS -gt 1 ]; then
-	echo "PARALLEL_MAKE = \"-j $OE_NUM_THREADS\"" >> ${OE_BASE}/build/conf/local.conf
-fi
+	if [ $OE_NUM_THREADS ] && [ $OE_NUM_THREADS -gt 1 ]; then
+		echo "PARALLEL_MAKE = \"-j $OE_NUM_THREADS\"" >> ${OE_BASE}/build/conf/local.conf
+	fi
 
-echo "OE_BASE=\"${OE_BASE}\"
+	echo "OE_BASE=\"${OE_BASE}\"
 export BBPATH=\"\${OE_BASE}/oe/:\${OE_BASE}/bb/:\${OE_BASE}/build/\"
 if [ ! \`echo \${PATH} | grep \${OE_BASE}/bb/bin\` ]; then
 	export PATH=\${OE_BASE}/bb/bin:\${PATH}:\${OE_BASE}/build/tmp/cross/bin
 fi
 export LD_LIBRARY_PATH=
 export LANG=C" > ${OE_BASE}/build/env.source
+
+fi
 
 cd build && source env.source
 
