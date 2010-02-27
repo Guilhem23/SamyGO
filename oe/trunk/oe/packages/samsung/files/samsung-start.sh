@@ -35,10 +35,10 @@ T-CHL7DEUC)
 		CUSTOM_EXEDSP_CMD=`cat "/.custom_exedsp_cmd"`
 	fi
 	echo "*** Starting exeDSP ***"
-	if [ ! "$CUSTOM_EXEDSP_CMD" ]; then
-		./exeDSP
-	else
+	if [ "$CUSTOM_EXEDSP_CMD" ]; then
 		$CUSTOM_EXEDSP_CMD
+	else
+		./exeDSP
 	fi
 	echo "*** Finished exeDSP ***"
 	;;
