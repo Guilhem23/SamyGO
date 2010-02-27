@@ -2,58 +2,74 @@
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 
-mkdir /dev/sam
-mount -t tmpfs none /dev/sam -o size=1K,mode=1777
-mount -t tmpfs none /dtv -o size=10M,mode=1777
-mount -t tmpfs none /mtd_ram -o size=10M,mode=1777
+firmware=`cat "/.info"`
 
-# copy original fsr and rfs modules if they are missing
-kernel_release=`uname -r`
-if [ ! -f /lib/modules/$kernel_release/kernel/drivers/fsr/fsr.ko ]; then
-	mount -t squashfs /dev/tbml7 /mtd_boot
+case $firmware in
+T-CHL7DEUC)
+	mkdir /dev/sam
+	mount -t tmpfs none /dev/sam -o size=1K,mode=1777
+	mount -t tmpfs none /dtv -o size=10M,mode=1777
+	mount -t tmpfs none /mtd_ram -o size=10M,mode=1777
+	mkdir /dtv/usb
+
+	# copy original fsr and rfs modules if they are missing
+	kernel_release=`uname -r`
+	if [ ! -f /lib/modules/$kernel_release/kernel/drivers/fsr/fsr.ko ]; then
+		mount -t squashfs /dev/tbml7 /mtd_boot
+		if [ $? != 0 ] ; then
+			echo "Error mounting /mtd_boot"
+			echo "Do not start Samsung exeDSP application !"
+			echo "/mtd_rwarea is not mounted."
+			echo "It may lead to unpredicted situation while"
+			echo "not synced NVRAM/EPROM with /mtd_rwarea ."
+			exit 1
+		fi
+		mkdir -p /lib/modules/$kernel_release/kernel/drivers/fsr/ /lib/modules/$kernel_release/kernel/fs/rfs1g/
+		cp /mtd_boot/modules/fsr.ko /lib/modules/$kernel_release/kernel/drivers/fsr/
+		cp /mtd_boot/modules/fsr_stl.ko /lib/modules/$kernel_release/kernel/drivers/fsr/
+		cp /mtd_boot/modules/rfs.ko /lib/modules/$kernel_release/kernel/fs/rfs1g/
+		umount /mtd_boot
+		depmod -a
+	fi
+
+	modprobe fsr
+	modprobe fsr_stl
+	modprobe rfs
+
+	mount -t rfs /dev/stl0/14 /mtd_rwarea
 	if [ $? != 0 ] ; then
-		echo "Error mounting /mtd_boot"
+		echo "Error mounting /mtd_rwarea"
 		echo "Do not start Samsung exeDSP application !"
-		echo "/mtd_rwarea is not mounted."
 		echo "It may lead to unpredicted situation while"
 		echo "not synced NVRAM/EPROM with /mtd_rwarea ."
 		exit 1
 	fi
-	mkdir -p /lib/modules/$kernel_release/kernel/drivers/fsr/ /lib/modules/$kernel_release/kernel/fs/rfs1g/
-	cp /mtd_boot/modules/fsr.ko /lib/modules/$kernel_release/kernel/drivers/fsr/
-	cp /mtd_boot/modules/fsr_stl.ko /lib/modules/$kernel_release/kernel/drivers/fsr/
-	cp /mtd_boot/modules/rfs.ko /lib/modules/$kernel_release/kernel/fs/rfs1g/
-	umount /mtd_boot
-	depmod -a
-fi
 
-modprobe fsr
-modprobe fsr_stl
-modprobe rfs
+	#SWITCH_FLAG0=/mtd_rwarea/PartitionSwitch_0_0
+	#SWITCH_FLAG1=/mtd_rwarea/PartitionSwitch_1_0
 
-mount -t rfs /dev/stl0/14 /mtd_rwarea
-if [ $? != 0 ] ; then
-	echo "Error mounting /mtd_rwarea"
-	echo "Do not start Samsung exeDSP application !"
-	echo "It may lead to unpredicted situation while"
-	echo "not synced NVRAM/EPROM with /mtd_rwarea ."
+	#if [ -e $SWITCH_FLAG0 ]; then
+	#	echo $SWITCH_FLAG0 " is found..."
+	#	mount -t rfs -r /dev/tbml8 /mtd_exe/
+	#	mount -t squashfs /dev/tbml9 /mtd_appdata/
+	#elif [ -e $SWITCH_FLAG1 ]; then
+	#	echo $SWITCH_FLAG1 " is found..."
+	#	mount -t rfs -r /dev/tbml10 /mtd_exe/
+	#	mount -t squashfs /dev/tbml11 /mtd_appdata/
+	#fi
+
+	echo /dtv/core > /proc/sys/kernel/core_pattern
+	echo "32" > /proc/sys/kernel/msgmni
+	echo "Samsung Setup finished."
+	echo "You may run samsung-start.sh to launch exeDSP"
+	echo "You can also set variable CUSTOM_EXEDSP_CMD with own exeDSP command,"
+	echo "Like CUSTOM_EXEDSP_CMD=\"gdb ./exeDSP\" and run samsung-start.sh ."
+	;;
+
+*)
+	echo "samsung-setup.sh: Failed, unknown device."
 	exit 1
-fi
-
-#SWITCH_FLAG0=/mtd_rwarea/PartitionSwitch_0_0
-#SWITCH_FLAG1=/mtd_rwarea/PartitionSwitch_1_0
-
-#if [ -e $SWITCH_FLAG0 ]; then
-#	echo $SWITCH_FLAG0 " is found..."
-#	mount -t rfs -r /dev/tbml8 /mtd_exe/
-#	mount -t squashfs /dev/tbml9 /mtd_appdata/
-#elif [ -e $SWITCH_FLAG1 ]; then
-#	echo $SWITCH_FLAG1 " is found..."
-#	mount -t rfs -r /dev/tbml10 /mtd_exe/
-#	mount -t squashfs /dev/tbml11 /mtd_appdata/
-#fi
-
-echo /dtv/core > /proc/sys/kernel/core_pattern
-echo "32" > /proc/sys/kernel/msgmni
+	;;
+esac
 
 : exit 0
