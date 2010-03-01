@@ -4,7 +4,7 @@ SECTION = "Gallery/Games"
 MAINTAINER = "Ser Lev Arris <arris@ZsoltTech.Com>"
 HOMEPAGE = "http://samygo.sourceforge.net"
 
-PR = "r02"
+PR = "r04"
 
 # dev info T-CHEAUSC -> no games in gallery
 # T-SPHAUSC -> no games work in SEC_GAMES and must be named lib<something> + need 
@@ -12,11 +12,11 @@ PR = "r02"
 
 RECOMMENDS = ""
 RRECOMMENDS = "CoreScript InitScripts"
-DEPENDS = "virtual/libsdl"
+DEPENDS = "virtual/libsdl samsung-firmware"
 RDEPENDS = ""
 
 
-# INHIBIT_PACKAGE_STRIP = "1"
+INHIBIT_PACKAGE_STRIP = "1"
 
 # Enable this to generate package per MACHINE / MACHINE_ARCH
 # PACKAGE_ARCH = ${MACHINE_ARCH}
@@ -28,15 +28,13 @@ SRC_URI = "file://SamyGOE.c \
 "
 
 PACKAGES = "${PN}-dbg ${PN} ${PN}-bin ${PN}-dev ${PN}-doc ${PN}-locale"
-PACKAGES += "${PN}-SGexeDSP"
 
 S = ${WORKDIR}
 
 do_compile(){
  	# oe_runmake 
-# GAME_LIB/libGPlayerPorting.so
  	${CC} ${TARGET_CFLAGS} -O2 -Wall `sdl-config-${HOST_SYS} --cflags --libs` -fPIC -shared -o libSamyGO.so SamyGOE.c 
- 	${CC} ${TARGET_CFLAGS} -O2 -Wall -Wl,--unresolved-symbols=ignore-all `sdl-config-${HOST_SYS} --cflags --libs` ${TARGET_LDFLAGS} -o SGexeDSP SGexeDSP.c 
+ 	${CC} ${TARGET_CFLAGS} -O2 -Wall -Wl,--unresolved-symbols=ignore-all `sdl-config-${HOST_SYS} --cflags --libs` ${TARGET_LDFLAGS} -o SGexeDSP SGexeDSP.c -lGPlayerPorting 
 }
 
 do_install () {
@@ -99,7 +97,7 @@ do_stage(){
 	install -m 0755 SGexeDSP ${STAGING_DIR}/${TARGET_SYS}/bin/
 }
 
+FILES_${PN}-bin = "/usr/bin/SGexeDSP"
 FILES_${PN}-dbg = "/mtd_tlib/SamyGO/.debug"
 FILES_${PN} = "/mtd_tlib"
 FILES_${PN}-doc = "/usr/share/doc/${PN}"
-FILES_${PN}-SGexeDSP = "/usr/bin/SGexeDSP"

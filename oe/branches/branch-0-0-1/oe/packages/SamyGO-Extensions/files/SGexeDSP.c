@@ -20,6 +20,17 @@ void *_ZN16CResourceManager10GetWStringEi(void *a, unsigned b){
 unsigned char g_ToolResMgr[80];
 /* end of functions from exeDSP */
 
+/* need to run in standalone mode */
+void *_Z11s_GetScreeniPPcPtS1_Pi(void){
+	printf("%s\n",__FUNCTION__);
+}
+
+/* may for furter analyze */
+void *_ZN9SPCScreen12EnableScreenEi(void){
+	printf("%s\n",__FUNCTION__);
+}
+/* _ZN16SCShadowGraphics20GetDisplayDeviceInfoElP12STScreenInfo */
+
 // int InputKeyState, InputKeyData;
 
 int main(int argc, const char *argv[])
@@ -29,7 +40,7 @@ int main(int argc, const char *argv[])
 	int (*fn)(char *, char *), len;
 
 	if(argc < 2)
-		lib_dir = "/home/zsolt/Desktop/SamyGO-Extensions/";
+		lib_dir = "/mtd_tlib/GGame/SamyGO/";
 	else
 		lib_dir = argv[1];
 
