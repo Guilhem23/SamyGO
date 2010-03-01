@@ -89,7 +89,6 @@ do_install() {
 }
 
 do_stage(){
-# ar rcs my_library.a file1.o file2.o
-        oenote "Stage from firmware-package.bbclass = ${FILE}"
-	:
+	oe_libinstall -so -C ${MACHINE}-orig/exe.img/GAME_LIB libGPlayerPorting ${STAGING_LIBDIR}	
+#	:
 }

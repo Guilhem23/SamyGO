@@ -8,6 +8,8 @@ LICENSE = "Proprietary"
 # DEPENDS += " coreutils-native crypt-xor-native cksfv-native "
 DEPENDS += " crypt-xor-native cksfv-native squashfs-tools-native"
 
+INHIBIT_PACKAGE_STRIP = "1"
+
 inherit autotools
 
 FILES = "${MACHINE}"
