@@ -61,6 +61,7 @@ const struct {
     wchar16_t *wstr;
   } desc;
 } modeTab[] = {
+// table index 2,3,4 corresponds to MPEG Sequence header (01B3) apect ratio
 // *INDENT-OFF*
 	{		.desc.nStringResource = 70 },	// Auto Fit
 	{		.desc.nStringResource = 71 },	// Original
@@ -77,6 +78,8 @@ enum {
   FIT_MODE_LAST = sizeof(modeTab) / sizeof(modeTab[0])
 };
 
+int mpegAspectRatio __attribute__ ((section(".patchbss")));
+
 ///////////////////////////////////////////////////////////////////////////////
 
 int STMovie_SetDisplaySize(int fit)
@@ -90,6 +93,7 @@ int STMovie_SetDisplaySize(int fit)
   const int ph = 1080;
   int ow, oh, ox, oy;
   int w, h;
+  int ar;
   int mode;
   int po[2];
   int pi[2];
@@ -131,7 +135,12 @@ int STMovie_SetDisplaySize(int fit)
       w = iw;
       h = ih;
 
-      if (iw == 720 && ih == 576) {
+      ar = (mpegAspectRatio >> 4) & 0xf;
+      if (ar > 1 && ar <= 4) {
+	w = modeTab[ar].ratio900;
+	h = 900;
+
+      } else if (iw == 720 && ih == 576) {
 	// PAL - never has sqare pixels
 	w = 576 * 4 / 3;
       }
@@ -169,8 +178,8 @@ int STMovie_SetDisplaySize(int fit)
     DebugPrintf("STVID_SetOutputWindowMode Error\n");
   }
 
-  DebugPrintf("Patched SetSize In %dx%d, Out %dx%d-%d-%d\n",
-	      iw, ih, ow, oh, ox, oy);
+  DebugPrintf("Patched SetSize MPEG AR %0x, In %dx%d, Out %dx%d-%d-%d\n",
+	      mpegAspectRatio, iw, ih, ow, oh, ox, oy);
   if (STVID_SetSize(handle, 0, 0, iw, ih, ox, oy, ow, oh)) {
     DebugPrintf("STVID_SetSize Error\n");
   }

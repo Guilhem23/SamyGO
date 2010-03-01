@@ -10,6 +10,7 @@ RDEPENDS = "elfpatcher"
 
 SRC_URI = " \
 	file://${PN}.c \
+	file://mpeg-probe.s \
 	file://${LDSCRIPT} \
 	file://README \
 "
@@ -36,7 +37,7 @@ ELF = "${PNF}.elfpatch"
 EXTRA_CFLAGS += "-Os -m4 -Wall -mnomacsave -fshort-wchar -nostartfiles -nostdlib"
 
 do_compile() {
-        ${CC} ${CFLAGS} ${EXTRA_CFLAGS} -o ${ELF} ${PN}.c -Wl,-T${LDSCRIPT},-n
+        ${CC} ${CFLAGS} ${EXTRA_CFLAGS} -o ${ELF} ${PN}.c mpeg-probe.s -Wl,-T${LDSCRIPT},-n
 	${STRIP} --remove-section=.comment ${ELF}
 	chmod -x ${ELF}
 }

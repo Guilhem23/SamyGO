@@ -1,6 +1,6 @@
 
-WiseLink video player aspect ratio fix
-======================================
+WiseLink video player aspect ratio fix version 1.1
+==================================================
 
 Patch to original Samsung firmware T-RBYDEUC-1013.1
 for Samsung's LCD TV sets LExxA756, LExxA856 and LExxA956
@@ -10,8 +10,10 @@ What is changed
 ---------------
 WiseLink video player has 3 new items for fixed aspect ratios in Tools menu:
 4:3, 16:9 (also fullscreen), 2.21:1
-If PAL resolution (720x576) is detected in Auto fit mode, aspect ratio 4:3
-is used.
+For MPEG2 source aspect ratio flag in sequence header (01b3) is taken
+into account in auto fit mode.
+Otherwise if PAL resolution (720x576) is detected in Auto fit mode,
+aspect ratio 4:3 is used.
 
 
 Known problems
@@ -30,16 +32,20 @@ a shell script inside TV is sufficient.
 Unpack zip content to an USB flash or to a network share and insert/mount
 it to TV. Change to patch directory and run arfix.sh
 
-# cd /dtv/usb/sdb1/T-RBYDEUC-1013.1-arfix_1.0/
+# cd /dtv/usb/sdb1/T-RBYDEUC-1013.1-arfix_1.1/
 # ls -l
--rw-r--r--    1 1000     1000         2465 Feb 21  2010 README
--rw-r--r--    1 1000     1000         2072 Feb 21  2010 T-RBYDEUC-1013.1-arfix_1.0.elfpatch
--rwxr-xr-x    1 1000     1000           80 Feb 21  2010 arfix.sh
--rwxr-xr-x    1 1000     1000        55804 Feb 21  2010 elfpatcher
+-rw-r--r--    1 1000     1000         2754 Mar  1  2010 README
+-rw-r--r--    1 1000     1000         2876 Mar  1  2010 T-RBYDEUC-1013.1-arfix_1.1.elfpatch
+-rwxr-xr-x    1 1000     1000           80 Mar  1  2010 arfix.sh
+-rwxr-xr-x    1 1000     1000        55804 Mar  1  2010 elfpatcher
 # ./arfix.sh
-Reading patches from file T-RBYDEUC-1013.1-arfix_1.0.elfpatch
+Reading patches from file T-RBYDEUC-1013.1-arfix_1.1.elfpatch
 Checking .checkVersion 16 bytes at 0x1508978
-Writing .patch1 764 bytes at 0x056f43c
+Writing .patch1 848 bytes at 0x056f43c
+Writing .patch4 12 bytes at 0x073d334
+Writing .patch7 2 bytes at 0x0740320
+Writing .patch6 4 bytes at 0x0740470
+Writing .patch5 4 bytes at 0x0b04e8c
 Writing .patch2 108 bytes at 0x0d16520
 Writing .patch3 180 bytes at 0x0d167a0
 #

@@ -23,8 +23,24 @@ SECTIONS
     BYTE(0x31)
   }
 
-  .patch1 0x56f43c : { *(patch1STMovie_SetDisplaySize) *(.rodata*) }
+  .patch1 0x56f43c : { *(patch1STMovie_SetDisplaySize) *(.patchtext*) *(.rodata*) }
   ASSERT( . <= 0x56fa28, "STMovie_SetDisplaySize is too big to fit into exeDSP")
+
+  .patch4 0x73d334 : { *(patch4ParserReset) }
+  ASSERT( . <= 0x740340, "ParserReset is too big to fit into exeDSP")
+
+  .patch7 0x740320 : {
+    BYTE(0x40)
+    BYTE(0x20)	/* switch (sourceType) in CMovieManager__Parsing */
+  }
+
+  .patch6 0x740470 : {
+    LONG(ParserResetPatched)
+  }
+
+  .patch5 0xb04e8c : {
+    LONG(MpegProbeSetSizePatched)
+  }
 
   .patch2 0xd16520 : { *(patch2GetZoomOptionString) }
   ASSERT( . <= 0xd165c0, "GetZoomOptionString is too big to fit into exeDSP")
@@ -49,6 +65,8 @@ SECTIONS
   STVID_SetOutputWindowMode = 0x9a7d6c;
   STVID_SetInputWindowMode = 0x9a8050;
 
+  MpegProbeSetSize = 0xb099e0;
+
   DebugPrintf = 0x1419d40;
 
   __sdivsi3_i4i = 0x13f1d80;
@@ -60,6 +78,8 @@ SECTIONS
   videoInputWidth = 0x221020c;
   videoInputHeight = 0x2210210;
   mm_VideoInfoStruct = 0x2210360;
+
+  .bss 0x2211dd8 (NOLOAD) : { *(.patchbss*) }
 
   /* Stabs debugging sections.  */
   .stab          0 : { *(.stab) }
