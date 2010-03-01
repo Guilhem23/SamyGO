@@ -64,7 +64,7 @@ void usage(void)
 			"Patching a binary file is potentially dangerous, use solely at your own risk\n"
 			"\n"
 			"Usage:\n"
-			"	elfpatcher [-v] [-c|-n]-p pid elf-patch-file...\n"
+			"	elfpatcher [-v] [-c|-n] -p pid elf-patch-file...\n"
 			"	elfpatcher [-v] [-c|-n] -e elf-file-to be patched elf-patch-file...\n"
 			"\n"
 			"-p pid.... stops running process using PTRACE, patches text or data\n"
