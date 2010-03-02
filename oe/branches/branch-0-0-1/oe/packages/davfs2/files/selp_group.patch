@@ -1,0 +1,41 @@
+diff -NurbB a/src/util.c b/src/util.c
+--- a/src/util.c	2006-03-10 19:08:57.000000000 +0100
++++ b/src/util.c	2010-03-02 19:20:18.000000000 +0100
+@@ -613,12 +613,12 @@
+             error(EXIT_FAILURE, errno, "Device %s could not be created", name);
+     }
+     struct group *grp = getgrnam(DAV_GROUP);
+-    if (grp == NULL)
++/*    if (grp == NULL)
+         error(EXIT_FAILURE, 0, "Group %s does not exist.", DAV_GROUP);
+     if (chown(name, 0, grp->gr_gid) < 0)
+         error(EXIT_FAILURE, 0, "Could not change group of %s", name);
+     if (chmod(name, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP) < 0)
+-        error(EXIT_FAILURE, 0, "Could not change file permissions of %s", name);
++        error(EXIT_FAILURE, 0, "Could not change file permissions of %s", name); */
+     seteuid(getuid());
+ }
+ 
+@@ -1055,8 +1055,8 @@
+     if (getuid() != 0) {
+         DBG0("  Checking group membership");
+         struct group *grp = getgrnam(DAV_GROUP);
+-        if (grp == NULL)
+-            error(EXIT_FAILURE, 0, "Group %s does not exist.", DAV_GROUP);
++   /*     if (grp == NULL)
++            error(EXIT_FAILURE, 0, "Group %s does not exist.", DAV_GROUP); */
+         int is_member = (getgid() == grp->gr_gid);
+         if (!is_member) {
+             int ngroups = getgroups(0, NULL);
+@@ -1069,9 +1069,9 @@
+             }
+             NE_FREE(groups);
+         }
+-        if (!is_member)
++/*      if (!is_member)
+             error(EXIT_FAILURE, 0, "You must be member of group %s",
+-                  DAV_GROUP);
++                  DAV_GROUP); */
+         /* A non-root user might call mount.davfs directly and circumvent
+          * the control of mount and fstab. So we better check args against 
+          * fstab in the case of a non-root user. */

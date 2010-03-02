@@ -12,6 +12,10 @@ SRC_URI = "${SOURCEFORGE_MIRROR}/dav/${P}.tar.gz \
            file://Makefile.in.patch;patch=1 \
            file://volatiles"
 
+SRC_URI_append_samygo = " file://selp_path_dev.patch;patch=1 \
+		file://selp_group.patch;patch=1 \
+"
+
 inherit autotools
 
 ALTERNATIVE_NAME = "mount.davfs"
@@ -20,6 +24,7 @@ ALTERNATIVE_PRIORITY = "90"
 ALTERNATIVE_LINK = "${base_sbindir}/${ALTERNATIVE_NAME}"
 
 EXTRA_OECONF = "--with-neon"
+EXTRA_OECONF_samygo = "--with-neon --with-group=root"
 
 CONFFILES_${PN} = "${sysconfdir}/davfs2/davfs2.conf ${sysconfdir}/davfs2/secrets"
 

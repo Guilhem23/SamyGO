@@ -1,0 +1,23 @@
+diff -NurbB a/src/util.h b/src/util.h
+--- a/src/util.h	2006-03-10 19:08:57.000000000 +0100
++++ b/src/util.h	2010-03-02 12:04:53.000000000 +0100
+@@ -25,16 +25,16 @@
+ 
+ #define DAV_HOME "http://dav.sourceforge.net"
+ #define DAV_VFS_TYPE "davfs"
+-#define DAV_STATEDIR "/var/run/mount.davfs"
++#define DAV_STATEDIR "/dtv/mount.davfs"
+ #ifndef MAX_CODADEVS
+ #define MAX_CODADEVS 255
+ #endif
+ #ifndef CODA_PSDEV_MAJOR
+ #define CODA_PSDEV_MAJOR 67
+ #endif
+-#define DAV_DEV_NAME    "/dev/davfs"
++#define DAV_DEV_NAME    "/dev/sam/davfs"
+ #define DAV_PROC_MOUNTS "/proc/mounts"
+-#define DAV_TMP_DIR "/tmp"
++#define DAV_TMP_DIR "/dtv"
+ #define DAV_MAX_MKTMP_TRY 3   /* Let's try three time to get random name */
+ 
+ /* magic flag number to indicate "new" flags */
