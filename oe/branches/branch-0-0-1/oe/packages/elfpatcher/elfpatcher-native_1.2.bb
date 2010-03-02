@@ -9,6 +9,8 @@ SRC_URI = " \
 	file://${PN_ORIG}.c \
 "
 
+EXTRA_CFLAGS += -DPYTHON_PATCH
+
 do_compile(){
         ${CC} ${CFLAGS} ${EXTRA_CFLAGS} ${LDFLAGS} ${EXTRA_LDFLAGS} -o ${PN_ORIG} ${PN_ORIG}.c -lelf
 }
