@@ -52,7 +52,9 @@ do_configure_prepend() {
 
         perl -pi -e "s/# (CONFIG_SMB_FS) .*/\1=m/" ${S}/.config
 # CONFIG_SMB_NLS_DEFAULT is not set
-        perl -pi -e "s/# (CONFIG_CIFS) .*/\1=m/" ${S}/.config
+        perl -pi -e "s/# (CONFIG_CIFS) .*/\1=m\nCONFIG_CIFS_EXPERIMENTAL=y/" ${S}/.config
+	perl -pi -e "s/# (CONFIG_CODA_FS) .*/\1=m/" ${S}/.config
+
         perl -pi -e "s/# (CONFIG_USB_GADGET) .*/\1=m/" ${S}/.config
         echo '# USB Gadget Support
 #
