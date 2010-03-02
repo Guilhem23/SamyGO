@@ -30,12 +30,18 @@
 #include <string.h>
 #include <libelf.h>
 
+
 char *const*parg;
 int pid;
 int verbosity;
 int compare;
 int nocheck;
 int check_failed;
+#ifdef PYTHON_PATCH
+int python_patch;
+#else
+#define python_patch 0
+#endif
 
 char *d_fn;
 int d_fd;
@@ -59,7 +65,7 @@ void usage(void)
 {
 	printf(
 			"\n"
-			"elfpatcher 1.1\n"
+			"elfpatcher 1.2\n"
 			"Takes one or more elf32 files and writes the content of segments named .patch*\n"
 			"Patching a binary file is potentially dangerous, use solely at your own risk\n"
 			"\n"
@@ -74,6 +80,9 @@ void usage(void)
 			"-n........ do not check if segments other than .patch* compare to orig data\n"
 			"-v........ verbose: shows hex representation of patch\n"
 			"-v -v..... double verbose: shows original data before applying patches too\n"
+#ifdef PYTHON_PATCH
+			"-y ....... format patch for python hexlify\n"
+#endif
 			"\n"
 	      );
 }
@@ -82,7 +91,7 @@ void PrintHex(unsigned char *bf, int size)
 {
 	int i;
 	for (i = 0; i < size; i++)
-		printf(" %02x", *bf++);
+		printf(python_patch ? "%02x" : " %02x", *bf++);
 }
 
 void ElfErr(const char *fn_name)
@@ -274,8 +283,13 @@ int main(int argc, char *const argv[])
 	int r, opt;
 	int result = 0;
 	int w_fd= -1;
+#ifdef PYTHON_PATCH
+	const char* optch= "vcinyp:e:";
+#else
+	const char* optch= "vcinp:e:";
+#endif
 
-	while ((opt = getopt(argc, argv, "vcinp:e:")) != -1) {
+	while ((opt = getopt(argc, argv, optch)) != -1) {
 		switch (opt) {
 			case 'v':
 				verbosity++;
@@ -286,6 +300,13 @@ int main(int argc, char *const argv[])
 			case 'n':
 				nocheck = 1;
 				break;
+#ifdef PYTHON_PATCH
+			case 'y':
+				python_patch = 1;
+				compare = 1;
+				verbosity = 2;
+				break;
+#endif
 			case 'p':
 				pid = atoi(optarg);
 				break;
@@ -397,7 +418,7 @@ int main(int argc, char *const argv[])
 			op_name[op], s_sectname, s_shdr->sh_size, s_shdr->sh_addr);
 
 		if (verbosity) {
-			printf("0x%07x:", off);
+			printf(python_patch ? "( 0x%07x, '" : "0x%07x:", off);
 		}
 
 		if (op == OP_COMPARE || op == OP_CHECK || verbosity >= 2) {
@@ -415,7 +436,7 @@ int main(int argc, char *const argv[])
 
 		if (verbosity >= 2 && d_orig) {
 			PrintHex(d_orig, s_shdr->sh_size);
-			printf(" :");
+			printf(python_patch ? "', '" : " :");
 		}
 
 		if (op == OP_CHECK) {
@@ -458,7 +479,7 @@ int main(int argc, char *const argv[])
 
 		if (verbosity) {
 			PrintHex(s_data->d_buf, s_shdr->sh_size);
-			printf("\n\n");
+			printf(python_patch ? "' ),\n" : "\n\n");
 		}
 
 		if (pbf) {
