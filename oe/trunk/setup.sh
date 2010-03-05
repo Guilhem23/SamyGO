@@ -40,6 +40,8 @@ ASSUME_PROVIDED += \" gmp-native mpfr-native \"" > ${OE_BASE}/build/conf/local.c
 
 	if [ $OE_NUM_THREADS ] && [ $OE_NUM_THREADS -gt 1 ]; then
 		echo "PARALLEL_MAKE = \"-j $OE_NUM_THREADS\"" >> ${OE_BASE}/build/conf/local.conf
+	else
+		echo "# PARALLEL_MAKE = \"-j 3\"" >> ${OE_BASE}/build/conf/local.conf
 	fi
 
 	echo "OE_BASE=\"${OE_BASE}\"
@@ -49,6 +51,8 @@ if [ ! \`echo \${PATH} | grep \${OE_BASE}/bb/bin\` ]; then
 fi
 export LD_LIBRARY_PATH=
 export LANG=C" > ${OE_BASE}/build/env.source
+
+echo "--- Created ${OE_BASE}/build/conf/local.conf and ${OE_BASE}/build/env.source ---"
 
 fi
 
