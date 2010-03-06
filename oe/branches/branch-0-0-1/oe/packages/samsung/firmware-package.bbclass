@@ -88,7 +88,18 @@ do_install() {
 #	done
 }
 
-do_stage(){
-	oe_libinstall -so -C ${MACHINE}-orig/exe.img/GAME_LIB libGPlayerPorting ${STAGING_LIBDIR}	
-#	:
+Y_libs = "libFFMpeg libMMSInput libPluginTvOEM  libTDImage \
+libFileInput libmms libTD libFLVDemux libHttpInput libMP3Transform \
+libRTMPInput libVideoOutput libGCF libHttpsInput libPCMOutput libRTPInput.so \
+libYahooSDLHWAcceleration libMMFCore libPlaybackEngine libSDAL libYahooTimeManager"
+
+Y_arch = "libRCE libGDM libGeneDebug"
+do_stage_arm(){
+	oe_libinstall -so -C ${MACHINE}-orig/exe.img/GAME_LIB libGPlayerPorting ${STAGING_LIBDIR}
+	for i in ${Y_libs} ; do
+		oe_libinstall -so -C ${MACHINE}-orig/exe.img/YWidget_LIB $i ${STAGING_LIBDIR}
+	done
+	for i in ${Y_arch} ; do
+		oe_libinstall -a -C ${MACHINE}-orig/exe.img/YWidget_LIB $i ${STAGING_LIBDIR}
+	done
 }

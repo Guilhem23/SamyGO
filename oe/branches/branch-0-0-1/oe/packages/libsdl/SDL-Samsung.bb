@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 SECTION = "libs"
 LICENSE = "GPL/Samsung/Yahoo"
 PV ="1.2.11"
-PR = "r02"
+PR = "r03"
 
 PROVIDES = "virtual/libsdl virtual/libx11"
 
@@ -36,10 +36,12 @@ do_unpack2() {
 addtask unpack2 before do_patch after do_unpack
 
 do_stage_arm () {
-	ls -l
 	oe_libinstall -so -C Lib/CHELSEA libSDL ${STAGING_LIBDIR}/
 	mkdir -p ${STAGING_INCDIR}/SDL
 	cp -a include/*.h ${STAGING_INCDIR}/SDL
+        install src/video/SDL_sysvideo.h ${STAGING_INCDIR}/SDL/
+        install src/video/SDL_glfuncs.h ${STAGING_INCDIR}/SDL/
+
 echo "#!/bin/sh
 
 prefix=${STAGING_LIBDIR}/..
@@ -86,6 +88,9 @@ do_stage_sh4 () {
         oe_libinstall -so -C lib_STI libSDL ${STAGING_LIBDIR}/
         mkdir -p ${STAGING_INCDIR}/SDL
         cp -a include/*.h ${STAGING_INCDIR}/SDL
+	install src/video/SDL_sysvideo.h ${STAGING_INCDIR}/SDL/
+        install src/video/SDL_glfuncs.h ${STAGING_INCDIR}/SDL/
+
 echo "#!/bin/sh
 
 prefix=${STAGING_LIBDIR}/..
