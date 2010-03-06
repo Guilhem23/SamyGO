@@ -41,7 +41,8 @@ MACHINE ?= T-CHU7DEUC
 # new for analyse
 # MACHINE = T-PRLAUS
 # MACHINE = T-STL5PAUSFC
-#
+# MACHINE = T-CRLPEUFC
+# 
 
 DISTRO = samygo-3.2
 SVN_AUTHOR_NAME = arris
