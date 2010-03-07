@@ -4,14 +4,17 @@ SECTION = "Gallery/Games"
 MAINTAINER = "Ser Lev Arris <arris@ZsoltTech.Com>"
 HOMEPAGE = "http://samygo.sourceforge.net"
 
-PR = "r01"
+PR = "r02"
 
 RECOMMENDS = ""
 RRECOMMENDS = ""
 DEPENDS = ""
 RDEPENDS = ""
 
-SRCDATE = "20100201"
+# from r01
+# SRCDATE = "20100201"
+SRCDATE = "20100308"
+
 SRC_URI = "svn://samygo.svn.sourceforge.net/svnroot/samygo/SamyGO-Extensions;module=${PN};proto=https"
 
 PACKAGES = "${PN}-dbg ${PN} ${PN}-bin ${PN}-dev ${PN}-doc ${PN}-locale"
