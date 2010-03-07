@@ -67,13 +67,14 @@ do_install () {
 SamyGO.png
 
 
-// End of Generated Text Resource Source File' >> ${D}/mtd_tlib/SamyGO/SamyGO.dat
+// End of Generated Text Resource Source File
+' >> ${D}/mtd_tlib/SamyGO/SamyGO.dat
 	
 # fixup .dat file
-perl -pi -e "s/^\s+//g" ${D}/mtd_tlib/SamyGO/SamyGO.dat
+# perl -pi -e "s/^\s+//g" ${D}/mtd_tlib/SamyGO/SamyGO.dat
 perl -pi -e "s/0x/0x00/g" ${D}/mtd_tlib/SamyGO/SamyGO.dat
 perl -pi -e "s/0x0000\n/0x0000,\n/g" ${D}/mtd_tlib/SamyGO/SamyGO.dat
-perl -pi -e "s/\n/\x0d\x0a/g" ${D}/mtd_tlib/SamyGO/SamyGO.dat
+perl -pi -e "s/\n/\r\n/g" ${D}/mtd_tlib/SamyGO/SamyGO.dat
 
 	# Create clmeta.dat file
 echo '<?xml version="1.0" encoding="utf-8"?>
