@@ -125,8 +125,8 @@ static void add_new_device(char *name, char *path, unsigned long uid,
 		/* It is ok for some types of files to not exit on disk (such as
 		 * device nodes), but if they _do_ exist the specified mode had
 		 * better match the actual file or strange things will happen.... */
-		if ((mode & S_IFMT) != (sb.st_mode & S_IFMT))
-			error_msg_and_die("%s: file type does not match specified type!", path);
+//		if ((mode & S_IFMT) != (sb.st_mode & S_IFMT))
+//			error_msg_and_die("%s: file type does not match specified type!", path);
 		timestamp = sb.st_mtime;
 	}
 
@@ -243,24 +243,46 @@ static int interpret_table_entry(char *line)
 	return 0;
 }
 
-#ifdef __APPLE__
-
-ssize_t getline(char **lineptr, size_t *n, FILE *stream)
+#if defined(__APPLE__) && defined(__GNUC__)
+// getline() replacement for Darwin, might work on other systems
+// written according to the getline man page included with Debian Linux
+ssize_t 
+getline(char **lineptr, size_t *n, FILE *stream)
 {
-	if (*lineptr == NULL)
-		*lineptr = calloc(sizeof(char), *n + 1);
-
-	if (*lineptr == NULL)
-		return 0;
-
-	if (fgets(*lineptr, *n, stream) == NULL)
-		*n = 0;
-	else
-		*n = strlen(*lineptr);
-
-	return *n;
+	char *buf = *lineptr;	// could be NULL, in which case we allocate
+	size_t bufsize = *n;	// current buffer size, adjust if we (re)alloc
+	
+	char *temp = NULL;
+	size_t tempsize = 0;
+	
+	// temp is not a C string and we don't own the buffer it points into
+	// must copy into a malloced buffer and NULL terminate
+	temp = fgetln(stream, &tempsize);
+	if(!temp) return -1;
+	
+	tempsize++; // adjust for NULL terminator
+	if(buf) {
+		// check if we have to reallocate
+		if(bufsize < tempsize) {
+			bufsize = tempsize;
+			buf = (char*)realloc(buf, tempsize);
+			if(!buf) return -1;
+		}
+	} else {
+		bufsize = tempsize;
+		buf = (char*)malloc(bufsize);
+		if(!buf) return -1;
+	}
+	
+	memcpy(buf, temp, tempsize-1);
+	buf[tempsize-1] = '\0';
+	
+	// give new pointer and size back, nondestructive if we didn't change anything..
+	*n = bufsize;
+	*lineptr = buf;
+	
+	return (ssize_t)(tempsize-1);	// don't include the NULL terminator, per getline man page
 }
-
 #endif
 
 static void parse_device_table(FILE * file)
