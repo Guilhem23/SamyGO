@@ -5,6 +5,8 @@ LICENSE = "GPLv3"
 
 SRC_URI = "${GNU_MIRROR}/tar/tar-${PV}.tar.bz2"
 
+S = "${WORKDIR}/tar-${@bb.data.getVar('PV',d,1).replace('r','-r')}"
+
 inherit autotools gettext
 
 do_install () {
