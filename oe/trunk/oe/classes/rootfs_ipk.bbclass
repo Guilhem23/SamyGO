@@ -5,7 +5,7 @@
 # See image_ipk.oeclass for a usage of this.
 #
 
-DEPENDS_prepend="ipkg-native ipkg-utils-native "
+DEPENDS_prepend="ipkg-native ipkg-utils-native fakeroot-native python-native gzip-native tar-native"
 DEPENDS_append=" ${EXTRA_IMAGEDEPENDS}"
 
 PACKAGES = ""
@@ -25,7 +25,7 @@ IMAGE_LINGUAS ?= "de-de fr-fr en-gb"
 
 LINGUAS_INSTALL = "${@" ".join(map(lambda s: "locale-base-%s" % s, bb.data.getVar('IMAGE_LINGUAS', d, 1).split()))}"
 
-real_do_rootfs () {
+fakeroot real_do_rootfs () {
 	set -x
 		
 	mkdir -p ${IMAGE_ROOTFS}/dev
@@ -110,12 +110,6 @@ log_check() {
 
 	set -x
 	
-}
-
-
-fakeroot fakeroot_do_rootfs () {
-	rm -rf ${IMAGE_ROOTFS}
-	real_do_rootfs
 }
 
 do_rootfs () {

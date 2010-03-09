@@ -9,6 +9,7 @@ EXCLUDE_FROM_WORLD = "1"
 
 USE_DEVFS ?= "0"
 
+DEPENDS += "makedevs-native"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 def get_image_deps(d):
@@ -45,22 +46,22 @@ def get_devtable_list(d):
 
 IMAGE_POSTPROCESS_COMMAND ?= ""
 
-fakeroot fakeroot_do_rootfs () {
-	do_rootfs
-}
-
-do_rootfs () {
+# Must call real_do_rootfs() from inside here, rather than as a separate
+# task, so that we have a single fakeroot context for the whole process.
+fakeroot do_rootfs () {
 	set -x
 	rm -rf ${IMAGE_ROOTFS}
 
-	mkdir -p ${IMAGE_ROOTFS}/dev
-	for devtable in ${@get_devtable_list(d)}; do
-		makedevs -r ${IMAGE_ROOTFS} -D $devtable
-	done
+	if [ "${USE_DEVFS}" != "1" ]; then
+		mkdir -p ${IMAGE_ROOTFS}/dev
+		for devtable in ${@get_devtable_list(d)}; do
+			makedevs -r ${IMAGE_ROOTFS} -D $devtable
+		done
+	fi
 
 	real_do_rootfs
 
-	insert_feed_uris
+	insert_feed_uris	
 
 	rm -f ${IMAGE_ROOTFS}${libdir}/ipkg/lists/oe
 	
@@ -69,7 +70,11 @@ do_rootfs () {
 	export TOPDIR=${TOPDIR}
 
 	for type in ${IMAGE_FSTYPES}; do
-		bbimage -n "${IMAGE_NAME}" -t "$type" -e "${FILE}"
+		if test -z "$FAKEROOTKEY"; then
+			fakeroot -i ${TMPDIR}/fakedb.image bbimage -t $type -e ${FILE}
+		else
+			bbimage -n "${IMAGE_NAME}" -t "$type" -e "${FILE}"
+		fi
 	done
 
 	${IMAGE_POSTPROCESS_COMMAND}
