@@ -8,7 +8,8 @@ SRCDATE = "20050404"
 PR = "r12"
 
 SRC_URI = "${HANDHELDS_CVS};module=ipkg-utils \
-           file://index_speedup.patch;patch=1"
+           file://index_speedup.patch;patch=1 \
+	   file://fix-python-paths.patch;patch=1"
 
 S = "${WORKDIR}/ipkg-utils"
 
