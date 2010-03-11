@@ -3,9 +3,11 @@ DESCRIPTION = "<description>"
 PV = "0.0.1"
 PR = "r0"
 
+inherit image_ipk
+
 COMPATIBLE_MACHINE = "sdp83"
 
-DEPENDS_sdp83 += "linux-chelsea-externalboot"
+DEPENDS_append_sdp83="linux-chelsea-externalboot"
 
 RDEPENDS = "\
 	base-files base-passwd busybox busybox-mdev libc6 kernel-modules sysvinit sysvinit-pidof \
@@ -21,4 +23,3 @@ IMAGE_FSTYPES = "tar.gz"
 export IMAGE_LINGUAS = " "
 export IPKG_INSTALL = "${RDEPENDS}"
 
-inherit image_ipk
