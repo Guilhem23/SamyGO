@@ -22,6 +22,9 @@ EXTRA_OEMAKE = '\
   BUILD_SYS="" \
   HOST_SYS="" \
   LIBC="" \
+  STAGING_LIBDIR=${STAGING_LIBDIR} \
+  STAGING_INCDIR=${STAGING_INCDIR} \
+
 '
 
 do_stage_append() {
