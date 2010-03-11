@@ -75,6 +75,11 @@ get_servers()
 
 case $1 in 
 	start)
+	# for systems with modular nfs kernel support
+	insmod $SYSROOT/lib/modules/sunrpc
+	insmod $SYSROOT/lib/modules/lockd
+	insmod $SYSROOT/lib/modules/nfs_acl
+	insmod $SYSROOT/lib/modules/nfs
 	get_servers
 	get_shares
 	;;
