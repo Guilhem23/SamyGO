@@ -58,7 +58,6 @@ do_install () {
 	install -m 0755    ${WORKDIR}/sendsigs		${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/single		${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/umountnfs.sh	${D}${sysconfdir}/init.d
-	install -m 0755    ${WORKDIR}/umountnfs.sh	${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/devpts.sh		${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/devpts		${D}${sysconfdir}/default
 	install -m 0755    ${WORKDIR}/sysfs.sh		${D}${sysconfdir}/init.d
