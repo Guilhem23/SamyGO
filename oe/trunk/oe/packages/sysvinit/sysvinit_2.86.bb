@@ -28,8 +28,6 @@ SRC_URI = "ftp://ftp.cistron.nl/pub/people/miquels/sysvinit/sysvinit-${PV}.tar.g
            file://rcS \
            file://bootlogd.init"
 
-SRC_URI_append_samygo += "file://preinit"
-
 S = "${WORKDIR}/sysvinit-${PV}"
 B = "${S}/src"
 
@@ -90,7 +88,6 @@ EOF
 	install -m 0644    ${WORKDIR}/rcS-default	${D}${sysconfdir}/default/rcS
 	install -m 0755    ${WORKDIR}/rc		${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/rcS		${D}${sysconfdir}/init.d
-	install -m 0755    ${WORKDIR}/preinit		${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/bootlogd.init     ${D}${sysconfdir}/init.d/bootlogd
 	ln -sf bootlogd ${D}${sysconfdir}/init.d/stop-bootlogd
 	install -d ${D}${sysconfdir}/rcS.d
