@@ -5,7 +5,7 @@
 # See image_ipk.oeclass for a usage of this.
 #
 
-DEPENDS_prepend="ipkg-native ipkg-utils-native fakeroot-native python-native gzip-native tar-native "
+DEPENDS_prepend="ipkg-native ipkg-utils-native fakeroot-native python-native gzip-native tar-native sed-native "
 DEPENDS_append=" ${EXTRA_IMAGEDEPENDS}"
 
 PACKAGES = ""
