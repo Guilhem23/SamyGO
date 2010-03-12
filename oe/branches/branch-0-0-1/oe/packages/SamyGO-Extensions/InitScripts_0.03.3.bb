@@ -4,16 +4,18 @@ SECTION = "Gallery/Games"
 MAINTAINER = "Ser Lev Arris <arris@ZsoltTech.Com>"
 HOMEPAGE = "http://samygo.sourceforge.net"
 
-PR = "r03"
+PR = "r04"
 
 # RECOMMENDS = ""
 RRECOMMENDS += " StarterLib CoreScript nfs-utils-discover djmount dropbear vsftpd util-linux-mount util-linux-umount \
 		kernel-module-cifs kernel-module-dummy-hcd kernel-module-g-file-storage \
-		samba bluez-utils-nodbus "
+		samba bluez-utils-nodbus fusesmb "
 # DEPENDS = ""
 # RDEPENDS = ""
 
+# r03
 SRCDATE = "20100201"
+SRCDATE = "20100313"
 SRC_URI = "svn://samygo.svn.sourceforge.net/svnroot/samygo/SamyGO-Extensions;module=${PN};proto=https"
 
 PACKAGES = "${PN}-dbg ${PN} ${PN}-bin ${PN}-dev ${PN}-doc ${PN}-locale"
