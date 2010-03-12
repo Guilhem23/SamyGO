@@ -25,6 +25,7 @@ RDEPENDS = "perl\
 RDEPENDS += "perl-module-exporter-heavy"
 RDEPENDS += "perl-module-file-spec-unix"
 
+DEPENDS_samygo = "jpeg zlib libpng tiff flex-native"
 RDEPENDS_samygo = ""
 
 PR = "r5"
