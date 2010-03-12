@@ -1,0 +1,65 @@
+#!/bin/sh
+#
+#	Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id: 04_04_fusesmb.init 346 2010-01-25 11:47:28Z arris $
+#
+
+. /dtv/SGO.env
+HOME=/mtd_wiselink
+##### CHANGE MEEEEE !!!!! ######
+USER=""
+PASSWD=""
+##### CHANGE MEEEEE END ######
+
+[ -e /mtd_rwarea/smb_userdata ] && source /mtd_rwarea/smb_userdata
+
+[ -z $USER ] && exit 1
+[ -z $PASSWD ] && exit 1
+
+DEST_DIR=/dtv/usb/fusesmb
+
+FR_NAME="Windows Server"
+
+do_mount()
+{
+        mkdir -p $DEST_DIR
+        mkdir $HOME/.smb
+                $(echo -e "[global]\nusername=$USER\npassword=$PASSWD\n;showhiddenshares=true\n\
+timeout = 10\ninterval = 10" > $HOME/.smb/fusesmb.conf)
+        chmod 600 $HOME/.smb/fusesmb.conf
+        cd $HOME
+        touch $HOME/fusesmb.cache
+        fusesmb $DEST_DIR
+        fusesmb.cache
+        sleep 3
+                $(echo -e "[sdh]\nVendor : SmbFsMount\nProduct : $FR_NAME\n\
+Serial : Q80VQLFI\nDevpath : 9\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat\n" >> /dtv/usb/log)
+        cd -
+}
+
+case $1 in
+        start)
+        insmod $SYSROOT/lib/modules/fuse.ko
+        do_mount
+        ;;
+        stop)
+        # may can fail if device access the mount from content library
+        # attention: djmount use fuse too, difference is vfat on or fuse on
+        # in output of mount
+        # for i in $(cat /proc/mounts | grep cifs | cut -d " " -f2) ; do
+        for i in $(cat /proc/mounts | grep fuse | grep -v vfat | sed 's/^\(.*\) \(.*\) fuse .*/\2/') ; do
+                umount $i
+        done
+        ;;
+        status)
+        ;;
+        *)
+        echo "Usage: $0 {start|stop}" 1>&2
+        exit 0
+        ;;
+esac
