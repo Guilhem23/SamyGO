@@ -2,8 +2,7 @@ DESCRIPTION = "Command line tool and library for client-side URL transfers."
 LICENSE = "MIT"
 SECTION = "console/network"
 
-# needs to update to libssh2 but for now it pulls openssl depency * Arris *
-DEPENDS_append_samygo = "libssh"
+DEPENDS_append_samygo = "libssh2"
 
 SRC_URI = "http://curl.haxx.se/download/curl-${PV}.tar.bz2 \
            file://pkgconfig_fix.patch;patch=1"
@@ -22,11 +21,13 @@ EXTRA_OECONF = " \
                 --without-ssl \
 		"
 EXTRA_OECONF_samygo = " \
-                --without-libssh2 \
+                --with-libssh2 \
                 --with-random=/dev/urandom \
 #                --with-libidn \
                 --without-libidn \
                 --with-ssl \
+		--with-ca-bundle=/mtd_rwarea/ca-bundle.crt \
+#		--with-ca-path=/mtd_rwarea \
 "
 
 python __anonymous() {
