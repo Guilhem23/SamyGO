@@ -95,7 +95,7 @@ libYahooSDLHWAcceleration libMMFCore libPlaybackEngine libSDAL libYahooTimeManag
 
 Y_arch = "libRCE libGDM libGeneDebug"
 
-G_libs "libGPlayerPorting libpngGP libSDL_mixer libSDL_image"
+G_libs = "libGPlayerPorting libpngGP libSDL_mixer libSDL_image"
 
 do_stage_arm(){
 	for i in ${G_libs} ; do
