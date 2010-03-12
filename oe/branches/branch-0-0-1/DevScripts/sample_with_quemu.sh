@@ -136,7 +136,6 @@ cp -a /home/Video-HD/DLCS/squashfs-root/dev/sdp_i2c* /dev/
 #		4910 stat64("/mtd_exe/Factory.dat",0x4007ec48) = -1 errno=2 (No such file or directory)    
 #		4910 open("/mtd_exe/Factory.dat",0,0777) = -1 errno=2 (No such file or directory)          
 #		4910 write(1,0x4890d000,45)File Open Error /mtd_exe/Factory.dat File.. 
-#		ok, but write to /mtd_exe ?? mtd_factory -> mtd_rwarea
 # # ls -l /mtd_exe/Factory.dat
 # # -rwxr-xr-x    1 root     0          297536 Mar 26  2009 /mtd_exe/Factory.dat
 
