@@ -38,20 +38,19 @@ S = ${WORKDIR}/${PN}-pc/netsurf
 DEPENDS = "virtual/libsdl virtual/libiconv libidn lemon-native re2c-native \
 		openssl curl libxml2 libnsbmp hubbub libnsgif libmng lcms libsdl-ttf jpeg"
 
-# EXTRA_OEMAKE = "TARGET=framebuffer HOST=SamsungDTV CURDIR=${S} DESTDIR=${D} PREFIX=${prefix} WARNFLAGS='-Wno-error -fgnu89-inline'"
-EXTRA_OEMAKE = "TARGET=framebuffer NETSURF_FB_FRONTEND=sdl NETSURF_FB_RESPATH_sdl=./framebuffer/res/ CURDIR=${S} DESTDIR=${D} PREFIX=${prefix} WARNFLAGS='-Wno-error -fgnu89-inline'"
+EXTRA_OEMAKE = "TARGET=framebuffer HOST=SamsungDTV CURDIR=${S} DESTDIR=${D} PREFIX=${prefix}"
+
+EXTRA_OEMAKE_sh4 = "TARGET=framebuffer NETSURF_FB_FRONTEND=sdl NETSURF_FB_RESPATH_sdl=./framebuffer/res/ CURDIR=${S} DESTDIR=${D} PREFIX=${prefix} WARNFLAGS='-Wno-error' GCCSDK_INSTALL_ENV=${STAGING_LIBDIR}/../ EXETARGET=libNetSurf.so NETSURF_STRIP_BINARY=no"
+
+EXTRA_OEMAKE_arm = "TARGET=framebuffer NETSURF_FB_FRONTEND=sdl NETSURF_FB_RESPATH_sdl=./framebuffer/res/ CURDIR=${S} DESTDIR=${D} PREFIX=${prefix} WARNFLAGS='-Wno-error -fgnu89-inline'"
 EXTRA_OEMAKE_append = " GCCSDK_INSTALL_ENV=${STAGING_LIBDIR}/../ EXETARGET=libNetSurf.so NETSURF_STRIP_BINARY=no"
-# CFLAGS = " -static -nostdlib"
+
 LDFLAGS = " -fPIC -shared"
 
 do_configure() {
-#	make clean
-#	perl -pi -e "s/liconv/lSDL_ttf -lpng -ljpeg /g" Makefile
 	perl -pi -e "s/-liconv/-lpng12 -ljpeg -lfreetype -lxml2/g" Makefile
-#	perl -pi -e "s/(^NETSURF_USE_LIBICONV_PLUG).*/# \1/g" Makefile.config
 	perl -pi -e "s/(^NETSURF_USE_LIBICONV_PLUG)(.*)/NETSURF_USE_SVG \2/g" Makefile.config
 	echo "override NETSURF_USE_SVG := NO" > Makefile.config
-#	echo "override NETSURF_FB_FONTLIB := internal" >> Makefile.config
 	echo "override NETSURF_FB_FONTLIB := freetype" >> Makefile.config
 }
 
@@ -59,7 +58,7 @@ do_compile () {
 	oe_runmake 
 }
 
-do_install() {
+do_install_samygo() {
 	install -d ${D}/framebuffer/res/
         oe_runmake install-framebuffer
 
