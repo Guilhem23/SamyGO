@@ -94,8 +94,13 @@ libRTMPInput libVideoOutput libGCF libHttpsInput libPCMOutput libRTPInput.so \
 libYahooSDLHWAcceleration libMMFCore libPlaybackEngine libSDAL libYahooTimeManager"
 
 Y_arch = "libRCE libGDM libGeneDebug"
+
+G_libs "libGPlayerPorting libpngGP libSDL_mixer libSDL_image"
+
 do_stage_arm(){
-	oe_libinstall -so -C ${MACHINE}-orig/exe.img/GAME_LIB libGPlayerPorting ${STAGING_LIBDIR}
+	for i in ${G_libs} ; do
+		oe_libinstall -so -C ${MACHINE}-orig/exe.img/GAME_LIB $i ${STAGING_LIBDIR}
+	done
 	for i in ${Y_libs} ; do
 		oe_libinstall -so -C ${MACHINE}-orig/exe.img/YWidget_LIB $i ${STAGING_LIBDIR}
 	done
