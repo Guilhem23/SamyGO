@@ -18,3 +18,9 @@ do_stage() {
 	install -m 0644 SDL_image.h ${STAGING_INCDIR}/SDL/SDL_image.h
 }
 
+do_stage_samygo() {
+#	oe_libinstall -so libSDL_image ${STAGING_LIBDIR}
+#	ln -sf libSDL_image.so ${STAGING_LIBDIR}/libSDL_image-1.2.so
+	install -m 0644 SDL_image.h ${STAGING_INCDIR}/SDL/SDL_image.h
+}
+
