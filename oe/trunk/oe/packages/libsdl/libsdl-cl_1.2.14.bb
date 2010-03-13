@@ -15,6 +15,8 @@ S = "${WORKDIR}/SDL-${PV}"
 
 inherit autotools binconfig pkgconfig
 
+CFLAGS = "-O2"
+
 EXTRA_OECONF = " \
   --disable-shared --disable-debug --enable-threads --enable-timers --enable-endian \
   --enable-file --disable-oss --disable-alsa --disable-esd --disable-arts \
