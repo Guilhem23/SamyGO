@@ -24,6 +24,12 @@ do_configure () {
 	autotools_do_configure
 }
 
+do_stage () {
+	autotools_stage_includes
+	oe_libinstall -a libFLAC ${STAGING_LIBDIR}/
+	oe_libinstall -a libFLAC++ ${STAGING_LIBDIR}/
+}
+
 PACKAGES += "libflac-cl libflac++-cl"
 FILES_${PN} = "${bindir}/*"
 FILES_libflac-cl = "${libdir}/libFLAC.so.*"
