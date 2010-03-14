@@ -23,4 +23,3 @@ EXTRA_OEMAKE = "MANDIR=${mandir}"
 do_configure() {
 	./configure ${EXTRA_OECONF}
 }
-#		--with-sdl-prefix=${STAGING_BINDIR_CROSS} \
