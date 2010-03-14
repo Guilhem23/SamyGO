@@ -1,0 +1,1 @@
+require scummvm-cl.inc
