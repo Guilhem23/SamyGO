@@ -9,6 +9,7 @@ SRC_URI = " \
   http://www.libsdl.org/release/SDL-${PV}.tar.gz \
   file://sdl.m4 \
   file://samygo-cl.patch;patch=1 \
+  file://samygo-cl-overide-libs.patch;patch=1 \
 "
 
 S = "${WORKDIR}/SDL-${PV}"
