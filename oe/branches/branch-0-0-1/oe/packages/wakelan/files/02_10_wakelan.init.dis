@@ -1,0 +1,58 @@
+#!/bin/sh
+#
+# © Copyright 1996-2009, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: $Id$
+#
+# TODO: more sysv style, more error handling
+#
+. /dtv/SGO.env
+
+##### CHANGE MEEEEE !!!!! ######
+MACA="001122334455"
+WAT=30		# Wait, in Seconds
+##### CHANGE MEEEEE END ######
+
+DEAD=""
+
+check_hosts()
+{
+	for i in $MACA ; do
+		if [ `cat /proc/net/arp | grep -c -i "$i"` -lt "1" ] ; then
+			wakelan -m $i
+		else
+			echo "$i is may alive"
+		fi
+	done
+}
+
+do_sleep()
+{
+	for i in $MACA ; do
+		if [ `cat /proc/net/arp | grep -c -i "$i"` -lt "1" ] ; then
+			DEAD=$DEAD"$i"
+		fi
+	done
+	if [ ! -z $DEAD ] ; then
+		sleep $WAT
+	fi
+}
+	                                                                                                        
+case $1 in 
+	start)
+	check_hosts
+	do_sleep
+	;;
+	stop)
+	;;
+	status)
+	;;
+	*)
+	echo "Usage: $0 {start|stop}" 1>&2
+	exit 0
+	;;
+esac
