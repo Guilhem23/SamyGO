@@ -38,14 +38,14 @@ do_install_arm(){
 	cp -a include/smpeg ${D}/include/
 }
 
-do_configure_ppend_sh4() {
+do_configure_prepend_sh4() {
         mkdir lib_STI
+	perl -pi -e "s/INC =  (.*)/INC \?= \1/" Makefile*
         oe_runmake cSTI
 }
 
 do_compile_sh4(){
-	oenote "not implemented !!!!"
-	oe_runmake CROSS_COMPILE=${TARGET_PREFIX} STI 
+	oe_runmake -f Makefile.STI CROSS_COMPILE=${TARGET_PREFIX} INC=-I${STAGING_INCDIR}/SDL all 
 }
 
 do_install_sh4(){
@@ -68,8 +68,6 @@ exec_prefix_set=no
 " >> smpeg-config.tmp
         cat smpeg-config >> smpeg-config.tmp
         mv smpeg-config.tmp smpeg-config
-#       install sdl.m4 ${STAGING_DATADIR}/aclocal/
-#	install -m 755 sdl-config ${STAGING_BINDIR}/
         install -m 755 smpeg-config ${STAGING_BINDIR}/smpeg-config-${HOST_SYS}
 }
 
