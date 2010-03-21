@@ -13,6 +13,12 @@ INHIBIT_PACKAGE_STRIP = "1"
 inherit autotools
 
 FILES = "${MACHINE}"
-SRC_URI = "http://www.samsung.com/download/${FILES}-${PV}.exe"
 
-FETCHCOMMAND_wget = "wget ${DL_URI} -O ${DL_DIR}/${FILES}-${PV}.exe"
+# if firmisrar/zip not included default to zip
+REALEXT ?= "zip"
+
+SRC_URI = "http://www.samsung.com/download/${FILES}-${PV}.${REALEXT}"
+
+FETCHCOMMAND_wget = "wget ${DL_URI} -O ${DL_DIR}/${FILES}-${PV}.${REALEXT}"
+
+S = "${WORKDIR}"

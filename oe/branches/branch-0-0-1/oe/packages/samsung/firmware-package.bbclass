@@ -3,11 +3,6 @@ FILES_${PN} = ${MACHINE}
 DEPENDS =+ " mtools-native"
 
 do_patch () {
-	# Temporary fix
-        oenote "############ Patch from package.class #################"
-	oenote "$(pwd) AT -> ${P_OFFSET} Line -> ${P_LINE} SOURCE -> ${S}"
-	cd "${S}"
-	ls -l ./
 	# temporary fix
 	if [ -d "T-RBYDEU" ] ; then
 	 cp -a T-RBYDEU T-RBYDEUC
@@ -35,6 +30,7 @@ do_patch () {
 		rm -f "${MACHINE}/image/$i.enc"
 		fi
 	# extract files for later inspection
+	mkdir -p ${MACHINE}-orig
 	unsquashfs -i -dest ${MACHINE}-orig/$i ${MACHINE}/image/$i || $(mkdir -p ${MACHINE}-orig/$i ; mcopy -sQnv -i ${MACHINE}/image/$i ::* ${MACHINE}-orig/$i)
 	done
 	# we can ignore this file, its never used
@@ -60,6 +56,7 @@ do_patch () {
 		if [ $ENC = "yes" ] ; then
 		oenote "Firmware was x-ored, regenerate it"
                 crypt-xor -f "${MACHINE}/image/$i" -K "${MACHINE}" -force -q -outfile "${MACHINE}/image/$i.enc"
+		rm -f "${MACHINE}/image/$i"
 		fi
 		if [ -e ${MACHINE}/image/$i.sec ] ; then
 		oenote "Firmware was for ci+, encrypt it again"
@@ -73,7 +70,8 @@ do_patch () {
 	# extract some extra image files
 	for i in cmm.img chip.img boot.img rootfs.img ; do
 	if [ -e ${MACHINE}/image/$i ] ; then
-		unsquashfs -i -dest ${MACHINE}-orig/$i ${MACHINE}/image/$i || echo "Bummer fo $i"
+		mkdir -p ${MACHINE}-orig
+		unsquashfs -i -dest ${MACHINE}-orig/$i ${MACHINE}/image/$i || echo "Bummer for $i"
 	fi
 	done
 	
@@ -98,6 +96,11 @@ Y_arch = "libRCE libGDM libGeneDebug"
 G_libs = "libGPlayerPorting libpngGP libSDL_mixer libSDL_image"
 
 do_stage_arm(){
+
+	if [ "${MACHINE}" = "T-PRLAUS" ] ; then
+	oenote "${MACHINE} has no libs to stage!!! may other package will fail too"
+	else	
+
 	for i in ${G_libs} ; do
 		oe_libinstall -so -C ${MACHINE}-orig/exe.img/GAME_LIB $i ${STAGING_LIBDIR}
 	done
@@ -107,4 +110,5 @@ do_stage_arm(){
 	for i in ${Y_arch} ; do
 		oe_libinstall -a -C ${MACHINE}-orig/exe.img/YWidget_LIB $i ${STAGING_LIBDIR}
 	done
+	fi
 }
