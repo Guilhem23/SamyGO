@@ -42,27 +42,9 @@ USE_DEVFS = 1
 export NFO = '${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.nfo'
 export NFOT = '${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.desc'
 
-# fix some stuff from here? * Arris *
-# ROOTFS_POSTPROCESS_COMMAND = "" 
-
 IMAGE_FSTYPES = "zip"
 IMAGE_CMD_zip = " \
-		rm -rf ${IMAGE_ROOTFS}/usr/lib/ipkg ; \
-		for j in ${IMAGE_ROOTFS}/lib/modules/2* ; \
-		do \
-		for i in $(find ${IMAGE_ROOTFS}/lib/modules/$(basename $j) -name "*.ko") ; \ 
-		do mv $i ${IMAGE_ROOTFS}/lib/modules/ ; done ; done ; \
-		mv ${IMAGE_ROOTFS}/mtd_rwarea/bluetooth ${IMAGE_ROOTFS}/etc/ ; \
-		for i in etc usr bin sbin lib ; \ 
-		do cp -RL ${IMAGE_ROOTFS}/$i ${IMAGE_ROOTFS}/mtd_tlib/${DISTRO_NAME}/ || true ; \
-		rm -rf ${IMAGE_ROOTFS}/$i || true ; done ; \
-		mv ${IMAGE_ROOTFS}/rcSGO ${IMAGE_ROOTFS}/mtd_tlib/${DISTRO_NAME}/ ; \
-		find ${IMAGE_ROOTFS} -name .debug -type d | xargs rm -rf ; \
-		find ${IMAGE_ROOTFS} -name "*.util-linux" -type f | xargs rm -f ; \
-#		find ${IMAGE_ROOTFS} -name "*[0-9]" -type f | xargs rm -f ; \
-		rm -f ${IMAGE_ROOTFS}/mtd_tlib/${DISTRO_NAME}/etc/init.d/[a-z]* ; \
-#		mv ${IMAGE_ROOTFS}/mtd_tlib/${DISTRO_NAME}/lib/libutil-2.5.90.so \
-#			${IMAGE_ROOTFS}/mtd_tlib/${DISTRO_NAME}/lib/libutil.so.1 ; \
+#			fix SEC_GAME for some MACHINE
 		cd ${IMAGE_ROOTFS}/mtd_tlib && zip ${EXTRA_IMAGECMD} \
 		${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.zip ."
 
@@ -90,4 +72,84 @@ do_rootfs_append() {
 }
 
 inherit image_ipk
+
+OBJDUMP = "${CROSS_DIR}/bin/${HOST_PREFIX}objdump -p"
+LIB_LIST = "${S}/liblist"
+# perform some patches to the rootfs
+rootfs_postprocess() {
+	rm -rf ${IMAGE_ROOTFS}/usr/lib/ipkg
+	for j in ${IMAGE_ROOTFS}/lib/modules/2* ; do
+		for i in $(find ${IMAGE_ROOTFS}/lib/modules/$(basename $j) -name "*.ko") ; do 
+			mv $i ${IMAGE_ROOTFS}/lib/modules/ 
+		done
+	done
+	rm -rf ${IMAGE_ROOTFS}/lib/modules/2*
+	rm -f ${IMAGE_ROOTFS}/lib/modules/usbcore.ko || true
+	mv ${IMAGE_ROOTFS}/mtd_rwarea/bluetooth ${IMAGE_ROOTFS}/etc/
+
+	mkdir -p ${IMAGE_ROOTFS}/opt/privateer/lib
+	mkdir -p ${IMAGE_ROOTFS}/opt/privateer/bin
+	mkdir -p ${IMAGE_ROOTFS}/opt/privateer/sbin
+	mkdir -p ${IMAGE_ROOTFS}/opt/privateer/usr/bin
+	mkdir -p ${IMAGE_ROOTFS}/opt/privateer/usr/sbin
+	echo "from ROOTFS_POSTPROCESS_COMMAND ignore libs ${IGNORED_LIBS}"
+	echo > ${LIB_LIST}
+	for i in ${IMAGE_ROOTFS}/bin/* ${IMAGE_ROOTFS}/sbin/* ${IMAGE_ROOTFS}/usr/bin/* ${IMAGE_ROOTFS}/usr/sbin/* ; do
+		${OBJDUMP} $i | grep NEEDED | cut -d ' ' -f9- >> ${LIB_LIST}
+		sort <${LIB_LIST} | uniq >${LIB_LIST}.sort
+	done
+	# try to find correct libs
+	for j in `cat ${LIB_LIST}.sort` ; do
+		for i in `find ${IMAGE_ROOTFS}/lib -name $j` `find ${IMAGE_ROOTFS}/usr/lib -name $j` ; do
+			REAL=$(readlink -f $i)
+			install ${REAL} ${IMAGE_ROOTFS}/opt/privateer/lib/$j && rm -vf $i
+		done
+	done
+	for j in ${IGNORED_LIBS} ; do
+		rm -fv ${IMAGE_ROOTFS}/opt/privateer/lib/$j || true
+	done
+	rm -fr ${IMAGE_ROOTFS}/lib/*.so* ${IMAGE_ROOTFS}/usr/libe*
+	
+	# try to find & dereference binaries (f... vfat)
+	for j in /bin /usr/bin /sbin /usr/sbin ; do
+		for i in `find ${IMAGE_ROOTFS}${j} -type l` ; do
+			REAL=$(readlink -f $i)
+			if [ "$(dirname $REAL)" = "/usr/bin" -o "$(dirname $REAL)" = "/usr/sbin" ] ; then
+				echo "absolute link: install ${REAL} ${IMAGE_ROOTFS}/opt/privateer/${j}/$(basename $i) && rm -vf $i"
+				install -m 755 ${IMAGE_ROOTFS}${REAL} ${IMAGE_ROOTFS}/opt/privateer/${j}/$(basename $i) && rm -vf $i
+			else
+				echo "relative link: install ${IMAGE_ROOTFS}${REAL} ${IMAGE_ROOTFS}/opt/privateer/${j}/$(basename $i) && rm -vf $i"
+				install -m 755 ${REAL} ${IMAGE_ROOTFS}/opt/privateer/${j}/$(basename $i) && rm -vf $i
+			fi
+		done
+	done
+
+	date "+%m%d%H%M%Y" > ${IMAGE_ROOTFS}/etc/timestamp
+	echo "privateer (${DISTRO_NAME}) $(date "+%m%d%H%M%Y")" > ${IMAGE_ROOTFS}/etc/release
+	rm -f ${IMAGE_ROOTFS}/etc/init.d/[a-z]*
+#	find ${IMAGE_ROOTFS} -name .debug -type d | xargs rm -rf
+#	find ${IMAGE_ROOTFS} -name "*.util-linux" -type f | xargs rm -f 
+	for j in ${IGNORED_APPS} ; do
+		find ${IMAGE_ROOTFS} -name "${j}" | xargs rm -rvf
+	done
+	for j in ${DIST_APPS} ; do
+		find ${IMAGE_ROOTFS} -name "${j}" -exec mv {} ${IMAGE_ROOTFS}/opt/privateer/usr/bin/ \;
+	done
+	for j in ${DIST_SAPPS} ; do
+		find ${IMAGE_ROOTFS} -name "${j}" -exec mv {} ${IMAGE_ROOTFS}/opt/privateer/usr/sbin/ \;
+	done
+	rm -rf ${IMAGE_ROOTFS}/usr/sbin ${IMAGE_ROOTFS}/usr/bin ${IMAGE_ROOTFS}/etc/rc?.d
+	for i in etc usr bin sbin opt lib ; do 
+		cp -af ${IMAGE_ROOTFS}/$i ${IMAGE_ROOTFS}/mtd_tlib/${DISTRO_NAME}/ 
+		rm -rf ${IMAGE_ROOTFS}/$i || true 
+	done
+	mv ${IMAGE_ROOTFS}/rcSGO ${IMAGE_ROOTFS}/mtd_tlib/${DISTRO_NAME}/
+}
+# fix some stuff from here? * Arris *
+ROOTFS_POSTPROCESS_COMMAND += "rootfs_postprocess" 
+# libs on tv
+IGNORED_LIBS = "libc.so.6 libpthread.so.0 libgcc_s.so.1 libm.so.6 libdl.so.2 librt.so.1 libstdc++.so.6"
+IGNORED_APPS = "*.util-linux tz* .debug"
+DIST_APPS = "${INSTALL_PACKAGES} djmount wakelan fusesmb fusesmb.cache showmount curl"
+DIST_SAPPS = "ulockmgr_server vsftpd"
 
