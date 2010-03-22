@@ -1,0 +1,12 @@
+diff -NurbB djmount-0.71.orig/djmount/file_buffer.h djmount-0.71/djmount/file_buffer.h
+--- djmount-0.71.orig/djmount/file_buffer.h	2010-03-22 18:37:49.000000000 +0100
++++ djmount-0.71/djmount/file_buffer.h	2010-03-22 18:34:47.000000000 +0100
+@@ -61,7 +61,7 @@
+  *
+  *****************************************************************************/
+ 
+-#define FILE_BUFFER_MAX_CONTENT_LENGTH		((uintmax_t) INT_MAX)
++#define FILE_BUFFER_MAX_CONTENT_LENGTH		((off_t) INT_MAX)
+ 
+ 
+ /*****************************************************************************
