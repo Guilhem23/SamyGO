@@ -108,7 +108,7 @@ rootfs_postprocess() {
 	for j in ${IGNORED_LIBS} ; do
 		rm -fv ${IMAGE_ROOTFS}/opt/privateer/lib/$j || true
 	done
-	rm -fr ${IMAGE_ROOTFS}/lib/*.so* ${IMAGE_ROOTFS}/usr/libe*
+	rm -fr ${IMAGE_ROOTFS}/lib/*.so* ${IMAGE_ROOTFS}/usr/lib*
 	
 	# try to find & dereference binaries (f... vfat)
 	for j in /bin /usr/bin /sbin /usr/sbin ; do
@@ -148,8 +148,8 @@ rootfs_postprocess() {
 # fix some stuff from here? * Arris *
 ROOTFS_POSTPROCESS_COMMAND += "rootfs_postprocess" 
 # libs on tv
-IGNORED_LIBS = "libc.so.6 libpthread.so.0 libgcc_s.so.1 libm.so.6 libdl.so.2 librt.so.1 libstdc++.so.6"
+IGNORED_LIBS = "libc.so.6 libpthread.so.0 libgcc_s.so.1 libm.so.6 libdl.so.2 librt.so.1 libstdc++.so.6 libresolv.so.2"
 IGNORED_APPS = "*.util-linux tz* .debug"
-DIST_APPS = "${INSTALL_PACKAGES} djmount wakelan fusesmb fusesmb.cache showmount curl"
+DIST_APPS = "${INSTALL_PACKAGES} djmount wakelan fusesmb fusesmb.cache showmount"
 DIST_SAPPS = "ulockmgr_server vsftpd"
 
