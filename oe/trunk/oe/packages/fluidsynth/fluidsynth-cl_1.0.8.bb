@@ -20,7 +20,7 @@ do_configure() {
 do_stage() {
 	install -d ${STAGING_INCDIR}/fluidsynth
 	install -m 0644 ${S}/include/fluidsynth.h ${STAGING_INCDIR}/
-	install -m 0644 ${S}/include/*.h ${STAGING_INCDIR}/fluidsynth
+	install -m 0644 ${S}/include/fluidsynth/*.h ${STAGING_INCDIR}/fluidsynth
 
 	oe_libinstall -C src -a libfluidsynth ${STAGING_LIBDIR}
 }
