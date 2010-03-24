@@ -9,6 +9,8 @@ inherit autotools pkgconfig lib_package
 
 S = "${WORKDIR}/fluidsynth-${PV}"
 
+EXTRA_OECONF += " --disable-shared"
+
 #Has broken libtool usage
 do_configure() {
 	gnu-configize
@@ -16,6 +18,10 @@ do_configure() {
 }
 
 do_stage() {
-	autotools_stage_all
+	install -d ${STAGING_INCDIR}/fluidsynth
+	install -m 0644 ${S}/include/fluidsynth.h ${STAGING_INCDIR}/
+	install -m 0644 ${S}/include/*.h ${STAGING_INCDIR}/fluidsynth
+
+	oe_libinstall -C src -a libfluidsynth ${STAGING_LIBDIR}
 }
 
