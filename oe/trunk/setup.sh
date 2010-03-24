@@ -31,7 +31,7 @@ mkdir -p  ${OE_BASE}/build/conf
 if [ ! -f ${OE_BASE}/build/conf/local.conf ] || [ ! -f ${OE_BASE}/build/env.source ] || [ "$1" = "--force" ]; then
 	echo "DL_DIR = \"${DL_DIR}\"
 OE_BASE = \"${OE_BASE}\"
-BBFILES = \"\${OE_BASE}/oe/packages/*/*.bb\"
+BBFILES = \"\${OE_BASE}/oe/packages/*/*.bb \${OE_BASE}/oe/packages/apps-cl/*/*.bb\"
 MACHINE = \"${MACHINE}\"
 TARGET_OS = \"linux-gnueabi\"
 DISTRO = \"${DISTRO}\"
