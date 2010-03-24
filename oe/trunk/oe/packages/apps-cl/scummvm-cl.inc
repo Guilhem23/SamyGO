@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.scummvm.org"
 SECTION = "games"
 PRIORITY = "optional"
 LICENSE = "GPL"
-DEPENDS = "libsdl-cl libmad-cl flac-cl tremolo-cl fluidsynth-cl zlib"
+DEPENDS = "libsdl-cl libmad-cl flac-cl tremolo-cl fluidsynth-cl zlib-cl"
 PR = "r0"
 
 SRC_URI = "${SOURCEFORGE_MIRROR}/scummvm/scummvm-${PV}.tar.bz2"
@@ -23,7 +23,6 @@ EXTRA_OECONF = "--host=samsungtv \
 		--with-tremor-prefix=${STAGING_LIBDIR}/.. \
 		--enable-release --disable-debug \
 		--enable-verbose-build \
-		--disable-all-engines --enable-cine \
 		"
 
 EXTRA_OEMAKE = "MANDIR=${mandir}"
