@@ -45,5 +45,12 @@ do_configure_append () {
   cp ${WORKDIR}/sdl.m4 ${S}/
 }
 
+do_stage() {
+  install -d ${STAGING_INCDIR}/SDL
+  install -m 0644 ${S}/include/*.h ${STAGING_INCDIR}/SDL
+
+  oe_libinstall -C build -a libSDL ${STAGING_LIBDIR}
+}
+
 FILES_${PN} = "${libdir}/lib*.a"
 FILES_${PN}-dev += "${bindir}/*config"
