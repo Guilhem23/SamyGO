@@ -13,6 +13,7 @@ inherit autotools
 CCACHE = ""
 
 PACKAGES = "${PN}"
+FILES_${PN} = "/scummvm"
 
 EXTRA_OECONF = "--host=samsungtv \
 		--backend=sdl \
@@ -21,6 +22,8 @@ EXTRA_OECONF = "--host=samsungtv \
 		--with-ogg-prefix=${STAGING_LIBDIR}/.. \
 		--with-tremor-prefix=${STAGING_LIBDIR}/.. \
 		--enable-release --disable-debug \
+		--enable-verbose-build \
+		--disable-all-engines --enable-cine \
 		"
 
 EXTRA_OEMAKE = "MANDIR=${mandir}"
@@ -35,6 +38,18 @@ do_configure() {
 }
 
 do_install() {
-	install -d ${D}scummvm
-	install -m 0644 ${WORKDIR}/scummvm.so ${D}scummvm/libscummvm.so
+	install -d ${D}/scummvm
+	install -m 0644 ${S}/scummvm.so ${D}/scummvm/libscummvm.so
+	install -m 0644 ${S}/dists/engine-data/* ${D}/scummvm/
+	install -m 0644 ${S}/dists/pred.dic ${D}/scummvm/
+	install -m 0644 ${S}/gui/themes/scummmodern.zip ${D}/scummvm/
+	install -m 0644 ${S}/AUTHORS ${D}/scummvm/
+	install -m 0644 ${S}/COPYING ${D}/scummvm/
+	install -m 0644 ${S}/COPYING.LGPL ${D}/scummvm/
+	install -m 0644 ${S}/COPYRIGHT ${D}/scummvm/
+	install -m 0644 ${S}/NEWS ${D}/scummvm/
+	install -m 0644 ${S}/README ${D}/scummvm/
+	install -m 0644 ${S}/dists/samsungtv/clmeta.dat ${D}/scummvm/
+	install -m 0644 ${S}/dists/samsungtv/scummvm.dat ${D}/scummvm/
+	install -m 0644 ${S}/dists/samsungtv/scummvm.bmp ${D}/scummvm/
 }

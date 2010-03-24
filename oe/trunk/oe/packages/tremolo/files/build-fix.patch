@@ -12,20 +12,20 @@ diff -urNP old/Makefile new/Makefile
 -RANLIB = arm-wince-pe-ranlib
 -STRIP  = arm-wince-pe-strip
 -WINDRES= arm-wince-pe-windres
-+CC     = arm-cl-linux-gnueabi-gcc
-+CXX    = arm-cl-linux-gnueabi-g++
-+LD     = arm-cl-linux-gnueabi-g++
-+AR     = arm-cl-linux-gnueabi-ar cru
-+RANLIB = arm-cl-linux-gnueabi-ranlib
-+STRIP  = arm-cl-linux-gnueabi-strip
-+WINDRES= arm-cl-linux-gnueabi-windres
++CC     = arm-linux-gnueabi-gcc
++CXX    = arm-linux-gnueabi-g++
++LD     = arm-linux-gnueabi-g++
++AR     = arm-linux-gnueabi-ar cru
++RANLIB = arm-linux-gnueabi-ranlib
++STRIP  = arm-linux-gnueabi-strip
++WINDRES= arm-linux-gnueabi-windres
  MKDIR  = mkdir -p
  RM     = rm -f
  RM_REC = rm -rf
  ECHO   = echo -n
  CAT    = cat
 -AS     = arm-wince-pe-as
-+AS     = arm-cl-linux-gnueabi-as
++AS     = arm-linux-gnueabi-as
  
  DEFINES := 
  
@@ -86,8 +86,8 @@ diff -urNP old/Makefile new/Makefile
 -
 -annotate.exe: annotate.c
 -	gcc $^ -o $@
-+	arm-cl-linux-gnueabi-ar cru $@ $^
-+	arm-cl-linux-gnueabi-ranlib $@
++	arm-linux-gnueabi-ar cru $@ $^
++	arm-linux-gnueabi-ranlib $@
  
  clean:
  	rm `find . -name \*.o`
