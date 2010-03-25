@@ -37,10 +37,10 @@ addtask unpack2 before do_patch after do_unpack
 
 do_stage_arm () {
 	oe_libinstall -so -C Lib/CHELSEA libSDL ${STAGING_LIBDIR}/
-	mkdir -p ${STAGING_INCDIR}/SDL
-	cp -a include/*.h ${STAGING_INCDIR}/SDL
-        install src/video/SDL_sysvideo.h ${STAGING_INCDIR}/SDL/
-        install src/video/SDL_glfuncs.h ${STAGING_INCDIR}/SDL/
+	install -d ${STAGING_INCDIR}/SDL
+	install -m 0644 include/*.h ${STAGING_INCDIR}/SDL
+        install -m 0644 src/video/SDL_sysvideo.h ${STAGING_INCDIR}/SDL/
+        install -m 0644 src/video/SDL_glfuncs.h ${STAGING_INCDIR}/SDL/
 
 echo "#!/bin/sh
 
