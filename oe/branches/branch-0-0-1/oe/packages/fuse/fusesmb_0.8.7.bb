@@ -6,10 +6,12 @@ PRIORITY = "optional"
 LICENSE = "GPLv2"
 DEPENDS = "glib-2.0 fuse samba"
 RDEPENDS += " libsmbclient "
-PR = "r03"
+PR = "r04"
 
 SRC_URI = "http://www.ricardis.tudelft.nl/~vincent/fusesmb/download/${P}.tar.gz"
-SRC_URI_append_samygo += " file://04_04_fusesmb.init"
+SRC_URI_append_samygo += " file://04_04_fusesmb.init \
+			file://selp-max_read.patch;patch=1 \
+"
 
 S = "${WORKDIR}/${P}"
 

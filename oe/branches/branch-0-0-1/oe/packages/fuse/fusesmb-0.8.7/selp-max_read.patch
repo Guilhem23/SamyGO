@@ -1,0 +1,13 @@
+diff -NurbB fusesmb-0.8.7.orig/fusesmb.c fusesmb-0.8.7/fusesmb.c
+--- fusesmb-0.8.7.orig/fusesmb.c	2010-03-23 19:35:12.000000000 +0100
++++ fusesmb-0.8.7/fusesmb.c	2010-03-22 22:38:44.000000000 +0100
+@@ -1100,7 +1100,8 @@
+         exit(EXIT_FAILURE);
+ 
+     /* libsmbclient doesn't work with reads bigger than 32k */
+-    char *max_read = "-omax_read=32768";
++    // char *max_read = "-omax_read=32768";
++    char *max_read = "-omax_read=61440";
+ 
+     for (i = 0; i < argc; i++)
+     {

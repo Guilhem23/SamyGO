@@ -26,6 +26,7 @@ EXTRA_IMAGEDEPENDS = ""
 # if RRECOMMENDS in InitScripts ?? * Arris *
 INSTALL_PACKAGES = " \
 task-samsung cksfv crypt-xor squashfs-tools StarterLib InitScripts \
+netsurf \
 "
 
 # BROKEN BUT NEEDED = libptp2
@@ -78,6 +79,9 @@ LIB_LIST = "${S}/liblist"
 # perform some patches to the rootfs
 rootfs_postprocess() {
 	rm -rf ${IMAGE_ROOTFS}/usr/lib/ipkg
+	rm -rf ${IMAGE_ROOTFS}/etc/terminfo
+	rm -rf ${IMAGE_ROOTFS}/usr/share
+	rm -rf ${IMAGE_ROOTFS}/var
 	for j in ${IMAGE_ROOTFS}/lib/modules/2* ; do
 		for i in $(find ${IMAGE_ROOTFS}/lib/modules/$(basename $j) -name "*.ko") ; do 
 			mv $i ${IMAGE_ROOTFS}/lib/modules/ 
@@ -150,6 +154,6 @@ ROOTFS_POSTPROCESS_COMMAND += "rootfs_postprocess"
 # libs on tv
 IGNORED_LIBS = "libc.so.6 libpthread.so.0 libgcc_s.so.1 libm.so.6 libdl.so.2 librt.so.1 libstdc++.so.6 libresolv.so.2"
 IGNORED_APPS = "*.util-linux tz* .debug"
-DIST_APPS = "${INSTALL_PACKAGES} djmount wakelan fusesmb fusesmb.cache showmount"
+DIST_APPS = "${INSTALL_PACKAGES} djmount wakelan fusesmb fusesmb.cache showmount [sn]mb*"
 DIST_SAPPS = "ulockmgr_server vsftpd"
 
