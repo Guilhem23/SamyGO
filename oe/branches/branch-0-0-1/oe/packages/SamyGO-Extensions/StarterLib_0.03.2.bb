@@ -4,7 +4,7 @@ SECTION = "Gallery/Games"
 MAINTAINER = "Ser Lev Arris <arris@ZsoltTech.Com>"
 HOMEPAGE = "http://samygo.sourceforge.net"
 
-PR = "r04"
+PR = "r05"
 
 # dev info T-CHEAUSC -> no games in gallery
 # T-SPHAUSC -> no games work in SEC_GAMES and must be named lib<something> + need 
@@ -12,7 +12,7 @@ PR = "r04"
 
 RECOMMENDS = ""
 RRECOMMENDS = "CoreScript InitScripts"
-DEPENDS = "virtual/libsdl samsung-firmware"
+DEPENDS = "virtual/libsdl libsdl-image libsdl-mixer samsung-firmware"
 RDEPENDS = ""
 
 
@@ -25,6 +25,7 @@ PACKAGE_ARCH = ${MACHINE}
 SRC_URI = "file://SamyGOE.c \
 		file://SamyGO.png \
 		file://SGexeDSP.c \
+		file://savesurf.h \
 "
 
 PACKAGES = "${PN}-dbg ${PN} ${PN}-bin ${PN}-dev ${PN}-doc ${PN}-locale"
@@ -34,7 +35,8 @@ S = ${WORKDIR}
 do_compile(){
  	# oe_runmake 
  	${CC} ${TARGET_CFLAGS} -O2 -Wall `sdl-config-${HOST_SYS} --cflags --libs` -fPIC -shared -o libSamyGO.so SamyGOE.c 
- 	${CC} ${TARGET_CFLAGS} -O2 -Wall -Wl,--unresolved-symbols=ignore-all `sdl-config-${HOST_SYS} --cflags --libs` ${TARGET_LDFLAGS} -o SGexeDSP SGexeDSP.c -lGPlayerPorting 
+ 	# ${CC} ${TARGET_CFLAGS} -O2 -Wall -Wl,--unresolved-symbols=ignore-all `sdl-config-${HOST_SYS} --cflags --libs` ${TARGET_LDFLAGS} -o SGexeDSP SGexeDSP.c -lGPlayerPorting 
+	${CC} ${TARGET_CFLAGS} -O2 -Wall -Wl,--unresolved-symbols=ignore-all `sdl-config-${HOST_SYS} --cflags --libs` -I. -Itrunk ${TARGET_LDFLAGS} -lSDL_mixer -lpngGP -lSDL_image -lGPlayerPorting -Wl,-rpath,/mtd_cmmlib/YWidget_LIB -Wl,-rpath,/mtd_cmmlib/GAME_LIB -lYahooSDLHWAcceleration -o SGexeDSP SGexeDSP.c ${STAGING_LIBDIR}/libjpeg.a
 }
 
 do_install () {
