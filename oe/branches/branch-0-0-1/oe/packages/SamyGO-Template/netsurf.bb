@@ -19,7 +19,7 @@ SRC_URI = "http://rrobek.de/download/netsurf-src.tgz \
 
 S = ${WORKDIR}/${PN}-pc/netsurf
 
-#         libz.so.1 => not found
+#        libz.so.1 => not found
 #        libssl.so.0.9.7 => not found
 #        libcurl.so.4 => not found
 #        libfreetype.so.6 => not found
@@ -36,14 +36,15 @@ S = ${WORKDIR}/${PN}-pc/netsurf
 #        /lib/ld-linux.so.3 (0x2a000000)
 
 DEPENDS = "virtual/libsdl virtual/libiconv libidn lemon-native re2c-native \
-		openssl curl libxml2 libnsbmp hubbub libnsgif libmng lcms libsdl-ttf jpeg"
+		openssl curl libxml2 libnsbmp hubbub libnsgif libmng lcms libsdl-ttf jpeg libpng"
 
 EXTRA_OEMAKE = "TARGET=framebuffer HOST=SamsungDTV CURDIR=${S} DESTDIR=${D} PREFIX=${prefix}"
 
-EXTRA_OEMAKE_sh4 = "TARGET=framebuffer NETSURF_FB_FRONTEND=sdl NETSURF_FB_RESPATH_sdl=./framebuffer/res/ CURDIR=${S} DESTDIR=${D} PREFIX=${prefix} WARNFLAGS='-Wno-error' GCCSDK_INSTALL_ENV=${STAGING_LIBDIR}/../ EXETARGET=libNetSurf.so NETSURF_STRIP_BINARY=no"
-
-EXTRA_OEMAKE_arm = "TARGET=framebuffer NETSURF_FB_FRONTEND=sdl NETSURF_FB_RESPATH_sdl=./framebuffer/res/ CURDIR=${S} DESTDIR=${D} PREFIX=${prefix} WARNFLAGS='-Wno-error -fgnu89-inline'"
-EXTRA_OEMAKE_append = " GCCSDK_INSTALL_ENV=${STAGING_LIBDIR}/../ EXETARGET=libNetSurf.so NETSURF_STRIP_BINARY=no"
+EXTRA_OEMAKE_append_sh4 += " WARNFLAGS='-Wno-error'"
+EXTRA_OEMAKE_append_arm += " WARNFLAGS='-Wno-error -fgnu89-inline'"
+EXTRA_OEMAKE_append_samygo += " NETSURF_FB_FRONTEND=sdl NETSURF_FB_RESPATH_sdl=./framebuffer/res/ \
+				GCCSDK_INSTALL_ENV=${STAGING_LIBDIR}/../ EXETARGET=libNetSurf.so \
+				NETSURF_STRIP_BINARY=no"
 
 LDFLAGS = " -fPIC -shared"
 
