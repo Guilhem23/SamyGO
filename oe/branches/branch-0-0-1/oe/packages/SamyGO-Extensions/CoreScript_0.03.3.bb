@@ -4,7 +4,7 @@ SECTION = "Gallery/Games"
 MAINTAINER = "Ser Lev Arris <arris@ZsoltTech.Com>"
 HOMEPAGE = "http://samygo.sourceforge.net"
 
-PR = "r02"
+PR = "r03"
 
 RECOMMENDS = ""
 RRECOMMENDS = ""
@@ -13,7 +13,10 @@ RDEPENDS = ""
 
 # from r01
 # SRCDATE = "20100201"
-SRCDATE = "20100308"
+# r02
+# SRCDATE = "20100308"
+# r03 (fix for subdir search, nested hack)
+SRCDATE = "20100327"
 
 SRC_URI = "svn://samygo.svn.sourceforge.net/svnroot/samygo/SamyGO-Extensions;module=${PN};proto=https"
 
