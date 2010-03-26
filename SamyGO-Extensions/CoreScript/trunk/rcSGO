@@ -46,9 +46,11 @@ if [ ! -z $1 ] ; then
 else
 	for SYSROOT in ${1:- \
 		/dtv/usb/sd*/SamyGO \
-		/dtv/usb/sd*/SEC_GAME/SamyGO \
+		/dtv/usb/sd*/*/SamyGO \
+		/dtv/usb/sd*/*/*/SamyGO \
 		/mtd_tlib/SamyGO \
 		/mtd_tlib/*/SamyGO \
+		/mtd_tlib/*/*/SamyGO \
 		/mtd_down/SamyGO \
 		/mtd_wiselink/SamyGO} ;	do
 		if [ -x $SYSROOT/etc/rc.sysinit ] ; then
