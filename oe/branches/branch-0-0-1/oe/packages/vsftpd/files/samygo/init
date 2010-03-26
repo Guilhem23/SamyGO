@@ -1,6 +1,20 @@
 #!/bin/sh
 # SamyGO Edition
+# $Id$
 
 . /dtv/SGO.env
 
-vsftpd $SYSROOT/etc/vsftpd.conf &
+case $1 in
+	start)
+	vsftpd $SYSROOT/etc/vsftpd.conf &
+	;;
+	stop)
+	killall -KILL vsftpd 
+	;;
+	status)
+	;;
+	*)
+	echo "Usage: $0 {start|stop}" 1>&2
+	exit 0
+	;;
+esac

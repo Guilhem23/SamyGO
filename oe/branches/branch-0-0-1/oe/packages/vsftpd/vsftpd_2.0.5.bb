@@ -1,7 +1,7 @@
 DESCRIPTION = "Secure ftp daemon"
 SECTION = "console/network"
 LICENSE = "GPL"
-PR = "r2"
+PR = "r03"
 
 SRC_URI = "ftp://vsftpd.beasts.org/users/cevans/vsftpd-${PV}.tar.gz \
            file://makefile.patch;patch=1 \
@@ -32,6 +32,10 @@ do_install() {
         install -m 0755 ${WORKDIR}/vsftpd.conf ${D}${sysconfdir}/vsftpd.conf
         install -d ${D}${sysconfdir}/init.d/
         install -m 755 ${WORKDIR}/init ${D}${sysconfdir}/init.d/vsftpd
+}
+
+do_install_append_samygo(){
+        install -m 755 ${WORKDIR}/init ${D}/etc/init.d/80_04_vsftpd.init.dis
 }
 
 pkg_postinst() {
