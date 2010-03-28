@@ -14,13 +14,15 @@ SRC_URI = "\
   file://allow-nopw.patch \
   file://init \
 "
+SRC_URI_append_samygo += " file://selp-dbclient.patch;patch=1"
+
 inherit autotools update-rc.d
 
 INITSCRIPT_NAME = "dropbear"
 INITSCRIPT_PARAMS = "defaults 10"
 
 CFLAGS =+ "-I."
-CFLAGS_samygo =+ " -DDSS_PRIV_FILENAME=\\"/mtd_rwarea/dropbear_dss_host_key\\" -DRSA_PRIV_FILENAME=\\"/mtd_rwarea/dropbear_rsa_host_key\\" -DDROPBEAR_PIDFILE=\\"/dtv/dropbear.pid\\" "
+CFLAGS_samygo =+ " -DDSS_PRIV_FILENAME=\\"/mtd_rwarea/dropbear_dss_host_key\\" -DRSA_PRIV_FILENAME=\\"/mtd_rwarea/dropbear_rsa_host_key\\" -DDROPBEAR_PIDFILE=\\"/dtv/dropbear.pid\\" -DSFTPSERVER_PATH=\\"sftp-server\\" "
 
 LD = "${CC}"
 
