@@ -48,25 +48,35 @@ EXTRA_OEMAKE_append_samygo += " NETSURF_FB_FRONTEND=sdl NETSURF_FB_RESPATH_sdl=.
 
 LDFLAGS = " -fPIC -shared"
 
-do_configure() {
-	perl -pi -e "s/-liconv/-lpng12 -ljpeg -lfreetype -lxml2/g" Makefile
+do_configure(){
+	touch Makefile.config
+}
+
+S_libs = "-lpng -lidn -lmng -ljpeg -lfreetype -lSDL_ttf -llcms -lxml2 -lcurl -lssl -lSDL -lz"
+
+do_configure_samygo() {
+	for i in ${S_libs} ; do
+		perl -pi -e "s/${i}//g" Makefile
+	done
+	perl -pi -e "s/--libs/--libs-only-L/g" Makefile
+	perl -pi -e "s/LDFLAGS \+= -liconv/LDFLAGS = -lrt -lm -lSDL -lpngGP -lpthread -ldl -fPIC -shared/g" Makefile
 	perl -pi -e "s/(^NETSURF_USE_LIBICONV_PLUG)(.*)/NETSURF_USE_SVG \2/g" Makefile.config
 	echo "override NETSURF_USE_SVG := NO" > Makefile.config
 	echo "override NETSURF_FB_FONTLIB := freetype" >> Makefile.config
 }
 
 do_compile () {
-	oe_runmake 
+	oe_runmake LDXFLAGS="-Wl,-whole-archive,-Bstatic,-lidn,-lmng,-ljpeg,-lfreetype,-lSDL_ttf,-llcms,-lxml2,-lnsbmp,-lhubbub,-lnsgif,-lparserutils,-lssl,-lcrypto,-lz,-lcurl,-lssh2,-Bdynamic -Wl,-no-whole-archive" 
 }
 
 do_install_samygo() {
-	install -d ${D}/framebuffer/res/
+	install -d ${D}/framebuffer/res
         oe_runmake install-framebuffer
 
 	# Original Fonts? * Arris *
-	cp -va framebuffer/res/*.ttf ${D}/framebuffer/res/
+	install -m 644 framebuffer/res/*.ttf ${D}/framebuffer/res/
 
-	mkdir -p ${D}/mtd_tlib/NetSurf/
+	install -d ${D}/mtd_tlib/NetSurf
         install -m 0755 libNetSurf.so ${D}/mtd_tlib/NetSurf/
         install -m 0644 ${WORKDIR}/netsurf.png ${D}/mtd_tlib/NetSurf/NetSurf.png
 	mv ${D}/framebuffer ${D}/mtd_tlib/NetSurf/
