@@ -24,7 +24,6 @@ DL_DIR=${DL_DIR:=$OE_BASE/sources}
 
 # target platform: Chelsea (Leonid)
 MACHINE=${MACHINE:=sdp83}
-# target platform: A1 (Polaris); MACHINE=sdp75
 
 mkdir -p  ${OE_BASE}/build/conf
 
