@@ -95,6 +95,13 @@ Y_arch = "libRCE libGDM libGeneDebug"
 
 G_libs = "libGPlayerPorting libpngGP libSDL_mixer libSDL_image"
 
+I_libs = "libExtention  libHttpInput   libMMSInput      libPlaybackEngine  libTDImage \
+libFFMpeg     libHttpsInput  libmms           libPl              libTD \
+libFileInput  libHttp        libMP3Transform  libRTMPInput       libVideoOutput \
+libAdi       libFLVDemux   libJi          libPCMOutput     libRTPInput        libWsal \
+libAe        libGCF        libJs          libPhnd          libSDAL \
+libCore      libMMFCore     libPlApp         libSui"
+
 do_stage_arm(){
 
 	if [ "${MACHINE}" = "T-PRLAUS" ] ; then
@@ -109,6 +116,9 @@ do_stage_arm(){
 	done
 	for i in ${Y_arch} ; do
 		oe_libinstall -a -C ${MACHINE}-orig/exe.img/YWidget_LIB $i ${STAGING_LIBDIR}
+	done
+	for i in ${I_libs} ; do
+		oe_libinstall -so -C ${MACHINE}-orig/exe.img/InfoLink/lib $i ${STAGING_LIBDIR}
 	done
 	fi
 }
