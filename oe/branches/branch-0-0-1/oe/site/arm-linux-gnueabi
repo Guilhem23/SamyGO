@@ -258,6 +258,9 @@ ac_cv_have_decl_sys_siglist=${ac_cv_have_decl_sys_siglist=yes}
 # mono
 cv_mono_sizeof_sunpath=108
 
+# mono samygo
+mono_cv_uscore=${mono_cv_uscore=no}
+
 # mysql
 mysql_cv_func_atomic_sub=${mysql_cv_func_atomic_sub=no}
 mysql_cv_func_atomic_add=${mysql_cv_func_atomic_add=no}
