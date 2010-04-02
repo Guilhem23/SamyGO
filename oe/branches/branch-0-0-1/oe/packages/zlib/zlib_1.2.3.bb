@@ -6,7 +6,7 @@ HOMEPAGE = "http://www.gzip.org/zlib/"
 LICENSE = "zlib"
 PR="r1"
 
-SRC_URI = "${SOURCEFORGE_MIRROR}/project/libpng/${PN}/${PV}/${PN}-${PV}.tar.bz2 \
+SRC_URI = "${SOURCEFORGE_MIRROR}/project/libpng/zlib/${PV}/zlib-${PV}.tar.bz2 \
 		file://visibility.patch;patch=1 \
 		file://autotools.patch;patch=1 "
 
