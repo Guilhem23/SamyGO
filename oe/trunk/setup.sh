@@ -39,7 +39,7 @@ BBFILES = \"${BBF}\"
 MACHINE = \"${MACHINE}\"
 TARGET_OS = \"linux-gnueabi\"
 DISTRO = \"${DISTRO}\"
-CACHE = \"${OE_BASE}/cache/oe-cache.\${USER}\"
+CACHE = \"${OE_BASE}/cache-${DISTRO}/oe-cache.\${USER}\"
 ASSUME_PROVIDED += \" gmp-native mpfr-native \"" > ${OE_BASE}/build-${DISTRO}/conf/local.conf
 
 	if [ $THREADS ] && [ $THREADS -gt 1 ]; then
