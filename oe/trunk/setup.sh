@@ -62,5 +62,6 @@ echo
 echo "--- SamyGO OE environment setup finished ---"
 echo
 echo "--- Usage example: bitbake samygo-externalboot-image ---"
+echo "--- Usage example for Content Library: bitbake scummvm-cl ---"
 echo
 
