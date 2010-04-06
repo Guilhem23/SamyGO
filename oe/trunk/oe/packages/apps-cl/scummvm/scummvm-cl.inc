@@ -42,6 +42,7 @@ do_install() {
 	install -m 0644 ${S}/dists/engine-data/* ${D}/scummvm/
 	install -m 0644 ${S}/dists/pred.dic ${D}/scummvm/
 	install -m 0644 ${S}/gui/themes/scummmodern.zip ${D}/scummvm/
+	install -m 0644 ${S}/backends/vkeybd/packs/vkeybd_default.zip ${D}/scummvm/
 	install -m 0644 ${S}/AUTHORS ${D}/scummvm/
 	install -m 0644 ${S}/COPYING ${D}/scummvm/
 	install -m 0644 ${S}/COPYING.LGPL ${D}/scummvm/
