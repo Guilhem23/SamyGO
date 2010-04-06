@@ -37,8 +37,8 @@ DISTRO = \"${DISTRO}\"
 CACHE = \"${OE_BASE}/cache/oe-cache.\${USER}\"
 ASSUME_PROVIDED += \" gmp-native mpfr-native \"" > ${OE_BASE}/build-${DISTRO}/conf/local.conf
 
-	if [ $OE_NUM_THREADS ] && [ $OE_NUM_THREADS -gt 1 ]; then
-		echo "PARALLEL_MAKE = \"-j $OE_NUM_THREADS\"" >> ${OE_BASE}/build-${DISTRO}/conf/local.conf
+	if [ $THREADS ] && [ $THREADS -gt 1 ]; then
+		echo "PARALLEL_MAKE = \"-j $THREADS\"" >> ${OE_BASE}/build-${DISTRO}/conf/local.conf
 	else
 		echo "# PARALLEL_MAKE = \"-j 3\"" >> ${OE_BASE}/build-${DISTRO}/conf/local.conf
 	fi
