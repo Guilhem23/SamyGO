@@ -27,10 +27,15 @@ MACHINE=${MACHINE:=sdp83}
 
 mkdir -p  ${OE_BASE}/build-${DISTRO}/conf
 
+BBF="\${OE_BASE}/oe/packages/*/*.bb"
+if [ "${DISTRO}" = "samygo-cl" ]; then
+	BBF="${BBF} \${OE_BASE}/oe/packages/apps-cl/*/*.bb"
+fi
+
 if [ ! -f ${OE_BASE}/build-${DISTRO}/conf/local.conf ] || [ ! -f ${OE_BASE}/build-${DISTRO}/env.source ] || [ "$1" = "--force" ]; then
 	echo "DL_DIR = \"${DL_DIR}\"
 OE_BASE = \"${OE_BASE}\"
-BBFILES = \"\${OE_BASE}/oe/packages/*/*.bb \${OE_BASE}/oe/packages/apps-cl/*/*.bb\"
+BBFILES = \"${BBF}\"
 MACHINE = \"${MACHINE}\"
 TARGET_OS = \"linux-gnueabi\"
 DISTRO = \"${DISTRO}\"
