@@ -7,7 +7,7 @@ PR ="r5"
 
 FILESPATH = "${FILE_DIRNAME}/zlib-${PV}"
 
-SRC_URI = "http://www.zlib.net/zlib-1.2.3.tar.bz2 \
+SRC_URI = "${SOURCEFORGE_MIRROR}/libpng/zlib-${PV}.tar.bz2 \
 		file://visibility.patch;patch=1 \
 		file://autotools.patch;patch=1 "
 
