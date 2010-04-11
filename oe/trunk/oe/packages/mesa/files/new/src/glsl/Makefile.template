@@ -1,0 +1,58 @@
+# src/glsl/Makefile.template
+
+# Template makefile for glsl libraries.
+#
+# Usage:
+#   The minimum that the including makefile needs to define
+#   is TOP, LIBNAME and one of of the *_SOURCES.
+#
+# Optional defines:
+#   LIBRARY_INCLUDES are appended to the list of includes directories.
+#   LIBRARY_DEFINES is not used for makedepend, but for compilation.
+
+
+### Basic defines ###
+
+OBJECTS = $(C_SOURCES:.c=.o)
+OBJECTS_HOST = $(C_SOURCES:.c=-host.o)
+
+INCLUDES = \
+	-I. \
+	$(LIBRARY_INCLUDES)
+
+
+##### TARGETS #####
+
+default: depend lib$(LIBNAME).a lib$(LIBNAME)_host.a
+
+lib$(LIBNAME).a: $(OBJECTS) Makefile $(TOP)/src/glsl/Makefile.template
+	$(MKLIB) -o $(LIBNAME) -static $(OBJECTS)
+
+lib$(LIBNAME)_host.a: $(OBJECTS_HOST) Makefile $(TOP)/src/glsl/Makefile.template
+	$(BUILD_AR) -ru lib$(LIBNAME)_host.a $(OBJECTS_HOST)
+	$(BUILD_RANLIB) lib$(LIBNAME)_host.a
+
+depend: $(C_SOURCES)
+	rm -f depend
+	touch depend
+	$(MKDEP) $(MKDEP_OPTIONS) $(INCLUDES) $(C_SOURCES) 2> /dev/null
+
+# Remove .o and backup files
+clean:
+	rm -f $(OBJECTS) $(OBJECTS_HOST) lib$(LIBNAME).a lib$(LIBNAME)_host.a depend depend.bak
+
+# Dummy target
+install:
+	@echo -n ""
+
+
+##### RULES #####
+
+$(OBJECTS): %.o: %.c
+	$(CC) -c $(INCLUDES) $(CFLAGS) $(LIBRARY_DEFINES) $< -o $@
+
+$(OBJECTS_HOST): %-host.o: %.c
+	$(BUILD_CC) -c $(INCLUDES) $(LIBRARY_DEFINES) $< -o $@
+
+-include depend
+
