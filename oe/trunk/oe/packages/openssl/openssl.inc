@@ -94,7 +94,7 @@ do_compile () {
 }
 
 do_stage () {
-	cp --dereference -R include/openssl ${STAGING_INCDIR}/
+	cp -L -R include/openssl ${STAGING_INCDIR}/
 	oe_libinstall -a -so libcrypto ${STAGING_LIBDIR}
 	oe_libinstall -a -so libssl ${STAGING_LIBDIR}
 }
@@ -110,6 +110,8 @@ do_install () {
 		mv ${D}${prefix}/lib/pkgconfig/*.pc ${D}${libdir}/pkgconfig
 	fi
 
-	oe_libinstall -so libcrypto ${D}${libdir}
-	oe_libinstall -so libssl ${D}${libdir}
+	install -m 644 ${S}/libcrypto.so* ${D}${libdir}
+	install -m 644 ${S}/libssl.so* ${D}${libdir}
+	#oe_libinstall -so libcrypto ${D}${libdir}
+	#oe_libinstall -so libssl ${D}${libdir}
 }
