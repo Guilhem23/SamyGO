@@ -66,7 +66,10 @@ cd build-${DISTRO} && source env.source
 echo
 echo "--- SamyGO OE environment setup finished ---"
 echo
+if [ "${DISTRO}" = "samygo-cl" ]; then
+echo "--- Usage example: bitbake scummvm-cl ---"
+else
 echo "--- Usage example: bitbake samygo-externalboot-image ---"
-echo "--- Usage example for Content Library: bitbake scummvm-cl ---"
+fi
 echo
 
