@@ -11,3 +11,8 @@ INC_PR = "r5"
 
 inherit autotools pkgconfig
 AUTOTOOLS_STAGE_PKGCONFIG = "1"
+
+do_stage() {
+	autotools_stage_all
+}
+
