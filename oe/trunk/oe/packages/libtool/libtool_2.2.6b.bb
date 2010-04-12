@@ -1,7 +1,9 @@
 require libtool.inc
 PR = "${INC_PR}.0"
 
-SRC_URI = "${GNU_MIRROR}/libtool/libtool-${PV}.tar.gz;name=archive"
+SRC_URI = "${GNU_MIRROR}/libtool/libtool-${PV}.tar.gz;name=archive \
+	file://trailingslash.patch;patch=1 \
+"
 SRC_URI[archive.md5sum] = "07da460450490148c6d2df0f21481a25"
 SRC_URI[archive.sha256sum] = "efe133e1014bca96998536f2e565a14fe0fde20cc83ff67135451e4e4e64ad57"
 
