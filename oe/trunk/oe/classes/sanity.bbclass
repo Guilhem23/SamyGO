@@ -112,6 +112,9 @@ def check_sanity(e):
 	if not check_app_exists('unzip', e.data):
 		raise_sanity_error('Please install the unzip package')
 
+	if not check_app_exists('intltoolize', e.data):
+		raise_sanity_error('Please install the intltool package')
+
 	oes_bb_conf = data.getVar( 'OES_BITBAKE_CONF', e.data, True )
 	if not oes_bb_conf:
 		raise_sanity_error('You do not include OpenEmbeddeds version of conf/bitbake.conf')
