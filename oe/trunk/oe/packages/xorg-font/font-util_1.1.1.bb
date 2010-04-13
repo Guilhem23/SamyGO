@@ -4,8 +4,8 @@ PACKAGE_ARCH = "${BASE_PACKAGE_ARCH}"
 
 DESCRIPTION = "X font utils."
 
-DEPENDS = "encodings util-macros"
-RDEPENDS = "mkfontdir mkfontscale encodings"
+DEPENDS = "util-macros"
+RDEPENDS = "util-macros"
 
 PE = "1"
 PR = "${INC_PR}.1"
