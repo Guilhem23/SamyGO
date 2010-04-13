@@ -15,6 +15,8 @@ do_install_prepend() {
         mkdir -p ${D}/${libdir}/X11/fonts
 }
 
+SRC_URI_append = " file://hack-assume-pixman-supports-overlapped-blt.patch;patch=1"
+
 # The NVidia driver requires Xinerama support in the X server. Ion uses it.
 XINERAMA = "${@['--disable-xinerama','--enable-xinerama'][bb.data.getVar('MACHINE',d) in ['ion']]}"
 
