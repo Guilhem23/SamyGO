@@ -16,12 +16,12 @@ Usage Information:
 	Then use bitbake command.
 	You may use below shell environment variables before run setup.
 	Setup generate two configuration files:
-	a) ${OE_BASE}/build-${DISTRO}/conf/local.conf
-	b) ${OE_BASE}/build-${DISTRO}/env.source
+	a) build-${DISTRO}/conf/local.conf
+	b) build-${DISTRO}/env.source
 
 	Once this two files are created you can setup directly from shell
 	instead run setup.sh:
-	${OE_BASE}/build-${DISTRO}; source env.source
+	cd build-${DISTRO}; source env.source
 
 Shell environment variables for setup OE:
 
