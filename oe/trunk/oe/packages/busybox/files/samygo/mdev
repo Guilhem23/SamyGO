@@ -66,6 +66,6 @@ ln -sf /proc/self/fd/2 /dev/stderr
 ln -sf /proc/kcore /dev/core
 ln -sf /proc/asound/oss/sndstat /dev/sndstat
 
-#makedevs -d /etc/samsung-devices-table.txt /
+makedevs -d /etc/samsung-devices-table.txt /
 
 exit 0
