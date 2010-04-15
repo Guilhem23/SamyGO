@@ -13,37 +13,20 @@ T-CHL7DEUC)
 	mkdir /dtv/usb
 
 	# copy original fsr and rfs modules if they are missing
-	kernel_release=`uname -r`
-	if [ ! -f /lib/modules/$kernel_release/kernel/drivers/fsr/fsr.ko ]; then
-		mount -t squashfs /dev/flash7 /mtd_boot
-		if [ $? != 0 ] ; then
-			echo "Error mounting /mtd_boot"
-			echo "Do not start Samsung exeDSP application !"
-			echo "/mtd_rwarea is not mounted."
-			echo "It may lead to unpredicted situation while"
-			echo "not synced NVRAM/EPROM with /mtd_rwarea ."
-			exit 1
-		fi
-		mkdir -p /lib/modules/$kernel_release/kernel/drivers/fsr/ /lib/modules/$kernel_release/kernel/fs/rfs1g/
-		cp /mtd_boot/modules/fsr.ko /lib/modules/$kernel_release/kernel/drivers/fsr/
-		cp /mtd_boot/modules/fsr_stl.ko /lib/modules/$kernel_release/kernel/drivers/fsr/
-		cp /mtd_boot/modules/rfs.ko /lib/modules/$kernel_release/kernel/fs/rfs1g/
-		umount /mtd_boot
-		depmod -a
-	fi
+#	kernel_release=`uname -r`
+#	if [ ! -f /lib/modules/$kernel_release/kernel/drivers/fsr/fsr.ko ]; then
+#		mount -t squashfs /dev/flash_tbml7 /mtd_boot
+#		mkdir -p /lib/modules/$kernel_release/kernel/drivers/fsr/ /lib/modules/$kernel_release/kernel/fs/rfs1g/
+#		cp /mtd_boot/modules/fsr.ko /lib/modules/$kernel_release/kernel/drivers/fsr/
+#		cp /mtd_boot/modules/fsr_stl.ko /lib/modules/$kernel_release/kernel/drivers/fsr/
+#		cp /mtd_boot/modules/rfs.ko /lib/modules/$kernel_release/kernel/fs/rfs1g/
+#		umount /mtd_boot
+#		depmod -a
+#	fi
 
-	modprobe fsr
-	modprobe fsr_stl
-	modprobe rfs
-
-	mount -t rfs /dev/flashstl0/14 /mtd_rwarea
-	if [ $? != 0 ] ; then
-		echo "Error mounting /mtd_rwarea"
-		echo "Do not start Samsung exeDSP application!"
-		echo "It may lead to unpredicted situation while"
-		echo "not synced NVRAM/EPROM with /mtd_rwarea ."
-		exit 1
-	fi
+#	modprobe fsr
+#	modprobe fsr_stl
+#	modprobe rfs
 
 	#SWITCH_FLAG0=/mtd_rwarea/PartitionSwitch_0_0
 	#SWITCH_FLAG1=/mtd_rwarea/PartitionSwitch_1_0
