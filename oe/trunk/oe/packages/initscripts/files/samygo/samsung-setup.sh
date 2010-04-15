@@ -15,7 +15,7 @@ T-CHL7DEUC)
 	# copy original fsr and rfs modules if they are missing
 	kernel_release=`uname -r`
 	if [ ! -f /lib/modules/$kernel_release/kernel/drivers/fsr/fsr.ko ]; then
-		mount -t squashfs /dev/tbml7 /mtd_boot
+		mount -t squashfs /dev/flash7 /mtd_boot
 		if [ $? != 0 ] ; then
 			echo "Error mounting /mtd_boot"
 			echo "Do not start Samsung exeDSP application !"
@@ -36,7 +36,7 @@ T-CHL7DEUC)
 	modprobe fsr_stl
 	modprobe rfs
 
-	mount -t rfs /dev/stl0/14 /mtd_rwarea
+	mount -t rfs /dev/flashstl0/14 /mtd_rwarea
 	if [ $? != 0 ] ; then
 		echo "Error mounting /mtd_rwarea"
 		echo "Do not start Samsung exeDSP application!"
@@ -50,12 +50,12 @@ T-CHL7DEUC)
 
 	#if [ -e $SWITCH_FLAG0 ]; then
 	#	echo $SWITCH_FLAG0 " is found..."
-	#	mount -t rfs -r /dev/tbml8 /mtd_exe/
-	#	mount -t squashfs /dev/tbml9 /mtd_appdata/
+	#	mount -t rfs -r /dev/flash8 /mtd_exe/
+	#	mount -t squashfs /dev/flash9 /mtd_appdata/
 	#elif [ -e $SWITCH_FLAG1 ]; then
 	#	echo $SWITCH_FLAG1 " is found..."
-	#	mount -t rfs -r /dev/tbml10 /mtd_exe/
-	#	mount -t squashfs /dev/tbml11 /mtd_appdata/
+	#	mount -t rfs -r /dev/flash10 /mtd_exe/
+	#	mount -t squashfs /dev/flash11 /mtd_appdata/
 	#fi
 
 	echo /dtv/core > /proc/sys/kernel/core_pattern
