@@ -14,7 +14,6 @@
 /dev/flashbml1	d	775	0	0	-	-	-	-	-
 /dev/flashbml1/c	b	640	0	0	137	32	-	-	-
 /dev/flashbml1/	b	640	0	0	137	33	1	1	20
-#/dev/sam	d	775	0	0	-	-	-	-	-
 /dev/flashstl0	d	775	0	0	-	-	-	-	-
 /dev/flashstl0/c	b	640	0	0	138	0	-	-	-
 /dev/flashstl0/	b	640	0	0	138	1	1	1	20
@@ -22,4 +21,4 @@
 /dev/flashstl1/c	b	640	0	0	138	32	-	-	-
 /dev/flashstl1/	b	640	0	0	138	33	1	1	20
 /dev/flashtbml	b	640	0	0	139	1	1	1	20
-/dev/flashbmlc	b	640	0	0	139	0	-	-	-
+/dev/flashtbmlc	b	640	0	0	139	0	-	-	-
