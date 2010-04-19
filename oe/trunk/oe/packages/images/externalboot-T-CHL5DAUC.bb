@@ -1,4 +1,4 @@
 FIRMWARE_NAME = "T-CHL5DAUC"
 
-required externalboot-common.inc
+require externalboot-common.inc
 

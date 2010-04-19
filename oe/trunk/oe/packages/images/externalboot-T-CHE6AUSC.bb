@@ -1,4 +1,4 @@
 FIRMWARE_NAME = "T-CHE6AUSC"
 
-required externalboot-common.inc
+require externalboot-common.inc
 

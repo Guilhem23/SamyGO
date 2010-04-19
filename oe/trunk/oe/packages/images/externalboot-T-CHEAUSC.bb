@@ -1,4 +1,4 @@
 FIRMWARE_NAME = "T-CHEAUSC"
 
-required externalboot-common.inc
+require externalboot-common.inc
 
