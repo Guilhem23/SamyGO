@@ -1,7 +1,7 @@
 DESCRIPTION = "Samsung original apps and data extracted from firmware"
 SECTION = "base"
 LICENCE = "closed"
-DEPENDS = "samsung-firmware squashfs-tools-native mtools-native"
+DEPENDS = "squashfs-tools-native mtools-native"
 
 require firmware-${FIRMWARE_NAME}.inc
 
