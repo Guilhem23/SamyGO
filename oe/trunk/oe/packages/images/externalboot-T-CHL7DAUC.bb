@@ -1,4 +1,4 @@
-FIRMWARE_NAME = "T-CHL5DEUC"
+FIRMWARE_NAME = "T-CHL7DAUC"
 
-required externalboot-common.bb
+required externalboot-common.inc
 

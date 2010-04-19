@@ -1,4 +1,4 @@
 FIRMWARE_NAME = "T-CHU7DEUC"
 
-required externalboot-common.bb
+required externalboot-common.inc
 
