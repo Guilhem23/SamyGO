@@ -1,5 +1,5 @@
 DEPENDS += " unrar-native "
-python do_unpack() {
+python do_unpack2() {
 	import re
 
 	localdata = bb.data.createCopy(d)
@@ -27,3 +27,4 @@ python do_unpack() {
 	ret = os.system(cmd)
 }
 
+addtask unpack2 before do_patch after do_unpack
