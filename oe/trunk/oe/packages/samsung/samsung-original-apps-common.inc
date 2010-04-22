@@ -44,6 +44,14 @@ unpack_exe () {
 	fi
 }
 
+unpack_cmm () {
+	:
+}
+
+unpack_chip () {
+	:
+}
+
 do_install () {
 	decode_firmware
 
@@ -51,6 +59,8 @@ do_install () {
 
 	unpack_appdata
 	unpack_exe
+	unpack_cmm
+	unpack_chip
 
 	install -d ${D}/mtd_tlib/swf
 	install -m 0644 ${S}/T_Library.swf ${D}/mtd_tlib/swf
