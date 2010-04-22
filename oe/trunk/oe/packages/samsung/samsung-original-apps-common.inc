@@ -12,6 +12,8 @@ PACKAGE_ARCH = "all"
 
 INHIBIT_PACKAGE_STRIP = "1"
 
+EXCLUDE_FROM_SHLIBS = "1"
+
 FILES_${PN} = "/mtd_appdata /mtd_exe /mtd_tlib /.*"
 
 do_configure () {
@@ -21,10 +23,8 @@ do_configure () {
 decode_firmware () {
 	for i in exe.img appdata.img ; do
 		crypt-xor -f "${FIRMWARE_NAME}/image/$i.enc" -K "${FIRMWARE_NAME}" -force -q -outfile "${FIRMWARE_NAME}/image/$i"
-		rm -f "${FIRMWARE_NAME}/image/$i.enc"
 	done
 	crypt-xor -f "${FIRMWARE_NAME}/run.sh.enc" -K "${FIRMWARE_NAME}" -force -q -outfile ${FIRMWARE_NAME}/run.sh
-	rm -f "${FIRMWARE_NAME}/run.sh.enc"
 }
 
 unpack_appdata () {
@@ -32,19 +32,22 @@ unpack_appdata () {
 }
 
 unpack_exe () {
+	rm -rf ${D}/mtd_exe
+	install -d ${D}/mtd_exe
 	mcopy -sQnv -i ${FIRMWARE_NAME}/image/exe.img ::* ${D}/mtd_exe
 	rm ${D}/mtd_exe/\$RFS_LOG.LO\$
 	chmod +x ${D}/mtd_exe/exeDSP
 	chmod +x ${D}/mtd_exe/JadeTarget
 	chmod +x ${D}/mtd_exe/ddr_margin
-	chmod +x ${D}/mtd_exe/memalloc
+	if [ -f ${D}/mtd_exe/memalloc ]; then
+		chmod +x ${D}/mtd_exe/memalloc
+	fi
 }
 
 do_install () {
 	decode_firmware
 
 	install -d ${D}
-	install -d ${D}/mtd_exe
 
 	unpack_appdata
 	unpack_exe
