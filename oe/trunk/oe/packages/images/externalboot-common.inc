@@ -22,6 +22,7 @@ RRECOMMENDS = ""
 
 IMAGE_FSTYPES = "tar.gz"
 
+export IMAGE_BASENAME = "externalboot-${FIRMWARE_NAME}"
 export IMAGE_LINGUAS = " "
 export IPKG_INSTALL = "${RDEPENDS}"
 
