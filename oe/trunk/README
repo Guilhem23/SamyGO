@@ -42,7 +42,8 @@ Shell environment variables for setup OE:
 		Number threads used for make command.
 		Default: 1
 
-	Example: MACHINE=sdp83;DISTRO=samygo;DL_DIR=~/sources;THREADS=3;. setup.sh
+	Example: MACHINE=sdp83;DISTRO=samygo;DL_DIR=~/sources;THREADS=3
+		 . setup.sh
 
 FAQ:
 	Q: Why I get an error on Mac OS X when I try to compile glibc?
