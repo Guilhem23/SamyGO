@@ -10,6 +10,7 @@ SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
 		file://selp-gadget.patch;patch=1 \
 		file://selp-ralink-devlist.patch;patch=1;pnum=0 \
 		file://selp-ralink-devlist_2.2.0.0.patch;patch=1;pnum=0 \
+		file://${KERNEL_DEFCONFIG} \
 "
 
 S = "${WORKDIR}/linux/linux-r011"
@@ -26,6 +27,8 @@ COMPATIBLE_MACHINE = "sdp83"
 
 DEFAULT_PREFERENCE = "-1"
 
+KERNEL_DEFCONFIG = "defconfig_sdp83"
+
 export ARCH = "arm"
 export OS = "Linux"
 
@@ -41,6 +44,13 @@ do_unpack2() {
 
 addtask unpack2 before do_patch after do_unpack
 
+do_configure_prepend () {
+	echo ${CROSS_COMPILE} > .mvl_cross_compile
+	echo ${TARGET_ARCH} > .mvl_target_cpu
+	cp ${WORKDIR}/${KERNEL_DEFCONFIG} .config
+	make include/linux/version.h
+}
+
 do_stage_prepend () {
 	rm -f ${S}/include/asm-${TARGET_ARCH}/arch-ssdtv || true
 	rm -f ${S}/include/asm-${TARGET_ARCH}/arch || true
@@ -51,4 +61,6 @@ do_stage_append () {
 	install ${S}/.mvl_cross_compile ${STAGING_KERNEL_DIR}/ 
 	install ${S}/.mvl_target_cpu ${STAGING_KERNEL_DIR}/
 }
+
+KERNEL_IMAGETYPE_LIST = "Image uImage"
 
