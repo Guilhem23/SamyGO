@@ -69,7 +69,7 @@ echo
 if [ "${DISTRO}" = "samygo-cl" ]; then
 echo "--- Usage example: bitbake scummvm-cl ---"
 else
-echo "--- Usage example: bitbake samygo-externalboot-image ---"
+echo "--- Usage example: bitbake externalboot-CHL7DEUC ---"
 fi
 echo
 
