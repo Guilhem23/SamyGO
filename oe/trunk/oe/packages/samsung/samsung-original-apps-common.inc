@@ -29,6 +29,7 @@ decode_firmware () {
 
 unpack_appdata () {
 	unsquashfs -dest ${D}/mtd_appdata ${FIRMWARE_NAME}/image/appdata.img
+	rm -rf ${D}/mtd_appdata/lib
 }
 
 unpack_exe () {
@@ -36,6 +37,9 @@ unpack_exe () {
 	install -d ${D}/mtd_exe
 	mcopy -sQnv -i ${FIRMWARE_NAME}/image/exe.img ::* ${D}/mtd_exe
 	rm ${D}/mtd_exe/\$RFS_LOG.LO\$
+	rm -f ${D}/mtd_exe/rc.local
+	rm -f ${D}/mtd_exe/rc.local.rfs
+	rm -f ${D}/mtd_exe/prelink.*
 	chmod +x ${D}/mtd_exe/exeDSP
 	chmod +x ${D}/mtd_exe/JadeTarget
 	chmod +x ${D}/mtd_exe/ddr_margin
