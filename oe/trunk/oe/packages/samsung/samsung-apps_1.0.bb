@@ -12,12 +12,12 @@ do_configure () {
 }
 
 do_compile () {
-	${CC} ${CFLAGS} -o ${S}/MicomCtrl ${S}/MicomCtrl.c
+	${CC} ${CFLAGS} -o ${S}/micomctrl ${S}/MicomCtrl.c
 }
 
 do_install () {
 	install -d ${D}${base_sbindir}
-	install -m 0755 ${S}/MicomCtrl ${D}${base_sbindir}/
+	install -m 0755 ${S}/micomctrl ${D}${base_sbindir}/
 	install -m 0755 ${WORKDIR}/samsung-start.sh ${D}${base_sbindir}/
 }
 
