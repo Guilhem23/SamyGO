@@ -8,11 +8,10 @@ PROVIDES = ""
 TARGET_LDFLAGS = ""
 
 do_quilt() {
-:
+	:
 }
 
 do_compile () {
-#         chmod +x board/neo1973/gta01/split_by_variant.sh
 	oe_runmake leonid_config
 	oe_runmake clean
 	oe_runmake tools
@@ -24,6 +23,6 @@ do_stage () {
 }
 
 do_deploy () {
-:
+	:
 }
 

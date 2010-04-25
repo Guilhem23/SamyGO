@@ -10,7 +10,6 @@ SRC_URI = "http://www.samsung.com/global/opensource/files/uboot_${PV}.tgz \
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 S = ${WORKDIR}/uboot_${PV}
-# CFLAGS_selp =+ " -DMTD_OLD "
 
 do_compile () {
         unset LDFLAGS
