@@ -9,6 +9,8 @@ SRC_URI = "\
 	file://replace_echo_n_b650.patch;patch=1 \
 "
 
+COMPATIBLE_MACHINE = "sdp83"
+
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 S = ${WORKDIR}/uboot
 
