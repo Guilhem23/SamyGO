@@ -19,7 +19,6 @@ T-CHE6AUSC|T-CHE7AUSC|T-CHEAUSC|T-CHL5DAUC|T-CHL5DEUC|T-CHL7DAUC|T-CHL7DEUC|T-CH
 	export KF_NO_INTERACTIVE=1
 	export KF_LOG=/dev/null
 	cd /mtd_exe/
-	mkdir -p /dev/sam
 
 	if [ ! "`lsmod | grep samdrv`" ]; then
 		insmod /mtd_drv/samdrv.ko
