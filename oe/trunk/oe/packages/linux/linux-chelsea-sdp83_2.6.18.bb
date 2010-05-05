@@ -9,6 +9,7 @@ SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
 	file://selp-gadget.patch;patch=1 \
 	file://selp-ralink-devlist.patch;patch=1;pnum=0 \
 	file://selp-ralink-devlist_2.2.0.0.patch;patch=1;pnum=0 \
+	file://pegasus.patch;patch=1 \
 	file://${KERNEL_DEFCONFIG} \
 "
 
