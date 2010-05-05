@@ -36,7 +36,7 @@ Serial : Q80VQLFG\nDevpath : 7\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat
 		M_POINT="$DEST_DIR/$1/$(echo -n $i | sed -e "s/\//_/g")"
 		mkdir -p "$M_POINT" 
 		if [ `cat /proc/mounts | grep -c "$M_POINT"` -lt "1" ] ; then
-			mount -o "$M_OPTS" "$1:$i" "$M_POINT"
+			/bin/mount -o "$M_OPTS" "$1:$i" "$M_POINT"
 		else
 			echo "$M_POINT is mounted!"
 		fi
