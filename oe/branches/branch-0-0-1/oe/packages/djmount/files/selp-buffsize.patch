@@ -6,7 +6,7 @@ diff -NurbB djmount-0.71.orig/djmount/file_buffer.h djmount-0.71/djmount/file_bu
   *****************************************************************************/
  
 -#define FILE_BUFFER_MAX_CONTENT_LENGTH		((uintmax_t) INT_MAX)
-+#define FILE_BUFFER_MAX_CONTENT_LENGTH		((off_t) INT_MAX)
++#define FILE_BUFFER_MAX_CONTENT_LENGTH		((off_t) ULONG_MAX * 16)
  
  
  /*****************************************************************************

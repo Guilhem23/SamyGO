@@ -3,7 +3,7 @@ HOMEPAGE = "http://djmount.sourceforge.net/"
 LICENSE = "GPL"
 DEPENDS = "libupnp fuse"
 RDEPENDS = "fuse-utils fuse-module"
-PR = "r03"
+PR = "r04"
 
 INITSCRIPT_NAME = "djmount"
 
