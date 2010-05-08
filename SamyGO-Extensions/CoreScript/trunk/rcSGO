@@ -41,6 +41,7 @@ S_SCRIPT="echo Bummer > /dev/kmsg"
 
 if [ ! -z $1 ] ; then
 	if [ -x "$1"/etc/rc.sysinit ] ; then
+		SYSROOT="$1"
 		S_SCRIPT="cd $1 ; ./etc/rc.sysinit 2>&1 &"
 	fi
 else
@@ -55,7 +56,6 @@ else
 		/mtd_wiselink/SamyGO} ;	do
 		if [ -x $SYSROOT/etc/rc.sysinit ] ; then
 			S_SCRIPT="cd $SYSROOT ; ./etc/rc.sysinit 2>&1 &"
-			echo "SYSROOT=\"$SYSROOT\"" > /dtv/SGO.env
 			break	
 			# if no extension installed try telnet
 		elif [ -x /etc/telnetd_start.sh ] ; then
@@ -72,6 +72,8 @@ else
 		fi
 	done
 fi
+
+echo "SYSROOT=\"$SYSROOT\"" > /dtv/SGO.env
 
 # go to sed due busybox on T-SPHAUSC
 # echo "SYSROOT=\"$(echo "$S_SCRIPT" | cut -d " " -f2)\"" > /dtv/SGO.env
