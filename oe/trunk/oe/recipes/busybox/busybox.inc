@@ -7,11 +7,11 @@ functionality and behave very much like their GNU counterparts. BusyBox \
 provides a fairly complete POSIX environment for any small or embedded \
 system."
 HOMEPAGE = "http://www.busybox.net"
-LICENSE = "GPL"
+LICENSE = "GPLv2"
 SECTION = "base"
 PRIORITY = "required"
 
-INC_PR = "r24"
+INC_PR = "r26"
 
 SRC_URI = "\
   http://www.busybox.net/downloads/busybox-${PV}.tar.bz2 \
@@ -32,7 +32,7 @@ SRC_URI_append_nylon = " file://xargs-double-size.patch;patch=1"
 
 export EXTRA_CFLAGS = "${CFLAGS}"
 EXTRA_OEMAKE_append = " CROSS=${HOST_PREFIX}"
-PACKAGES =+ "${PN}-httpd ${PN}-udhcpd ${PN}-telnetd"
+PACKAGES =+ "${PN}-httpd ${PN}-syslog ${PN}-udhcpd ${PN}-telnetd"
 
 # We need this RRECOMMENDS because libc dlopens libgcc
 # and shlib mechanism can not detect it because its not
@@ -41,14 +41,13 @@ RRECOMMENDS += "libgcc"
 
 FILES_${PN}-httpd = "${sysconfdir}/init.d/busybox-httpd /srv/www"
 FILES_${PN}-udhcpd = "${sysconfdir}/init.d/busybox-udhcpd"
-FILES_${PN}-telnetd = "${sysconfdir}/init.d/busybox-telnetd"
 
 FILES_${PN} += "${datadir}/udhcpc"
 
-INITSCRIPT_PACKAGES = "${PN}-httpd ${PN}-udhcpd ${PN}-telnetd"
+INITSCRIPT_PACKAGES = "${PN}-httpd ${PN}-syslog ${PN}-udhcpd"
 INITSCRIPT_NAME_${PN}-httpd = "busybox-httpd"
-INITSCRIPT_NAME_${PN}-udhcpd = "busybox-udhcpd" 
-INITSCRIPT_NAME_${PN}-telnetd = "busybox-telnetd" 
+INITSCRIPT_NAME_${PN}-udhcpd = "busybox-udhcpd"
+INITSCRIPT_NAME_${PN}-telnetd = "busybox-telnetd"
 
 RDEPENDS_${PN}-httpd += "${PN}"
 RDEPENDS_${PN}-udhcpd += "${PN}"
@@ -86,14 +85,15 @@ do_install () {
 	# Install /bin/busybox, and the /bin/sh link so the postinst script
 	# can run. Let update-alternatives handle the rest.
 	install -d ${D}${base_bindir}
-	install -m 0755 ${S}/busybox ${D}${base_bindir}
+	if grep -q "CONFIG_FEATURE_SUID=y" ${WORKDIR}/defconfig; then
+		install -m 4755 ${S}/busybox ${D}${base_bindir}
+	else
+		install -m 0755 ${S}/busybox ${D}${base_bindir}
+	fi
 	ln -sf busybox ${D}${base_bindir}/sh
 
 	if grep "CONFIG_CROND=y" ${WORKDIR}/defconfig; then
 		install -m 0755 ${WORKDIR}/busybox-cron ${D}${sysconfdir}/init.d/
-	fi
-	if grep "CONFIG_TELNETD=y" ${WORKDIR}/defconfig; then
-		install -m 0755 ${WORKDIR}/busybox-telnetd ${D}${sysconfdir}/init.d/
 	fi
 	if grep "CONFIG_HTTPD=y" ${WORKDIR}/defconfig; then
 		install -m 0755 ${WORKDIR}/busybox-httpd ${D}${sysconfdir}/init.d/
@@ -102,9 +102,9 @@ do_install () {
 	if grep "CONFIG_APP_UDHCPD=y" ${WORKDIR}/defconfig; then
 		install -m 0755 ${WORKDIR}/busybox-udhcpd ${D}${sysconfdir}/init.d/
 	fi
-#	if grep "CONFIG_HWCLOCK=y" ${WORKDIR}/defconfig; then
-#		install -m 0755 ${WORKDIR}/hwclock.sh ${D}${sysconfdir}/init.d/
-#	fi
+	if grep "CONFIG_TELNETD=y" ${WORKDIR}/defconfig; then
+		install -m 0755 ${WORKDIR}/busybox-telnetd ${D}${sysconfdir}/init.d/
+	fi
 	if grep "CONFIG_APP_UDHCPC=y" ${WORKDIR}/defconfig; then
 		install -d ${D}${sysconfdir}/udhcpc.d
 		install -d ${D}${datadir}/udhcpc
@@ -124,15 +124,15 @@ pkg_postinst_${PN} () {
 	# (update-alternatives have no problem replacing links later anyway)
 	test -n 2> /dev/null || alias test='busybox test'
 	if test "x$D" = "x"; then while read link; do if test ! -h "$link"; then case "$link" in /*/*/*) to="../../bin/busybox";; /bin/*) to="busybox";; /*/*) to="../bin/busybox";; /*) to="/bin/busybox";; esac; busybox ln -s $to $link; fi; done </etc/busybox.links; fi
-	
+
 	# This adds the links, remember that this has to work when building an image too, hence the $D
 	while read link; do case "$link" in /*/*/*) to="../../bin/busybox";; /bin/*) to="busybox";; /*/*) to="../bin/busybox";; /*) to="/bin/busybox";; esac; bn=`basename $link`; update-alternatives --install $link $bn $to 50; done <$D/etc/busybox.links
-	update-rc.d $OPT mdev start 06 S .
 }
 
 pkg_prerm_${PN} () {
 	# This is so you can make busybox commit suicide - removing busybox with no other packages
 	# providing its files, this will make update-alternatives work, but the update-rc.d part
+	# for syslog, httpd and/or udhcpd will fail if there is no other package providing sh
 	tmpdir=`mktemp -d /tmp/busyboxrm-XXXXXX`
 	ln -s /bin/busybox $tmpdir/[
 	ln -s /bin/busybox $tmpdir/test
@@ -154,7 +154,7 @@ pkg_prerm_${PN} () {
 			/*/*/*) to="../../bin/busybox";;
 			/bin/*) to="busybox";;
 			/*/*) to="../bin/busybox";;
-			/*) to="/bin/busybox";;		
+			/*) to="/bin/busybox";;
 		esac
 		bn=`basename $link`
 		sh /usr/bin/update-alternatives --remove $bn $to
