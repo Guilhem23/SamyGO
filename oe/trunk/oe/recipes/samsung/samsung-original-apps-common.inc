@@ -6,7 +6,7 @@ PR = "r0"
 
 SRC_URI += " file://T_Library.swf"
 
-PACKAGE_ARCH = "all"
+PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 INHIBIT_PACKAGE_STRIP = "1"
 
