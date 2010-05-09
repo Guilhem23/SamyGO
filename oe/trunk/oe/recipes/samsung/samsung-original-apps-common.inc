@@ -12,7 +12,7 @@ INHIBIT_PACKAGE_STRIP = "1"
 
 EXCLUDE_FROM_SHLIBS = "1"
 
-FILES_${PN} = "/mtd_appdata /mtd_exe /mtd_tlib /.*"
+FILES_${PN} = "/mtd_appdata /mtd_exe /mtd_tlib /.info /.version"
 
 do_configure () {
 	install -m 0644 ${WORKDIR}/T_Library.swf ${S}/
