@@ -1,0 +1,9 @@
+diff -ur old/unsquashfs.c new/unsquashfs.c
+--- old/unsquashfs.c	2006-03-15 22:36:21.000000000 +0100
++++ new/unsquashfs.c	2010-02-13 14:09:45.000000000 +0100
+@@ -943,4 +943,5 @@
+ 		printf("created %d fifos\n", fifo_count);
+ 	}
+ 
++	exit(0);
+ }

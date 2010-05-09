@@ -1,0 +1,11 @@
+--- gcc-4.2.0-4.0.9.orig/gcc/config/arm/numa-note.S	2007-10-25 04:14:33.000000000 +0200
++++ gcc-4.2.0-4.0.9/gcc/config/arm/numa-note.S	2009-12-16 21:42:19.000000000 +0100
+@@ -12,7 +12,7 @@
+ 	.long 1f - 0f		/* name length */
+ 	.long 3f - 2f		/* data length */
+ 	.long  21		/* note type */
+-0:	.asciz "MontaVista Software" /* vendor name */
++0:	.asciz "SamyGO OpenEmbedded" /* vendor name */
+ 1:	.p2align 2		/* align to 4-byte boundary */
+ 2:	.long 0,0,0		/* text: mode,flags,num_nodes */
+ 	.long 0,0,0		/* data: mode,flags,num_nodes */

@@ -1,0 +1,19 @@
+diff -ur old/Makefile new/Makefile
+--- old/Makefile	2008-07-09 07:28:54.000000000 +0200
++++ new/Makefile	2009-12-19 00:09:12.000000000 +0100
+@@ -239,11 +239,11 @@
+ 		cat $(obj)nand_spl/u-boot-spl-16k.bin $(obj)u-boot.bin > $(obj)u-boot-nand.bin
+ 
+ version:
+-		@echo -n "#define U_BOOT_VERSION \"U-Boot " > $(VERSION_FILE); \
+-		echo -n "$(U_BOOT_VERSION)" >> $(VERSION_FILE); \
+-		echo -n $(shell $(CONFIG_SHELL) $(TOPDIR)/tools/setlocalversion \
++		@printf "#define U_BOOT_VERSION \"U-Boot " > $(VERSION_FILE); \
++		printf "$(U_BOOT_VERSION)" >> $(VERSION_FILE); \
++		printf $(shell $(CONFIG_SHELL) $(TOPDIR)/tools/setlocalversion \
+ 			 $(TOPDIR)) >> $(VERSION_FILE); \
+-		echo "\"" >> $(VERSION_FILE)
++		printf "\"\n" >> $(VERSION_FILE)
+ 
+ gdbtools:
+ 		$(MAKE) -C tools/gdb all || exit 1
