@@ -4,5 +4,8 @@ SRC_URI = "http://downloadcenter.samsung.com/content/FM/200909/20090922132250765
 FLASH_RFS_VERSION = "27_64_512-28"
 
 require samsung-original-apps-common.inc
-require firmiszip.inc
+
+unpack_firmware () {
+	${STAGING_BINDIR_NATIVE}/unzip x -qq ${WORKDIR}/2009_DTV_1G_firmware.exe
+}
 

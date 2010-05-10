@@ -6,3 +6,7 @@ FLASH_RFS_VERSION = "1_2G_64_512-4"
 require firmisrar.inc
 require samsung-original-apps-common.inc
 
+unpack_firmware () {
+	${STAGING_BINDIR_NATIVE}/unrar x -inul -c- ${WORKDIR}/T-CHU7DEUC.exe
+}
+

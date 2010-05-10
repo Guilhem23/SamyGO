@@ -55,6 +55,7 @@ unpack_chip () {
 }
 
 do_install () {
+	unpack_firmware
 	decode_firmware
 
 	install -d ${D}

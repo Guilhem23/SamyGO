@@ -3,7 +3,6 @@ FIRMWARE_NAME = "T-CHL5DEUC"
 SRC_URI = "http://downloadcenter.samsung.com/content/FM/200910/20091030222436890/T-CHL5DEUC.exe;md5sum=e12e145a18c94d6706ba7bbe7b04ac82"
 FLASH_RFS_VERSION = "28_64_256-28"
 
-require firmisrar.inc
 require samsung-original-apps-common.inc
 
 unpack_exe () {
@@ -12,5 +11,9 @@ unpack_exe () {
 	rm ${D}/mtd_exe/rc.local
 	rm ${D}/mtd_exe/rc.local.rfs
 	mv ${D}/mtd_appdata/Comp_LIB ${D}/mtd_exe/
+}
+
+unpack_firmware () {
+	${STAGING_BINDIR_NATIVE}/unrar x -inul -c- ${WORKDIR}/T-CHL5DEUC.exe
 }
 
