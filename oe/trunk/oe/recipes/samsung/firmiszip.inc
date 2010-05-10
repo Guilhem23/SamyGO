@@ -20,7 +20,7 @@ python do_compile() {
 	# dont need any parameters for extraction, strip them off
 	local = re.sub(';.*$', '', local)
 	bindir = bb.data.getVar('STAGING_BINDIR_NATIVE', localdata, 1)
-	cmd = '%s/unzip %s' % (bindir, local)
+	cmd = '%s/unzip -qq %s' % (bindir, local)
 	if not os.path.exists(bb.data.getVar('S', localdata, 1)):
 		os.mkdir(bb.data.getVar('S', localdata, 1))
 	os.chdir(bb.data.getVar('S', localdata, 1))
