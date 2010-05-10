@@ -12,7 +12,7 @@ INHIBIT_PACKAGE_STRIP = "1"
 
 EXCLUDE_FROM_SHLIBS = "1"
 
-FILES_${PN} = "/mtd_appdata /mtd_exe /mtd_tlib /.info /.version"
+FILES_${PN} = "/mtd_appdata /mtd_exe /mtd_tlib"
 
 do_configure () {
 	install -m 0644 ${WORKDIR}/T_Library.swf ${S}/
@@ -66,8 +66,10 @@ do_install () {
 
 	install -d ${D}/mtd_tlib/swf
 	install -m 0644 ${S}/T_Library.swf ${D}/mtd_tlib/swf
+}
 
-	echo "${FIRMWARE_NAME}" > ${D}/.info
-	echo "${FLASH_RFS_VERSION} ${FIRMWARE_NAME}" > ${D}/.version
+pkg_postinst_${PN}_append () {
+	echo "${FIRMWARE_NAME}" > /.info
+	echo "${FLASH_RFS_VERSION} ${FIRMWARE_NAME}" > /.version
 }
 
