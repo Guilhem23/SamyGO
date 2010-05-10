@@ -16,6 +16,7 @@ SRC_URI = "${HANDHELDS_CVS};module=ipkg-utils \
            file://fields_tweaks.patch;patch=1 \
            file://ipkg-env.patch;patch=1 \
 	   file://allow-uppercase.patch;patch=1 \
+	   file://fix-for-cutoff-filenames.patch;patch=1 \
 	   "
 
 S = "${WORKDIR}/ipkg-utils"
