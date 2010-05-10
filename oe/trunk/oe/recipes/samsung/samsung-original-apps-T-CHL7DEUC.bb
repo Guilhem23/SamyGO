@@ -8,5 +8,5 @@ FLASH_RFS_VERSION = "28_64_512-29"
 require samsung-original-apps-common.inc
 
 unpack_firmware () {
-	${STAGING_BINDIR_NATIVE}/unrar x -inul -c- ${WORKDIR}/T-CHL7DEUC.exe
+	${STAGING_BINDIR_NATIVE}/unrar x -c- ${WORKDIR}/T-CHL7DEUC.exe
 }

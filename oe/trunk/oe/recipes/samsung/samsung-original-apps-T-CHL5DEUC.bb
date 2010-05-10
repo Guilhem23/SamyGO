@@ -14,6 +14,6 @@ unpack_exe () {
 }
 
 unpack_firmware () {
-	${STAGING_BINDIR_NATIVE}/unrar x -inul -c- ${WORKDIR}/T-CHL5DEUC.exe
+	${STAGING_BINDIR_NATIVE}/unrar x -c- ${WORKDIR}/T-CHL5DEUC.exe
 }
 
