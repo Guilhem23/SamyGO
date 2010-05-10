@@ -12,8 +12,6 @@ INHIBIT_PACKAGE_STRIP = "1"
 
 EXCLUDE_FROM_SHLIBS = "1"
 
-PARALLEL_MAKE = ""
-
 FILES_${PN} = "/mtd_appdata /mtd_exe /mtd_tlib"
 
 do_configure () {
