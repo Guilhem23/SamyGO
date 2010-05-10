@@ -1,7 +1,7 @@
 DESCRIPTION = "Samsung original apps and data extracted from firmware"
 SECTION = "base"
 LICENCE = "closed"
-DEPENDS = "squashfs-tools-native mtools-native crypt-xor-native cksfv-native"
+DEPENDS = "squashfs-tools-native mtools-native crypt-xor-native cksfv-native unrar-native unzip-native"
 PR = "r0"
 
 SRC_URI += " file://T_Library.swf"
@@ -11,6 +11,8 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 INHIBIT_PACKAGE_STRIP = "1"
 
 EXCLUDE_FROM_SHLIBS = "1"
+
+PARALLEL_MAKE = ""
 
 FILES_${PN} = "/mtd_appdata /mtd_exe /mtd_tlib"
 

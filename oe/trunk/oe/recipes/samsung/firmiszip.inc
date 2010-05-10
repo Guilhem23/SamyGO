@@ -1,5 +1,3 @@
-DEPENDS += " unzip-native "
-
 python do_compile() {
 	import re
 

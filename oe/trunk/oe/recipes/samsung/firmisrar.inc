@@ -1,5 +1,3 @@
-DEPENDS += " unrar-native "
-
 python do_compile() {
 	import re
 
