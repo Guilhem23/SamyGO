@@ -35,3 +35,5 @@ pkg_prerm_${PN} () {
 	update-alternatives --remove zcat zcat.${PN}
 }
 
+SRC_URI[md5sum] = "3d6c191dfd2bf307014b421c12dc8469"
+SRC_URI[sha256sum] = "631820e566353eafc4bdc0d9d8221c26c7ef6b5d10a254783dbe9bcac88caa07"
