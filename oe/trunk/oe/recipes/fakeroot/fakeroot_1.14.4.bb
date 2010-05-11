@@ -9,6 +9,9 @@ PR = "r1"
 SRC_URI = "${DEBIAN_MIRROR}/main/f/fakeroot/fakeroot_${PV}.orig.tar.bz2 \
            file://configure-libtool.patch;patch=1 \
 	   file://fix-macosx.diff;patch=1"
+
+SRC_URI[md5sum] = "bea628be77838aaa7323a2f7601c2d7e"
+SRC_URI[sha256sum] = "3236394b2f280637bc977515e46e66cf999e1db74ea7402048e64113b70b9660"
 	    
 inherit autotools
 
