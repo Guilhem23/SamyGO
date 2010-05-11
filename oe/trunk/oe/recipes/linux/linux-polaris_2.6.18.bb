@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
 DEPENDS = "binutils-cross u-boot-mkimage-selp-native"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/LN52A750.zip;name=archive \
+SRC_URI = "http://www.samsung.com/global/opensource/files/LN52A750.zip \
 	file://selp-a1-fix_nonlinux_compile.patch;patch=1 \
 	file://selp-gadget.patch;patch=1 \
 	file://${KERNEL_DEFCONFIG} \

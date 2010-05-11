@@ -3,8 +3,8 @@ HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
 DEPENDS = "binutils-cross u-boot-mkimage-selp-native"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
-	http://www.samsung.com/global/opensource/files/LE40B650T2P.zip \
+SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip;name=archive \
+	http://www.samsung.com/global/opensource/files/LE40B650T2P.zip;name=archive2 \
 	file://selp-fix_nonlinux_compile.patch;patch=1 \
 	file://selp-gadget.patch;patch=1 \
 	file://selp-ralink-devlist.patch;patch=1;pnum=0 \
@@ -14,8 +14,10 @@ SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
 	file://${KERNEL_DEFCONFIG} \
 "
 
-SRC_URI[md5sum] = "232c2397d511253a8d6dcf66fa8d9bc2"
-SRC_URI[sha256sum] = "78cecf54357d014450355c35af21d2ad330c782a89f56fead6a65b238dbff0f6"
+SRC_URI[aechive:md5sum] = "232c2397d511253a8d6dcf66fa8d9bc2"
+SRC_URI[aechive:sha256sum] = "78cecf54357d014450355c35af21d2ad330c782a89f56fead6a65b238dbff0f6"
+SRC_URI[aechive2:md5sum] = "911a26848446e8b1af5380df51d0b5cb"
+SRC_URI[aechive2:sha256sum] = "8446af033be3c3569e240a20a5021cebdef70a019e9b20c6bae0d483b4d4515c"
 
 S = "${WORKDIR}/linux/linux-r011"
 
