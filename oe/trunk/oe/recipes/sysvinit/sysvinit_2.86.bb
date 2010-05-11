@@ -1,8 +1,8 @@
 DESCRIPTION = "System-V like init."
 SECTION = "base"
-LICENSE = "GPL"
+LICENSE = "GPLv2+"
 HOMEPAGE = "http://freshmeat.net/projects/sysvinit/"
-PR = "r57"
+PR = "r58"
 
 # USE_VT and SERIAL_CONSOLE are generally defined by the MACHINE .conf.
 # Set PACKAGE_ARCH appropriately.
@@ -44,6 +44,7 @@ FILES_sysvinit-pidof = "${base_bindir}/pidof.sysvinit"
 FILES_sysvinit-sulogin = "${base_sbindir}/sulogin"
 FILES_sysvinit-utils = "${bindir}/last.${PN} ${bindir}/mesg.${PN} ${bindir}/wall.${PN} ${base_sbindir}/shutdown.${PN} ${bindir}/lastb ${bindir}/utmpdump ${base_sbindir}/runlevel"
 RRECOMMENDS_${PN} = "sysvinit-utils"
+RRECOMMENDS_${PN}_micro = ""
 RRECOMMENDS_${PN}_samygo = ""
 
 CFLAGS_prepend = "-D_GNU_SOURCE "

@@ -1,6 +1,7 @@
 require libtool.inc
 PR = "${INC_PR}.0"
 
+#SamyGO: added trailingslash.patch
 SRC_URI = "${GNU_MIRROR}/libtool/libtool-${PV}.tar.gz;name=archive \
 	file://trailingslash.patch;patch=1"
 SRC_URI[archive.md5sum] = "07da460450490148c6d2df0f21481a25"

@@ -17,12 +17,14 @@ PR = "r1"
 
 inherit autotools
 
+#SamyGO: fixed path
 S = "${WORKDIR}/mtools-${PV}"
 
 EXTRA_OECONF = "--without-x"
 
 # Don't try to run install-info -- it'll fail on non-Debian build systems.
 EXTRA_OEMAKE = "INSTALL_INFO="
+#SamyGO: fixed build on OS X
 EXTRA_OEMAKE_append_darwin = " LIBS=-liconv"
 
 do_fix_perms() {

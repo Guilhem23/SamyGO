@@ -10,6 +10,7 @@ RDEPENDS_${PN} = ""
 
 EXTRA_OECONF_append = " --program-prefix=${TARGET_PREFIX}"
 
+#SamyGO: fixed build on OS X
 SRC_URI += "file://fix_build_native_nonlinux.patch;patch=1"
 
 do_stage () {

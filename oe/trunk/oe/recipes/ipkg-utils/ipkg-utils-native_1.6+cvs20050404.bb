@@ -5,6 +5,7 @@ PR = "r21"
 
 inherit native
 
+#SamyGO: added portability patch for ar
 SRC_URI += "file://remove_f_from_ar_param.patch;patch=1"
 
 # Avoid circular dependencies from package_ipk.bbclass

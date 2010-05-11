@@ -5,7 +5,9 @@ DEPENDS = "zlib ncurses"
 
 inherit autotools
 
-SRC_URI = "ftp://ftp.kernel.org/pub/linux/utils/util-linux/util-linux-${PV}.tar.bz2 \
+#SamyGO: use mount, umount over busybox
+
+SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/util-linux/util-linux-${PV}.tar.bz2 \
            file://gcc34.patch;patch=1 \
            file://MCONFIG \
            file://make_include \

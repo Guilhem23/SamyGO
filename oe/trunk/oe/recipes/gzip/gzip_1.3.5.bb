@@ -1,3 +1,4 @@
+#SamyGO: keep old support
 LICENSE = "GPL"
 SECTION = "console/utils"
 PRIORITY = "required"

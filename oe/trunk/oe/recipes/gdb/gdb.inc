@@ -2,7 +2,7 @@ require gdb-common.inc
 
 DEFAULT_PREFERENCE_avr32 = "-99"
 
-DEPENDS = "ncurses readline"
+DEPENDS = "ncurses readline zlib flex-native"
 
 PACKAGES =+ "gdbserver"
 FILES_gdbserver = "${bindir}/gdbserver"
@@ -10,10 +10,15 @@ FILES_gdbserver = "${bindir}/gdbserver"
 RRECOMMENDS_gdb_append_linux = " glibc-thread-db "
 RRECOMMENDS_gdb_append_linux-gnueabi = " glibc-thread-db "
 
+RRECOMMENDS_gdb_append_linux-uclibc = " uclibc-thread-db "
+RRECOMMENDS_gdb_append_linux-uclibceabi = " uclibc-thread-db "
+RRECOMMENDS_gdb_append_linux-spe = " uclibc-thread-db "
+
 inherit gettext
 
 SRC_URI += "file://kill_arm_map_symbols.patch;patch=1 \
             file://gdbserver-cflags-last.diff;patch=1;pnum=0"
+#FIXME	   file://uclibc.patch;patch=1 \
 
 EXTRA_OEMAKE = "'SUBDIRS=intl mmalloc libiberty opcodes bfd sim gdb etc utils'"
 
@@ -42,5 +47,3 @@ do_install () {
 	install -d ${D}${bindir}
 	install -m 0755 gdb/gdbserver/gdbserver ${D}${bindir}
 }
-
-

@@ -6,11 +6,11 @@ firmware=`cat "/.info"`
 
 case $firmware in
 T-CHE6AUSC|T-CHE7AUSC|T-CHEAUSC|T-CHL5DAUC|T-CHL5DEUC|T-CHL7DAUC|T-CHL7DEUC|T-CHU7DAUC|T-CHU7DEUC)
-	mkdir /dev/sam
+	mkdir -p /dev/sam
 	mount -t tmpfs none /dev/sam -o size=1K,mode=1777
 	mount -t tmpfs none /dtv -o size=10M,mode=1777
 	mount -t tmpfs none /mtd_ram -o size=10M,mode=1777
-	mkdir /dtv/usb
+	mkdir -p /dtv/usb
 
 	# copy original fsr and rfs modules if they are missing
 #	kernel_release=`uname -r`

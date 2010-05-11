@@ -1,6 +1,6 @@
 require gdb-common.inc
 
-INC_PR = "r1"
+INC_PR = "r2"
 
 DEFAULT_PREFERENCE_avr32 = "-99"
 
@@ -9,12 +9,17 @@ FILES_gdbserver = "${bindir}/gdbserver"
 RRECOMMENDS_gdb_append_linux = " glibc-thread-db "
 RRECOMMENDS_gdb_append_linux-gnueabi = " glibc-thread-db "
 
+RRECOMMENDS_gdb_append_linux-uclibc = " uclibc-thread-db "
+RRECOMMENDS_gdb_append_linux-uclibceabi = " uclibc-thread-db "
+RRECOMMENDS_gdb_append_linux-spe = " uclibc-thread-db "
+
 inherit gettext
 
 FILESPATHPKG =. "gdb-${PV}:"
 
 SRC_URI += "file://kill_arm_map_symbols.patch;patch=1 \
             file://gdbserver-cflags-last.diff;patch=1;pnum=0"
+#FIXME	   file://uclibc.patch;patch=1 \
 
 EXTRA_OEMAKE = "gdbserver"
 

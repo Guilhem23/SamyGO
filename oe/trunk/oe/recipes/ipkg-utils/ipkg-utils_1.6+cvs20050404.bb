@@ -7,6 +7,7 @@ RDEPENDS = "python"
 SRCDATE = "20050404"
 PR = "r23"
 
+#SamyGO: added patches: allow-uppercase.patch, fix-for-cutoff-filenames.patch
 SRC_URI = "${HANDHELDS_CVS};module=ipkg-utils \
            file://ipkg-utils-fix.patch;patch=1 \
            file://ipkg-py-sane-vercompare.patch;patch=1 \

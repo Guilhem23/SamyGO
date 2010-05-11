@@ -1,15 +1,19 @@
 DESCRIPTION = "SysV init scripts"
 SECTION = "base"
 PRIORITY = "required"
+#SamyGO: disabled makdevs depedency
+#DEPENDS = "makedevs"
+#RDEPENDS = "makedevs"
 LICENSE = "GPL"
-PR = "r115"
+PR = "r117"
 
+#SamyGO: removed devices, mountall.sh, urandom, checkfs.sh, device_table.txt, save-rtc.sh
 SRC_URI = "file://functions \
            file://halt \
            file://ramdisk \
            file://umountfs \
-	   file://devpts.sh \
-	   file://devpts \
+           file://devpts.sh \
+           file://devpts \
            file://hostname.sh \
            file://banner \
            file://finish.sh \
@@ -21,11 +25,14 @@ SRC_URI = "file://functions \
            file://rmnologin \
            file://checkroot \
            file://umountnfs.sh \
-	   file://sysfs.sh \
+           file://sysfs.sh \
            file://populate-volatile.sh \
-           file://volatiles"
+           file://volatiles \
+"
 
-SRC_URI_append_arm = " file://alignment.sh file://samsung-setup.sh"
+SRC_URI_append_arm = " file://alignment.sh"
+
+SRC_URI_append_samygo = " file://samsung-setup.sh"
 
 KERNEL_VERSION = ""
 
@@ -58,8 +65,8 @@ do_install () {
 	install -m 0755    ${WORKDIR}/sendsigs		${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/single		${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/umountnfs.sh	${D}${sysconfdir}/init.d
-	install -m 0755    ${WORKDIR}/devpts.sh		${D}${sysconfdir}/init.d
-	install -m 0644    ${WORKDIR}/devpts		${D}${sysconfdir}/default
+	install -m 0755    ${WORKDIR}/devpts.sh	${D}${sysconfdir}/init.d
+	install -m 0755    ${WORKDIR}/devpts		${D}${sysconfdir}/default
 	install -m 0755    ${WORKDIR}/sysfs.sh		${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/populate-volatile.sh ${D}${sysconfdir}/init.d
 	install -m 0644    ${WORKDIR}/volatiles		${D}${sysconfdir}/default/volatiles/00_core
@@ -79,33 +86,47 @@ do_install () {
 	ln -sf		../init.d/rmnologin	${D}${sysconfdir}/rc4.d/S99rmnologin
 	ln -sf		../init.d/rmnologin	${D}${sysconfdir}/rc5.d/S99rmnologin
 	ln -sf		../init.d/sendsigs	${D}${sysconfdir}/rc6.d/S20sendsigs
+#	ln -sf		../init.d/urandom	${D}${sysconfdir}/rc6.d/S30urandom
 	ln -sf		../init.d/umountnfs.sh	${D}${sysconfdir}/rc6.d/S31umountnfs.sh
 	ln -sf		../init.d/umountfs	${D}${sysconfdir}/rc6.d/S40umountfs
 	# udev will run at S55 if installed
 	ln -sf          ../init.d/ramdisk       ${D}${sysconfdir}/rcS.d/S30ramdisk
 	ln -sf		../init.d/reboot	${D}${sysconfdir}/rc6.d/S90reboot
 	ln -sf		../init.d/sendsigs	${D}${sysconfdir}/rc0.d/S20sendsigs
+#	ln -sf		../init.d/urandom	${D}${sysconfdir}/rc0.d/S30urandom
 	ln -sf		../init.d/umountnfs.sh	${D}${sysconfdir}/rc0.d/S31umountnfs.sh
 	ln -sf		../init.d/umountfs	${D}${sysconfdir}/rc0.d/S40umountfs
 	# udev will run at S55 if installed
 	ln -sf		../init.d/halt		${D}${sysconfdir}/rc0.d/S90halt
 	ln -sf		../init.d/banner	${D}${sysconfdir}/rcS.d/S02banner
-	ln -sf		../init.d/checkroot	${D}${sysconfdir}/rcS.d/S10checkroot
+	ln -sf		../init.d/checkroot		${D}${sysconfdir}/rcS.d/S10checkroot
+#	ln -sf		../init.d/checkfs.sh	${D}${sysconfdir}/rcS.d/S30checkfs.sh
 	ln -sf		../init.d/hostname.sh	${D}${sysconfdir}/rcS.d/S39hostname.sh
 	ln -sf		../init.d/mountnfs.sh	${D}${sysconfdir}/rcS.d/S45mountnfs.sh
 	ln -sf		../init.d/bootmisc.sh	${D}${sysconfdir}/rcS.d/S55bootmisc.sh
+#	ln -sf		../init.d/urandom	${D}${sysconfdir}/rcS.d/S55urandom
 	ln -sf		../init.d/finish.sh	${D}${sysconfdir}/rcS.d/S99finish.sh
 	# udev will run at S04 if installed
-	ln -sf		../init.d/sysfs.sh	${D}${sysconfdir}/rcS.d/S03sysfs.sh
+	ln -sf		../init.d/sysfs.sh	${D}${sysconfdir}/rcS.d/S03sysfs
 	ln -sf		../init.d/populate-volatile.sh	${D}${sysconfdir}/rcS.d/S37populate-volatile.sh
 	ln -sf		../init.d/devpts.sh	${D}${sysconfdir}/rcS.d/S38devpts.sh
 	if [ "${TARGET_ARCH}" = "arm" ]; then
 		ln -sf	../init.d/alignment.sh	${D}${sysconfdir}/rcS.d/S06alignment
 	fi
+
+}
+
+# Angstrom doesn't support devfs
+do_install_append_angstrom () {
+	rm ${D}${sysconfdir}/init.d/devices ${D}${sysconfdir}/rcS.d/S05devices
+}
+
+# HIPOX needs /sys in reboot for kexec check
+do_install_append_hipox () {
+	ln -sf		../init.d/sysfs.sh	${D}${sysconfdir}/rc6.d/S80sysfs
 }
 
 do_install_append_samygo() {
-	install -m 0755    ${WORKDIR}/samsung-setup.sh	${D}${sysconfdir}/init.d
-	ln -sf		../init.d/samsung-setup.sh	${D}${sysconfdir}/rc5.d/S98samsung-setup.sh
+	install -m 0755		${WORKDIR}/samsung-setup.sh	${D}${sysconfdir}/init.d
+	ln -sf			../init.d/samsung-setup.sh	${D}${sysconfdir}/rc5.d/S98samsung-setup.sh
 }
-

@@ -9,6 +9,8 @@
 #   For UID debugging it needs a better "find".
 set -e
 
+# SamyGO: include fixes for allow big case chars
+
 version=1.0
 
 ipkg_extract_value() {

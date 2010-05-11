@@ -9,6 +9,7 @@ DEPENDS = "virtual/${TARGET_PREFIX}gcc-intermediate linux-libc-headers"
 #RDEPENDS_ldd += " bash"
 PROVIDES = "virtual/libc virtual/${TARGET_PREFIX}libc-for-gcc"
 PROVIDES += "virtual/libintl virtual/libiconv"
+#SamyGO: added runtime depedencies
 RPROVIDES += "libc6 libstdc++6"
 
 # INC_PR for glibc.inc, glibc-initial.inc and glibc-stage.inc

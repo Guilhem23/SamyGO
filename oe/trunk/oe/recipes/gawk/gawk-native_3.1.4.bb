@@ -3,6 +3,7 @@ require gawk_${PV}.bb
 
 inherit native
 
+#SamyGO: added autoconf-native
 DEPENDS = "autoconf-native"
 PATCHTOOL = "patch"
 
