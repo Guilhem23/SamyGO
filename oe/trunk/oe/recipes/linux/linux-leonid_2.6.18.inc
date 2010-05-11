@@ -52,13 +52,13 @@ do_configure_prepend () {
 	make include/linux/version.h
 }
 
-do_stage_prepend () {
+do_install_prepend () {
 	rm -f ${S}/include/asm-${TARGET_ARCH}/arch-ssdtv || true
 	rm -f ${S}/include/asm-${TARGET_ARCH}/arch || true
 	cp -avf ${WORKDIR}/linux/ssdtv_platform/include/asm-${TARGET_ARCH}/arch-ssdtv ${S}/include/asm-${TARGET_ARCH}/
 }
 
-do_stage_append () {
+do_install_append () {
 	install ${S}/.mvl_cross_compile ${STAGING_KERNEL_DIR}/
 	install ${S}/.mvl_target_cpu ${STAGING_KERNEL_DIR}/
 }
