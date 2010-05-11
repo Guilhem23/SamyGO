@@ -1,8 +1,7 @@
 DESCRIPTION = "Miscellaneous files for the base system."
 SECTION = "base"
 PRIORITY = "required"
-PR = "r89"
-
+PR = "r91"
 LICENSE = "GPL"
 
 SRC_URI = " \
@@ -12,7 +11,7 @@ SRC_URI = " \
            file://host.conf \
            file://profile \
            file://fstab \
-    	   file://filesystems \
+           file://filesystems \
            file://issue.net \
            file://issue \
            file://usbd \
@@ -20,11 +19,11 @@ SRC_URI = " \
            file://share/dot.profile \
            file://licenses/BSD \
            file://licenses/GPL-2 \
-    	   file://licenses/GPL-3 \
+           file://licenses/GPL-3 \
            file://licenses/LGPL-2 \
            file://licenses/LGPL-2.1 \
-    	   file://licenses/LGPL-3 \
-    	   file://licenses/GFDL-1.2 \
+           file://licenses/LGPL-3 \
+           file://licenses/GFDL-1.2 \
            file://licenses/Artistic "
 S = "${WORKDIR}"
 
@@ -45,12 +44,18 @@ dirs755 = "/bin /boot /dev ${sysconfdir} ${sysconfdir}/default \
 	   ${localstatedir}/volatile/run \
 	   /mnt /media /media/card /media/cf /media/net /media/ram \
 	   /media/union /media/realroot /media/hdd \
-           /media/mmc1"
-dirs755_append_samygo = " /mtd_appdata /mtd_boot /mtd_contents \
+	   /media/mmc1"
+
+dirs755_micro = "/dev /proc /sys ${sysconfdir}"
+dirs2775_micro = ""
+dirs1777_micro = "/tmp"
+
+dirs755_append_samygo = " /mtd_appdata /mtd_boot /mtd_contents \ 
 	   /mtd_down /mtd_exe /mtd_ram /mtd_rwarea /mtd_swu \
 	   /mtd_tlib /mtd_wiselink /dtv"
 
 media = "card cf net ram"
+media_micro = ""
 media_samygo = ""
 
 volatiles = "cache run log lock tmp"
@@ -63,6 +68,10 @@ conffiles = "${sysconfdir}/debian_version ${sysconfdir}/host.conf \
 # set standard hostname, might be a candidate for a DISTRO variable? :M:
 #
 hostname = "openembedded"
+hostname_slugos = "nslu2"
+hostname_mnci = "MNCI"
+hostname_rt3000 = "MNRT"
+hostname_jlime = "JLime"
 hostname_samygo = "localhost"
 
 do_install () {
@@ -76,9 +85,9 @@ do_install () {
 		install -m 2755 -d ${D}$d
 	done
 	for d in ${volatiles}; do
-		if [ -d ${D}${localstatedir}/volatile/$d ]; then
-			ln -sf volatile/$d ${D}/${localstatedir}/$d
-		fi
+                if [ -d ${D}${localstatedir}/volatile/$d ]; then
+                        ln -sf volatile/$d ${D}/${localstatedir}/$d
+                fi
 	done
 	for d in ${media}; do
 		ln -sf /media/$d ${D}/mnt/$d
@@ -90,25 +99,68 @@ do_install () {
 		echo ${hostname} > ${D}${sysconfdir}/hostname
 	fi
 
-	install -m 0644 ${WORKDIR}/issue ${D}${sysconfdir}/issue
-	install -m 0644 ${WORKDIR}/issue.net ${D}${sysconfdir}/issue.net
+        if [ "${DISTRO}" != "micro" -a "${DISTRO}" != "micro-uclibc" ]; then
+                install -m 644 ${WORKDIR}/issue*  ${D}${sysconfdir}  
 
-	install -m 0644 ${WORKDIR}/fstab ${D}${sysconfdir}/fstab
-	install -m 0644 ${WORKDIR}/filesystems ${D}${sysconfdir}/filesystems
-	install -m 0644 ${WORKDIR}/usbd ${D}${sysconfdir}/default/usbd
-	install -m 0644 ${WORKDIR}/profile ${D}${sysconfdir}/profile
-	install -m 0755 ${WORKDIR}/share/dot.profile ${D}${sysconfdir}/skel/.profile
-	install -m 0755 ${WORKDIR}/share/dot.bashrc ${D}${sysconfdir}/skel/.bashrc
-	install -m 0644 ${WORKDIR}/inputrc ${D}${sysconfdir}/inputrc
+                if [ -n "${DISTRO_NAME}" ]; then
+        		echo -n "${DISTRO_NAME} " >> ${D}${sysconfdir}/issue
+        		echo -n "${DISTRO_NAME} " >> ${D}${sysconfdir}/issue.net
+        		if [ -n "${DISTRO_VERSION}" ]; then
+        			echo -n "${DISTRO_VERSION} " >> ${D}${sysconfdir}/issue
+        			echo -n "${DISTRO_VERSION} " >> ${D}${sysconfdir}/issue.net
+        		fi
+        		echo "\n \l" >> ${D}${sysconfdir}/issue
+        		echo >> ${D}${sysconfdir}/issue
+        		echo "%h"    >> ${D}${sysconfdir}/issue.net
+        		echo >> ${D}${sysconfdir}/issue.net
+        	else
+ 	                install -m 0644 ${WORKDIR}/issue ${D}${sysconfdir}/issue
+                        install -m 0644 ${WORKDIR}/issue.net ${D}${sysconfdir}/issue.net
+                fi
+
+                install -m 0644 ${WORKDIR}/fstab ${D}${sysconfdir}/fstab
+        	install -m 0644 ${WORKDIR}/filesystems ${D}${sysconfdir}/filesystems
+        	install -m 0644 ${WORKDIR}/usbd ${D}${sysconfdir}/default/usbd
+        	install -m 0644 ${WORKDIR}/profile ${D}${sysconfdir}/profile
+        	install -m 0755 ${WORKDIR}/share/dot.profile ${D}${sysconfdir}/skel/.profile
+        	install -m 0755 ${WORKDIR}/share/dot.bashrc ${D}${sysconfdir}/skel/.bashrc
+        	install -m 0644 ${WORKDIR}/inputrc ${D}${sysconfdir}/inputrc
+        	install -m 0644 ${WORKDIR}/motd ${D}${sysconfdir}/motd
+        	for license in BSD GPL-2 LGPL-2 LGPL-2.1 Artistic GPL-3 LGPL-3 GFDL-1.2; do
+	        	install -m 0644 ${WORKDIR}/licenses/$license ${D}${datadir}/common-licenses/
+        	done
+
+	        ln -sf /proc/mounts ${D}${sysconfdir}/mtab
+        	install -m 0644 ${WORKDIR}/host.conf ${D}${sysconfdir}/host.conf
+        fi
+
 	install -m 0644 ${WORKDIR}/nsswitch.conf ${D}${sysconfdir}/nsswitch.conf
-	install -m 0644 ${WORKDIR}/host.conf ${D}${sysconfdir}/host.conf
-	install -m 0644 ${WORKDIR}/motd ${D}${sysconfdir}/motd
+}
 
-	for license in  BSD GPL-2 LGPL-2 LGPL-2.1 Artistic GPL-3 LGPL-3 GFDL-1.2; do
-		install -m 0644 ${WORKDIR}/licenses/$license ${D}${datadir}/common-licenses/
-	done
 
-	ln -sf /proc/mounts ${D}${sysconfdir}/mtab
+do_install_append_mnci () {
+	rmdir ${D}/tmp
+	ln -s var/tmp ${D}/tmp
+}
+
+do_install_append_nylon() {
+	printf "" "" >${D}${sysconfdir}/resolv.conf
+	rm -r ${D}/mnt/*
+	rm -r ${D}/media
+	rm -rf ${D}/tmp
+	ln -sf /var/tmp ${D}/tmp
+}
+
+do_install_append_slugos() {
+	printf "" "" >${D}${sysconfdir}/resolv.conf
+	rm -r ${D}/mnt/*
+	rmdir ${D}/home/root
+	install -m 0755 -d ${D}/root
+	ln -s ../root ${D}/home/root
+}
+
+do_install_append_netbook-pro () {
+	mkdir -p ${D}/initrd
 }
 
 do_install_append_samygo() {
@@ -117,7 +169,7 @@ do_install_append_samygo() {
 
 	for i in mtd_chmap mtd_epg mtd_factory mtd_pers mtd_acap ; do
 		ln -s mtd_rwarea ${D}/$i
-	done	
+	done
 	for i in mtd_cmmlib mtd_drv ; do
 		ln -s mtd_exe ${D}/$i
 	done
@@ -128,6 +180,13 @@ FILES_${PN} = "/*"
 FILES_${PN}-doc = "${docdir} ${datadir}/common-licenses"
 
 # M&N specific packaging
+PACKAGE_ARCH_mnci = "mnci"
+PACKAGE_ARCH_rt3000 = "rt3000"
+
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 CONFFILES_${PN} = "${sysconfdir}/fstab ${sysconfdir}/hostname"
+CONFFILES_${PN}_micro = ""
+CONFFILES_${PN}_nylon = "${sysconfdir}/resolv.conf ${sysconfdir}/fstab ${sysconfdir}/hostname"
+CONFFILES_${PN}_slugos = "${sysconfdir}/resolv.conf ${sysconfdir}/fstab ${sysconfdir}/hostname"
+
