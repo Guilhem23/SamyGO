@@ -32,3 +32,6 @@ do_fix_perms() {
 }
 
 addtask fix_perms after do_unpack before do_patch
+
+SRC_URI[md5sum] = "0ee77a14e5f113ad8136a867f8ed4c3a"
+SRC_URI[sha256sum] = "53cf808eed9b396070a12c6e53479800a5b9038e9d70c79277e762246ba07a13"
