@@ -25,6 +25,9 @@ SRC_URI += " \
        file://cache \
 "
 
+SRC_URI[md5sum] = "2b2d46db3a0538644312828f09151c13"
+SRC_URI[sha256sum] = "e88036fa6560d943acfc75f682940078781429d9d7b506481ec1266d7d864bd7"
+
 inherit update-rc.d autotools_stage
 
 # Put stuff in /lib and /sbin
