@@ -4,8 +4,8 @@ PRIORITY = "optional"
 LICENSE = "GPL"
 CONFLICTS = "ipkg-link"
 RDEPENDS = "python"
-SRCDATE = "20050404"
-PR = "r23"
+SRCDATE = "20050930"
+PR = "r24"
 
 #SamyGO: added patches: allow-uppercase.patch, fix-for-cutoff-filenames.patch
 SRC_URI = "${HANDHELDS_CVS};module=ipkg-utils \

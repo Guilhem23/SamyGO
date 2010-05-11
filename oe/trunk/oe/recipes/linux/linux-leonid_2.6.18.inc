@@ -3,8 +3,8 @@ HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
 DEPENDS = "binutils-cross u-boot-mkimage-selp-native"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
-	http://www.samsung.com/global/opensource/files/LE40B650T2P.zip \
+SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip;name=archive \
+	http://www.samsung.com/global/opensource/files/LE40B650T2P.zip;name=archive \
 	file://selp-fix_nonlinux_compile.patch;patch=1 \
 	file://selp-gadget.patch;patch=1 \
 	file://selp-ralink-devlist.patch;patch=1;pnum=0 \

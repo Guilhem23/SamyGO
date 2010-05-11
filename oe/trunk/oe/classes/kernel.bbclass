@@ -1,7 +1,10 @@
 inherit linux-kernel-base module_strip
 
 PROVIDES += "virtual/kernel"
-DEPENDS += "virtual/${TARGET_PREFIX}depmod-${@get_kernelmajorversion('${PV}')} virtual/${TARGET_PREFIX}gcc${KERNEL_CCSUFFIX} update-modules"
+DEPENDS += "virtual/${TARGET_PREFIX}gcc virtual/${TARGET_PREFIX}depmod-${@get_kernelmajorversion('${PV}')} virtual/${TARGET_PREFIX}gcc${KERNEL_CCSUFFIX} update-modules"
+
+# we include gcc above, we dont need virtual/libc
+INHIBIT_DEFAULT_DEPS = "1"
 
 #SamyGO customisation
 KERNEL_IMAGETYPE_LIST ?= "zImage"
@@ -64,7 +67,7 @@ KERNEL_IMAGEDEST = "boot"
 #
 export CMDLINE_CONSOLE = "console=${@bb.data.getVar("KERNEL_CONSOLE",d,1) or "ttyS0"}"
 
-KERNEL_VERSION = "${@get_kernelversion('${S}')}"
+KERNEL_VERSION = "${@get_kernelversion('${B}')}"
 KERNEL_MAJOR_VERSION = "${@get_kernelmajorversion('${KERNEL_VERSION}')}"
 
 KERNEL_LOCALVERSION ?= ""
@@ -98,85 +101,6 @@ kernel_do_compile() {
 }
 kernel_do_compile[depends] = "${INITRAMFS_TASK}"
 
-kernel_do_stage() {
-	if [ -e include/asm ] ; then
-		# This link is generated only in kernel before 2.6.33-rc1, don't stage it for newer kernels
-		ASMDIR=`readlink include/asm`
-
-		mkdir -p ${STAGING_KERNEL_DIR}/include/$ASMDIR
-		cp -fR include/$ASMDIR/* ${STAGING_KERNEL_DIR}/include/$ASMDIR/
-	fi
-	# Kernel 2.6.27 moved headers from includes/asm-${ARCH} to arch/${ARCH}/include/asm	
-	if [ -e arch/${ARCH}/include/asm/ ] ; then 
-		if [ -e include/asm ] ; then
-			cp -fR arch/${ARCH}/include/asm/* ${STAGING_KERNEL_DIR}/include/$ASMDIR/
-		fi
-		install -d ${STAGING_KERNEL_DIR}/arch/${ARCH}/include
-		cp -fR arch/${ARCH}/* ${STAGING_KERNEL_DIR}/arch/${ARCH}/	
-
-	# Check for arch/x86 on i386
-	elif [ -d arch/x86/include/asm/ ]; then
-		if [ -e include/asm ] ; then
-			cp -fR arch/x86/include/asm/* ${STAGING_KERNEL_DIR}/include/asm-x86/
-		fi
-		install -d ${STAGING_KERNEL_DIR}/arch/x86/include
-		cp -fR arch/x86/* ${STAGING_KERNEL_DIR}/arch/x86/
-	fi
-
-	if [ -e include/asm ] ; then
-		rm -f ${STAGING_KERNEL_DIR}/include/asm
-		ln -sf $ASMDIR ${STAGING_KERNEL_DIR}/include/asm
-	fi
-
-	mkdir -p ${STAGING_KERNEL_DIR}/include/asm-generic
-	cp -fR include/asm-generic/* ${STAGING_KERNEL_DIR}/include/asm-generic/
-
-	for entry in drivers/crypto drivers/media include/generated include/linux include/net include/pcmcia include/media include/acpi include/sound include/video include/scsi include/trace; do
-		if [ -d $entry ]; then
-			mkdir -p ${STAGING_KERNEL_DIR}/$entry
-			cp -fR $entry/* ${STAGING_KERNEL_DIR}/$entry/
-		fi
-	done
-
-	if [ -d drivers/sound ]; then
-		# 2.4 alsa needs some headers from this directory
-		mkdir -p ${STAGING_KERNEL_DIR}/include/drivers/sound
-		cp -fR drivers/sound/*.h ${STAGING_KERNEL_DIR}/include/drivers/sound/
-	fi
-
-	install -m 0644 .config ${STAGING_KERNEL_DIR}/config-${KERNEL_VERSION}
-	ln -sf config-${KERNEL_VERSION} ${STAGING_KERNEL_DIR}/.config
-	ln -sf config-${KERNEL_VERSION} ${STAGING_KERNEL_DIR}/kernel-config
-	echo "${KERNEL_VERSION}" >${STAGING_KERNEL_DIR}/kernel-abiversion
-	echo "${S}" >${STAGING_KERNEL_DIR}/kernel-source
-	echo "${KERNEL_CCSUFFIX}" >${STAGING_KERNEL_DIR}/kernel-ccsuffix
-	echo "${KERNEL_LDSUFFIX}" >${STAGING_KERNEL_DIR}/kernel-ldsuffix
-	[ -e Rules.make ] && install -m 0644 Rules.make ${STAGING_KERNEL_DIR}/
-	[ -e Makefile ] && install -m 0644 Makefile ${STAGING_KERNEL_DIR}/
-	
-	# Check if arch/${ARCH}/Makefile exists and install it
-	if [ -e arch/${ARCH}/Makefile ]; then
-		install -d ${STAGING_KERNEL_DIR}/arch/${ARCH}
-		install -m 0644 arch/${ARCH}/Makefile* ${STAGING_KERNEL_DIR}/arch/${ARCH}
-	# Otherwise check arch/x86/Makefile for i386 and x86_64 on kernels >= 2.6.24
-	elif [ -e arch/x86/Makefile ]; then
-		install -d ${STAGING_KERNEL_DIR}/arch/x86
-		install -m 0644 arch/x86/Makefile* ${STAGING_KERNEL_DIR}/arch/x86
-	fi
-	cp -fR include/config* ${STAGING_KERNEL_DIR}/include/	
-	# Install kernel images and system.map to staging
-	[ -e vmlinux ] && install -m 0644 vmlinux ${STAGING_KERNEL_DIR}/	
-	#SamyGO customisation
-	for type in ${KERNEL_IMAGETYPE_LIST}; do
-		install -m 0644 arch/${ARCH}/boot/${type} ${STAGING_KERNEL_DIR}/${type}
-	done
-	#install -m 0644 ${KERNEL_OUTPUT} ${STAGING_KERNEL_DIR}/${KERNEL_IMAGETYPE}
-	install -m 0644 System.map ${STAGING_KERNEL_DIR}/System.map-${KERNEL_VERSION}
-	[ -e Module.symvers ] && install -m 0644 Module.symvers ${STAGING_KERNEL_DIR}/
-
-	cp -fR scripts ${STAGING_KERNEL_DIR}/
-}
-
 kernel_do_install() {
 	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS MACHINE
 	if (grep -q -i -e '^CONFIG_MODULES=y$' .config); then
@@ -189,9 +113,8 @@ kernel_do_install() {
 	install -d ${D}/boot
 	#SamyGO customisation
 	for type in ${KERNEL_IMAGETYPE_LIST}; do
-		install -m 0644 "arch/${ARCH}/boot/${type}" ${D}/${KERNEL_IMAGEDEST}/${type}-${KERNEL_VERSION}
+		install -m 0644 arch/${ARCH}/boot/${type} ${D}/${KERNEL_IMAGEDEST}/${type}-${KERNEL_VERSION}
 	done
-	#install -m 0644 ${KERNEL_OUTPUT} ${D}/${KERNEL_IMAGEDEST}/${KERNEL_IMAGETYPE}-${KERNEL_VERSION}
 	install -m 0644 System.map ${D}/boot/System.map-${KERNEL_VERSION}
 	install -m 0644 .config ${D}/boot/config-${KERNEL_VERSION}
 	install -m 0644 vmlinux ${D}/boot/vmlinux-${KERNEL_VERSION}
@@ -206,8 +129,92 @@ kernel_do_install() {
                 oe_runmake SUBDIRS="scripts/genksyms"
         fi
 
-        install -d ${STAGING_KERNEL_DIR}
-        cp -fR scripts ${STAGING_KERNEL_DIR}/
+	kerneldir=${D}/kernel/
+
+	if [ -e include/asm ] ; then
+		# This link is generated only in kernel before 2.6.33-rc1, don't stage it for newer kernels
+		ASMDIR=`readlink include/asm`
+
+		mkdir -p $kerneldir/include/$ASMDIR
+		cp -fR include/$ASMDIR/* $kerneldir/include/$ASMDIR/
+	fi
+
+	# Kernel 2.6.27 moved headers from includes/asm-${ARCH} to arch/${ARCH}/include/asm	
+	if [ -e arch/${ARCH}/include/asm/ ] ; then 
+		if [ -e include/asm ] ; then
+			cp -fR arch/${ARCH}/include/asm/* $kerneldir/include/$ASMDIR/
+		fi
+		install -d $kerneldir/arch/${ARCH}/include
+		cp -fR arch/${ARCH}/* $kerneldir/arch/${ARCH}/	
+
+	# Check for arch/x86 on i386
+	elif [ -d arch/x86/include/asm/ ]; then
+		mkdir -p $kerneldir/include/asm-x86/
+		cp -fR arch/x86/include/asm/* $kerneldir/include/asm-x86/
+		install -d $kerneldir/arch/x86/include
+		cp -fR arch/x86/* $kerneldir/arch/x86/
+	fi
+
+	if [ -e include/asm ] ; then
+		rm -f $kerneldir/include/asm
+		ln -sf $ASMDIR $kerneldir/include/asm
+	fi
+
+	mkdir -p $kerneldir/include/asm-generic
+	cp -fR include/asm-generic/* $kerneldir/include/asm-generic/
+
+	for entry in drivers/crypto drivers/media include/generated include/linux include/net include/pcmcia include/media include/acpi include/sound include/video include/scsi include/trace include/mtd include/rdma include/drm include/xen; do
+		if [ -d $entry ]; then
+			mkdir -p $kerneldir/$entry
+			cp -fR $entry/* $kerneldir/$entry/
+		fi
+	done
+	if [ -f include/Kbuild ]; then
+		cp -fR include/Kbuild $kerneldir/include
+	fi
+
+	if [ -d drivers/sound ]; then
+		# 2.4 alsa needs some headers from this directory
+		mkdir -p $kerneldir/include/drivers/sound
+		cp -fR drivers/sound/*.h $kerneldir/include/drivers/sound/
+	fi
+
+	install -m 0644 .config $kerneldir/config-${KERNEL_VERSION}
+	ln -sf config-${KERNEL_VERSION} $kerneldir/.config
+	ln -sf config-${KERNEL_VERSION} $kerneldir/kernel-config
+	echo "${KERNEL_VERSION}" >$kerneldir/kernel-abiversion
+	echo "${S}" >$kerneldir/kernel-source
+	echo "${KERNEL_CCSUFFIX}" >$kerneldir/kernel-ccsuffix
+	echo "${KERNEL_LDSUFFIX}" >$kerneldir/kernel-ldsuffix
+	[ -e Rules.make ] && install -m 0644 Rules.make $kerneldir/
+	[ -e Makefile ] && install -m 0644 Makefile $kerneldir/
+	
+	# Check if arch/${ARCH}/Makefile exists and install it
+	if [ -e arch/${ARCH}/Makefile ]; then
+		install -d $kerneldir/arch/${ARCH}
+		install -m 0644 arch/${ARCH}/Makefile* $kerneldir/arch/${ARCH}
+	# Otherwise check arch/x86/Makefile for i386 and x86_64 on kernels >= 2.6.24
+	elif [ -e arch/x86/Makefile ]; then
+		install -d $kerneldir/arch/x86
+		install -m 0644 arch/x86/Makefile* $kerneldir/arch/x86
+	fi
+	cp -fR include/config* $kerneldir/include/	
+	# Install kernel images and system.map to staging
+	[ -e vmlinux ] && install -m 0644 vmlinux $kerneldir/	
+	#SamyGO customisation
+	for type in ${KERNEL_IMAGETYPE_LIST}; do
+		install -m 0644 arch/${ARCH}/boot/${type} $kerneldir/${type}
+	done
+	#install -m 0644 ${KERNEL_OUTPUT} $kerneldir/${KERNEL_IMAGETYPE}
+	install -m 0644 System.map $kerneldir/System.map-${KERNEL_VERSION}
+	[ -e Module.symvers ] && install -m 0644 Module.symvers $kerneldir/
+
+	cp -fR scripts $kerneldir/
+}
+
+sysroot_stage_all_append() {
+	sysroot_stage_dir ${D}/kernel ${SYSROOT_DESTDIR}${STAGING_KERNEL_DIR}
+	cp -fpPR ${D}/kernel/.config ${SYSROOT_DESTDIR}${STAGING_KERNEL_DIR}
 }
 
 kernel_do_configure() {
@@ -249,7 +256,7 @@ pkg_postrm_kernel () {
 
 inherit cml1
 
-EXPORT_FUNCTIONS do_compile do_install do_stage do_configure
+EXPORT_FUNCTIONS do_compile do_install do_configure
 
 # kernel-base becomes kernel-${KERNEL_VERSION}
 # kernel-image becomes kernel-image-${KERNEL_VERISON}
@@ -260,8 +267,6 @@ FILES_kernel-image = "/boot/*Image*"
 FILES_kernel-dev = "/boot/System.map* /boot/Module.symvers* /boot/config*"
 FILES_kernel-vmlinux = "/boot/vmlinux*"
 RDEPENDS_kernel = "kernel-base"
-RRECOMMENDS_kernel-module-hostap-cs += '${@base_version_less_or_equal("KERNEL_VERSION", "2.6.17", "", "apm-wifi-suspendfix", d)}'
-RRECOMMENDS_kernel-module-orinoco-cs += '${@base_version_less_or_equal("KERNEL_VERSION", "2.6.17", "", "apm-wifi-suspendfix", d)}'
 # Allow machines to override this dependency if kernel image files are 
 # not wanted in images as standard
 RDEPENDS_kernel-base ?= "kernel-image"
@@ -356,7 +361,7 @@ python populate_packages_prepend () {
 
 		dvar = bb.data.getVar('PKGD', d, 1)
 		if not dvar:
-			bb.error("D not defined")
+			bb.error("PKGD not defined")
 			return
 
 		kernelver = bb.data.getVar('KERNEL_VERSION', d, 1)
@@ -541,12 +546,13 @@ do_uboot_mkimage() {
 
 addtask uboot_mkimage before do_install after do_compile
 
+
 do_deploy() {
 	install -d ${DEPLOY_DIR_IMAGE}
 	#SamyGO customisation
 	for type in ${KERNEL_IMAGETYPE_LIST}; do
-		export KERNEL_IMAGE_BASE_NAME=${type}-${PV}-${PR}-${MACHINE}
-		export KERNEL_IMAGE_SYMLINK_NAME=${type}-${MACHINE}
+		export KERNEL_IMAGE_BASE_NAME="${type}-${PV}-${PR}-${MACHINE}"
+		export KERNEL_IMAGE_SYMLINK_NAME="${type}-${MACHINE}"
 		export MODULES_IMAGE_BASE_NAME=modules-${PV}-${PR}-${MACHINE}
 		install -m 0644 ${S}/arch/${ARCH}/boot/${type} ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGE_BASE_NAME}.bin
 		package_stagefile_shell ${S}/arch/${ARCH}/boot/${type}
@@ -565,6 +571,6 @@ do_deploy() {
 }
 
 do_deploy[dirs] = "${S}"
-do_deploy[depends] += "fakeroot-native:do_populate_staging"
+do_deploy[depends] += "fakeroot-native:do_populate_sysroot"
 
 addtask deploy before do_build after do_package

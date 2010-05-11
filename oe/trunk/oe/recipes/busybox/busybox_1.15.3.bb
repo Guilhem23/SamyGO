@@ -1,5 +1,5 @@
 require busybox.inc
-PR = "${INC_PR}.0"
+PR = "${INC_PR}.1"
 
 #SamyGO: removed mdev, syslog, mountall, hwclock.sh, find-touchscreen.sh
 SRC_URI = "\
@@ -11,6 +11,7 @@ SRC_URI = "\
   file://get_header_tar.patch;patch=1 \
   file://busybox-appletlib-dependency.patch;patch=1 \
   file://0000-wget-no-check-certificate.patch;patch=1 \
+  file://run-parts.in.usr-bin.patch;patch=1 \
   file://busybox-cron \
   file://busybox-httpd \
   file://busybox-udhcpd \

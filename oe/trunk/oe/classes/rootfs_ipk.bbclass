@@ -5,7 +5,7 @@
 # See image.bbclass for a usage of this.
 #
 
-do_rootfs[depends] += "opkg-native:do_populate_staging"
+do_rootfs[depends] += "opkg-native:do_populate_sysroot"
 
 IPKG_TMP_DIR = "${IMAGE_ROOTFS}-tmp"
 IPKG_ARGS = "-f ${IPKGCONF_TARGET} -o ${IMAGE_ROOTFS} -t ${IPKG_TMP_DIR} ${@base_conditional("PACKAGE_INSTALL_NO_DEPS", "1", "-nodeps", "", d)}"
@@ -70,12 +70,12 @@ fakeroot rootfs_ipk_do_rootfs () {
 	fi
 
 	for i in ${IMAGE_ROOTFS}${libdir}/opkg/info/*.preinst; do
-		if [ -f $i ] && ! sh $i; then
+		if [ -f $i ] && ! sh -e $i; then
 			opkg-cl ${IPKG_ARGS} flag unpacked `basename $i .preinst`
 		fi
 	done
 	for i in ${IMAGE_ROOTFS}${libdir}/opkg/info/*.postinst; do
-		if [ -f $i ] && ! sh $i configure; then
+		if [ -f $i ] && ! sh -e $i configure; then
 			opkg-cl ${IPKG_ARGS} flag unpacked `basename $i .postinst`
 		fi
 	done

@@ -34,7 +34,7 @@ python __anonymous () {
 
 RDEPENDS_${PN}-dev = "linux-libc-headers-dev"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
+SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip;name=archive \
            file://arm-longlong.patch;patch=1 \
            file://fhs-linux-paths.patch;patch=1 \
            file://dl-cache-libcmp.patch;patch=1 \
