@@ -4,7 +4,7 @@ require gawk_${PV}.bb
 inherit native
 
 #SamyGO: added autoconf-native
-DEPENDS = "autoconf-native"
+DEPENDS = "autoconf-native gettext-native"
 PATCHTOOL = "patch"
 
 S = "${WORKDIR}/gawk-${PV}"
