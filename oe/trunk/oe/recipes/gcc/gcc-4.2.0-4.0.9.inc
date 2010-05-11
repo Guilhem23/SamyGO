@@ -8,6 +8,9 @@ SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip;name=archiv
 	file://SamyGO-Branding.patch;patch=1 \
 "
 
+SRC_URI[md5sum] = "232c2397d511253a8d6dcf66fa8d9bc2"
+SRC_URI[sha256sum] = "78cecf54357d014450355c35af21d2ad330c782a89f56fead6a65b238dbff0f6"
+
 do_unpack2() {
 	tar --strip-components=2 -xvzf ${WORKDIR}/SELP.3.2.x-Chelsea.src.tgz SELP.3.2.x-Chelsea.src/Toolchain/gcc-4.2.0-4.0.9.tgz
 	tar -xvzf gcc-4.2.0-4.0.9.tgz -C ${WORKDIR}/
