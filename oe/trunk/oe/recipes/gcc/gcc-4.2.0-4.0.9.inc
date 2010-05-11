@@ -3,7 +3,7 @@ require gcc-common.inc
 DEPENDS = "mpfr gmp"
 NATIVEDEPS = "mpfr-native gmp-native"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip;name=archive \
+SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
 	file://zecke-xgcc-cpp.patch;patch=1 \
 	file://SamyGO-Branding.patch;patch=1 \
 "
