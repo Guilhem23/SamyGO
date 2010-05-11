@@ -3,6 +3,7 @@ inherit linux-kernel-base module_strip
 PROVIDES += "virtual/kernel"
 DEPENDS += "virtual/${TARGET_PREFIX}depmod-${@get_kernelmajorversion('${PV}')} virtual/${TARGET_PREFIX}gcc${KERNEL_CCSUFFIX} update-modules"
 
+#SamyGO customisation
 KERNEL_IMAGETYPE_LIST ?= "zImage"
 
 # Add dependency on mkimage for kernels that build a uImage
@@ -85,6 +86,7 @@ kernel_do_compile() {
 	if [ "${KERNEL_MAJOR_VERSION}" != "2.6" ]; then
 		oe_runmake dep CC="${KERNEL_CC}" LD="${KERNEL_LD}"
 	fi
+	#SamyGO customisation
 	for type in ${KERNEL_IMAGETYPE_LIST}; do
 		oe_runmake ${type} CC="${KERNEL_CC}" LD="${KERNEL_LD}"
 	done
@@ -164,6 +166,7 @@ kernel_do_stage() {
 	cp -fR include/config* ${STAGING_KERNEL_DIR}/include/	
 	# Install kernel images and system.map to staging
 	[ -e vmlinux ] && install -m 0644 vmlinux ${STAGING_KERNEL_DIR}/	
+	#SamyGO customisation
 	for type in ${KERNEL_IMAGETYPE_LIST}; do
 		install -m 0644 arch/${ARCH}/boot/${type} ${STAGING_KERNEL_DIR}/${type}
 	done
@@ -184,7 +187,7 @@ kernel_do_install() {
 	
 	install -d ${D}/${KERNEL_IMAGEDEST}
 	install -d ${D}/boot
-	#SamyGO:
+	#SamyGO customisation
 	for type in ${KERNEL_IMAGETYPE_LIST}; do
 		install -m 0644 "arch/${ARCH}/boot/${type}" ${D}/${KERNEL_IMAGEDEST}/${type}-${KERNEL_VERSION}
 	done
@@ -231,14 +234,14 @@ do_menuconfig[nostamp] = "1"
 addtask menuconfig after do_configure
 
 pkg_postinst_kernel () {
-	#SamyGO:
+	#SamyGO customisation
 	for type in ${KERNEL_IMAGETYPE_LIST}; do
 		cd /${KERNEL_IMAGEDEST}; update-alternatives --install /${KERNEL_IMAGEDEST}/${type} ${type} ${type}-${KERNEL_VERSION} ${KERNEL_PRIORITY} || true
 	done
 }
 
 pkg_postrm_kernel () {
-	#SamyGO:
+	#SamyGO customisation
 	for type in ${KERNEL_IMAGETYPE_LIST}; do
 		cd /${KERNEL_IMAGEDEST}; update-alternatives --remove ${type} ${type}-${KERNEL_VERSION} || true
 	done
@@ -252,6 +255,7 @@ EXPORT_FUNCTIONS do_compile do_install do_stage do_configure
 # kernel-image becomes kernel-image-${KERNEL_VERISON}
 PACKAGES = "kernel kernel-base kernel-image kernel-dev kernel-vmlinux"
 FILES = ""
+#SamyGO customisation
 FILES_kernel-image = "/boot/*Image*"
 FILES_kernel-dev = "/boot/System.map* /boot/Module.symvers* /boot/config*"
 FILES_kernel-vmlinux = "/boot/vmlinux*"
@@ -539,7 +543,7 @@ addtask uboot_mkimage before do_install after do_compile
 
 do_deploy() {
 	install -d ${DEPLOY_DIR_IMAGE}
-	#SamyGO:
+	#SamyGO customisation
 	for type in ${KERNEL_IMAGETYPE_LIST}; do
 		export KERNEL_IMAGE_BASE_NAME=${type}-${PV}-${PR}-${MACHINE}
 		export KERNEL_IMAGE_SYMLINK_NAME=${type}-${MACHINE}

@@ -23,7 +23,6 @@ package_stagefile_shell() {
 		destfile=`echo $srcfile | sed s#${TMPDIR}#${PSTAGE_TMPDIR_STAGE}#`
 		destdir=`dirname $destfile`
 		mkdir -p $destdir
-		echo $PATH
 		cp -dp $srcfile $destfile
 	fi
 }
