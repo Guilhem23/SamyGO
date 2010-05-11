@@ -34,7 +34,7 @@ python __anonymous () {
 
 RDEPENDS_${PN}-dev = "linux-libc-headers-dev"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip;name=archive \
+SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
            file://arm-longlong.patch;patch=1 \
            file://fhs-linux-paths.patch;patch=1 \
            file://dl-cache-libcmp.patch;patch=1 \
@@ -48,6 +48,9 @@ SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip;name=archiv
 	   file://generic-bits_time.h \
            file://etc/ld.so.conf \
            file://generate-supported.mk"
+
+SRC_URI[md5sum] = "232c2397d511253a8d6dcf66fa8d9bc2"
+SRC_URI[sha256sum] = "78cecf54357d014450355c35af21d2ad330c782a89f56fead6a65b238dbff0f6"
 
 S = "${WORKDIR}/glibc-${PV}"
 B = "${WORKDIR}/build-${TARGET_SYS}"
