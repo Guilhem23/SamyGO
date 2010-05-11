@@ -17,4 +17,5 @@ do_install() {
 	mv ${D}${prefix}/man/* ${D}${mandir}
 }
 
-
+SRC_URI[md5sum] = "62b490407489521db863b523a7f86375"
+SRC_URI[sha256sum] = "036d96991646d0449ed0aa952e4fbe21b476ce994abc276e49d30e686708bd37"
