@@ -22,6 +22,9 @@ SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
 	file://procinfo.h \
 	file://arm-syscall-define.patch;patch=1"
 
+SRC_URI[md5sum] = "232c2397d511253a8d6dcf66fa8d9bc2"
+SRC_URI[sha256sum] = "78cecf54357d014450355c35af21d2ad330c782a89f56fead6a65b238dbff0f6"
+
 S = "${WORKDIR}/linux/linux-${PR}"
 
 do_unpack2() {
