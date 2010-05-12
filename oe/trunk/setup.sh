@@ -43,7 +43,7 @@ IMAGE_KEEPROOTFS = \"1\"
 CACHE = \"${OE_BASE}/build-${DISTRO}/cache/oe-cache.\${USER}\"
 ASSUME_PROVIDED += \" gmp-native mpfr-native ncurses-native desktop-file-utils-native \"
 PARALLEL_MAKE = \"-j 2\"
-BB_NUMBER_THREADS = \"2\"
+#BB_NUMBER_THREADS = \"2\"
 	" > ${OE_BASE}/build-${DISTRO}/conf/local.conf
 
 	echo "OE_BASE=\"${OE_BASE}\"
