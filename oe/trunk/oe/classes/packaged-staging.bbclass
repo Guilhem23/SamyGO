@@ -360,9 +360,8 @@ python populate_sysroot_posthook() {
 
 staging_packager () {
 
-	mkdir -p ${PSTAGE_DIR}/${PSTAGE_PKGPATH}
 	mkdir -p ${PSTAGE_TMPDIR_STAGE}/CONTROL
-	mkdir -p ${DEPLOY_DIR_PSTAGE}/${PSTAGE_PKGPATH}
+	mkdir -p ${PSTAGE_DIR}/${PSTAGE_PKGPATH}
 
 	echo "Package: ${PSTAGE_PKGPN}"         >  ${PSTAGE_TMPDIR_STAGE}/CONTROL/control
 	echo "Version: ${PSTAGE_PKGVERSION}"    >> ${PSTAGE_TMPDIR_STAGE}/CONTROL/control
