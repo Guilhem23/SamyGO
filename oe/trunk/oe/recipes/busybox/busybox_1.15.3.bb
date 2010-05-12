@@ -19,6 +19,8 @@ SRC_URI = "\
   file://mount.busybox \
   file://umount.busybox \
   file://defconfig \
+  file://mdev \
+  file://mdev.conf \
 "
 SRC_URI_append_samygo = "file://busybox-telnetd \
 			file://job-control-off.patch;patch=1"
@@ -34,6 +36,8 @@ do_configure_prepend () {
 }
 
 do_install_append() {
-    #SamyGO: remove mdev
-    :
+	install -m 0644 ${WORKDIR}/mdev.conf ${D}${sysconfdir}/
+	install -d ${D}${sysconfdir}/init.d/
+	install -d ${D}${sysconfdir}/mdev
+	install -m 0755 ${WORKDIR}/mdev ${D}${sysconfdir}/init.d/
 }
