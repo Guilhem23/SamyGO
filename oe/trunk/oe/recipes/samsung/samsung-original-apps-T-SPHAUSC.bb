@@ -1,6 +1,6 @@
 FIRMWARE_NAME = "T-SPHAUSC"
 # 1004.0
-SRC_URI = "http://homepage.mac.com/leoindc/.Public/Samsung%20firmware/samsung.zip;md5sum=64c0425f0410cb95dd800ec338dbe73c"
+SRC_URI = "http://homepage.mac.com/leoindc/.Public/Samsung%20firmware/samsung.zip"
 FLASH_RFS_VERSION = "28_64_256-28"
 
 require samsung-original-apps-common.inc
@@ -32,3 +32,5 @@ unpack_firmware () {
 	${STAGING_BINDIR_NATIVE}/unzip x -qq ${WORKDIR}/samsung.zip
 }
 
+SRC_URI[md5sum] = "64c0425f0410cb95dd800ec338dbe73c"
+SRC_URI[sha256sum] = "78df9c6e6207db7f79ce15dc1ef7deb8af1e093c2eb2cc062062a7f8702eb2c8"

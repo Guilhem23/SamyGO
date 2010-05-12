@@ -1,6 +1,6 @@
 FIRMWARE_NAME = "T-RBYAUSC"
 # 1012.2
-SRC_URI = "http://downloadcenter.samsung.com/content/FM/200810/20081021143429656/T-RBYAUSC.exe;md5sum=9325bdb92f704717530d7ce8193e583f"
+SRC_URI = "http://downloadcenter.samsung.com/content/FM/200810/20081021143429656/T-RBYAUSC.exe"
 FLASH_RFS_VERSION = "28_64_256-28"
 
 require samsung-original-apps-common.inc
@@ -31,3 +31,5 @@ unpack_firmware () {
 	${STAGING_BINDIR_NATIVE}/unzip x -qq ${WORKDIR}/T-RBYAUSC.exe
 }
 
+SRC_URI[md5sum] = "9325bdb92f704717530d7ce8193e583f"
+SRC_URI[sha256sum] = "40a1dbec6358c325b00fb3f00c3aee1ef7dfeabbfbbd6d62016fb16c88fe19c1"
