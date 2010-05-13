@@ -1,4 +1,5 @@
 SYSROOT_PREPROCESS_FUNCS += "relocatable_binaries_preprocess"
+SYSROOT_PREPROCESS_FUNCS_darwin += ""
 
 CHRPATH_BIN ?= "chrpath"
 PREPROCESS_RELOCATE_DIRS ?= ""
