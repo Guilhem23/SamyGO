@@ -12,8 +12,8 @@ SRC_URI = "ftp://ftp.freedesktop.org/pub/mesa/${PV}/MesaLib-${PV}.tar.bz2;name=a
 
 #SRC_URI[archive.md5sum] = "85cb891eecb89aae4fdd3499cccd934b"
 #SRC_URI[archive.sha256sum] = "8c85db5844303b806b18fc6bd40a9dccb02d90b54878a94f910674673ba0aa35"
-#SRC_URI[demos.md5sum] = "9fe8ec184c7f78691e43c4c0a7f97d56"
-#SRC_URI[demos.sha256sum] = "5bf65f03ddcd04b02e9ca044285f8754decee67eb274191da1f31627f1d84b0e"
+SRC_URI[demos.md5sum] = "85cb891eecb89aae4fdd3499cccd934b"
+SRC_URI[demos.sha256sum] = "8c85db5844303b806b18fc6bd40a9dccb02d90b54878a94f910674673ba0aa35"
 
 PR = "${INC_PR}.0"
 
