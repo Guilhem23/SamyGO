@@ -8,6 +8,7 @@ DEPENDS = "${PROTO_DEPS}  ${LIB_DEPS}"
 SRC_URI = "ftp://ftp.freedesktop.org/pub/mesa/${PV}/MesaLib-${PV}.tar.bz2;name=archive \
            ftp://ftp.freedesktop.org/pub/mesa/${PV}/MesaDemos-${PV}.tar.bz2;name=demos \
            file://fix-progs-makefile.patch;patch=1 \
+	   file://fix-compile.patch;patch=1 \
           "
 
 SRC_URI[archive.md5sum] = "25ec15f8e41fde6d206118cc786dbac4"
