@@ -12,8 +12,8 @@ INSTALL_PKGS = "\
 	modutils-collateral gdb gdbserver samsung-apps samsung-original-apps-${FIRMWARE_NAME} \
 "
 
-#DEPENDS_append="xserver-xorg "
-#INSTALL_PKGS_append = " x11vnc xserver-xorg-xvfb "
+DEPENDS_append="xserver-xorg "
+INSTALL_PKGS_append = " x11vnc xserver-xorg-xvfb "
 
 RRECOMMENDS = ""
 
