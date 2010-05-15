@@ -184,7 +184,7 @@ CONFIG_CPU_CP15_MMU=y
 # Bus support
 #
 CONFIG_ARM_AMBA=y
-# CONFIG_PCI is not set
+CONFIG_PCI=y
 # CONFIG_PCI_DEBUG is not set
 
 #
@@ -537,7 +537,7 @@ CONFIG_MII=y
 #
 # CONFIG_NET_TULIP is not set
 # CONFIG_HP100 is not set
-# CONFIG_NET_PCI is not set
+CONFIG_NET_PCI=y
 # CONFIG_PCNET32 is not set
 # CONFIG_AMD8111_ETH is not set
 # CONFIG_ADAPTEC_STARFIRE is not set
