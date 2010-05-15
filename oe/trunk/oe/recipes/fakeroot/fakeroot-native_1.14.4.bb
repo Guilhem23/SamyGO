@@ -6,6 +6,9 @@ inherit native
 
 EXTRA_OECONF = " --program-prefix="
 
+#SamyGO: don't depend on util-linux from native
+RDEPENDS = ""
+
 # Compatability for the rare systems not using or having SYSV
 python () {
     if bb.data.getVar('HOST_NONSYSV', d, True) and bb.data.getVar('HOST_NONSYSV', d, True) != '0':
