@@ -4,7 +4,8 @@ LICENSE = "MIT-X"
 
 DEPENDS = "libxaw xproto virtual/libx11 xextproto xext xau libxpm ncurses"
 
-SRC_URI = "ftp://invisible-island.net/xterm/${PN}-${PV}.tgz"
+#SamyGO: use mirror
+SRC_URI = "http://sources.openembedded.org/${PN}-${PV}.tgz"
 
 inherit autotools pkgconfig
 
