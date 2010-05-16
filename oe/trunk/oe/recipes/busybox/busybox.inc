@@ -40,10 +40,11 @@ RRECOMMENDS += "libgcc"
 
 FILES_${PN}-httpd = "${sysconfdir}/init.d/busybox-httpd /srv/www"
 FILES_${PN}-udhcpd = "${sysconfdir}/init.d/busybox-udhcpd"
+FILES_${PN}-telnetd = "${sysconfdir}/init.d/busybox-telnetd"
 
 FILES_${PN} += "${datadir}/udhcpc"
 
-INITSCRIPT_PACKAGES = "${PN}-httpd ${PN}-syslog ${PN}-udhcpd"
+INITSCRIPT_PACKAGES = "${PN}-httpd ${PN}-syslog  ${PN}-telnetd"
 INITSCRIPT_NAME_${PN}-httpd = "busybox-httpd"
 INITSCRIPT_NAME_${PN}-udhcpd = "busybox-udhcpd"
 INITSCRIPT_NAME_${PN}-telnetd = "busybox-telnetd"
