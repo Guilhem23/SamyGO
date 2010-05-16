@@ -30,7 +30,5 @@ fi
 
 export PATH PS1 OPIEDIR QPEDIR QTDIR EDITOR TERM
 
-export DISPLAY=127.0.0.1:0
- 
 umask 022
 
