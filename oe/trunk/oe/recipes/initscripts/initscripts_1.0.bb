@@ -32,7 +32,7 @@ SRC_URI = "file://functions \
 
 SRC_URI_append_arm = " file://alignment.sh"
 
-SRC_URI_append_samygo = " file://samsung-setup.sh"
+SRC_URI_append_samygo = " file://samsung-setup.sh file://startx.sh"
 
 KERNEL_VERSION = ""
 
@@ -68,6 +68,7 @@ do_install () {
 	install -m 0755    ${WORKDIR}/devpts.sh	${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/devpts		${D}${sysconfdir}/default
 	install -m 0755    ${WORKDIR}/sysfs.sh		${D}${sysconfdir}/init.d
+	install -m 0755    ${WORKDIR}/startx.sh		${D}${sysconfdir}/init.d
 	install -m 0755    ${WORKDIR}/populate-volatile.sh ${D}${sysconfdir}/init.d
 	install -m 0644    ${WORKDIR}/volatiles		${D}${sysconfdir}/default/volatiles/00_core
 	if [ "${TARGET_ARCH}" = "arm" ]; then
@@ -85,6 +86,7 @@ do_install () {
 	ln -sf		../init.d/rmnologin	${D}${sysconfdir}/rc3.d/S99rmnologin
 	ln -sf		../init.d/rmnologin	${D}${sysconfdir}/rc4.d/S99rmnologin
 	ln -sf		../init.d/rmnologin	${D}${sysconfdir}/rc5.d/S99rmnologin
+	ln -sf		../init.d/startx.sh	${D}${sysconfdir}/rc5.d/S99startx.sh
 	ln -sf		../init.d/sendsigs	${D}${sysconfdir}/rc6.d/S20sendsigs
 #	ln -sf		../init.d/urandom	${D}${sysconfdir}/rc6.d/S30urandom
 	ln -sf		../init.d/umountnfs.sh	${D}${sysconfdir}/rc6.d/S31umountnfs.sh
