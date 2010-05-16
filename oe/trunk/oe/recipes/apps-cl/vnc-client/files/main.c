@@ -152,10 +152,10 @@ int Game_Main(char *path, char *udn)
 	video_flags = SDL_FULLSCREEN;
 	video_flags |= SDL_HWSURFACE;
 	/* Force double buffering */
-	video_flags |= SDL_DOUBLEBUF;
+	//video_flags |= SDL_DOUBLEBUF;
 	vnc_server = "127.0.0.1";
 	vnc_port = 5900;
-	vnc_method = strdup("hextile,rre,copyrect,raw");
+	vnc_method = strdup("hextile,rre,raw,copyrect");
 	vnc_password = strdup("");
 	vnc_framerate = 25;
 
@@ -182,7 +182,7 @@ int Game_Main(char *path, char *udn)
 
 	/* Do all the drawing work */
 	draw(screen, &vnc);
-	
+
 	/* Close connection */
 	vncDisconnect(&vnc);
 	
