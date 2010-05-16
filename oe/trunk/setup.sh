@@ -21,7 +21,7 @@ export OE_BASE=`readlink -f $OE_BASE`
 DISTRO=${DISTRO:=samygo}
 DL_DIR=${DL_DIR:="$HOME/sources"}
 
-# target platform: leonid, polaris
+# target platform: leonid
 MACHINE=${MACHINE:=leonid}
 
 mkdir -p  ${OE_BASE}/build-${DISTRO}/conf
