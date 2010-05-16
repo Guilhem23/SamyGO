@@ -44,7 +44,7 @@ FILES_${PN}-telnetd = "${sysconfdir}/init.d/busybox-telnetd"
 
 FILES_${PN} += "${datadir}/udhcpc"
 
-INITSCRIPT_PACKAGES = "${PN}-httpd ${PN}-syslog  ${PN}-telnetd"
+INITSCRIPT_PACKAGES = "${PN}-httpd ${PN}-syslog ${PN}-telnetd"
 INITSCRIPT_NAME_${PN}-httpd = "busybox-httpd"
 INITSCRIPT_NAME_${PN}-udhcpd = "busybox-udhcpd"
 INITSCRIPT_NAME_${PN}-telnetd = "busybox-telnetd"
