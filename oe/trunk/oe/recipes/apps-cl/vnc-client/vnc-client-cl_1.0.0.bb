@@ -16,8 +16,8 @@ do_configure() {
 }
 
 do_compile() {
-	${CC} ${S}/SDL_vnc.c ${S}/d3des.c ${S}/main.c -shared `${STAGING_BINDIR}/sdl-config --libs` \
-		`${STAGING_BINDIR}/sdl-config --cflags` ${CFLAGS} ${LDFLAGS} -o ${S}/libvnc-client.so
+	${CC} ${S}/SDL_vnc.c ${S}/d3des.c ${S}/main.c -shared `sdl-config --libs` \
+		`sdl-config --cflags` ${CFLAGS} ${LDFLAGS} -o ${S}/libvnc-client.so
 }
 
 FILES_${PN} = "/vnc-client"
