@@ -12,9 +12,9 @@ INSTALL_PKGS = "\
 	modutils-collateral gdb gdbserver samsung-apps samsung-original-apps-${FIRMWARE_NAME} \
 "
 
-DEPENDS_append="xserver-xorg "
-INSTALL_PKGS_append = " x11vnc xserver-xorg-extension-glx xserver-xorg-extension-dri2 xserver-xorg-xvfb xterm \
-	openbox openbox-theme-clearlooks "
+#DEPENDS_append="xserver-xorg "
+#INSTALL_PKGS_append = " x11vnc xserver-xorg-extension-glx xserver-xorg-extension-dri2 xserver-xorg-xvfb xterm \
+#	openbox openbox-theme-clearlooks e-uae "
 
 RRECOMMENDS = ""
 
