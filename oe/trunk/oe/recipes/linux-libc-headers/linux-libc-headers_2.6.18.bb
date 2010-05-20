@@ -18,7 +18,7 @@ PR = "r011"
 RDEPENDS_${PN}-dev = ""
 RRECOMMENDS_${PN}-dbg = "${PN}-dev (= ${EXTENDPV})"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
+SRC_URI = "${SAMSUNG_OS_MIRROR}/32B650.zip \
 	file://procinfo.h \
 	file://arm-syscall-define.patch;patch=1"
 

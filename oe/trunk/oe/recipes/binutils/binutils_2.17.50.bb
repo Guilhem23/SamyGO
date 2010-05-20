@@ -4,7 +4,7 @@ LICENSE = "GPLv3"
 INC_PR = "r1"
 PR = "${INC_PR}.0"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
+SRC_URI = "${SAMSUNG_OS_MIRROR}/32B650.zip \
 	file://better_file_error.patch;patch=1 \
 	file://ld_makefile.patch;patch=1 \
 	file://detect-makeinfo.patch;patch=1"
