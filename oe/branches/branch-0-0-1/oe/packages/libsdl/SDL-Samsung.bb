@@ -7,11 +7,11 @@ PR = "r03"
 
 PROVIDES = "virtual/libsdl virtual/libx11"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
+SRC_URI = "${SAMSUNG_OS_MIRROR}/32B650.zip \
 		file://sdl-config \
 		file://sdl.m4 \
 "
-SRC_URI_sh4 = "http://www.samsung.com/global/opensource/files/SDL-1.2.11.zip \
+SRC_URI_sh4 = "${SAMSUNG_OS_MIRROR}/SDL-1.2.11.zip \
 		file://sdl-config \
                 file://sdl.m4 \
 "
