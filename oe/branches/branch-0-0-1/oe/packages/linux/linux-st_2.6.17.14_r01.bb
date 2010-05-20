@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
 DEPENDS = "binutils-cross yes-native u-boot-mkimage-selp-native"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/LE46A956.zip \
+SRC_URI = "${SAMSUNG_OS_MIRROR}/LE46A956.zip \
 		file://${MACHINE}-dotconfig \
 		file://selp-fix-MAX_PATH.patch;patch=1 \
 		file://selp-bash-not-default-sh.patch;patch=1 \

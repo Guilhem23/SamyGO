@@ -8,7 +8,7 @@ PROVIDES = "smpeg"
 PE = "1"
 SRCREV = "370"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/smpeg-0.4.5.zip \
+SRC_URI = "${SAMSUNG_OS_MIRROR}/smpeg-0.4.5.zip \
 	file://smpeg-config \
 "
 

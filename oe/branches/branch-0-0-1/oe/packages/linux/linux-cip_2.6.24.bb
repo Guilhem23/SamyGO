@@ -4,7 +4,7 @@ LICENSE = "GPL"
 DEPENDS = "binutils-cross yes-native u-boot-mkimage-selp-native"
 
 SRC_URI = "http://downloadcenter.samsung.com/content/UM/201003/20100316193721937/LN40C650_OpenSource.rar \
-#		http://www.samsung.com/global/opensource/files/LE40B650T2P.zip \
+#		${SAMSUNG_OS_MIRROR}/LE40B650T2P.zip \
 		file://${MACHINE}-dotconfig \
 #		file://selp-fix_nonlinux_compile.patch;patch=1 \
 "

@@ -36,7 +36,7 @@ FILES_${PN}-symlinks = " \
 	${bindir}/strings \
 	${bindir}/strip"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
+SRC_URI = "${SAMSUNG_OS_MIRROR}/32B650.zip \
 	file://detect-makeinfo.patch;patch=1"
 
 do_unpack2() {

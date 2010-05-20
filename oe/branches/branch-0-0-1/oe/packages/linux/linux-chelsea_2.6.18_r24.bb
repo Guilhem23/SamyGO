@@ -3,8 +3,8 @@ HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
 DEPENDS = "binutils-cross yes-native u-boot-mkimage-selp-native"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
-		http://www.samsung.com/global/opensource/files/LE40B650T2P.zip \
+SRC_URI = "${SAMSUNG_OS_MIRROR}/32B650.zip \
+		${SAMSUNG_OS_MIRROR}/LE40B650T2P.zip \
 		file://${MACHINE}-dotconfig \
 		file://selp-fix_nonlinux_compile.patch;patch=1 \
 "
@@ -81,6 +81,10 @@ CONFIG_USB_FILE_STORAGE_TEST=y
                 if [ "${gcc_version}" == "4.0.1" ] || [ "${gcc_version}" == "4.0.2" ]; then
                         die "tosa kernel wont work with gcc 4.0.x"
                 fi
+}
+
+do_compile_append_samygo(){
+	oe_runmake zImage
 }
 
 do_stage_prepend () {

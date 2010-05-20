@@ -20,7 +20,7 @@ INHIBIT_DEFAULT_DEPS = "1"
 PR = "r17"
 
 # LN46A750.zip & LN52A750.zip same md5sum
-SRC_URI = "http://www.samsung.com/global/opensource/files/LN52A750.zip"
+SRC_URI = "${SAMSUNG_OS_MIRROR}/LN52A750.zip"
 
 S = "${WORKDIR}/linux"
 

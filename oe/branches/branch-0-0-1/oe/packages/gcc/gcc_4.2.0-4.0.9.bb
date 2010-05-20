@@ -10,7 +10,7 @@ BINV = "4.2.0"
 
 require gcc-package.inc
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip \
+SRC_URI = "${SAMSUNG_OS_MIRROR}/32B650.zip \
 	file://zecke-xgcc-cpp.patch;patch=1 \
 	"
 

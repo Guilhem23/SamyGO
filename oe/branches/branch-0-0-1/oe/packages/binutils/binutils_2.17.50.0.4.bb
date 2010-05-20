@@ -36,7 +36,7 @@ FILES_${PN}-symlinks = " \
 	${bindir}/strings \
 	${bindir}/strip"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/LE46A956.zip \
+SRC_URI = "${SAMSUNG_OS_MIRROR}/LE46A956.zip \
 	file://detect-makeinfo.patch;patch=1 \
 	file://selp_attr_packed.patch;patch=1 \
 "

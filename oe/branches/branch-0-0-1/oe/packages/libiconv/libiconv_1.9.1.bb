@@ -7,7 +7,7 @@ NOTES = "Needs to be stripped down to: ascii iso8859-1 eucjp iso-2022jp gb utf8"
 PROVIDES = "virtual/libiconv"
 PR = "r4"
 LICENSE = "LGPL Samsung"
-SRC_URI = "http://www.samsung.com/global/opensource/files/libiconv_1_9_1.tar.gz"
+SRC_URI = "${SAMSUNG_OS_MIRROR}/libiconv_1_9_1.tar.gz"
 
 S = "${WORKDIR}/libiconv-${PV}"
 

@@ -18,7 +18,7 @@ DEFAULT_PREFERENCE_T-RBYAUSC = "-99"
 INHIBIT_DEFAULT_DEPS = "1"
 PR = "r24"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/32B650.zip"
+SRC_URI = "${SAMSUNG_OS_MIRROR}/32B650.zip"
 
 S = "${WORKDIR}/linux/linux-r011"
 

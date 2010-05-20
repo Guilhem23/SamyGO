@@ -19,7 +19,7 @@ DEFAULT_PREFERENCE_T-AMBDFRC = "1"
 INHIBIT_DEFAULT_DEPS = "1"
 PR = "r01"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/LE46A956.zip"
+SRC_URI = "${SAMSUNG_OS_MIRROR}/LE46A956.zip"
 
 S = "${WORKDIR}/linux_st"
 

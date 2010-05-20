@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
 DEPENDS = "binutils-cross yes-native u-boot-mkimage-selp-native"
 
-SRC_URI = "	http://www.samsung.com/global/opensource/files/LE40B650T2P.zip \
+SRC_URI = "	${SAMSUNG_OS_MIRROR}/LE40B650T2P.zip \
 		file://${MACHINE}-dotconfig \
 		file://cip.Makefile.modpost \
 		file://cip.Makefile.modinst \
