@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<contentlibrary>
+  <contentpack id="vnc-client">
+    <category>Game</category>
+    <title language_id="English">VNC Local Client</title>
+    <startpoint language_id="English">./libvnc-client.so</startpoint>
+    <thumbnailpath>libvnc-client.png</thumbnailpath>
+    <totalsize>1</totalsize>
+  </contentpack>
+</contentlibrary>
