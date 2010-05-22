@@ -1,11 +1,11 @@
 DESCRIPTION = "SysV init scripts"
 SECTION = "base"
 PRIORITY = "required"
-#SamyGO: disabled makdevs depedency
+#SamyGO: disabled makedevs depedency
 #DEPENDS = "makedevs"
 #RDEPENDS = "makedevs"
 LICENSE = "GPL"
-PR = "r118"
+PR = "r120"
 
 #SamyGO: removed devices, mountall.sh, urandom, checkfs.sh, device_table.txt, save-rtc.sh
 SRC_URI = "file://functions \

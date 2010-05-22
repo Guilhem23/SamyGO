@@ -5,7 +5,11 @@ PR = "r1"
 SRC_URI = "ftp://ftp.info-zip.org/pub/infozip/src/unzip${PV}.tgz"
 S = "${WORKDIR}/unzip${PV}"
 
-export LD = "${CC} ${LDFLAGS}"
+BBCLASSEXTEND = "native"
+
+NATIVE_INSTALL_WORKS = "1"
+
+EXTRA_OEMAKE += "'LD=${CCLD} ${LDFLAGS}'"
 
 do_compile() {
         oe_runmake -f unix/Makefile generic
