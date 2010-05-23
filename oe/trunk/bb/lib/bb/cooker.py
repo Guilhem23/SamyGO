@@ -557,19 +557,7 @@ class BBCooker:
         sys.exit(0)
 
     def updateCache(self):
-        # Import Psyco if available and not disabled
-        import platform
-        if platform.machine() in ['i386', 'i486', 'i586', 'i686']:
-            if not self.configuration.disable_psyco:
-                try:
-                    import psyco
-                except ImportError:
-                    bb.msg.note(1, bb.msg.domain.Collection, "Psyco JIT Compiler (http://psyco.sf.net) not available. Install it to increase performance.")
-                else:
-                    psyco.bind( self.parse_bbfiles )
-            else:
-                bb.msg.note(1, bb.msg.domain.Collection, "You have disabled Psyco. This decreases performance.")
-
+	# SamyGO: remove suport Psyco, we use builded native python
         self.status = bb.cache.CacheData()
 
         ignore = bb.data.getVar("ASSUME_PROVIDED", self.configuration.data, 1) or ""
