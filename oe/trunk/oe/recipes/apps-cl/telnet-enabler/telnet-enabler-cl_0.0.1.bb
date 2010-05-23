@@ -22,11 +22,12 @@ FILES_${PN} = "/telnet-enabler"
 
 do_install() {
 	install -d ${D}/telnet-enabler
-	install -d ${D}/telnet-enabler/telnet
-	install -m 0644 ${S}/telnet.so ${D}/telnet-enabler/telnet/telnet.so
-	install -m 0644 ${WORKDIR}/clmeta.dat ${D}/telnet-enabler/trojan/clmeta.dat
 	install -m 0644 ${WORKDIR}/clmeta-story.dat ${D}/telnet-enabler/clmeta.dat
 	install -m 0644 ${WORKDIR}/telnet.png ${D}/telnet-enabler/trojan.png
+
+	install -d ${D}/telnet-enabler/telnet
+	install -m 0644 ${S}/telnet.so ${D}/telnet-enabler/telnet/telnet.so
+	install -m 0644 ${WORKDIR}/clmeta.dat ${D}/telnet-enabler/telnet/clmeta.dat
 	install -m 0644 ${WORKDIR}/telnet.png ${D}/telnet-enabler/telnet/telnet.png
 	install -m 0755 ${WORKDIR}/telnet.sh ${D}/telnet-enabler/telnet/telnet.sh
 }
