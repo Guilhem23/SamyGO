@@ -12,7 +12,7 @@ do_configure () {
 }
 
 do_compile () {
-	${CC} ${CFLAGS} -o ${S}/micomctrl ${S}/MicomCtrl.c
+	$CC $CFLAGS $LDFLAGS -o ${S}/micomctrl ${S}/MicomCtrl.c
 }
 
 do_install () {
