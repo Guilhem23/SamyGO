@@ -36,7 +36,7 @@ Shell environment variables for setup OE:
 		Default: $HOME/sources
 
 	MACHINE=<machine name>
-		Target machine name, can be: leonid, polaris
+		Target machine name, can be: leonid
 		Default: leonid
 
 	Example: MACHINE=leonid;DISTRO=samygo;DL_DIR=~/sources
