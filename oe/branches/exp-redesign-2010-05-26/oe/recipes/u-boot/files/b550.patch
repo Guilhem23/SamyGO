@@ -1,0 +1,21 @@
+diff -ur old/include/configs/leonid.h new/include/configs/leonid.h
+--- old/include/configs/leonid.h	2008-12-10 02:40:37.000000000 +0100
++++ new/include/configs/leonid.h	2010-05-26 07:59:11.000000000 +0200
+@@ -36,7 +36,7 @@
+ #define CONFIG_USB_STORAGE_ALL
+ 
+ /* PCI */
+-#define CONFIG_PCI
++#undef CONFIG_PCI
+ #define CFG_PCI_EXT_CLOCK
+ #define CFG_PCI_EXT_RESET
+ #undef CFG_PCI_CLK_66
+@@ -45,7 +45,7 @@
+ 
+ /* Ethernet */
+ #define CONFIG_NET_MULTI
+-#define CONFIG_RTL8139
++#undef CONFIG_RTL8139
+ #define CFG_ETH_NO_EEPROM
+ #define KSEG1ADDR(x)	(x)
+ 
