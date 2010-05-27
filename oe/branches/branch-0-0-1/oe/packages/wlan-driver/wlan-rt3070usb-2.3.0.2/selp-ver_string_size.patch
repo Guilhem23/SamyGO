@@ -1,0 +1,24 @@
+diff -NurbB a/os/linux/sta_ioctl.c b/os/linux/sta_ioctl.c
+--- a/os/linux/sta_ioctl.c	2010-02-08 03:20:09.000000000 +0100
++++ b/os/linux/sta_ioctl.c	2010-05-27 17:53:46.000000000 +0200
+@@ -4452,7 +4452,7 @@
+     UINT                                we_version_compiled;
+     UCHAR                               i, Padding = 0;
+     BOOLEAN                             RadioState;
+-    STRING								driverVersion[8];
++    STRING								driverVersion[9];
+     OID_SET_HT_PHYMODE			        *pHTPhyMode = NULL;
+     HTTRANSMIT_SETTING	HTPhyMode;
+ 	
+@@ -4475,9 +4475,9 @@
+             break;        
+         case RT_OID_VERSION_INFO:
+ 			DBGPRINT(RT_DEBUG_TRACE, ("Query::RT_OID_VERSION_INFO \n"));
+-			wrq->u.data.length = 8*sizeof(CHAR);
++			wrq->u.data.length = 9*sizeof(CHAR);
+ 			sprintf(&driverVersion[0], "%s", STA_DRIVER_VERSION);
+-			driverVersion[7] = '\0';
++			driverVersion[8] = '\0';
+ 			if (copy_to_user(wrq->u.data.pointer, &driverVersion[0], wrq->u.data.length))
+             {
+ 				Status = -EFAULT;

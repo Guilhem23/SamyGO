@@ -1,0 +1,43 @@
+diff -NurbB RT25USB-SRC-V2.0.8.0.orig/Makefile RT25USB-SRC-V2.0.8.0/Makefile
+--- RT25USB-SRC-V2.0.8.0.orig/Makefile	2006-09-11 22:58:51.000000000 +0200
++++ RT25USB-SRC-V2.0.8.0/Makefile	2009-10-14 19:23:42.000000000 +0200
+@@ -9,7 +9,7 @@
+ ## Comment/uncomment the following line to enable/disable debugging
+ #CFLAGS += -DDBG
+ 
+-CFLAGS += $(WFLAGS)
++EXTRA_CFLAGS += $(WFLAGS)
+ 
+ obj-m := rt2570.o
+ 
+@@ -35,7 +35,7 @@
+ endif
+ 
+ all: 
+-	make -C /lib/modules/$(shell uname -r)/build SUBDIRS=$(shell pwd) modules
++	make -C $(KERNEL_SOURCE) SUBDIRS=$(shell pwd) modules
+ 
+ clean:
+ 	rm -rf *.o *~ .*.cmd *.ko *.mod.c .tmp_versions built-in.o
+diff -NurbB RT25USB-SRC-V2.0.8.0.orig/rt_config.h RT25USB-SRC-V2.0.8.0/rt_config.h
+--- RT25USB-SRC-V2.0.8.0.orig/rt_config.h	2006-09-11 22:58:51.000000000 +0200
++++ RT25USB-SRC-V2.0.8.0/rt_config.h	2009-10-14 20:36:26.000000000 +0200
+@@ -37,7 +37,8 @@
+ #ifndef	__RT_CONFIG_H__
+ #define	__RT_CONFIG_H__
+ 
+-#define PROFILE_PATH                "/etc/Wireless/RT2570STA/RT2570STA.dat"
++// #define PROFILE_PATH                "/etc/Wireless/RT2570STA/RT2570STA.dat"
++#define PROFILE_PATH                "/etc/Wireless/RT73STA/rt73sta.dat"
+ #define NIC_DEVICE_NAME             "RT2500USBSTA"
+ #define DRV_MAJORVERSION		2
+ #define DRV_MINORVERSION		0
+@@ -93,7 +94,7 @@
+ #include <asm/io.h>
+ #include <asm/irq.h>
+ #include <asm/uaccess.h>
+-#include <asm-i386/atomic.h>
++#include <asm/atomic.h>
+ 
+ // The type definition has to be placed before including rt2460.h
+ #ifndef ULONG

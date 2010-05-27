@@ -1,0 +1,39 @@
+diff -NurbB RT25USB-SRC-V2.0.8.0.orig/rtusb_main.c RT25USB-SRC-V2.0.8.0/rtusb_main.c
+--- RT25USB-SRC-V2.0.8.0.orig/rtusb_main.c	2006-09-11 22:58:51.000000000 +0200
++++ RT25USB-SRC-V2.0.8.0/rtusb_main.c	2009-10-27 17:09:47.000000000 +0100
+@@ -1802,7 +1802,7 @@
+ 
+ 		for (i = 0; i < 8; i++)
+ 		{
+-			sprintf(slot_name, "rausb%d", i);
++			sprintf(slot_name, "ra11n%d", i);
+ 			
+ 			for (device = dev_base; device != NULL; device = device->next)
+ 			{
+@@ -1819,7 +1819,7 @@
+ 			return res;
+ 		}
+ 
+-		sprintf(pAdapter->net->name, "rausb%d", i);
++		sprintf(pAdapter->net->name, "ra11n%d", i);
+ 
+         /* get the active interface descriptor */
+         iface_desc = intf->cur_altsetting;
+@@ -1892,7 +1892,7 @@
+  int __init usb_rtusb_init(void)
+ {
+ 	DBGPRINT(RT_DEBUG_ERROR,"enter rtusb init( )\n");
+-
++	printk("rtusb (2.0.8.0) [SamyGO] init ====>\n");	
+ 	return usb_register(&rtusb_driver);
+ }
+  void __exit usb_rtusb_exit(void)
+@@ -1900,7 +1900,7 @@
+ 	udelay(1);
+ 	udelay(1);
+ 	usb_deregister(&rtusb_driver);
+-	printk("<===usb_rtusb_exit\n");
++	printk("<=== rtusb (2.0.8.0) [SamyGO] exit\n");
+ }
+ 
+ /**************************************************************/
