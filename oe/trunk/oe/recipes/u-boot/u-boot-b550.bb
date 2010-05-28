@@ -7,6 +7,7 @@ PR = "r10"
 SRC_URI = "${SAMSUNG_OS_MIRROR}/uboot_b650.tgz \
 	file://replace_echo_n_b650.patch;patch=1 \
 	file://b550.patch;patch=1 \
+	file://noflash.patch;patch=1 \
 "
 
 SRC_URI[md5sum] = "4c9ba9d7bd970437668f6aac8012df3c"
