@@ -1,0 +1,37 @@
+diff -NurbB a/dm9601.c b/dm9601.c
+--- a/dm9601.c	2010-05-28 19:47:07.000000000 +0200
++++ b/dm9601.c	2010-05-28 19:48:56.000000000 +0200
+@@ -68,7 +68,7 @@
+ 
+ #define	DM9601_USE_INTR
+ 
+-static const char *version = __FILE__ ": v0.0.6 2001/05/24 (C) 1999-2000 Petko Manolov (petkan@dce.bg)";
++static const char *version = "[SamyGO]: v0.0.6 2001/05/24 (C) 1999-2000 Petko Manolov (petkan@dce.bg)";
+ 
+ static struct usb_eth_dev usb_dev_id[] = {
+ #define	DM9601_DEV(pn, vid, pid, flags)	\
+diff -NurbB a/dm9601.h b/dm9601.h
+--- a/dm9601.h	2006-11-24 10:06:02.000000000 +0100
++++ b/dm9601.h	2010-05-28 19:51:27.000000000 +0200
+@@ -158,8 +158,6 @@
+ DM9601_DEV( "ADMtek AN986 \"Pegasus\" USB Ethernet (eval board)",
+ 		VENDOR_ADMTEK, 0x0986,
+ 		DEFAULT_GPIO_RESET | HAS_HOME_PNA )
+-DM9601_DEV( "Davicom USB-100", 0x0a46, 0x9601,
+-		DEFAULT_GPIO_RESET )
+ DM9601_DEV( "Davicom USB-100", 0x3334, 0x1701,
+ 		DEFAULT_GPIO_RESET )
+ DM9601_DEV( "Billionton USB-100", VENDOR_BILLIONTON, 0x0986,
+@@ -202,6 +200,11 @@
+ 		DEFAULT_GPIO_RESET )
+ DM9601_DEV( "SOHOware NUB100 Ethernet", 0x0a46, 0x9601,
+ 		DEFAULT_GPIO_RESET )
+-
++DM9601_DEV( "Davicom USB-100", 0x0a46, 0x6688,
++                DEFAULT_GPIO_RESET )
++DM9601_DEV( "ShanTou ST268 USB NIC", 0x0a46, 0x0268,
++                DEFAULT_GPIO_RESET )
++DM9601_DEV( "SUNRISING USB Ethernet", 0x0fe6, 0x8101,
++                DEFAULT_GPIO_RESET )
+ 
+ #endif	/* _DEV */
