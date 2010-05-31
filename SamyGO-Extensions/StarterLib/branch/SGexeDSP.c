@@ -122,8 +122,7 @@ struct thread_data{
 
 Uint32 rmask, gmask, bmask, amask;
 char *SG_V_buff[WIDTH * HEIGHT * 4];
-static void *SG_V_buff_real;
-char *SG_A_buff[8192];
+void *SG_V_buff_real;
 extern char* org_video_buffer;
 
 #include "savesurf.h"
@@ -166,6 +165,20 @@ void TakeShootJPEG(void){
 		ScCo++;
 	else
 		unlink(ScreenshotName); /* may done by write_jpeg? */
+}
+void TakeShootFB(void){
+	char ScreenshotName[100];
+	SDL_Surface *ss_surface = SDL_CreateRGBSurface(SDL_SWSURFACE, WIDTH, HEIGHT, DEPTH, rmask, gmask, bmask, amask);
+	SDL_BlitSurface(current_video->screen, NULL, ss_surface, NULL);
+
+	sprintf(ScreenshotName,"/mtd_wiselink/Screenshot-%03d.jpg",ScCo);
+	loginfo("Save %s\n", ScreenshotName);
+
+		ScCo++;
+		SDL_LockSurface(ss_surface);
+	memcpy(SG_V_buff_real,ss_surface->pixels,ss_surface->w * ss_surface->h * ss_surface->format->BitsPerPixel / 8 );	
+	SDL_UnlockSurface(ss_surface);
+	SDL_FreeSurface(ss_surface);
 }
 void TakeShootJPEGSurface(SDL_Surface *surface){
 	char ScreenshotName[100];
@@ -500,8 +513,8 @@ void SDL_UnlockSurface(SDL_Surface *surface){
 // s_GetScreen(int, char**, unsigned short*, unsigned short*, int*)                                                         
 SDL_Surface *_Z11s_GetScreeniPPcPtS1_Pi(_THIS, char **b, unsigned short *c, unsigned short *d, int *e){                     
 	printf("%s: a %d at %p b at %p c %u d %u e %d\n",__FUNCTION__, this,&this, *b, *c, *d, *e); 
-	// *b = SG_V_buff;
-	*b = SG_V_buff_real;
+	*b = SG_V_buff;
+	// *b = SG_V_buff_real;
 	printf("%s: a %d b at %p c %u d %u e %d\n",__FUNCTION__, this, *b, *c, *d, *e); 
 	show_stackframe2();
 	return SDL_GetVideoSurface();
@@ -581,7 +594,8 @@ void _Z14s_UpdateScreeniiiii(int a, int b, int c, int d, int e){
 	// printf("%s: skip TakeShootPNG\n");
 	// TakeShootPNG();
 	if(ScCo < 1000)
-		TakeShootJPEG();
+	/* printf("%s: skipp	TakeShootJPEG();\n",__FUNCTION__); */
+	TakeShootFB();
 	else
 		exit(2);
 	deltaclock = SDL_GetTicks() - startclock;
