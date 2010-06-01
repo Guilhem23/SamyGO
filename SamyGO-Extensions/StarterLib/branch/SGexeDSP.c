@@ -115,7 +115,7 @@ struct thread_data{
 #define BPP 4
 #define DEPTH 32
 #define P0_ADDR 0x79900000UL /* OSD , Mediaplayer (Decoration) SDL_Quit seems to be harmless */
-#define P1_ADDR 0x79d00000UL /* Teletext, Youtube (Yahoo-Stuff) Flash (Gallery) ! dont't use SDL_Quit !*/
+#define P1_ADDR 0x79d00000UL /* Teletext, Youtube (Yahoo-Stuff) Flash (Gallery) */
 #define DST_ADDR P0_ADDR
 /* aligned to page boundary */
 #define FB_MMAP_SIZE 0x1fb000UL
