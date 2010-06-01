@@ -1123,6 +1123,7 @@ void SG_fini(void){
 	//	ERR_free_strings();
 	//	EVP_cleanup();
 	//	CRYPTO_cleanup_all_ex_data();
+	memset(SG_V_buff_real,0,WIDTH * HEIGHT * 4);
 	munmap(SG_V_buff_real,FB_MMAP_SIZE);	
 	printf("%s: unload\n",__FUNCTION__);
 }
