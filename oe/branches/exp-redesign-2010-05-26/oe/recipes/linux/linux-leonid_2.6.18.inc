@@ -3,8 +3,13 @@ HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
 DEPENDS = "binutils-cross u-boot-mkimage-selp-native"
 
-SRC_URI = "${SAMSUNG_OS_MIRROR}/32B650.zip;name=archive \
-	${SAMSUNG_OS_MIRROR}/LE40B650T2P.zip;name=archive2 \
+# SamyGO: workaround samsung download sorces
+FETCHCOMMAND_wget = "/usr/bin/env 'PATH=${PATH}' wget -t 5 --passive-ftp --no-check-certificate -P ${DL_DIR} \
+	-O LA46B650.zip http://opensource.samsung.com/tv_n_video/la46b650/"
+RESUMECOMMAND_wget = "/usr/bin/env 'PATH=${PATH}' wget -c -t 5 --passive-ftp --no-check-certificate -P ${DL_DIR} \
+	-O LA46B650.zip http://opensource.samsung.com/tv_n_video/la46b650/"
+
+SRC_URI = "http://opensource.samsung.com/tv_n_video/la46b650/LA46B650.zip \
 	file://selp-fix_nonlinux_compile.patch;patch=1 \
 	file://selp-gadget.patch;patch=1 \
 	file://selp-ralink-devlist.patch;patch=1;pnum=0 \
@@ -12,12 +17,12 @@ SRC_URI = "${SAMSUNG_OS_MIRROR}/32B650.zip;name=archive \
 	file://pegasus.patch;patch=1 \
 	file://ignore-mod-magic-version.patch;patch=1 \
 	file://${KERNEL_DEFCONFIG} \
+	file://Makefile.modinst \
+	file://Makefile.modpost \
 "
 
-SRC_URI[archive.md5sum] = "232c2397d511253a8d6dcf66fa8d9bc2"
-SRC_URI[archive.sha256sum] = "78cecf54357d014450355c35af21d2ad330c782a89f56fead6a65b238dbff0f6"
-SRC_URI[archive2.md5sum] = "911a26848446e8b1af5380df51d0b5cb"
-SRC_URI[archive2.sha256sum] = "8446af033be3c3569e240a20a5021cebdef70a019e9b20c6bae0d483b4d4515c"
+SRC_URI[md5sum] = "177f98d7a933f2de0c77b59241aaed34"
+SRC_URI[sha256sum] = "154a15e19a2439e7d9a5d2cc431f4269c93fd08d1d31356be3579cf1243cc097"
 
 S = "${WORKDIR}/linux/linux-r011"
 
@@ -36,11 +41,8 @@ export ARCH = "arm"
 export OS = "Linux"
 
 do_unpack2() {
-	tar -xvzf ${WORKDIR}/linux.chelsea.tgz -C ${WORKDIR}/
-	tar -xvzf ${WORKDIR}/linux.cip.open.tgz -C ${WORKDIR}/ linux/linux-r011/drivers/rt73
-	tar -xvzf ${WORKDIR}/linux.cip.open.tgz -C ${WORKDIR}/ linux/linux-r011/drivers/rt2870
-	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz || true
-	# Branding
+	tar -xvzf ${WORKDIR}/linux.cip.open.tgz -C ${WORKDIR}/
+	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz ${WORKDIR}/README.txt || true
 	perl -pi -e "s/0.994/0.994 \[SamyGO\]/g" ${WORKDIR}/linux/linux-r011/drivers/rt73/Module/rtmp_main.c
 	perl -pi -e "s/1.002\(1.4.0.0\)/1.002\(1.4.0.0\) \[SamyGO\]/g" ${WORKDIR}/linux/linux-r011/drivers/rt2870/os/linux/2870_main_dev.c
 	echo "#define UTS_RELEASE \"2.6.18\"" > ${WORKDIR}/linux/linux-r011/include/linux/utsrelease.h
@@ -54,6 +56,7 @@ do_configure_prepend () {
 	echo > localversion
 	echo > localversion-mvl
 	cp ${WORKDIR}/${KERNEL_DEFCONFIG} .config
+	cp ${WORKDIR}/Makefile.* scripts/
 	make include/linux/version.h
 }
 
