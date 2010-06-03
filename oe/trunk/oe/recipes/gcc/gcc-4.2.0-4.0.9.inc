@@ -3,19 +3,25 @@ require gcc-common.inc
 DEPENDS = "mpfr gmp"
 NATIVEDEPS = "mpfr-native gmp-native"
 
-SRC_URI = "${SAMSUNG_OS_MIRROR}/32B650.zip \
+# SamyGO: workaround samsung download sources
+FETCHCOMMAND_wget = "/usr/bin/env 'PATH=${PATH}' wget -t 5 --passive-ftp --no-check-certificate -P ${DL_DIR} \
+	-O LA46B650.zip http://opensource.samsung.com/tv_n_video/la46b650/"
+RESUMECOMMAND_wget = "/usr/bin/env 'PATH=${PATH}' wget -c -t 5 --passive-ftp --no-check-certificate -P ${DL_DIR} \
+	-O LA46B650.zip http://opensource.samsung.com/tv_n_video/la46b650/"
+
+SRC_URI = "http://opensource.samsung.com/tv_n_video/la46b650/LA46B650.zip \
 	file://zecke-xgcc-cpp.patch;patch=1 \
 	file://SamyGO-Branding.patch;patch=1 \
 "
 
-SRC_URI[md5sum] = "232c2397d511253a8d6dcf66fa8d9bc2"
-SRC_URI[sha256sum] = "78cecf54357d014450355c35af21d2ad330c782a89f56fead6a65b238dbff0f6"
+SRC_URI[md5sum] = "177f98d7a933f2de0c77b59241aaed34"
+SRC_URI[sha256sum] = "154a15e19a2439e7d9a5d2cc431f4269c93fd08d1d31356be3579cf1243cc097"
 
 do_unpack2() {
 	tar --strip-components=2 -xvzf ${WORKDIR}/SELP.3.2.x-Chelsea.src.tgz SELP.3.2.x-Chelsea.src/Toolchain/gcc-4.2.0-4.0.9.tgz
 	tar -xvzf gcc-4.2.0-4.0.9.tgz -C ${WORKDIR}/
 	rm gcc-4.2.0-4.0.9.tgz
-	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz || true
+	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz ${WORKDIR}/README.txt || true
 }
 
 addtask unpack2 before do_patch after do_unpack

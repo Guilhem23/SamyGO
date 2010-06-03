@@ -18,18 +18,25 @@ PR = "r011"
 RDEPENDS_${PN}-dev = ""
 RRECOMMENDS_${PN}-dbg = "${PN}-dev (= ${EXTENDPV})"
 
-SRC_URI = "${SAMSUNG_OS_MIRROR}/32B650.zip \
-	file://procinfo.h \
-	file://arm-syscall-define.patch;patch=1"
+# SamyGO: workaround samsung download sources
+FETCHCOMMAND_wget = "/usr/bin/env 'PATH=${PATH}' wget -t 5 --passive-ftp --no-check-certificate -P ${DL_DIR} \
+	-O LA46B650.zip http://opensource.samsung.com/tv_n_video/la46b650/"
+RESUMECOMMAND_wget = "/usr/bin/env 'PATH=${PATH}' wget -c -t 5 --passive-ftp --no-check-certificate -P ${DL_DIR} \
+	-O LA46B650.zip http://opensource.samsung.com/tv_n_video/la46b650/"
 
-SRC_URI[md5sum] = "232c2397d511253a8d6dcf66fa8d9bc2"
-SRC_URI[sha256sum] = "78cecf54357d014450355c35af21d2ad330c782a89f56fead6a65b238dbff0f6"
+SRC_URI = "http://opensource.samsung.com/tv_n_video/la46b650/LA46B650.zip \
+	file://procinfo.h \
+	file://arm-syscall-define.patch;patch=1 \
+	file://defconfig"
+
+SRC_URI[md5sum] = "177f98d7a933f2de0c77b59241aaed34"
+SRC_URI[sha256sum] = "154a15e19a2439e7d9a5d2cc431f4269c93fd08d1d31356be3579cf1243cc097"
 
 S = "${WORKDIR}/linux/linux-${PR}"
 
 do_unpack2() {
-	tar -xvzf ${WORKDIR}/linux.chelsea.tgz -C ${WORKDIR}/ 
-	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz || true
+	tar -xvzf ${WORKDIR}/linux.cip.open.tgz -C ${WORKDIR}/
+	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz ${WORKDIR}/README.txt || true
 }
 
 addtask unpack2 before do_patch after do_unpack
@@ -37,7 +44,7 @@ addtask unpack2 before do_patch after do_unpack
 do_configure () {
 	echo > .mvl_cross_compile
 	echo ${TARGET_ARCH} > .mvl_target_cpu
-	./mkconfig.sh 2 2 2.6.18_SELP-ARM
+	cp ${WORKDIR}/defconfig .config
 	make include/linux/version.h
 	case ${TARGET_ARCH} in
 		alpha*)   ARCH=alpha ;;
@@ -58,16 +65,6 @@ do_configure () {
 
 	echo $(pwd)
 
-	rm include/asm/arch-ssdtv
-	rm include/asm
-	
-	cp -pPR "include/asm-$ARCH" "include/asm"
-	if test "$ARCH" = "arm"; then
-		cp -pPR ${WORKDIR}/linux/ssdtv_platform/include/asm-${ARCH}/arch-ssdtv include/asm/arch-ssdtv
-		cp -pPR include/asm/arch-ssdtv include/asm/arch
-	elif test "$ARCH" = "sh"; then
-		cp -pPR include/asm/cpu-${TARGET_ARCH} include/asm/cpu || die "unable to create include/asm/cpu"
-	fi
 	echo "all:" > Makefile
 	rm -f ".co*" "*"
 	rm -rf "[^i]*" "init" "ipc"
