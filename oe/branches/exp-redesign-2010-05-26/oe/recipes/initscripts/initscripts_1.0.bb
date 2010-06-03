@@ -32,8 +32,6 @@ SRC_URI = "file://functions \
 
 SRC_URI_append_arm = " file://alignment.sh"
 
-SRC_URI_append_samygo = " file://samsung-setup.sh file://startx.sh"
-
 KERNEL_VERSION = ""
 
 do_install () {

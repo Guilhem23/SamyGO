@@ -21,4 +21,3 @@ do_install () {
 	install -m 0755 ${WORKDIR}/samsung-start.sh ${D}${base_sbindir}/
 }
 
-
