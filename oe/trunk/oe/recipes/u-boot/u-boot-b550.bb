@@ -4,7 +4,7 @@ DEFAULT_PREFERENCE = "-1"
 
 PR = "r10"
 
-SRC_URI = "${SAMSUNG_OS_MIRROR}/uboot_b650.tgz \
+SRC_URI = "http://www.samsung.com/global/opensource/files/uboot_b650.tgz \
 	file://replace_echo_n_b650.patch;patch=1 \
 	file://b550.patch;patch=1 \
 	file://noflash.patch;patch=1 \
