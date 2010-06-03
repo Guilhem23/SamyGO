@@ -36,31 +36,38 @@ python __anonymous () {
 
 RDEPENDS_${PN}-dev = "linux-libc-headers-dev"
 
-# SamyGO: workaround samsung download sources
-FETCHCOMMAND_wget = "/usr/bin/env 'PATH=${PATH}' wget -t 5 --passive-ftp --no-check-certificate -P ${DL_DIR} \
-	-O LA46B650.zip http://opensource.samsung.com/tv_n_video/la46b650/"
-RESUMECOMMAND_wget = "/usr/bin/env 'PATH=${PATH}' wget -c -t 5 --passive-ftp --no-check-certificate -P ${DL_DIR} \
-	-O LA46B650.zip http://opensource.samsung.com/tv_n_video/la46b650/"
+SRC_URI = "\
+  ${SOURCEFORGE_MIRROR}/project/samygo/SamyGO%20OE/sources/git_sourceware.org.git.glibc.git_371f84a4dca19f1416c3f28db9980539d2f62905.tar.bz2;name=glibc \
+  ${SOURCEFORGE_MIRROR}/project/samygo/SamyGO%20OE/sources/git_sourceware.org.git.glibc-ports.git_908afa831ca4403a689304a86e2014b4baa66366.tar.bz2;name=ports \
+  file://arm-memcpy.patch;patch=1 \
+  file://arm-longlong.patch;patch=1 \
+  file://fhs-linux-paths.patch;patch=1 \
+  file://dl-cache-libcmp.patch;patch=1 \
+  file://nptl-crosscompile.patch;patch=1 \
+  file://glibc-2.5-local-dynamic-resolvconf.patch;patch=1;pnum=0 \
+  file://glibc-check_pf.patch;patch=1;pnum=0 \
+  file://zecke-sane-readelf.patch;patch=1 \
+  file://ldd-unbash.patch;patch=1 \
+  file://generic-bits_select.h \
+  file://generic-bits_types.h \
+  file://generic-bits_typesizes.h \
+  file://generic-bits_time.h \
+  file://etc/ld.so.conf \
+  file://generate-supported.mk \
+  file://glibc-2.6.1-RTLD_SINGLE_THREAD_P-1.patch;patch=1 \
+  file://glibc-2.6.1-use-short-for-fnstsw.patch;patch=1 \
+  file://glibc-use-isystem-include-fixed.patch;patch=1 \
+  file://glibc-arm-no-asm-page.patch;patch=1 \
+  file://march-i686.patch;patch=1;pnum=0 \
+"
 
-SRC_URI = "http://opensource.samsung.com/tv_n_video/la46b650/LA46B650.zip \
-           file://arm-longlong.patch;patch=1 \
-           file://fhs-linux-paths.patch;patch=1 \
-           file://dl-cache-libcmp.patch;patch=1 \
-           file://ldsocache-varrun.patch;patch=1 \
-           file://nptl-crosscompile.patch;patch=1 \
-	   file://zecke-sane-readelf.patch;patch=1 \
-           file://ldd-unbash.patch;patch=1 \
-	   file://generic-bits_select.h \
-	   file://generic-bits_types.h \
-	   file://generic-bits_typesizes.h \
-	   file://generic-bits_time.h \
-           file://etc/ld.so.conf \
-           file://generate-supported.mk"
+SRC_URI[glibc.md5sum] = "39d55198a7da7f7974318e147534159d"
+SRC_URI[glibc.sha256sum] = "acbf2a176718412fb2f12f37ef676e7e7713ef91bac754e76ebbeba108e04190"
+SRC_URI[ports.md5sum] = "eb2c556d8fa5c1f24ea38caa8215ce81"
+SRC_URI[ports.sha256sum] = "bd8a852e2a841bbbd5b67297aded357e3e17822fcdc92888eb0c3af479381dc4"
 
-SRC_URI[md5sum] = "177f98d7a933f2de0c77b59241aaed34"
-SRC_URI[sha256sum] = "154a15e19a2439e7d9a5d2cc431f4269c93fd08d1d31356be3579cf1243cc097"
 
-S = "${WORKDIR}/glibc-${PV}"
+S = "${WORKDIR}/git"
 B = "${WORKDIR}/build-${TARGET_SYS}"
 
 EXTRA_OECONF = "\
@@ -74,16 +81,6 @@ EXTRA_OECONF = "\
 "
 
 EXTRA_OECONF += "${@get_glibc_fpu_setting(bb, d)}"
-
-do_unpack2() {
-	tar --strip-components=2 -xvzf ${WORKDIR}/SELP.3.2.x-Chelsea.src.tgz SELP.3.2.x-Chelsea.src/Toolchain/glibc-2.5.90-9.0.9.tgz
-	tar -xvzf glibc-2.5.90-9.0.9.tgz -C ${WORKDIR}/
-	rm glibc-2.5.90-9.0.9.tgz
-	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz ${WORKDIR}/README.txt || true
-}
-
-addtask unpack2 before do_munge after do_unpack
-
 
 do_munge() {
 	# Integrate ports and libidn into tree
