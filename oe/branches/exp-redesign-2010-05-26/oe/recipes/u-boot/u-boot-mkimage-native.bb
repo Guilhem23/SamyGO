@@ -1,4 +1,4 @@
-require u-boot_${PV}.bb
+require u-boot_b650.bb
 
 inherit native
 
