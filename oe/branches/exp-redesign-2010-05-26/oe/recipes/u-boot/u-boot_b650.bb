@@ -1,10 +1,10 @@
 require u-boot.inc
 
-DEFAULT_PREFERENCE = "-1"
+DEPENDS = ""
 
-PR = "r10"
+PR = "r0"
 
-SRC_URI = "http://www.samsung.com/global/opensource/files/uboot_${PV}.tgz \
+SRC_URI = "http://www.samsung.com/global/opensource/files/uboot_b650.tgz \
 	file://replace_echo_n_b650.patch;patch=1 \
 "
 
@@ -13,7 +13,6 @@ SRC_URI[sha256sum] = "01007182de5fe9e1faf15a9b07e8075b7d4dd2eec86201a773f65e4220
 
 COMPATIBLE_MACHINE = "leonid"
 
-PACKAGE_ARCH = "${MACHINE_ARCH}"
 S = ${WORKDIR}/uboot
 
 do_compile () {
@@ -22,4 +21,5 @@ do_compile () {
         unset CPPFLAGS
         oe_runmake ${UBOOT_MACHINE}
         oe_runmake all
+        oe_runmake tools
 }
