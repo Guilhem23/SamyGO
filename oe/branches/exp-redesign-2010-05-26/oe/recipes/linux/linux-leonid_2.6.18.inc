@@ -1,7 +1,7 @@
 DESCRIPTION = "Linux kernel for Samsung TV's"
 HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
-DEPENDS = "binutils-cross u-boot-mkimage-selp-native"
+DEPENDS = "binutils-cross u-boot-mkimage-native"
 
 # SamyGO: workaround samsung download sorces
 FETCHCOMMAND_wget = "/usr/bin/env 'PATH=${PATH}' wget -t 5 --passive-ftp --no-check-certificate -P ${DL_DIR} \
