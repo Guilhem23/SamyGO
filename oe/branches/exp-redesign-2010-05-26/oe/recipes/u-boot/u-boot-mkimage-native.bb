@@ -1,8 +1,8 @@
-require u-boot_b650.bb
+require u-boot_1.1.6.bb
 
 inherit native
 
-PR = "r1"
+PR = "r0"
 
 PROVIDES = ""
 TARGET_LDFLAGS = ""

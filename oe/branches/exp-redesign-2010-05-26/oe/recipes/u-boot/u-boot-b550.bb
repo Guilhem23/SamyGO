@@ -1,4 +1,4 @@
-require u-boot_b650.bb
+require u-boot_1.1.6.bb
 
 DEFAULT_PREFERENCE = "-1"
 
