@@ -27,7 +27,7 @@ SRC_URI[sha256sum] = "154a15e19a2439e7d9a5d2cc431f4269c93fd08d1d31356be3579cf124
 S = "${WORKDIR}/linux/linux-r011"
 
 KERNEL_VERSION = "2.6.18"
-inherit kernel
+inherit kernel siteinfo
 
 FILES_dvb-includes = "/usr/include/linux/dvb"
 FILES_scsi-includes = "/usr/include/linux/scsi"
@@ -35,10 +35,15 @@ FILES_scsi-includes = "/usr/include/linux/scsi"
 COMPATIBLE_HOST = "arm.*-linux"
 COMPATIBLE_MACHINE = "leonid"
 
-DEFAULT_PREFERENCE = "-1"
-
 export ARCH = "arm"
 export OS = "Linux"
+
+do_install_append() {
+	oe_runmake headers_install INSTALL_HDR_PATH=${D}${exec_prefix}/src/linux-${KERNEL_VERSION} ARCH=$ARCH
+}
+
+PACKAGES =+ "kernel-headers"
+FILES_kernel-headers = "${exec_prefix}/src/linux*"
 
 do_unpack2() {
 	tar -xvzf ${WORKDIR}/linux.cip.open.tgz -C ${WORKDIR}/
@@ -60,5 +65,5 @@ do_configure_prepend () {
 	make include/linux/version.h
 }
 
-KERNEL_IMAGETYPE_LIST = "Image uImage"
+KERNEL_IMAGETYPE = "uImage"
 
