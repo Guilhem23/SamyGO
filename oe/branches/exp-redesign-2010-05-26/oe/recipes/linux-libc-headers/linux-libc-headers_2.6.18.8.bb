@@ -42,12 +42,6 @@ do_compile () {
 do_install() {
 	set_arch
 	oe_runmake headers_install INSTALL_HDR_PATH=${D}${exec_prefix} ARCH=${ARCH}
-	# Add UTS_RELEASE to version.h. UTS_RELEASE was moved from version.h to
-	# utsrelease.h in order to avoid recompiling a kernel every time a localversion
-	# changed. Since the our headers are static and we're not compiling an
-	# actual kernel, re-adding UTS_RELEASE does't hurt, and it allows uclibc to
-	# compile with kernel headers that work with EABI on ARM
-	echo '#define UTS_RELEASE "2.6.18.8"' >> ${STAGING_INCDIR}/linux/version.h
 }
 
 do_install_append_arm() {
