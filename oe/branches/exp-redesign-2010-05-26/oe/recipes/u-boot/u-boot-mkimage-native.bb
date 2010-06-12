@@ -12,7 +12,7 @@ do_quilt() {
 }
 
 do_compile () {
-	oe_runmake leonid_config
+	oe_runmake sdtvchl2_config
 	oe_runmake clean
 	oe_runmake tools
 }
