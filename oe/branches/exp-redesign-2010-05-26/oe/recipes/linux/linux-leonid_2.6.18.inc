@@ -38,6 +38,8 @@ COMPATIBLE_MACHINE = "leonid"
 export ARCH = "arm"
 export OS = "Linux"
 
+UBOOT_ENTRYPOINT = "0x60008000"
+
 do_install_append() {
 	oe_runmake headers_install INSTALL_HDR_PATH=${D}${exec_prefix}/src/linux-${KERNEL_VERSION} ARCH=$ARCH
 }
