@@ -1,21 +1,20 @@
-diff -ur old/include/configs/leonid.h new/include/configs/leonid.h
---- old/include/configs/leonid.h	2008-12-10 02:40:37.000000000 +0100
-+++ new/include/configs/leonid.h	2010-05-26 07:59:11.000000000 +0200
-@@ -36,7 +36,7 @@
- #define CONFIG_USB_STORAGE_ALL
+diff -ur old/include/configs/sdtvchl2.h new/include/configs/sdtvchl2.h
+--- old/include/configs/sdtvchl2.h	2010-06-06 11:58:12.000000000 +0200
++++ new/include/configs/sdtvchl2.h	2010-06-12 09:50:24.000000000 +0200
+@@ -25,14 +25,14 @@
+ #define CONFIG_USB_STORAGE_ALL		1		// enable more than one usb controller ?
  
- /* PCI */
--#define CONFIG_PCI
-+#undef CONFIG_PCI
- #define CFG_PCI_EXT_CLOCK
- #define CFG_PCI_EXT_RESET
- #undef CFG_PCI_CLK_66
-@@ -45,7 +45,7 @@
+ // PCI related defines
+-#define CONFIG_PCI			1
++//#define CONFIG_PCI			1
+ #define CONFIG_PCI_PNP			1
+ #define __io(a)				((void *)(a))
+ #define __mem_pci(a)			((void *)(a))
  
- /* Ethernet */
- #define CONFIG_NET_MULTI
--#define CONFIG_RTL8139
-+#undef CONFIG_RTL8139
- #define CFG_ETH_NO_EEPROM
- #define KSEG1ADDR(x)	(x)
+ // ethernet related defines
+ #define CONFIG_NET_MULTI		1
+-#define CONFIG_RTL8139			1
++//#define CONFIG_RTL8139			1
+ #define CFG_ETH_NO_EEPROM		1
+ #define KSEG1ADDR(x)			(x)
  
