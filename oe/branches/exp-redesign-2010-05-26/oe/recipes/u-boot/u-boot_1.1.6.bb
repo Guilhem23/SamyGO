@@ -6,8 +6,8 @@ DEPENDS = ""
 
 SRC_URI = "ftp://ftp.denx.de/pub/u-boot/u-boot-1.1.6.tar.bz2 \
 	file://common-fixes.patch;patch=1 \
-	file://fat-enchance.patch;patch=1 \
-	file://usb-enchance.patch;patch=1 \
+	file://fat-enhance.patch;patch=1 \
+	file://usb-enhance.patch;patch=1 \
 	file://keypress.patch;patch=1 \
 	file://sdtvchl2.patch;patch=1 \
 "
