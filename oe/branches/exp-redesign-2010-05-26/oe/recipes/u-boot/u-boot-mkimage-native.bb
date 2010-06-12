@@ -7,6 +7,8 @@ PR = "r0"
 PROVIDES = ""
 TARGET_LDFLAGS = ""
 
+S = "${WORKDIR}/u-boot-1.1.6"
+
 do_quilt() {
 	:
 }
