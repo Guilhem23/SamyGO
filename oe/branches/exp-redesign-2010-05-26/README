@@ -36,10 +36,10 @@ Shell environment variables for setup OE:
 		Default: $HOME/sources
 
 	MACHINE=<machine name>
-		Target machine name, can be: leonid
-		Default: leonid
+		Target machine name, can be: sdtvchl2
+		Default: sdtvchl2
 
-	Example: MACHINE=leonid;DISTRO=samygo;DL_DIR=~/sources
+	Example: MACHINE=sdtvchl2;DISTRO=samygo;DL_DIR=~/sources
 		 . setup.sh
 
 
