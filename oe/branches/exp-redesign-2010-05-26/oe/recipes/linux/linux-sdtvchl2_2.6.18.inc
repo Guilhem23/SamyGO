@@ -10,10 +10,10 @@ RESUMECOMMAND_wget = "/usr/bin/env 'PATH=${PATH}' wget -c -t 5 --passive-ftp --n
 	-O LA46B650.zip http://opensource.samsung.com/tv_n_video/la46b650/"
 
 SRC_URI = "http://opensource.samsung.com/tv_n_video/la46b650/LA46B650.zip \
-	file://selp-fix_nonlinux_compile.patch;patch=1 \
-	file://selp-gadget.patch;patch=1 \
-	file://selp-ralink-devlist.patch;patch=1;pnum=0 \
-	file://selp-ralink-devlist_2.2.0.0.patch;patch=1;pnum=0 \
+	file://fix_nonlinux_compile.patch;patch=1 \
+	file://gadget.patch;patch=1 \
+	file://ralink-devlist.patch;patch=1;pnum=0 \
+	file://ralink-devlist_2.2.0.0.patch;patch=1;pnum=0 \
 	file://pegasus.patch;patch=1 \
 	file://ignore-mod-magic-version.patch;patch=1 \
 	file://${KERNEL_DEFCONFIG} \
