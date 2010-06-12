@@ -33,7 +33,7 @@ FILES_dvb-includes = "/usr/include/linux/dvb"
 FILES_scsi-includes = "/usr/include/linux/scsi"
 
 COMPATIBLE_HOST = "arm.*-linux"
-COMPATIBLE_MACHINE = "leonid"
+COMPATIBLE_MACHINE = "sdtvchl2"
 
 export ARCH = "arm"
 export OS = "Linux"

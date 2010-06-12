@@ -3107,9 +3107,9 @@ diff -urN org/u-boot/include/asm-arm/mach-types.h new/u-boot/include/asm-arm/mac
 +# else
 +#  define machine_arch_type	MACH_TYPE_SDTVCHL2
 +# endif
-+# define machine_is_leonid()	(machine_arch_type == MACH_TYPE_SDTVCHL2)
++# define machine_is_sdtvchl2()	(machine_arch_type == MACH_TYPE_SDTVCHL2)
 +#else
-+# define machine_is_leonid()	(0)
++# define machine_is_sdtvchl2()	(0)
 +#endif
 +
  /*
