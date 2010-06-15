@@ -5,6 +5,8 @@ PR = "2"
 
 SRC_URI = "http://crypt-xor.sourceforge.net/stable/crypt-xor_${PV}-${PR}.tar.gz"
 
+INSANE_SKIP_${PN} = True
+
 do_compile() {
 	${CXX} -I. -o crypt-xor crypt-XOR.c
 }
