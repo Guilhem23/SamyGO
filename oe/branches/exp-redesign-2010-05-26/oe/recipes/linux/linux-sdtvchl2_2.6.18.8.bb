@@ -28,7 +28,7 @@ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2 \
 SRC_URI[md5sum] = "dce47badc1faf34b355a10b97ae5d391"
 SRC_URI[sha256sum] = "945b3014f8048cd87fdff90014afa4ff241f134bceafbfdbd42dba1be8df2ba8"
 
-S = "${WORKDIR}/linux/linux-2.6.18.8"
+S = "${WORKDIR}/linux-2.6.18.8"
 
 KERNEL_VERSION = "2.6.18.8"
 inherit kernel siteinfo

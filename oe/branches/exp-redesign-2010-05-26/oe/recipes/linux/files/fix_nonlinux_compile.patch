@@ -1,18 +1,3 @@
-diff -urN old/scripts/genksyms/parse.c new/scripts/genksyms/parse.c
---- old/scripts/genksyms/parse.c	2008-12-03 02:25:58.000000000 +0100
-+++ new/scripts/genksyms/parse.c	2009-12-19 15:50:58.000000000 +0100
-@@ -144,7 +144,11 @@
- 
- 
- #include <assert.h>
-+#ifdef __APPLE__
-+#include <malloc/malloc.h>
-+#else
- #include <malloc.h>
-+#endif
- #include "genksyms.h"
- 
- static int is_typedef;
 diff -urN old/scripts/genksyms/parse.y new/scripts/genksyms/parse.y
 --- old/scripts/genksyms/parse.y	2008-07-24 02:41:35.000000000 +0200
 +++ new/scripts/genksyms/parse.y	2009-12-19 15:51:53.000000000 +0100
@@ -28,27 +13,34 @@ diff -urN old/scripts/genksyms/parse.y new/scripts/genksyms/parse.y
  #include "genksyms.h"
  
  static int is_typedef;
-diff -urN old/scripts/kallsyms.c new/scripts/kallsyms.c
---- old/scripts/kallsyms.c	2008-07-24 02:41:35.000000000 +0200
-+++ new/scripts/kallsyms.c	2009-12-19 16:29:11.000000000 +0100
-@@ -373,7 +373,7 @@
+diff -ur old/scripts/kallsyms.c new/scripts/kallsyms.c
+--- old/scripts/kallsyms.c	2010-06-18 17:58:58.000000000 +0200
++++ new/scripts/kallsyms.c	2010-06-18 18:01:22.000000000 +0200
+@@ -373,7 +373,11 @@
  		p1 = table[i].sym;
  
  		/* find the token on the symbol */
--#if !defined(__sun__) && !defined(__CYGWIN__)
-+#if !defined(__sun__) && !defined(__CYGWIN__) && !defined(__APPLE__)
++#if defined(__APPLE__)
++		p2 = strstr(p1, str);
++#else
  		p2 = memmem(p1, len, str, 2);
- #else
- 		p2 = strstr(p1, str);
-@@ -396,7 +396,7 @@
++#endif
+ 		if (!p2) continue;
+ 
+ 		/* decrease the counts for this symbol's tokens */
+@@ -392,8 +396,11 @@
  			if (size < 2) break;
  
  			/* find the token on the symbol */
--#if !defined(__sun__) && !defined(__CYGWIN__)
-+#if !defined(__sun__) && !defined(__CYGWIN__) && !defined(__APPLE__)
++#if defined(__APPLE__)
++			p2 = strstr(p1, str);
++#else
  			p2 = memmem(p1, size, str, 2);
- #else
- 			p2 = strstr(p1, str);
+-
++#endif
+ 		} while (p2);
+ 
+ 		table[i].len = len;
 diff -urN old/scripts/local_elf.h new/scripts/local_elf.h
 --- old/scripts/local_elf.h	1970-01-01 01:00:00.000000000 +0100
 +++ new/scripts/local_elf.h	2009-12-19 09:53:13.000000000 +0100
@@ -2777,7 +2769,7 @@ diff -urN old/scripts/local_elf.h new/scripts/local_elf.h
 diff -urN old/scripts/mod/file2alias.c new/scripts/mod/file2alias.c
 --- old/scripts/mod/file2alias.c	2008-07-24 02:41:35.000000000 +0200
 +++ new/scripts/mod/file2alias.c	2009-12-19 16:18:53.000000000 +0100
-@@ -46,7 +46,18 @@
+@@ -37,7 +37,18 @@
   * even potentially has different endianness and word sizes, since
   * we handle those differences explicitly below */
  #include "../../include/linux/mod_devicetable.h"
@@ -2797,45 +2789,43 @@ diff -urN old/scripts/mod/file2alias.c new/scripts/mod/file2alias.c
  
  #define ADD(str, sep, cond, field)                              \
  do {                                                            \
-diff -urN old/scripts/mod/mk_elfconfig.c new/scripts/mod/mk_elfconfig.c
---- old/scripts/mod/mk_elfconfig.c	2008-07-24 02:41:35.000000000 +0200
-+++ new/scripts/mod/mk_elfconfig.c	2009-12-19 16:20:54.000000000 +0100
-@@ -1,8 +1,8 @@
+diff -ur old/scripts/mod/mk_elfconfig.c new/scripts/mod/mk_elfconfig.c
+--- old/scripts/mod/mk_elfconfig.c	2007-02-24 00:52:30.000000000 +0100
++++ new/scripts/mod/mk_elfconfig.c	2010-06-18 17:55:20.000000000 +0200
+@@ -1,7 +1,11 @@
  #include <stdio.h>
  #include <stdlib.h>
  #include <string.h>
--#ifdef __CYGWIN__
--#include <libelf.h>
-+#if defined(__APPLE__) || defined (__CYGWIN__)
++#if defined(__APPLE__)
 +#include "../local_elf.h"
- #else
++#else
  #include <elf.h>
- #endif
-diff -urN old/scripts/mod/modpost.h new/scripts/mod/modpost.h
---- old/scripts/mod/modpost.h	2008-07-24 02:41:35.000000000 +0200
-+++ new/scripts/mod/modpost.h	2009-12-19 16:21:13.000000000 +0100
-@@ -7,8 +7,8 @@
++#endif
+ 
+ int
+ main(int argc, char **argv)
+diff -ur old/scripts/mod/modpost.h new/scripts/mod/modpost.h
+--- old/scripts/mod/modpost.h	2007-02-24 00:52:30.000000000 +0100
++++ new/scripts/mod/modpost.h	2010-06-18 17:41:35.000000000 +0200
+@@ -7,7 +7,11 @@
  #include <sys/mman.h>
  #include <fcntl.h>
  #include <unistd.h>
--#ifdef __CYGWIN__
--#include <libelf.h>
-+#if defined(__APPLE__) || defined (__CYGWIN__)
++#if defined(__APPLE__)
 +#include "../local_elf.h"
- #else
++#else
  #include <elf.h>
- #endif
-diff -urN old/scripts/mod/sumversion.c new/scripts/mod/sumversion.c
---- old/scripts/mod/sumversion.c	2008-08-29 06:52:00.000000000 +0200
-+++ new/scripts/mod/sumversion.c	2009-12-19 16:26:05.000000000 +0100
-@@ -13,7 +13,14 @@
- #include <errno.h>
++#endif
+ 
+ #include "elfconfig.h"
+ 
+diff -ur old/scripts/mod/sumversion.c new/scripts/mod/sumversion.c
+--- old/scripts/mod/sumversion.c	2007-02-24 00:52:30.000000000 +0100
++++ new/scripts/mod/sumversion.c	2010-06-18 17:49:46.000000000 +0200
+@@ -9,6 +9,10 @@
  #include <string.h>
  #include "modpost.h"
-+#ifndef __APPLE__
- #include <linux/limits.h>
-+#endif
-+
+ 
 +#ifndef PATH_MAX
 +#define PATH_MAX 1024
 +#endif
