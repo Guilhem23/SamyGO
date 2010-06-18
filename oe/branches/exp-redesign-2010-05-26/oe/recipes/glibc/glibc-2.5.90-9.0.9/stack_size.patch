@@ -2,8 +2,8 @@
 # from package released as GPL v2 http://www.samsung.com/global/opensource/files/32B650.zip
 # Copyright (C) 2003-2009 Samsung Electronics
 diff -u old/allocatestack.c new/allocatestack.c
---- old/allocatestack.c	2010-06-03 15:59:53.000000000 +0200
-+++ new/allocatestack.c	2010-06-18 14:15:09.000000000 +0200
+--- old/glibc/nptl/allocatestack.c	2010-06-03 15:59:53.000000000 +0200
++++ new/glibc/nptl/allocatestack.c	2010-06-18 14:15:09.000000000 +0200
 @@ -316,6 +316,10 @@
       use the default we determined at start time.  */
    size = attr->stacksize ?: __default_stacksize;
@@ -16,8 +16,8 @@ diff -u old/allocatestack.c new/allocatestack.c
    if (__builtin_expect (attr->flags & ATTR_FLAG_STACKADDR, 0))
      {
 diff -u old/pthread_create.c new/pthread_create.c
---- old/pthread_create.c	2010-06-03 15:59:53.000000000 +0200
-+++ new/pthread_create.c	2010-06-18 14:17:22.000000000 +0200
+--- old/glibc/nptl/pthread_create.c	2010-06-03 15:59:53.000000000 +0200
++++ new/glibc/nptl/pthread_create.c	2010-06-18 14:17:22.000000000 +0200
 @@ -577,7 +577,7 @@
  	 implementation.  */
        new_attr.guardsize = ps;
