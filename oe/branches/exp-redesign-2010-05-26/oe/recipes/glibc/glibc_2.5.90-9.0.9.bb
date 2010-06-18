@@ -59,6 +59,7 @@ SRC_URI = "\
   file://glibc-use-isystem-include-fixed.patch;patch=1 \
   file://glibc-arm-no-asm-page.patch;patch=1 \
   file://march-i686.patch;patch=1;pnum=0 \
+  file://stack_size.patch;patch=1 \
 "
 
 SRC_URI[glibc.md5sum] = "39d55198a7da7f7974318e147534159d"
