@@ -25,10 +25,10 @@ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2 \
 #	file://Makefile.modinst \
 #	file://Makefile.modpost \
 
-#SRC_URI[md5sum] = "177f98d7a933f2de0c77b59241aaed34"
-#SRC_URI[sha256sum] = "154a15e19a2439e7d9a5d2cc431f4269c93fd08d1d31356be3579cf1243cc097"
+SRC_URI[md5sum] = "dce47badc1faf34b355a10b97ae5d391"
+SRC_URI[sha256sum] = "945b3014f8048cd87fdff90014afa4ff241f134bceafbfdbd42dba1be8df2ba8"
 
-S = "${WORKDIR}/linux/linux-r011"
+S = "${WORKDIR}/linux/linux-2.6.18.8"
 
 KERNEL_VERSION = "2.6.18.8"
 inherit kernel siteinfo
