@@ -2,7 +2,7 @@ FIRMWARE_NAME = "T-CHL7DEUC"
 # 2005.0
 SRC_URI = "http://downloadcenter.samsung.com/content/FM/200910/20091030222802906/T-CHL7DEUC.exe"
 # 3000.2
-#SRC_URI = "http://downloadcenter.samsung.com/content/FM/201002/20100227161856015/T-CHL7DEUC.exe;m54sum=751d2654fa9ee00ff06b78da7d9019a7"
+#SRC_URI = "http://downloadcenter.samsung.com/content/FM/201002/20100227161856015/T-CHL7DEUC.exe"
 FLASH_RFS_VERSION = "28_64_512-29"
 
 require samsung-original-apps-common.inc
