@@ -118,7 +118,8 @@ MTD_EXE="/mtd_exe"
 MTD_APPDATA="/mtd_appdata"
 MTD_TLIB="/mtd_tlib"
 INFO="/.info"
-START="/usr/sbin/samsung-start.sh"
+RFSVERSION="/.version"
+START="/sbin/samsung-start.sh"
 
 download_firmware() {
 	echo
@@ -290,6 +291,7 @@ esac
 rm -rf ${TYPE}
 
 echo "${TYPE}" > ${INFO}
+echo "SamyGO ${TYPE}" > /.version
 
 case $TYPE in
 T-CHE7AUSC|T-CHEAUSC|T-CHL7DAUC|T-CHL7DEUC|T-CHU7DAUC|T-CHU7DEUC)
