@@ -20,7 +20,7 @@
 
 
 echo
-echo " --- Installer of Samsung Firmware Software ---"
+echo " --- Installer of Original Samsung Software ---"
 echo " --- SamyGO  http://samygo.sourceforge.net  ---"
 echo
 
@@ -124,7 +124,7 @@ download_firmware() {
 	echo
 	echo "Downloading $FILENAME ..."
 	echo
-	wget -c --timeout=30 --tries=5 $URL
+	wget -c $URL
 	if [ $? != 0 ]; then
 		echo "Error downloading: $URL!"
 		echo "Exiting..."
@@ -192,7 +192,7 @@ case $TYPE in
 T-CHE7AUSC|T-CHEAUSC|T-CHL7DAUC|T-CHL7DEUC|T-CHU7DAUC|T-CHU7DEUC)
 	if [ ! -e LaunchCLManager_v0.01.zip ]; then
 		echo "Downloading custom T_Library.swf ..."
-		wget -c --timeout=30 --tries=5 http://sourceforge.net/projects/samygo/files/SamyGO%20Applications/LaunchCLManager_v0.01.zip/download 2> /dev/null
+		wget -c http://sourceforge.net/projects/samygo/files/SamyGO%20Applications/LaunchCLManager_v0.01.zip/download 2> /dev/null
 		if [ $? != 0 ]; then
 			echo "Error downloading: LaunchCLManager_v0.01.zip!"
 			echo "Copy LaunchCLManager_v0.01.zip to current directory."
