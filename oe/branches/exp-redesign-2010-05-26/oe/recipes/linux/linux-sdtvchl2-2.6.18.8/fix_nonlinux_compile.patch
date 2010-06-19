@@ -2848,3 +2848,19 @@ diff -ur old/scripts/mod/sumversion.c new/scripts/mod/sumversion.c
  /*
   * Stolen form Cryptographic API.
   *
+diff -ur old/scripts/kconfig/lxdialog/check-lxdialog.sh new/scripts/kconfig/lxdialog/check-lxdialog.sh
+--- old/scripts/kconfig/lxdialog/check-lxdialog.sh	2007-02-24 00:52:30.000000000 +0100
++++ new/scripts/kconfig/lxdialog/check-lxdialog.sh	2010-06-14 09:31:55.000000000 +0200
+@@ -19,6 +19,12 @@
+ 		echo '-lcurses'
+ 		exit
+ 	fi
++	# SamyGO: compatible with Mac OS X
++	$cc -print-file-name=libncurses.dylib | grep -q /
++	if [ $? -eq 0 ]; then
++		echo '-lncurses'
++		exit
++	fi
+ 	exit 1
+ }
+ 
