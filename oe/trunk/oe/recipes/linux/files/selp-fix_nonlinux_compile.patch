@@ -1,18 +1,3 @@
-diff -urN old/scripts/genksyms/parse.c new/scripts/genksyms/parse.c
---- old/scripts/genksyms/parse.c	2008-12-03 02:25:58.000000000 +0100
-+++ new/scripts/genksyms/parse.c	2009-12-19 15:50:58.000000000 +0100
-@@ -144,7 +144,11 @@
- 
- 
- #include <assert.h>
-+#ifdef __APPLE__
-+#include <malloc/malloc.h>
-+#else
- #include <malloc.h>
-+#endif
- #include "genksyms.h"
- 
- static int is_typedef;
 diff -urN old/scripts/genksyms/parse.y new/scripts/genksyms/parse.y
 --- old/scripts/genksyms/parse.y	2008-07-24 02:41:35.000000000 +0200
 +++ new/scripts/genksyms/parse.y	2009-12-19 15:51:53.000000000 +0100
