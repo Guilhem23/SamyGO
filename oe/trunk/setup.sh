@@ -21,8 +21,8 @@ export OE_BASE=`readlink -f $OE_BASE`
 DISTRO=${DISTRO:=samygo}
 DL_DIR=${DL_DIR:="$HOME/sources"}
 
-# target platform: leonid
-MACHINE=${MACHINE:=leonid}
+# target platform: ssdtv
+MACHINE=${MACHINE:=ssdtv}
 
 mkdir -p  ${OE_BASE}/build-${DISTRO}/conf
 
