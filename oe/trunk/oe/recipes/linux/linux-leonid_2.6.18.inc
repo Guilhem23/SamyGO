@@ -3,26 +3,20 @@ HOMEPAGE = "http://www.samsung.com/global/opensource/files"
 LICENSE = "GPL"
 DEPENDS = "binutils-cross u-boot-mkimage-native"
 
-# SamyGO: workaround samsung download sorces
-FETCHCOMMAND_wget = "/usr/bin/env 'PATH=${PATH}' wget -t 5 --passive-ftp --no-check-certificate -P ${DL_DIR} \
-	-O LA46B650.zip http://opensource.samsung.com/tv_n_video/la46b650/"
-RESUMECOMMAND_wget = "/usr/bin/env 'PATH=${PATH}' wget -c -t 5 --passive-ftp --no-check-certificate -P ${DL_DIR} \
-	-O LA46B650.zip http://opensource.samsung.com/tv_n_video/la46b650/"
+# SamyGO: download manualy LE32B650.zip package sources for TV LE32B650
+# from http://opensource.samsung.com site, it is called there le32b650
+# and copy it to OE source directory.
 
-SRC_URI = "http://opensource.samsung.com/tv_n_video/la46b650/LA46B650.zip \
+SRC_URI = "http://opensource.samsung.com/tv_n_video/le32b650/LE32B650.zip \
 	file://selp-fix_nonlinux_compile.patch;patch=1 \
 	file://selp-gadget.patch;patch=1 \
-	file://selp-ralink-devlist.patch;patch=1;pnum=0 \
-	file://selp-ralink-devlist_2.2.0.0.patch;patch=1;pnum=0 \
 	file://pegasus.patch;patch=1 \
 	file://ignore-mod-magic-version.patch;patch=1 \
 	file://${KERNEL_DEFCONFIG} \
-	file://Makefile.modinst \
-	file://Makefile.modpost \
 "
 
-SRC_URI[md5sum] = "177f98d7a933f2de0c77b59241aaed34"
-SRC_URI[sha256sum] = "154a15e19a2439e7d9a5d2cc431f4269c93fd08d1d31356be3579cf1243cc097"
+SRC_URI[md5sum] = "42d564a271520a114710c2964efdf716"
+SRC_URI[sha256sum] = "98d0991acb045d537c6c6b05cb990d70eb8390b83a1994472b958c72ff7eb02f"
 
 S = "${WORKDIR}/linux/linux-r011"
 
@@ -41,10 +35,8 @@ export ARCH = "arm"
 export OS = "Linux"
 
 do_unpack2() {
-	tar -xvzf ${WORKDIR}/linux.cip.open.tgz -C ${WORKDIR}/
-	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz ${WORKDIR}/README.txt || true
-	perl -pi -e "s/0.994/0.994 \[SamyGO\]/g" ${WORKDIR}/linux/linux-r011/drivers/rt73/Module/rtmp_main.c
-	perl -pi -e "s/1.002\(1.4.0.0\)/1.002\(1.4.0.0\) \[SamyGO\]/g" ${WORKDIR}/linux/linux-r011/drivers/rt2870/os/linux/2870_main_dev.c
+	tar -xvzf ${WORKDIR}/linux_b678eu.tgz -C ${WORKDIR}/
+	rm -f ${WORKDIR}/*.tgz ${WORKDIR}/*.gz || true
 	echo "#define UTS_RELEASE \"2.6.18\"" > ${WORKDIR}/linux/linux-r011/include/linux/utsrelease.h
 }
 
@@ -56,7 +48,6 @@ do_configure_prepend () {
 	echo > localversion
 	echo > localversion-mvl
 	cp ${WORKDIR}/${KERNEL_DEFCONFIG} .config
-	cp ${WORKDIR}/Makefile.* scripts/
 	make include/linux/version.h
 }
 
