@@ -1,6 +1,5 @@
 # This patch content was copied from Samsung kernel sources SELP.3.2.x-Chelsea.src.tgz,
 # from package released as GPL v2 http://www.samsung.com/global/opensource/files/32B650.zip
-# Copyright (C) 2003-2009 Samsung Electronics
 --- old/fs/proc/array.c	2010-07-04 08:00:06.000000000 +0200
 +++ new/fs/proc/array.c	2008-07-24 02:42:16.000000000 +0200
 @@ -363,6 +363,8 @@

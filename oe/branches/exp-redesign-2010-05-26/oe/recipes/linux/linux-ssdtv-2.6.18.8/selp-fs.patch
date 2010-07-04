@@ -1,6 +1,5 @@
 # This patch content was copied from Samsung kernel sources SELP.3.2.x-Chelsea.src.tgz,
 # from package released as GPL v2 http://www.samsung.com/global/opensource/files/32B650.zip
-# Copyright (C) 2003-2009 Samsung Electronics
 --- old/fs/buffer.c	2010-07-04 08:00:05.000000000 +0200
 +++ new/fs/buffer.c	2008-07-24 02:42:15.000000000 +0200
 @@ -2991,7 +2993,7 @@
