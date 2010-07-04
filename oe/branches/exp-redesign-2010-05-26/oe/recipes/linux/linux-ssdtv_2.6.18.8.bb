@@ -10,6 +10,16 @@ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2 \
 	file://ssdtv-platform.patch;patch=1 \
 	file://gadget.patch;patch=1 \
 	file://pegasus.patch;patch=1 \
+	file://selp-core.patch;patch=1 \
+	file://selp-disk.patch;patch=1 \
+	file://selp-div64.patch;patch=1 \
+	file://selp-fs.patch;patch=1 \
+	file://selp-irq.patch;patch=1 \
+	file://selp-mm.patch;patch=1 \
+	file://selp-ntfs.patch;patch=1 \
+	file://selp-scsi.patch;patch=1 \
+	file://selp-usb.patch;patch=1 \
+	file://selp-vfp.patch;patch=1 \
 	file://defconfig_ssdtv \
 "
 

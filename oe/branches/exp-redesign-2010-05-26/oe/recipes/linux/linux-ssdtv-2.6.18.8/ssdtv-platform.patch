@@ -4331,7 +4331,25 @@ diff -urNP old/drivers/serial/s5h2x_uart.c new/drivers/serial/s5h2x_uart.c
 +MODULE_DESCRIPTION("Samsung S5H2xxx Serial port driver");
 diff -urNP old/drivers/usb/host/ehci-hcd.c new/drivers/usb/host/ehci-hcd.c
 --- old/drivers/usb/host/ehci-hcd.c	2007-02-24 00:52:30.000000000 +0100
-+++ new/drivers/usb/host/ehci-hcd.c	2010-07-04 08:00:32.000000000 +0200
++++ new/drivers/usb/host/ehci-hcd.c	2010-07-04 19:54:21.000000000 +0200
+@@ -109,7 +109,7 @@
+ #define	EHCI_TUNE_RL_TT		0
+ #define	EHCI_TUNE_MULT_HS	1	/* 1-3 transactions/uframe; 4.10.3 */
+ #define	EHCI_TUNE_MULT_TT	1
+-#define	EHCI_TUNE_FLS		2	/* (small) 256 frame schedule */
++#define	EHCI_TUNE_FLS		0	/* 1024 frame schedule */
+ 
+ #define EHCI_IAA_JIFFIES	(HZ/100)	/* arbitrary; ~10 msec */
+ #define EHCI_IO_JIFFIES		(HZ/10)		/* io watchdog > irq_thresh */
+@@ -887,7 +887,7 @@
+ MODULE_AUTHOR (DRIVER_AUTHOR);
+ MODULE_LICENSE ("GPL");
+ 
+-#ifdef CONFIG_PCI
++#if defined(CONFIG_PCI) && !defined(CONFIG_ARCH_SSDTV)
+ #include "ehci-pci.c"
+ #define	PCI_DRIVER		ehci_pci_driver
+ #endif
 @@ -902,6 +902,11 @@
  #define	PLATFORM_DRIVER		ehci_hcd_au1xxx_driver
  #endif

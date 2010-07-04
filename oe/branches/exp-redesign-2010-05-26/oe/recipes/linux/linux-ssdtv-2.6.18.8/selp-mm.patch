@@ -1,0 +1,176 @@
+# This patch content was copied from Samsung kernel sources SELP.3.2.x-Chelsea.src.tgz,
+# from package released as GPL v2 http://www.samsung.com/global/opensource/files/32B650.zip
+# Copyright (C) 2003-2009 Samsung Electronics
+--- old/include/asm-arm/cacheflush.h	2007-02-24 00:52:30.000000000 +0100
++++ new/include/asm-arm/cacheflush.h	2008-07-24 02:41:40.000000000 +0200
+@@ -337,6 +353,8 @@
+  */
+ extern void flush_dcache_page(struct page *);
+ 
++extern void __flush_dcache_page(struct address_space *mapping, struct page *page);
++
+ #define flush_dcache_mmap_lock(mapping) \
+ 	write_lock_irq(&(mapping)->tree_lock)
+ #define flush_dcache_mmap_unlock(mapping) \
+--- old/arch/arm/mm/copypage-v6.c	2010-07-04 08:00:05.000000000 +0200
++++ new/arch/arm/mm/copypage-v6.c	2008-07-24 02:41:31.000000000 +0200
+@@ -53,6 +53,10 @@
+ {
+ 	unsigned int offset = CACHE_COLOUR(vaddr);
+ 	unsigned long from, to;
++	struct page *page = virt_to_page(kfrom);
++
++	if (test_and_clear_bit(PG_dcache_dirty, &page->flags))
++		__flush_dcache_page(page_mapping(page), page);
+ 
+ 	/*
+ 	 * Discard data in the kernel mapping for the new page.
+--- old/arch/arm/mm/fault-armv.c	2007-02-24 00:52:30.000000000 +0100
++++ new/arch/arm/mm/fault-armv.c	2008-12-29 08:44:00.000000000 +0100
+@@ -119,8 +119,6 @@
+ 		flush_cache_page(vma, addr, pfn);
+ }
+ 
+-void __flush_dcache_page(struct address_space *mapping, struct page *page);
+-
+ /*
+  * Take care of architecture specific things when placing a new PTE into
+  * a page table, or changing an existing PTE.  Basically, there are two
+@@ -148,11 +146,20 @@
+ 	if (mapping) {
+ 		int dirty = test_and_clear_bit(PG_dcache_dirty, &page->flags);
+ 
++#if 0 /* force dcache page flush */
+ 		if (dirty)
++#endif
+ 			__flush_dcache_page(mapping, page);
+ 
+ 		if (cache_is_vivt())
+ 			make_coherent(mapping, vma, addr, pfn);
++#if 1 /*  __flush_icache_all(); patch */
++		else if (vma->vm_flags & VM_EXEC) {
++			asm("mcr    p15, 0, %0, c7, c5, 0   @ invalidate I-cache\n"
++				:
++				: "r" (0));
++		}
++#endif
+ 	}
+ }
+ 
+--- old/arch/arm/mm/flush.c	2010-07-04 07:59:50.000000000 +0200
++++ new/arch/arm/mm/flush.c	2008-12-29 08:44:00.000000000 +0100
+@@ -134,6 +134,12 @@
+ 	if (mapping && cache_is_vipt_aliasing())
+ 		flush_pfn_alias(page_to_pfn(page),
+ 				page->index << PAGE_CACHE_SHIFT);
++
++#if 0 /* force icache invalidate */
++	asm("mcr    p15, 0, %0, c7, c5, 0   @ invalidate I-cache\n"
++		:
++		: "r" (0));
++#endif
+ }
+ 
+ static void __flush_dcache_aliases(struct address_space *mapping, struct page *page)
+@@ -199,6 +205,13 @@
+ 		__flush_dcache_page(mapping, page);
+ 		if (mapping && cache_is_vivt())
+ 			__flush_dcache_aliases(mapping, page);
++#if 1 /* __flush_icache_all(); patch */
++		else if (mapping) {
++			asm("mcr    p15, 0, %0, c7, c5, 0   @ invalidate I-cache\n"
++				:
++				: "r" (0));
++		}
++#endif
+ 	}
+ }
+ EXPORT_SYMBOL(flush_dcache_page);
+--- old/arch/arm/mm/init.c	2010-07-04 07:59:50.000000000 +0200
++++ new/arch/arm/mm/init.c	2008-07-24 02:41:31.000000000 +0200
+@@ -32,51 +32,40 @@
+ extern unsigned long phys_initrd_size;
+ 
+ /*
+- * This is used to pass memory configuration data from paging_init
+- * to mem_init, and by show_mem() to skip holes in the memory map.
++ * The sole use of this is to pass memory configuration
++ * data from paging_init to mem_init.
+  */
+-static struct meminfo meminfo = { 0, };
+-
+-#define for_each_nodebank(iter,mi,no)			\
+-	for (iter = 0; iter < mi->nr_banks; iter++)	\
+-		if (mi->bank[iter].node == no)
++static struct meminfo meminfo __initdata = { 0, };
+ 
+ void show_mem(void)
+ {
+ 	int free = 0, total = 0, reserved = 0;
+-	int shared = 0, cached = 0, slab = 0, node, i;
+-	struct meminfo * mi = &meminfo;
++	int shared = 0, cached = 0, slab = 0, node;
+ 
+ 	printk("Mem-info:\n");
+ 	show_free_areas();
+ 	printk("Free swap:       %6ldkB\n", nr_swap_pages<<(PAGE_SHIFT-10));
+ 
+ 	for_each_online_node(node) {
+-		for_each_nodebank (i,mi,node) {
+-			unsigned int pfn1, pfn2;
+-			struct page *page, *end;
+-
+-			pfn1 = mi->bank[i].start >> PAGE_SHIFT;
+-			pfn2 = (mi->bank[i].size + mi->bank[i].start) >> PAGE_SHIFT;
+-
+-			page = NODE_MEM_MAP(node) + pfn1;
+-			end  = NODE_MEM_MAP(node) + pfn2;
+-
+-			do {
+-				total++;
+-				if (PageReserved(page))
+-					reserved++;
+-				else if (PageSwapCache(page))
+-					cached++;
+-				else if (PageSlab(page))
+-					slab++;
+-				else if (!page_count(page))
+-					free++;
+-				else
+-					shared += page_count(page) - 1;
+-				page++;
+-			} while (page < end);
+-		}
++		struct page *page, *end;
++
++		page = NODE_MEM_MAP(node);
++		end  = page + NODE_DATA(node)->node_spanned_pages;
++
++		do {
++			total++;
++			if (PageReserved(page))
++				reserved++;
++			else if (PageSwapCache(page))
++				cached++;
++			else if (PageSlab(page))
++				slab++;
++			else if (!page_count(page))
++				free++;
++			else
++				shared += page_count(page) - 1;
++			page++;
++		} while (page < end);
+ 	}
+ 
+ 	printk("%d pages of RAM\n", total);
+@@ -87,6 +76,10 @@
+ 	printk("%d pages swap cached\n", cached);
+ }
+ 
++#define for_each_nodebank(iter,mi,no)			\
++	for (iter = 0; iter < mi->nr_banks; iter++)	\
++		if (mi->bank[iter].node == no)
++
+ /*
+  * FIXME: We really want to avoid allocating the bootmap bitmap
+  * over the top of the initrd.  Hopefully, this is located towards
