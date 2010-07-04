@@ -3,14 +3,15 @@ LICENSE = "GPLv2"
 DEPENDS = "binutils-cross u-boot-mkimage-native"
 
 SRC_URI = "${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2 \
+	file://arm-mm-2.6.19.patch;patch=1 \
+	file://rt-2.6.18.8-stripped.patch;patch=1 \
 	file://fix_nonlinux_compile.patch;patch=1 \
 	file://ignore-mod-magic-version.patch;patch=1 \
+	file://ssdtv-platform.patch;patch=1 \
 	file://gadget.patch;patch=1 \
 	file://pegasus.patch;patch=1 \
-	file://defconfig_sdtvchl2 \
+	file://defconfig_ssdtv \
 "
-#	file://ralink-devlist.patch;patch=1;pnum=0 \
-#	file://ralink-devlist_2.2.0.0.patch;patch=1;pnum=0 \
 
 SRC_URI[md5sum] = "dce47badc1faf34b355a10b97ae5d391"
 SRC_URI[sha256sum] = "945b3014f8048cd87fdff90014afa4ff241f134bceafbfdbd42dba1be8df2ba8"
@@ -21,7 +22,7 @@ KERNEL_VERSION = "2.6.18.8"
 inherit kernel siteinfo
 
 COMPATIBLE_HOST = "arm.*-linux"
-COMPATIBLE_MACHINE = "sdtvchl2"
+COMPATIBLE_MACHINE = "ssdtv"
 
 export ARCH = "arm"
 export OS = "Linux"
@@ -36,7 +37,7 @@ PACKAGES =+ "kernel-headers"
 FILES_kernel-headers = "${exec_prefix}/src/linux*"
 
 do_configure_prepend () {
-	cp ${WORKDIR}/defconfig_sdtvchl2 .config
+	cp ${WORKDIR}/defconfig_ssdtv .config
 	make include/linux/version.h
 }
 
