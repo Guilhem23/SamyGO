@@ -1,6 +1,6 @@
 diff -urNP old/arch/arm/Kconfig new/arch/arm/Kconfig
 --- old/arch/arm/Kconfig	2010-07-04 07:53:51.000000000 +0200
-+++ new/arch/arm/Kconfig	2010-07-04 07:33:28.000000000 +0200
++++ new/arch/arm/Kconfig	2010-07-04 08:00:32.000000000 +0200
 @@ -119,7 +119,10 @@
  
  choice
@@ -24,7 +24,7 @@ diff -urNP old/arch/arm/Kconfig new/arch/arm/Kconfig
  source "arch/arm/mach-ep93xx/Kconfig"
 diff -urNP old/arch/arm/Makefile new/arch/arm/Makefile
 --- old/arch/arm/Makefile	2007-02-24 00:52:30.000000000 +0100
-+++ new/arch/arm/Makefile	2010-07-04 07:33:28.000000000 +0200
++++ new/arch/arm/Makefile	2010-07-04 08:00:32.000000000 +0200
 @@ -16,9 +16,7 @@
  GZFLAGS		:=-9
  #CFLAGS		+=-pipe
@@ -68,33 +68,47 @@ diff -urNP old/arch/arm/Makefile new/arch/arm/Makefile
  zinstall install: vmlinux
 diff -urNP old/arch/arm/boot/Makefile new/arch/arm/boot/Makefile
 --- old/arch/arm/boot/Makefile	2007-02-24 00:52:30.000000000 +0100
-+++ new/arch/arm/boot/Makefile	2010-07-04 07:33:28.000000000 +0200
-@@ -64,7 +64,11 @@
++++ new/arch/arm/boot/Makefile	2010-07-04 10:50:20.000000000 +0200
+@@ -27,7 +27,7 @@
+ 
+ export ZRELADDR INITRD_PHYS PARAMS_PHYS
+ 
+-targets := Image zImage xipImage bootpImage uImage
++targets := Image zImage xipImage bootpImage uImage uzImage
+ 
+ ifeq ($(CONFIG_XIP_KERNEL),y)
+ 
+@@ -64,9 +64,13 @@
  		   -C none -a $(ZRELADDR) -e $(ZRELADDR) \
  		   -n 'Linux-$(KERNELRELEASE)' -d $< $@
  
 -$(obj)/uImage:	$(obj)/zImage FORCE
 +$(obj)/uImage:	$(obj)/Image FORCE
-+	$(call if_changed,uimage)
+ 	$(call if_changed,uimage)
+-	@echo '  Image $@ is ready'
 +	@echo '  uImage $@ is ready'
 +
 +$(obj)/uzImage:	$(obj)/zImage FORCE
- 	$(call if_changed,uimage)
- 	@echo '  Image $@ is ready'
++	$(call if_changed,uimage)
++	@echo '  zImage $@ is ready'
  
+ $(obj)/bootp/bootp: $(obj)/zImage initrd FORCE
+ 	$(Q)$(MAKE) $(build)=$(obj)/bootp $@
 diff -urNP old/arch/arm/kernel/armksyms.c new/arch/arm/kernel/armksyms.c
 --- old/arch/arm/kernel/armksyms.c	2007-02-24 00:52:30.000000000 +0100
-+++ new/arch/arm/kernel/armksyms.c	2010-07-04 07:33:28.000000000 +0200
-@@ -184,3 +184,6 @@
++++ new/arch/arm/kernel/armksyms.c	2010-07-04 10:50:52.000000000 +0200
+@@ -184,3 +184,8 @@
  EXPORT_SYMBOL(sys_lseek);
  EXPORT_SYMBOL(sys_exit);
  EXPORT_SYMBOL(sys_wait4);
 +
++#if defined(CONFIG_ARCH_SSDTV)
 +EXPORT_SYMBOL(sys_mknod);
 +EXPORT_SYMBOL(sys_unlink);
++#endif
 diff -urNP old/arch/arm/kernel/head.S new/arch/arm/kernel/head.S
 --- old/arch/arm/kernel/head.S	2010-07-04 07:53:51.000000000 +0200
-+++ new/arch/arm/kernel/head.S	2010-07-04 07:33:28.000000000 +0200
++++ new/arch/arm/kernel/head.S	2010-07-04 08:00:32.000000000 +0200
 @@ -72,6 +72,9 @@
  ENTRY(stext)
  	msr	cpsr_c, #PSR_F_BIT | PSR_I_BIT | SVC_MODE @ ensure svc mode
@@ -107,7 +121,7 @@ diff -urNP old/arch/arm/kernel/head.S new/arch/arm/kernel/head.S
  	movs	r10, r5				@ invalid processor (r5=0)?
 diff -urNP old/arch/arm/mach-ssdtv/Kconfig new/arch/arm/mach-ssdtv/Kconfig
 --- old/arch/arm/mach-ssdtv/Kconfig	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/Kconfig	2010-06-19 12:27:32.000000000 +0200
++++ new/arch/arm/mach-ssdtv/Kconfig	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,22 @@
 +if ARCH_SSDTV
 +
@@ -133,12 +147,12 @@ diff -urNP old/arch/arm/mach-ssdtv/Kconfig new/arch/arm/mach-ssdtv/Kconfig
 +endif
 diff -urNP old/arch/arm/mach-ssdtv/Makefile new/arch/arm/mach-ssdtv/Makefile
 --- old/arch/arm/mach-ssdtv/Makefile	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/Makefile	2010-06-13 08:41:57.000000000 +0200
++++ new/arch/arm/mach-ssdtv/Makefile	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1 @@
 +obj-y := ssdtv.o mach-ssdtv.o ssdtv_clock.o ssdtv_irq.o time.o pci.o ssdtv_pci.o
 diff -urNP old/arch/arm/mach-ssdtv/Makefile.boot new/arch/arm/mach-ssdtv/Makefile.boot
 --- old/arch/arm/mach-ssdtv/Makefile.boot	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/Makefile.boot	2010-06-19 20:55:51.000000000 +0200
++++ new/arch/arm/mach-ssdtv/Makefile.boot	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,5 @@
 +ifeq ($(CONFIG_MACH_SSDTV),y)
 +zreladdr-y      := 0x60008000
@@ -147,7 +161,7 @@ diff -urNP old/arch/arm/mach-ssdtv/Makefile.boot new/arch/arm/mach-ssdtv/Makefil
 +endif
 diff -urNP old/arch/arm/mach-ssdtv/mach-ssdtv.c new/arch/arm/mach-ssdtv/mach-ssdtv.c
 --- old/arch/arm/mach-ssdtv/mach-ssdtv.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/mach-ssdtv.c	2010-06-28 23:27:16.000000000 +0200
++++ new/arch/arm/mach-ssdtv/mach-ssdtv.c	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,137 @@
 +/*
 + * linux/arch/arm/mach-ssdtv/mach-ssdtv.c
@@ -288,7 +302,7 @@ diff -urNP old/arch/arm/mach-ssdtv/mach-ssdtv.c new/arch/arm/mach-ssdtv/mach-ssd
 +EXPORT_SYMBOL(ssdtv_sys_mem1_size);
 diff -urNP old/arch/arm/mach-ssdtv/pci.c new/arch/arm/mach-ssdtv/pci.c
 --- old/arch/arm/mach-ssdtv/pci.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/pci.c	2010-07-02 19:19:00.000000000 +0200
++++ new/arch/arm/mach-ssdtv/pci.c	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,84 @@
 +/*
 + *  linux/arch/arm/mach-ssdtv/pci.c
@@ -376,7 +390,7 @@ diff -urNP old/arch/arm/mach-ssdtv/pci.c new/arch/arm/mach-ssdtv/pci.c
 +subsys_initcall(ssdtv_pci_init);
 diff -urNP old/arch/arm/mach-ssdtv/ssdtv.c new/arch/arm/mach-ssdtv/ssdtv.c
 --- old/arch/arm/mach-ssdtv/ssdtv.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/ssdtv.c	2010-07-02 19:18:48.000000000 +0200
++++ new/arch/arm/mach-ssdtv/ssdtv.c	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,238 @@
 +/*
 + * linux/arch/arm/mach-ssdtv/ssdtv.c
@@ -618,7 +632,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv.c new/arch/arm/mach-ssdtv/ssdtv.c
 +
 diff -urNP old/arch/arm/mach-ssdtv/ssdtv_clock.c new/arch/arm/mach-ssdtv/ssdtv_clock.c
 --- old/arch/arm/mach-ssdtv/ssdtv_clock.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/ssdtv_clock.c	2010-07-02 19:18:21.000000000 +0200
++++ new/arch/arm/mach-ssdtv/ssdtv_clock.c	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,246 @@
 +/*
 + * linux/arch/arm/mach-ssdtv/ssdtv_clock.c
@@ -868,7 +882,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_clock.c new/arch/arm/mach-ssdtv/ssdtv_c
 +EXPORT_SYMBOL(ssdtv_get_clock);
 diff -urNP old/arch/arm/mach-ssdtv/ssdtv_irq.c new/arch/arm/mach-ssdtv/ssdtv_irq.c
 --- old/arch/arm/mach-ssdtv/ssdtv_irq.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/ssdtv_irq.c	2010-06-25 14:07:32.000000000 +0200
++++ new/arch/arm/mach-ssdtv/ssdtv_irq.c	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,120 @@
 +/*
 + * linux/arch/arm/mach-ssdtvxx/ssdtv_irq.c
@@ -992,7 +1006,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_irq.c new/arch/arm/mach-ssdtv/ssdtv_irq
 +
 diff -urNP old/arch/arm/mach-ssdtv/ssdtv_irq.h new/arch/arm/mach-ssdtv/ssdtv_irq.h
 --- old/arch/arm/mach-ssdtv/ssdtv_irq.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/ssdtv_irq.h	2010-06-25 14:07:25.000000000 +0200
++++ new/arch/arm/mach-ssdtv/ssdtv_irq.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,162 @@
 +/*
 + * linux/arch/arm/mach-ssdtv/ssdtv_irq.h
@@ -1158,7 +1172,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_irq.h new/arch/arm/mach-ssdtv/ssdtv_irq
 +#endif
 diff -urNP old/arch/arm/mach-ssdtv/ssdtv_pci.c new/arch/arm/mach-ssdtv/ssdtv_pci.c
 --- old/arch/arm/mach-ssdtv/ssdtv_pci.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/ssdtv_pci.c	2010-06-25 14:07:20.000000000 +0200
++++ new/arch/arm/mach-ssdtv/ssdtv_pci.c	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,410 @@
 +/*
 + *  linux/arch/arm/mach-ssdtv/ssdtv_pci.c
@@ -1572,7 +1586,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_pci.c new/arch/arm/mach-ssdtv/ssdtv_pci
 +
 diff -urNP old/arch/arm/mach-ssdtv/ssdtv_pci.h new/arch/arm/mach-ssdtv/ssdtv_pci.h
 --- old/arch/arm/mach-ssdtv/ssdtv_pci.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/ssdtv_pci.h	2010-06-25 14:07:15.000000000 +0200
++++ new/arch/arm/mach-ssdtv/ssdtv_pci.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,169 @@
 +/*
 + * linux/include/asm-arm/arch-ssdtv/ssdtv_pci.h
@@ -1745,7 +1759,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_pci.h new/arch/arm/mach-ssdtv/ssdtv_pci
 +#endif
 diff -urNP old/arch/arm/mach-ssdtv/time.c new/arch/arm/mach-ssdtv/time.c
 --- old/arch/arm/mach-ssdtv/time.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/time.c	2010-07-01 16:00:18.000000000 +0200
++++ new/arch/arm/mach-ssdtv/time.c	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,188 @@
 +/*
 + * linux/arch/arm/mach-ssdtv/time.c
@@ -1937,7 +1951,7 @@ diff -urNP old/arch/arm/mach-ssdtv/time.c new/arch/arm/mach-ssdtv/time.c
 +};
 diff -urNP old/arch/arm/mm/Kconfig new/arch/arm/mm/Kconfig
 --- old/arch/arm/mm/Kconfig	2010-07-04 07:53:42.000000000 +0200
-+++ new/arch/arm/mm/Kconfig	2010-07-04 07:33:28.000000000 +0200
++++ new/arch/arm/mm/Kconfig	2010-07-04 08:00:32.000000000 +0200
 @@ -345,7 +345,7 @@
  # ARMv6
  config CPU_V6
@@ -1949,7 +1963,7 @@ diff -urNP old/arch/arm/mm/Kconfig new/arch/arm/mm/Kconfig
  	select CPU_CACHE_V6
 diff -urNP old/arch/arm/mm/proc-v6.S new/arch/arm/mm/proc-v6.S
 --- old/arch/arm/mm/proc-v6.S	2007-02-24 00:52:30.000000000 +0100
-+++ new/arch/arm/mm/proc-v6.S	2010-07-04 07:33:28.000000000 +0200
++++ new/arch/arm/mm/proc-v6.S	2010-07-04 08:00:32.000000000 +0200
 @@ -17,6 +17,7 @@
  #include <asm/procinfo.h>
  #include <asm/pgtable-hwdef.h>
@@ -2008,7 +2022,7 @@ diff -urNP old/arch/arm/mm/proc-v6.S new/arch/arm/mm/proc-v6.S
  	/*
 diff -urNP old/arch/arm/tools/mach-types new/arch/arm/tools/mach-types
 --- old/arch/arm/tools/mach-types	2007-02-24 00:52:30.000000000 +0100
-+++ new/arch/arm/tools/mach-types	2010-07-04 07:33:28.000000000 +0200
++++ new/arch/arm/tools/mach-types	2010-07-04 08:00:32.000000000 +0200
 @@ -1093,3 +1093,4 @@
  eti_b1			MACH_ETI_B1		ETI_B1			1080
  za9l_series		MACH_ZILOG_ZA9L		ZILOG_ZA9L		1081
@@ -2016,7 +2030,7 @@ diff -urNP old/arch/arm/tools/mach-types new/arch/arm/tools/mach-types
 +ssdtv			MACH_SSDTV		SSDTV			268775431
 diff -urNP old/drivers/Makefile new/drivers/Makefile
 --- old/drivers/Makefile	2007-02-24 00:52:30.000000000 +0100
-+++ new/drivers/Makefile	2010-07-04 07:33:28.000000000 +0200
++++ new/drivers/Makefile	2010-07-04 08:00:32.000000000 +0200
 @@ -76,3 +76,4 @@
  obj-$(CONFIG_SUPERH)		+= sh/
  obj-$(CONFIG_GENERIC_TIME)	+= clocksource/
@@ -2024,7 +2038,7 @@ diff -urNP old/drivers/Makefile new/drivers/Makefile
 +#obj-$(CONFIG_TINY_FSR)		+= tfsr/
 diff -urNP old/drivers/char/Kconfig new/drivers/char/Kconfig
 --- old/drivers/char/Kconfig	2010-07-04 07:53:51.000000000 +0200
-+++ new/drivers/char/Kconfig	2010-07-04 07:33:28.000000000 +0200
++++ new/drivers/char/Kconfig	2010-07-04 08:00:32.000000000 +0200
 @@ -4,6 +4,11 @@
  
  menu "Character devices"
@@ -2039,7 +2053,7 @@ diff -urNP old/drivers/char/Kconfig new/drivers/char/Kconfig
  	select INPUT
 diff -urNP old/drivers/char/Makefile new/drivers/char/Makefile
 --- old/drivers/char/Makefile	2010-07-04 07:53:51.000000000 +0200
-+++ new/drivers/char/Makefile	2010-07-04 07:33:28.000000000 +0200
++++ new/drivers/char/Makefile	2010-07-04 08:00:32.000000000 +0200
 @@ -9,6 +9,7 @@
  
  obj-y	 += mem.o random.o tty_io.o n_tty.o tty_ioctl.o
@@ -2050,7 +2064,7 @@ diff -urNP old/drivers/char/Makefile new/drivers/char/Makefile
  obj-y				+= misc.o
 diff -urNP old/drivers/char/ssdtv_i2c.c new/drivers/char/ssdtv_i2c.c
 --- old/drivers/char/ssdtv_i2c.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/drivers/char/ssdtv_i2c.c	2010-06-25 14:08:25.000000000 +0200
++++ new/drivers/char/ssdtv_i2c.c	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,988 @@
 +/*********************************************************************************************
 + *
@@ -3042,7 +3056,7 @@ diff -urNP old/drivers/char/ssdtv_i2c.c new/drivers/char/ssdtv_i2c.c
 +
 diff -urNP old/drivers/char/ssdtv_i2c.h new/drivers/char/ssdtv_i2c.h
 --- old/drivers/char/ssdtv_i2c.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/drivers/char/ssdtv_i2c.h	2010-06-25 14:08:30.000000000 +0200
++++ new/drivers/char/ssdtv_i2c.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,124 @@
 +/*********************************************************************************************
 + *
@@ -3170,7 +3184,7 @@ diff -urNP old/drivers/char/ssdtv_i2c.h new/drivers/char/ssdtv_i2c.h
 +#endif // __SSDTV_I2C_H
 diff -urNP old/drivers/char/ssdtv_i2c_io.h new/drivers/char/ssdtv_i2c_io.h
 --- old/drivers/char/ssdtv_i2c_io.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/drivers/char/ssdtv_i2c_io.h	2010-06-25 14:08:34.000000000 +0200
++++ new/drivers/char/ssdtv_i2c_io.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,50 @@
 +/*********************************************************************************************
 + *
@@ -3224,7 +3238,7 @@ diff -urNP old/drivers/char/ssdtv_i2c_io.h new/drivers/char/ssdtv_i2c_io.h
 +#endif // __SSDTV_I2C_IO_H
 diff -urNP old/drivers/net/8139too.c new/drivers/net/8139too.c
 --- old/drivers/net/8139too.c	2007-02-24 00:52:30.000000000 +0100
-+++ new/drivers/net/8139too.c	2010-07-04 07:34:24.000000000 +0200
++++ new/drivers/net/8139too.c	2010-07-04 08:35:23.000000000 +0200
 @@ -87,6 +87,14 @@
  		"rtl8139-diag -mmmaaavvveefN" output
  		enable RTL8139_DEBUG below, and look at 'dmesg' or kernel log
@@ -3373,7 +3387,7 @@ diff -urNP old/drivers/net/8139too.c new/drivers/net/8139too.c
  	}
  	spin_unlock(&tp->rx_lock);
  
-@@ -2232,8 +2250,6 @@
+@@ -2232,8 +2249,6 @@
  
  	netif_stop_queue (dev);
  
@@ -3384,7 +3398,7 @@ diff -urNP old/drivers/net/8139too.c new/drivers/net/8139too.c
  			dev->name, RTL_R16 (IntrStatus));
 diff -urNP old/drivers/serial/Kconfig new/drivers/serial/Kconfig
 --- old/drivers/serial/Kconfig	2007-02-24 00:52:30.000000000 +0100
-+++ new/drivers/serial/Kconfig	2010-07-04 07:33:28.000000000 +0200
++++ new/drivers/serial/Kconfig	2010-07-04 08:00:32.000000000 +0200
 @@ -246,6 +246,16 @@
  
  comment "Non-8250 serial port support"
@@ -3404,7 +3418,7 @@ diff -urNP old/drivers/serial/Kconfig new/drivers/serial/Kconfig
  	depends on ARM_AMBA && (BROKEN || !ARCH_VERSATILE)
 diff -urNP old/drivers/serial/Makefile new/drivers/serial/Makefile
 --- old/drivers/serial/Makefile	2007-02-24 00:52:30.000000000 +0100
-+++ new/drivers/serial/Makefile	2010-07-04 07:33:28.000000000 +0200
++++ new/drivers/serial/Makefile	2010-07-04 08:00:32.000000000 +0200
 @@ -56,3 +56,4 @@
  obj-$(CONFIG_SERIAL_SGI_IOC3) += ioc3_serial.o
  obj-$(CONFIG_SERIAL_AT91) += at91_serial.o
@@ -3412,7 +3426,7 @@ diff -urNP old/drivers/serial/Makefile new/drivers/serial/Makefile
 +obj-$(CONFIG_SERIAL_S5H2X) += s5h2x_uart.o
 diff -urNP old/drivers/serial/s5h2x_uart.c new/drivers/serial/s5h2x_uart.c
 --- old/drivers/serial/s5h2x_uart.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/drivers/serial/s5h2x_uart.c	2010-06-25 14:08:43.000000000 +0200
++++ new/drivers/serial/s5h2x_uart.c	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,901 @@
 +/*
 + * driver/serial/s5h2x_uart.c
@@ -4317,7 +4331,7 @@ diff -urNP old/drivers/serial/s5h2x_uart.c new/drivers/serial/s5h2x_uart.c
 +MODULE_DESCRIPTION("Samsung S5H2xxx Serial port driver");
 diff -urNP old/drivers/usb/host/ehci-hcd.c new/drivers/usb/host/ehci-hcd.c
 --- old/drivers/usb/host/ehci-hcd.c	2007-02-24 00:52:30.000000000 +0100
-+++ new/drivers/usb/host/ehci-hcd.c	2010-07-04 07:33:28.000000000 +0200
++++ new/drivers/usb/host/ehci-hcd.c	2010-07-04 08:00:32.000000000 +0200
 @@ -902,6 +902,11 @@
  #define	PLATFORM_DRIVER		ehci_hcd_au1xxx_driver
  #endif
@@ -4332,7 +4346,7 @@ diff -urNP old/drivers/usb/host/ehci-hcd.c new/drivers/usb/host/ehci-hcd.c
  #endif
 diff -urNP old/drivers/usb/host/ehci-s5h2x.c new/drivers/usb/host/ehci-s5h2x.c
 --- old/drivers/usb/host/ehci-s5h2x.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/drivers/usb/host/ehci-s5h2x.c	2010-06-25 14:09:09.000000000 +0200
++++ new/drivers/usb/host/ehci-s5h2x.c	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,231 @@
 +/*
 + * EHCI HCD Bus glue logic for S5H2XXX USB Controller
@@ -4567,7 +4581,16 @@ diff -urNP old/drivers/usb/host/ehci-s5h2x.c new/drivers/usb/host/ehci-s5h2x.c
 +};
 diff -urNP old/drivers/usb/host/ohci-hcd.c new/drivers/usb/host/ohci-hcd.c
 --- old/drivers/usb/host/ohci-hcd.c	2007-02-24 00:52:30.000000000 +0100
-+++ new/drivers/usb/host/ohci-hcd.c	2010-07-04 07:33:28.000000000 +0200
++++ new/drivers/usb/host/ohci-hcd.c	2010-07-04 10:51:09.000000000 +0200
+@@ -877,7 +877,7 @@
+ MODULE_DESCRIPTION (DRIVER_INFO);
+ MODULE_LICENSE ("GPL");
+ 
+-#ifdef CONFIG_PCI
++#if defined(CONFIG_PCI) && !defined(CONFIG_MACH_SSDTV)
+ #include "ohci-pci.c"
+ #endif
+ 
 @@ -917,6 +917,10 @@
  #include "ohci-at91.c"
  #endif
@@ -4589,7 +4612,7 @@ diff -urNP old/drivers/usb/host/ohci-hcd.c new/drivers/usb/host/ohci-hcd.c
  #endif
 diff -urNP old/drivers/usb/host/ohci-s5h2x.c new/drivers/usb/host/ohci-s5h2x.c
 --- old/drivers/usb/host/ohci-s5h2x.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/drivers/usb/host/ohci-s5h2x.c	2010-06-25 14:09:32.000000000 +0200
++++ new/drivers/usb/host/ohci-s5h2x.c	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,210 @@
 +/*
 + * OHCI HCD (Host Controller Driver) for USB.
@@ -4803,7 +4826,7 @@ diff -urNP old/drivers/usb/host/ohci-s5h2x.c new/drivers/usb/host/ohci-s5h2x.c
 +module_exit (s5h2x_ohci_modexit);
 diff -urNP old/include/asm-arm/arch-ssdtv/bitfield.h new/include/asm-arm/arch-ssdtv/bitfield.h
 --- old/include/asm-arm/arch-ssdtv/bitfield.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/bitfield.h	2010-06-24 17:15:26.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/bitfield.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,117 @@
 +/*
 + *	FILE    	bitfield.h
@@ -4924,7 +4947,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/bitfield.h new/include/asm-arm/arch-ss
 +#endif /* __BITFIELD_H */
 diff -urNP old/include/asm-arm/arch-ssdtv/bits.h new/include/asm-arm/arch-ssdtv/bits.h
 --- old/include/asm-arm/arch-ssdtv/bits.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/bits.h	2010-06-24 17:15:21.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/bits.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,66 @@
 +/*
 + * This program is free software; you can redistribute it and/or modify
@@ -4994,7 +5017,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/bits.h new/include/asm-arm/arch-ssdtv/
 +
 diff -urNP old/include/asm-arm/arch-ssdtv/debug-macro.S new/include/asm-arm/arch-ssdtv/debug-macro.S
 --- old/include/asm-arm/arch-ssdtv/debug-macro.S	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/debug-macro.S	2010-06-24 17:15:15.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/debug-macro.S	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,45 @@
 +/* linux/include/asm-arm/arch-ssdtv/debug-macro.S
 + *
@@ -5043,7 +5066,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/debug-macro.S new/include/asm-arm/arch
 +	.endm
 diff -urNP old/include/asm-arm/arch-ssdtv/dma.h new/include/asm-arm/arch-ssdtv/dma.h
 --- old/include/asm-arm/arch-ssdtv/dma.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/dma.h	2010-06-24 17:15:10.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/dma.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,22 @@
 +/*
 + *  linux/include/asm-arm/arch-ssdtv/dma.h
@@ -5069,7 +5092,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/dma.h new/include/asm-arm/arch-ssdtv/d
 +#endif /* _ASM_ARCH_DMA_H */
 diff -urNP old/include/asm-arm/arch-ssdtv/entry-macro.S new/include/asm-arm/arch-ssdtv/entry-macro.S
 --- old/include/asm-arm/arch-ssdtv/entry-macro.S	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/entry-macro.S	2010-07-01 06:53:52.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/entry-macro.S	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,46 @@
 +/* linux/include/asm-arm/arch-ssdtv/entry-macro.S
 + *
@@ -5119,7 +5142,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/entry-macro.S new/include/asm-arm/arch
 +
 diff -urNP old/include/asm-arm/arch-ssdtv/eth.h new/include/asm-arm/arch-ssdtv/eth.h
 --- old/include/asm-arm/arch-ssdtv/eth.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/eth.h	2010-06-24 17:15:01.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/eth.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,26 @@
 +/*
 + * linux/include/asm-arm/arch-ssdtv/eth.h
@@ -5149,7 +5172,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/eth.h new/include/asm-arm/arch-ssdtv/e
 +#endif
 diff -urNP old/include/asm-arm/arch-ssdtv/hardware.h new/include/asm-arm/arch-ssdtv/hardware.h
 --- old/include/asm-arm/arch-ssdtv/hardware.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/hardware.h	2010-06-24 17:14:57.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/hardware.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,33 @@
 +/*
 + *  linux/include/asm-arm/arch-s5h2111/hardware.h
@@ -5186,7 +5209,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/hardware.h new/include/asm-arm/arch-ss
 +
 diff -urNP old/include/asm-arm/arch-ssdtv/io.h new/include/asm-arm/arch-ssdtv/io.h
 --- old/include/asm-arm/arch-ssdtv/io.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/io.h	2010-06-24 17:14:53.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/io.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,37 @@
 +/*
 + *  linux/include/asm-arm/arch-ssdtv/io.h
@@ -5227,7 +5250,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/io.h new/include/asm-arm/arch-ssdtv/io
 +#endif /* __ASM_ARM_ARCH_IO_H */
 diff -urNP old/include/asm-arm/arch-ssdtv/irqs.h new/include/asm-arm/arch-ssdtv/irqs.h
 --- old/include/asm-arm/arch-ssdtv/irqs.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/irqs.h	2010-06-24 17:14:49.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/irqs.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,92 @@
 +/*
 + * linux/include/asm-arm/arch-ssdtv/irqs.h
@@ -5323,7 +5346,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/irqs.h new/include/asm-arm/arch-ssdtv/
 +
 diff -urNP old/include/asm-arm/arch-ssdtv/memory.h new/include/asm-arm/arch-ssdtv/memory.h
 --- old/include/asm-arm/arch-ssdtv/memory.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/memory.h	2010-07-01 07:09:53.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/memory.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,110 @@
 +/****************************************************************8
 + * linux/include/asm-arm/arch-ssdtv/memory.h
@@ -5437,7 +5460,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/memory.h new/include/asm-arm/arch-ssdt
 +#endif /*__ASM_ARCH_MEMORY_H*/
 diff -urNP old/include/asm-arm/arch-ssdtv/param.h new/include/asm-arm/arch-ssdtv/param.h
 --- old/include/asm-arm/arch-ssdtv/param.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/param.h	2010-06-24 17:14:38.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/param.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,30 @@
 +/*
 + *  linux/include/asm-arm/arch-ssdtv/param.h
@@ -5471,7 +5494,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/param.h new/include/asm-arm/arch-ssdtv
 +#endif
 diff -urNP old/include/asm-arm/arch-ssdtv/platform.h new/include/asm-arm/arch-ssdtv/platform.h
 --- old/include/asm-arm/arch-ssdtv/platform.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/platform.h	2010-06-24 17:11:50.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/platform.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,138 @@
 +/*
 + * linux/include/asm-arm/arch-ssdtv/platform.h
@@ -5613,7 +5636,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/platform.h new/include/asm-arm/arch-ss
 +#endif
 diff -urNP old/include/asm-arm/arch-ssdtv/preempt.h new/include/asm-arm/arch-ssdtv/preempt.h
 --- old/include/asm-arm/arch-ssdtv/preempt.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/preempt.h	2010-06-24 17:12:06.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/preempt.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,42 @@
 +/*
 + * asm-arm/arch-s5h2111/preempt.h
@@ -5659,7 +5682,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/preempt.h new/include/asm-arm/arch-ssd
 +
 diff -urNP old/include/asm-arm/arch-ssdtv/proc-macros.S new/include/asm-arm/arch-ssdtv/proc-macros.S
 --- old/include/asm-arm/arch-ssdtv/proc-macros.S	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/proc-macros.S	2010-06-24 17:12:11.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/proc-macros.S	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,31 @@
 +/*
 + * Copyright (C) 2006 Samsung Electronics co.
@@ -5694,7 +5717,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/proc-macros.S new/include/asm-arm/arch
 +
 diff -urNP old/include/asm-arm/arch-ssdtv/ssdtv.h new/include/asm-arm/arch-ssdtv/ssdtv.h
 --- old/include/asm-arm/arch-ssdtv/ssdtv.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/ssdtv.h	2010-06-24 17:09:53.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/ssdtv.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,573 @@
 +/*
 + * linux/include/asm-arm/arch-ssdtv/ssdtv.h
@@ -6271,7 +6294,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/ssdtv.h new/include/asm-arm/arch-ssdtv
 +#endif
 diff -urNP old/include/asm-arm/arch-ssdtv/system.h new/include/asm-arm/arch-ssdtv/system.h
 --- old/include/asm-arm/arch-ssdtv/system.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/system.h	2010-06-24 17:10:01.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/system.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,60 @@
 +/*
 + * linux/include/asm-arm/arch-ssdtv/system.h
@@ -6335,7 +6358,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/system.h new/include/asm-arm/arch-ssdt
 +
 diff -urNP old/include/asm-arm/arch-ssdtv/timex.h new/include/asm-arm/arch-ssdtv/timex.h
 --- old/include/asm-arm/arch-ssdtv/timex.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/timex.h	2010-06-24 17:10:06.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/timex.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,38 @@
 +/*
 + *  linux/include/asm-arm/arch-ssdtv/timex.h
@@ -6377,7 +6400,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/timex.h new/include/asm-arm/arch-ssdtv
 +#endif /* __ASM_ARCH_SSDTV_TIMEX_H */
 diff -urNP old/include/asm-arm/arch-ssdtv/uncompress.h new/include/asm-arm/arch-ssdtv/uncompress.h
 --- old/include/asm-arm/arch-ssdtv/uncompress.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/uncompress.h	2010-06-24 17:12:25.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/uncompress.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,32 @@
 +/*
 + *  linux/include/asm-arm/arch-versatile/uncompress.h
@@ -6413,7 +6436,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/uncompress.h new/include/asm-arm/arch-
 +
 diff -urNP old/include/asm-arm/arch-ssdtv/vmalloc.h new/include/asm-arm/arch-ssdtv/vmalloc.h
 --- old/include/asm-arm/arch-ssdtv/vmalloc.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/vmalloc.h	2010-06-24 17:12:20.000000000 +0200
++++ new/include/asm-arm/arch-ssdtv/vmalloc.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,41 @@
 +/*
 + *  linux/include/asm-arm/arch-versatile/vmalloc.h
@@ -6458,7 +6481,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/vmalloc.h new/include/asm-arm/arch-ssd
 +#define VMALLOC_END		(PAGE_OFFSET + 0x20000000)
 diff -urNP old/include/asm-arm/hardware/serial_s5h2x.h new/include/asm-arm/hardware/serial_s5h2x.h
 --- old/include/asm-arm/hardware/serial_s5h2x.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/hardware/serial_s5h2x.h	2010-06-24 17:17:48.000000000 +0200
++++ new/include/asm-arm/hardware/serial_s5h2x.h	2010-07-04 08:00:32.000000000 +0200
 @@ -0,0 +1,106 @@
 +/*
 + *  linux/include/asm-arm/hardware/serial_s5h2x.h
@@ -6568,7 +6591,7 @@ diff -urNP old/include/asm-arm/hardware/serial_s5h2x.h new/include/asm-arm/hardw
 +
 diff -urNP old/include/asm-arm/memory.h new/include/asm-arm/memory.h
 --- old/include/asm-arm/memory.h	2007-02-24 00:52:30.000000000 +0100
-+++ new/include/asm-arm/memory.h	2010-07-04 07:33:28.000000000 +0200
++++ new/include/asm-arm/memory.h	2010-07-04 08:00:32.000000000 +0200
 @@ -231,7 +231,7 @@
   */
  #include <linux/numa.h>
@@ -6589,7 +6612,7 @@ diff -urNP old/include/asm-arm/memory.h new/include/asm-arm/memory.h
  
 diff -urNP old/include/linux/serial_core.h new/include/linux/serial_core.h
 --- old/include/linux/serial_core.h	2007-02-24 00:52:30.000000000 +0100
-+++ new/include/linux/serial_core.h	2010-07-04 07:33:28.000000000 +0200
++++ new/include/linux/serial_core.h	2010-07-04 08:00:32.000000000 +0200
 @@ -132,6 +132,8 @@
  
  #define PORT_S3C2412	73
@@ -6601,7 +6624,7 @@ diff -urNP old/include/linux/serial_core.h new/include/linux/serial_core.h
  
 diff -urNP old/kernel/irq/manage.c new/kernel/irq/manage.c
 --- old/kernel/irq/manage.c	2010-07-04 07:53:52.000000000 +0200
-+++ new/kernel/irq/manage.c	2010-07-04 07:33:28.000000000 +0200
++++ new/kernel/irq/manage.c	2010-07-04 08:35:42.000000000 +0200
 @@ -120,8 +120,10 @@
  	spin_lock_irqsave(&desc->lock, flags);
  	switch (desc->depth) {
