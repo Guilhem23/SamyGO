@@ -357,8 +357,8 @@ diff -urNP old/arch/arm/mach-ssdtv/mach-ssdtv.c new/arch/arm/mach-ssdtv/mach-ssd
 +EXPORT_SYMBOL(ssdtv_sys_mem1_size);
 diff -urNP old/arch/arm/mach-ssdtv/pci.c new/arch/arm/mach-ssdtv/pci.c
 --- old/arch/arm/mach-ssdtv/pci.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/pci.c	2010-07-17 13:21:19.000000000 +0200
-@@ -0,0 +1,84 @@
++++ new/arch/arm/mach-ssdtv/pci.c	2010-07-17 20:25:01.000000000 +0200
+@@ -0,0 +1,85 @@
 +/*
 + *  linux/arch/arm/mach-ssdtv/pci.c
 + *
@@ -397,7 +397,7 @@ diff -urNP old/arch/arm/mach-ssdtv/pci.c new/arch/arm/mach-ssdtv/pci.c
 +/*
 + * This routine handles multiple bridges.
 + */
-+u8 __init ssdtv_swizzle(struct pci_dev *dev, u8 *pinp)
++u8 __init ssdtv_pci_swizzle(struct pci_dev *dev, u8 *pinp)
 +{
 +	int pin = *pinp;
 +
@@ -420,16 +420,16 @@ diff -urNP old/arch/arm/mach-ssdtv/pci.c new/arch/arm/mach-ssdtv/pci.c
 +extern void pci_ssdtv_pre_init(void);
 +extern void pci_ssdtv_post_init(void);
 +
-+extern int ssdtv_map_irq(struct pci_dev *dev, u8 slot, u8 pin);
-+extern int ssdtv_setup(int nr, struct pci_sys_data *sys);
-+extern struct pci_bus *ssdtv_scan_bus(int nr, struct pci_sys_data *sys);
++extern int ssdtv_pci_map_irq(struct pci_dev *dev, u8 slot, u8 pin);
++extern int ssdtv_pci_setup(int nr, struct pci_sys_data *sys);
++extern struct pci_bus *ssdtv_pci_scan_bus(int nr, struct pci_sys_data *sys);
 +
 +static struct hw_pci ssdtv_pci __initdata = {
-+	.swizzle		= ssdtv_swizzle,
-+	.map_irq		= ssdtv_map_irq,
-+	.setup			= ssdtv_setup,
++	.swizzle		= ssdtv_pci_swizzle,
++	.map_irq		= ssdtv_pci_map_irq,
++	.setup			= ssdtv_pci_setup,
 +	.nr_controllers		= 1,
-+	.scan			= ssdtv_scan_bus,
++	.scan			= ssdtv_pci_scan_bus,
 +	.preinit		= pci_ssdtv_pre_init,
 +	.postinit		= pci_ssdtv_post_init,
 +};
@@ -438,7 +438,8 @@ diff -urNP old/arch/arm/mach-ssdtv/pci.c new/arch/arm/mach-ssdtv/pci.c
 +
 +static int __init ssdtv_pci_init(void)
 +{
-+	pci_common_init(&ssdtv_pci);
++	if (machine_is_ssdtv_b650())
++		pci_common_init(&ssdtv_pci);
 +	return 0;
 +}
 +
@@ -1227,7 +1228,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_irq.h new/arch/arm/mach-ssdtv/ssdtv_irq
 +#endif
 diff -urNP old/arch/arm/mach-ssdtv/ssdtv_pci.c new/arch/arm/mach-ssdtv/ssdtv_pci.c
 --- old/arch/arm/mach-ssdtv/ssdtv_pci.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/ssdtv_pci.c	2010-07-17 13:21:19.000000000 +0200
++++ new/arch/arm/mach-ssdtv/ssdtv_pci.c	2010-07-17 20:20:12.000000000 +0200
 @@ -0,0 +1,410 @@
 +/*
 + *  linux/arch/arm/mach-ssdtv/ssdtv_pci.c
@@ -1475,7 +1476,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_pci.c new/arch/arm/mach-ssdtv/ssdtv_pci
 + * problems.  I suppose I'll just have to mind-meld with the machine. ;)
 + */
 +
-+int __init ssdtv_setup(int nr, struct pci_sys_data *sys)
++int __init ssdtv_pci_setup(int nr, struct pci_sys_data *sys)
 +{
 +	int ret = 0;
 +
@@ -1487,12 +1488,12 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_pci.c new/arch/arm/mach-ssdtv/ssdtv_pci
 +	return ret;
 +}
 +
-+struct pci_bus *ssdtv_scan_bus(int nr, struct pci_sys_data *sys)
++struct pci_bus *ssdtv_pci_scan_bus(int nr, struct pci_sys_data *sys)
 +{
 +	return pci_scan_bus(sys->busnr, &pci_ssdtv_ops, sys);
 +}
 +
-+int __init ssdtv_map_irq(struct pci_dev *dev, u8 slot, u8 pin)
++int __init ssdtv_pci_map_irq(struct pci_dev *dev, u8 slot, u8 pin)
 +{
 +	return IRQ_PCI;
 +}
@@ -1501,7 +1502,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_pci.c new/arch/arm/mach-ssdtv/ssdtv_pci
 +{
 +	unsigned long status;
 +
-+	status = R_PCIINTST & PINTST_CLEAR ;
++	status = R_PCIINTST & PINTST_CLEAR;
 +
 +	if (status & PINTST_PRD)
 +		printk("[KERNEL] PCI reset is deasserted\n");
