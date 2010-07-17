@@ -1,6 +1,3 @@
-diff -urNP old/Documentation/cachetlb.txt new/Documentation/cachetlb.txt
-diff -urNP old/Documentation/i2c/busses/i2c-viapro new/Documentation/i2c/busses/i2c-viapro
-diff -urNP old/Documentation/seclvl.txt new/Documentation/seclvl.txt
 diff -urNP old/arch/Kconfig new/arch/Kconfig
 --- old/arch/Kconfig	1970-01-01 01:00:00.000000000 +0100
 +++ new/arch/Kconfig	2010-07-17 08:30:59.000000000 +0200
@@ -8,9 +5,6 @@ diff -urNP old/arch/Kconfig new/arch/Kconfig
 +#
 +# General architecture dependent options
 +#
-diff -urNP old/arch/alpha/kernel/alpha_ksyms.c new/arch/alpha/kernel/alpha_ksyms.c
-diff -urNP old/arch/alpha/kernel/entry.S new/arch/alpha/kernel/entry.S
-diff -urNP old/arch/alpha/kernel/systbls.S new/arch/alpha/kernel/systbls.S
 diff -urNP old/arch/arm/kernel/armksyms.c new/arch/arm/kernel/armksyms.c
 --- old/arch/arm/kernel/armksyms.c	2007-02-24 00:52:30.000000000 +0100
 +++ new/arch/arm/kernel/armksyms.c	2010-07-17 08:36:46.000000000 +0200
@@ -104,36 +98,6 @@ diff -urNP old/arch/arm/mm/flush.c new/arch/arm/mm/flush.c
 +	 */
 +	__cpuc_flush_dcache_page(page_address(page));
 +}
-diff -urNP old/arch/arm26/kernel/armksyms.c new/arch/arm26/kernel/armksyms.c
-diff -urNP old/arch/cris/arch-v10/kernel/entry.S new/arch/cris/arch-v10/kernel/entry.S
-diff -urNP old/arch/cris/arch-v32/kernel/entry.S new/arch/cris/arch-v32/kernel/entry.S
-diff -urNP old/arch/frv/kernel/sys_frv.c new/arch/frv/kernel/sys_frv.c
-diff -urNP old/arch/h8300/kernel/sys_h8300.c new/arch/h8300/kernel/sys_h8300.c
-diff -urNP old/arch/h8300/kernel/syscalls.S new/arch/h8300/kernel/syscalls.S
-diff -urNP old/arch/i386/kernel/smpboot.c new/arch/i386/kernel/smpboot.c
-diff -urNP old/arch/i386/kernel/sys_i386.c new/arch/i386/kernel/sys_i386.c
-diff -urNP old/arch/i386/kernel/syscall_table.S new/arch/i386/kernel/syscall_table.S
-diff -urNP old/arch/i386/pci/irq.c new/arch/i386/pci/irq.c
-diff -urNP old/arch/ia64/kernel/entry.S new/arch/ia64/kernel/entry.S
-diff -urNP old/arch/ia64/kernel/sys_ia64.c new/arch/ia64/kernel/sys_ia64.c
-diff -urNP old/arch/m68k/kernel/entry.S new/arch/m68k/kernel/entry.S
-diff -urNP old/arch/m68k/kernel/sys_m68k.c new/arch/m68k/kernel/sys_m68k.c
-diff -urNP old/arch/m68knommu/kernel/sys_m68k.c new/arch/m68knommu/kernel/sys_m68k.c
-diff -urNP old/arch/m68knommu/kernel/syscalltable.S new/arch/m68knommu/kernel/syscalltable.S
-diff -urNP old/arch/mips/kernel/scall32-o32.S new/arch/mips/kernel/scall32-o32.S
-diff -urNP old/arch/parisc/kernel/parisc_ksyms.c new/arch/parisc/kernel/parisc_ksyms.c
-diff -urNP old/arch/parisc/kernel/sys_parisc.c new/arch/parisc/kernel/sys_parisc.c
-diff -urNP old/arch/powerpc/kernel/syscalls.c new/arch/powerpc/kernel/syscalls.c
-diff -urNP old/arch/s390/kernel/sys_s390.c new/arch/s390/kernel/sys_s390.c
-diff -urNP old/arch/sparc/kernel/entry.S new/arch/sparc/kernel/entry.S
-diff -urNP old/arch/sparc/kernel/ioport.c new/arch/sparc/kernel/ioport.c
-diff -urNP old/arch/sparc/kernel/systbls.S new/arch/sparc/kernel/systbls.S
-diff -urNP old/arch/sparc64/kernel/entry.S new/arch/sparc64/kernel/entry.S
-diff -urNP old/arch/sparc64/kernel/systbls.S new/arch/sparc64/kernel/systbls.S
-diff -urNP old/arch/um/kernel/syscall.c new/arch/um/kernel/syscall.c
-diff -urNP old/arch/um/os-Linux/skas/process.c new/arch/um/os-Linux/skas/process.c
-diff -urNP old/arch/v850/kernel/syscalls.c new/arch/v850/kernel/syscalls.c
-diff -urNP old/arch/x86_64/kernel/sys_x86_64.c new/arch/x86_64/kernel/sys_x86_64.c
 diff -urNP old/drivers/cdrom/cdrom.c new/drivers/cdrom/cdrom.c
 --- old/drivers/cdrom/cdrom.c	2007-02-24 00:52:30.000000000 +0100
 +++ new/drivers/cdrom/cdrom.c	2010-07-17 07:48:54.000000000 +0200
