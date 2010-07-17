@@ -1,3 +1,5 @@
+# This patch content was copied from Samsung kernel sources SELP.3.2.x-Chelsea.src.tgz,
+# from package released as GPL v2 http://www.samsung.com/global/opensource/files/32B650.zip
 diff -urNP old/arch/arm/Kconfig new/arch/arm/Kconfig
 --- old/arch/arm/Kconfig	2010-07-04 07:53:51.000000000 +0200
 +++ new/arch/arm/Kconfig	2010-07-04 08:00:32.000000000 +0200
@@ -122,7 +124,7 @@ diff -urNP old/arch/arm/kernel/head.S new/arch/arm/kernel/head.S
 diff -urNP old/arch/arm/mach-ssdtv/Kconfig new/arch/arm/mach-ssdtv/Kconfig
 --- old/arch/arm/mach-ssdtv/Kconfig	1970-01-01 01:00:00.000000000 +0100
 +++ new/arch/arm/mach-ssdtv/Kconfig	2010-07-04 08:00:32.000000000 +0200
-@@ -0,0 +1,22 @@
+@@ -0,0 +1,27 @@
 +if ARCH_SSDTV
 +
 +menu "Samsung DTV"
@@ -141,6 +143,11 @@ diff -urNP old/arch/arm/mach-ssdtv/Kconfig new/arch/arm/mach-ssdtv/Kconfig
 +	select VFP
 +
 +endchoice
++
++# WFI Command Not use
++config NOT_USE_WFI
++        bool "Not use WFI command"
++# WFI Command Not use End
 +
 +endmenu
 +
@@ -6640,7 +6647,17 @@ diff -urNP old/include/linux/serial_core.h new/include/linux/serial_core.h
  
  #ifdef __KERNEL__
  
-diff -urNP old/kernel/irq/manage.c new/kernel/irq/manage.c
+--- old/arch/arm/Kconfig	2010-07-07 05:20:45.000000000 +0200
++++ samsung/arch/arm/Kconfig	2009-01-19 02:34:56.000000000 +0100
+@@ -415,7 +434,7 @@
+ 	bool
+ 
+ config PCI
+-	bool "PCI support" if ARCH_INTEGRATOR_AP || ARCH_VERSATILE_PB || ARCH_IXP4XX
++	bool "PCI support" if ARCH_INTEGRATOR_AP || ARCH_VERSATILE_PB || ARCH_IXP4XX || ARCH_SSDTV
+ 	help
+ 	  Find out whether you have a PCI motherboard. PCI is the name of a
+ 	  bus system, i.e. the way the CPU talks to the other stuff inside
 --- old/kernel/irq/manage.c	2010-07-04 07:53:52.000000000 +0200
 +++ new/kernel/irq/manage.c	2010-07-04 08:35:42.000000000 +0200
 @@ -120,8 +120,10 @@

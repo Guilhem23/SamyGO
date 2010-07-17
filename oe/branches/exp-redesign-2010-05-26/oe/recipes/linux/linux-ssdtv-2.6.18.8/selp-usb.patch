@@ -477,6 +477,19 @@
  	 * ask for just that many bytes */
 --- old/drivers/usb/storage/transport.c	2007-02-24 00:52:30.000000000 +0100
 +++ new/drivers/usb/storage/transport.c	2008-08-07 14:41:21.000000000 +0200
+@@ -400,6 +400,12 @@
+ 
+ 	US_DEBUGP("%s: xfer %u bytes\n", __FUNCTION__, length);
+ 
++        //hongyabi patch 20070424 for SDCZ2 Cruzer Mini Flash Drive (older, thick)
++        //need a 100us delay between the Command block
++        if ((us->pusb_dev->descriptor.idVendor == USB_VENDOR_ID_SANDISK)
++                && (us->pusb_dev->descriptor.idProduct == USB_MODEL_ID_CRUZER_MINI))
++                udelay(100);
++
+ 	/* fill and submit the URB */
+ 	usb_fill_bulk_urb(us->current_urb, us->pusb_dev, pipe, buf, length,
+ 		      usb_stor_blocking_completion, NULL);
 @@ -1136,11 +1142,19 @@
  		return -EIO;
  	}
@@ -606,3 +619,37 @@
  };
  
  struct kobject {
+--- old/drivers/usb/storage/unusual_devs.h	2007-02-24 00:52:30.000000000 +0100
++++ samsung/drivers/usb/storage/unusual_devs.h	2008-08-07 14:44:00.000000000 +0200
+@@ -301,7 +301,7 @@
+ 		"FinePix 1400Zoom",
+ 		US_SC_UFI, US_PR_DEVICE, NULL, US_FL_FIX_INQUIRY | US_FL_SINGLE_LUN),
+ 
+-/* Reported by Peter Wächtler <pwaechtler@loewe-komp.de>
++/* Reported by Peter Waechtler <pwaechtler@loewe-komp.de>
+  * The device needs the flags only.
+  */
+ UNUSUAL_DEV(  0x04ce, 0x0002, 0x0074, 0x0074,
+@@ -498,6 +498,13 @@
+ 		US_SC_SCSI, US_PR_DEVICE, NULL,
+ 		US_FL_SINGLE_LUN | US_FL_NOT_LOCKABLE | US_FL_NO_WP_DETECT ),
+ 
++/* Added by Kokachev Oleksiy (o.kokachev@samsung.com) to support Sony DSC-T9 */
++UNUSUAL_DEV(  0x054c, 0x0010, 0x05FF, 0x0601,
++                "Sony",
++                "DSC-T9",
++                US_SC_8070, US_PR_CB, NULL,
++                US_FL_SINGLE_LUN),
++
+ /* Submitted by Lars Jacob <jacob.lars@googlemail.com>
+  * This entry is needed because the device reports Sub=ff */
+ UNUSUAL_DEV(  0x054c, 0x0010, 0x0500, 0x0610,
+@@ -1302,7 +1309,7 @@
+ 		US_FL_GO_SLOW ),
+ 
+ /*
+- * David Härdeman <david@2gen.com>
++ * David Haerdeman <david@2gen.com>
+  * The key makes the SCSI stack print confusing (but harmless) messages
+  */
+ UNUSUAL_DEV(  0x4146, 0xba01, 0x0100, 0x0100,

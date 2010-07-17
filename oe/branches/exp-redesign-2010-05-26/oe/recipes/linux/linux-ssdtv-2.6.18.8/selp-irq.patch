@@ -28,7 +28,7 @@
  
 --- old/kernel/irq/manage.c	2010-07-04 08:35:42.000000000 +0200
 +++ new/kernel/irq/manage.c	2008-07-24 02:41:51.000000000 +0200
-@@ -544,6 +545,7 @@
+@@ -542,6 +543,7 @@
  	unsigned int irq = desc - irq_desc;
  	irqreturn_t action_ret;
  
@@ -36,7 +36,7 @@
  	if (action && !desc->depth) {
  		spin_unlock(&desc->lock);
  		action_ret = handle_IRQ_event(irq, NULL, action);
-@@ -553,6 +555,19 @@
+@@ -551,6 +553,19 @@
  		if (!noirqdebug)
  			note_interrupt(irq, desc, action_ret, NULL);
  	}
@@ -56,7 +56,7 @@
  	desc->status &= ~IRQ_INPROGRESS;
  }
  
-@@ -692,11 +707,9 @@
+@@ -690,11 +705,9 @@
  	current->flags |= PF_NOFREEZE | PF_HARDIRQ;
  
  	/*

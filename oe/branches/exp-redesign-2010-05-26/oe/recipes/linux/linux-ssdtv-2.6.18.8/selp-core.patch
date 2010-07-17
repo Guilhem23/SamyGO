@@ -161,3 +161,137 @@
  #define FIELD_SIZEOF(t, f) (sizeof(((t*)0)->f))
  #define roundup(x, y) ((((x) + ((y) - 1)) / (y)) * (y))
  
+--- old/kernel/sched.c	2010-07-07 05:20:28.000000000 +0200
++++ samsung/kernel/sched.c	2008-07-24 02:41:51.000000000 +0200
+@@ -7539,6 +7547,9 @@
+ #ifdef in_atomic
+ 	static unsigned long prev_jiffy;	/* ratelimiting */
+ 
++	if (atomic_read(&debugger_active))
++		return;
++
+ 	if ((in_atomic() || irqs_disabled()) &&
+ 	    system_state == SYSTEM_RUNNING && !oops_in_progress) {
+ 		if (debug_direct_keyboard && hardirq_count())
+--- old/kernel/signal.c	2010-07-07 05:20:28.000000000 +0200
++++ samsung/kernel/signal.c	2008-07-24 02:41:51.000000000 +0200
+@@ -448,25 +456,50 @@
+ int dequeue_signal(struct task_struct *tsk, sigset_t *mask, siginfo_t *info)
+ {
+ 	int signr = __dequeue_signal(&tsk->pending, mask, info);
+-	if (!signr)
++	if (!signr) {
+ 		signr = __dequeue_signal(&tsk->signal->shared_pending,
+ 					 mask, info);
+- 	if (signr && unlikely(sig_kernel_stop(signr))) {
+- 		/*
+- 		 * Set a marker that we have dequeued a stop signal.  Our
+- 		 * caller might release the siglock and then the pending
+- 		 * stop signal it is about to process is no longer in the
+- 		 * pending bitmasks, but must still be cleared by a SIGCONT
+- 		 * (and overruled by a SIGKILL).  So those cases clear this
+- 		 * shared flag after we've set it.  Note that this flag may
+- 		 * remain set after the signal we return is ignored or
+- 		 * handled.  That doesn't matter because its only purpose
+- 		 * is to alert stop-signal processing code when another
+- 		 * processor has come along and cleared the flag.
+- 		 */
+- 		if (!(tsk->signal->flags & SIGNAL_GROUP_EXIT))
+- 			tsk->signal->flags |= SIGNAL_STOP_DEQUEUED;
+- 	}
++		/*
++		 * itimer signal ?
++		 *
++		 * itimers are process shared and we restart periodic
++		 * itimers in the signal delivery path to prevent DoS
++		 * attacks in the high resolution timer case. This is
++		 * compliant with the old way of self restarting
++		 * itimers, as the SIGALRM is a legacy signal and only
++		 * queued once. Changing the restart behaviour to
++		 * restart the timer in the signal dequeue path is
++		 * reducing the timer noise on heavy loaded !highres
++		 * systems too.
++		 */
++		if (unlikely(signr == SIGALRM)) {
++			struct hrtimer *tmr = &tsk->signal->real_timer;
++
++			if (!hrtimer_active(tmr) &&
++			    tsk->signal->it_real_incr.tv64 != 0) {
++				hrtimer_forward(tmr, hrtimer_cb_get_time(tmr),
++						tsk->signal->it_real_incr);
++				hrtimer_restart(tmr);
++			}
++		}
++	}
++	recalc_sigpending_tsk(tsk);
++	if (signr && unlikely(sig_kernel_stop(signr))) {
++		/*
++		 * Set a marker that we have dequeued a stop signal.  Our
++		 * caller might release the siglock and then the pending
++		 * stop signal it is about to process is no longer in the
++		 * pending bitmasks, but must still be cleared by a SIGCONT
++		 * (and overruled by a SIGKILL).  So those cases clear this
++		 * shared flag after we've set it.  Note that this flag may
++		 * remain set after the signal we return is ignored or
++		 * handled.  That doesn't matter because its only purpose
++		 * is to alert stop-signal processing code when another
++		 * processor has come along and cleared the flag.
++		 */
++		if (!(tsk->signal->flags & SIGNAL_GROUP_EXIT))
++			tsk->signal->flags |= SIGNAL_STOP_DEQUEUED;
++	}
+ 	if ( signr &&
+ 	     ((info->si_code & __SI_MASK) == __SI_TIMER) &&
+ 	     info->si_sys_private){
+--- old/kernel/timer.c	2010-07-07 05:20:28.000000000 +0200
++++ samsung/kernel/timer.c	2008-07-24 02:41:51.000000000 +0200
+@@ -884,6 +887,8 @@
+ 
+ 	warp_check_clock_was_changed();
+ 
++	update_vsyscall(&xtime, clock);
++
+ 	write_sequnlock_irqrestore(&xtime_lock, flags);
+ 
+ 	/* signal hrtimers about time change */
+@@ -1010,6 +1015,7 @@
+ 	clock->cycle_last = clocksource_read(clock);
+ 	clock->error = 0;
+ 	timekeeping_suspended = 0;
++	warp_check_clock_was_changed();
+ 	write_sequnlock_irqrestore(&xtime_lock, flags);
+ 
+ 	hrtimer_notify_resume();
+--- old/drivers/char/vt.c	2007-02-24 00:52:30.000000000 +0100
++++ samsung/drivers/char/vt.c	2008-07-24 02:42:01.000000000 +0200
+@@ -730,7 +730,8 @@
+ 	    visual_init(vc, currcons, 1);
+ 	    if (!*vc->vc_uni_pagedir_loc)
+ 		con_set_default_unimap(vc);
+-	    vc->vc_screenbuf = kmalloc(vc->vc_screenbuf_size, GFP_KERNEL);
++	    if (!vc->vc_kmalloced)
++		vc->vc_screenbuf = kmalloc(vc->vc_screenbuf_size, GFP_KERNEL);
+ 	    if (!vc->vc_screenbuf) {
+ 		kfree(vc);
+ 		vc_cons[currcons].d = NULL;
+--- old/kernel/printk.c	2010-07-16 05:38:35.000000000 +0200
++++ samsung/kernel/printk.c	2008-10-07 03:26:32.000000000 +0200
+@@ -521,6 +560,8 @@
+ /* cpu currently holding logbuf_lock */
+ static volatile unsigned int printk_cpu = UINT_MAX;
+ 
++extern void printascii(const char *string);
++
+ asmlinkage int vprintk(const char *fmt, va_list args)
+ {
+ 	unsigned long flags;
+@@ -544,6 +544,9 @@
+ 
+ 	/* Emit the output into the temporary buffer */
+ 	printed_len = vscnprintf(printk_buf, sizeof(printk_buf), fmt, args);
++#ifdef CONFIG_DEBUG_LL
++	printascii(printk_buf);
++#endif
+ 
+ 	/*
+ 	 * Copy the output into log_buf.  If the caller didn't provide
