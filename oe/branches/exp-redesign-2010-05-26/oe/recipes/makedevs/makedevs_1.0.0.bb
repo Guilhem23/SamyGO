@@ -3,6 +3,7 @@ LICENSE = "GPL"
 SECTION = "base"
 PRIORITY = "required"
 
+#SamyGO: fixed compile makedevs.c on Mac OSX 
 SRC_URI = "file://makedevs.c"
 S = "${WORKDIR}/makedevs-${PV}"
 

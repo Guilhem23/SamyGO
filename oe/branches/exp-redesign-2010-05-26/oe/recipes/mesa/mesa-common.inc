@@ -40,7 +40,7 @@ FILES_libosmesa-dev = "${libdir}/libOSMesa.* ${includedir}/osmesa.h"
 
 do_stage() {
         autotools_stage_all
-		install -d ${STAGING_INCDIR}/GL/
+		install -d ${STAGING_INCDIR}/GL/	
 		#SamyGO: fix cp portability
 		cp -pP ${S}/include/GL/internal/* ${STAGING_INCDIR}/GL/internal/
 		#cp -pPr ${S}/include/GL/internal* ${STAGING_INCDIR}/GL/

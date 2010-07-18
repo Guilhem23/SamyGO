@@ -23,13 +23,12 @@ EXTRA_OEMAKE = '\
   BUILD_SYS="" \
   HOST_SYS="" \
   LIBC="" \
-  STAGING_LIBDIR=${STAGING_LIBDIR} \
-  STAGING_INCDIR=${STAGING_INCDIR} \
-
+  STAGING_LIBDIR=${STAGING_LIBDIR_NATIVE} \
+  STAGING_INCDIR=${STAGING_INCDIR_NATIVE} \
 '
 
 do_stage_append() {
-	install -m 0755 Parser/pgen ${STAGING_BINDIR}/pgen
+	install -m 0755 Parser/pgen ${STAGING_BINDIR_NATIVE}/pgen
 }
 
 SRC_URI[md5sum] = "e81c2f0953aa60f8062c05a4673f2be0"

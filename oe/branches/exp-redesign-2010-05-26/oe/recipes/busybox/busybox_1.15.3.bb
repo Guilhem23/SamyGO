@@ -1,7 +1,7 @@
 require busybox.inc
 PR = "${INC_PR}.1"
 
-#SamyGO: removed mdev, syslog, mountall, hwclock.sh, find-touchscreen.sh
+#SamyGO: removed mdev, syslog, mountall, hwclock.sh, find-touchscreen.sh; added telnetd
 SRC_URI = "\
   http://www.busybox.net/downloads/busybox-${PV}.tar.bz2;name=tarball \
   \
@@ -36,8 +36,8 @@ do_configure_prepend () {
 }
 
 do_install_append() {
-	install -m 0644 ${WORKDIR}/mdev.conf ${D}${sysconfdir}/
-	install -d ${D}${sysconfdir}/init.d/
-	install -d ${D}${sysconfdir}/mdev
-	install -m 0755 ${WORKDIR}/mdev ${D}${sysconfdir}/init.d/
+    install -m 0644 ${WORKDIR}/mdev.conf ${D}${sysconfdir}/
+    install -d ${D}${sysconfdir}/init.d/
+    install -d ${D}${sysconfdir}/mdev
+    install -m 0755 ${WORKDIR}/mdev ${D}${sysconfdir}/init.d/
 }

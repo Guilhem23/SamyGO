@@ -1,3 +1,5 @@
+
+#SamyGO: remove SRC_URI, S, updated checksums
 require squashfs-tools.inc
 PR = "${INC_PR}.3"
 

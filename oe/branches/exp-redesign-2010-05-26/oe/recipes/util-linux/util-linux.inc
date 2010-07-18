@@ -5,7 +5,7 @@ DEPENDS = "zlib ncurses"
 
 inherit autotools
 
-#SamyGO: use mount, umount over busybox
+#SamyGO: use mount, umount over busybox; remove "HAVE_GOOD_RPC=yes" from make_include
 
 SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/util-linux/util-linux-${PV}.tar.bz2 \
            file://gcc34.patch;patch=1 \

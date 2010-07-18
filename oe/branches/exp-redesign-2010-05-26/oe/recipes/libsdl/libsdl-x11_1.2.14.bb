@@ -20,6 +20,7 @@ S = "${WORKDIR}/SDL-${PV}"
 
 inherit autotools binconfig pkgconfig
 
+#SamyGO: disabled oss, alsa, video-fbcon, video-directfb, video-opengl, input-tslib
 EXTRA_OECONF = " \
   --disable-static --disable-debug --enable-cdrom --enable-threads --enable-timers --enable-endian \
   --enable-file --disable-oss --disable-esd --disable-arts \

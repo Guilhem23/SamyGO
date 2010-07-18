@@ -6,6 +6,7 @@ LICENSE = "GPL"
 RDEPENDS = "util-linux"
 PR = "r1"
 
+#SamyGO: updated configure-libtool.patch
 SRC_URI = "${DEBIAN_MIRROR}/main/f/fakeroot/fakeroot_${PV}.orig.tar.bz2 \
            file://configure-libtool.patch;patch=1 \
 	   file://fix-macosx.diff;patch=1"
