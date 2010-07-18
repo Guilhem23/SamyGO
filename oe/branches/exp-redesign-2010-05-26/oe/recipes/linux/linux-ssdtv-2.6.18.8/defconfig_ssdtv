@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Linux kernel version: 2.6.18.8
-# Sat Jul 17 05:10:22 2010
+# Sun Jul 18 11:34:00 2010
 #
 CONFIG_ARM=y
 # CONFIG_GENERIC_TIME is not set
@@ -632,7 +632,6 @@ CONFIG_SERIO_RAW=y
 #
 # Character devices
 #
-CONFIG_SSDTV_I2C=y
 CONFIG_VT=y
 CONFIG_VT_CONSOLE=y
 CONFIG_HW_CONSOLE=y
@@ -647,8 +646,8 @@ CONFIG_HW_CONSOLE=y
 #
 # Non-8250 serial port support
 #
-CONFIG_SERIAL_S5H2X=y
-CONFIG_SERIAL_S5H2X_CONSOLE=y
+CONFIG_SERIAL_SSDTV=y
+CONFIG_SERIAL_SSDTV_CONSOLE=y
 # CONFIG_SERIAL_AMBA_PL010 is not set
 # CONFIG_SERIAL_AMBA_PL011 is not set
 CONFIG_SERIAL_CORE=y
