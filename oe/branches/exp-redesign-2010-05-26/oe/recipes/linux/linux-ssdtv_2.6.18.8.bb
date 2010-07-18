@@ -26,6 +26,9 @@ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2 \
 	file://defconfig_ssdtv \
 "
 
+# comment out below line to enable pci hack for b6000
+#SRC_URI += "file://b6000-pci-hack.patch;patch=1 "
+
 SRC_URI[md5sum] = "dce47badc1faf34b355a10b97ae5d391"
 SRC_URI[sha256sum] = "945b3014f8048cd87fdff90014afa4ff241f134bceafbfdbd42dba1be8df2ba8"
 
