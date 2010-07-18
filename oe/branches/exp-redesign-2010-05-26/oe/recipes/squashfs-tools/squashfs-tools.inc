@@ -4,7 +4,7 @@ LICENSE = "GPLv2"
 #SamyGO: remove zlib
 DEPENDS = ""
 INC_PR = "r3"
-#SamyGO: added FILESDIR; removed do_compile
+#SamyGO: added FILESDIR
 
 S = "${WORKDIR}/squashfs${@bb.data.getVar('PV',d,1).replace('r','-r')}/squashfs-tools"
 
@@ -16,6 +16,10 @@ FILESPATHPKG = "squashfs-tools-${PV}:squashfs-tools:files"
 SRC_URI ?= "${SOURCEFORGE_MIRROR}/squashfs/squashfs${@bb.data.getVar('PV',d,1).replace('r','-r')}.tar.gz"
 
 prefix = ""
+
+do_compile() {
+	oe_runmake mksquashfs
+}
 
 do_install () {
 	install -d ${D}${sbindir}
