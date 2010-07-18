@@ -1,6 +1,6 @@
 DESCRIPTION = "Linux Kernel for Samsung TV's"
 LICENSE = "GPLv2"
-DEPENDS = "binutils-cross u-boot-mkimage-native u-boot u-boot-b550"
+DEPENDS = "binutils-cross u-boot-mkimage-native"
 
 SRC_URI = "${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2 \
 	file://arm-mm-2.6.19.patch;patch=1 \
