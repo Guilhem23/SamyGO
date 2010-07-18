@@ -4,7 +4,7 @@ LICENSE = "GPLv2"
 #SamyGO: remove zlib
 DEPENDS = ""
 INC_PR = "r3"
-#SamyGO: added FILESDIR
+#SamyGO: added FILESDIR; SRC_URI set with ?
 
 S = "${WORKDIR}/squashfs${@bb.data.getVar('PV',d,1).replace('r','-r')}/squashfs-tools"
 
@@ -13,12 +13,13 @@ FILESDIR = "${@os.path.dirname(bb.data.getVar('FILE',d,1))}/squashfs-tools-${PV}
 # required to share same place with -lzma specific packages
 FILESPATHPKG = "squashfs-tools-${PV}:squashfs-tools:files"
 
-SRC_URI ?= "${SOURCEFORGE_MIRROR}/squashfs/squashfs${@bb.data.getVar('PV',d,1).replace('r','-r')}.tar.gz"
+SRC_URI = "${SOURCEFORGE_MIRROR}/squashfs/squashfs${@bb.data.getVar('PV',d,1).replace('r','-r')}.tar.gz"
 
 prefix = ""
 
 do_compile() {
 	oe_runmake mksquashfs
+	oe_runmake unsquashfs
 }
 
 do_install () {
