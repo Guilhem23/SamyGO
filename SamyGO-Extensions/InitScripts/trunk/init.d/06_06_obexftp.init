@@ -1,0 +1,46 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id$
+
+. /dtv/SGO.env
+
+FR_NAME="Bluetooth Folder"
+
+DEST_DIR=/dtv/usb/blue
+REAL_DIR=/mtd_wiselink/BleutoothFTP
+
+do_mount()
+{
+	$(echo -e "[sdj]\nVendor : BlueMount\nProduct : $FR_NAME\n\
+Serial : Q80VQLFK\nDevpath : 11\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat\n" >> /dtv/usb/log)
+
+	if [ ! -d "$REAL_DIR" ] ; then
+		mkdir -p $REAL_DIR
+	fi
+	if [ ! -e "$DEST_DIR" ] ; then
+		ln -s $REAL_DIR $DEST_DIR
+	fi
+	obexftpd -c $REAL_DIR -b &
+}
+
+case $1 in 
+	start)
+	do_mount
+	;;
+	stop)
+	killall -9 obexftpd
+	;;
+	status)
+	pidof obexftpd || echo "down"
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
