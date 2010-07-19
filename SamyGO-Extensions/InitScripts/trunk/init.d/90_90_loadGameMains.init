@@ -1,0 +1,74 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#	by tusko (http://sourceforge.net/apps/phpbb/samygo/memberlist.php?mode=viewprofile&u=1203)
+#	by sorcerer1 (http://sourceforge.net/apps/phpbb/samygo/memberlist.php?mode=viewprofile&u=542)
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id$
+
+. /dtv/SGO.env
+
+	### begin configure me
+
+	# gdb_commands: this is a temporary file where gdb commands are stored
+	gdb_commands=/dtv/gdbtrick.gdb
+
+	# gdb_delay: gdb will be scheduled to run after $gdb_delay seconds
+	#            this is for letting exeDSP to settle down at TV startup
+	gdb_delay=1
+
+	# libraries: absolute path of libraries to be loaded
+	#            there can be several, separated spaces!!
+	#            this script requires paths WITHOUT spaces
+	libraries="/mtd_tlib/GGame/avrfix2-cip/load.so" # add more libraries here
+
+	### end configure me
+
+do_dlopen()
+{
+
+	exeDSP_PID=$(pidof exeDSP)
+	temp='attach '$exeDSP_PID'\n'
+
+	i=0
+	for l in $libraries
+	do
+		if [ -e "$l" ] ;then
+			temp=$temp'call dlopen("'$l'", 2)\n'
+			let i++
+			temp=$temp'call dlsym($'$i', "Game_Main")\n'
+			let i++
+			temp=$temp'call $'$i'("'${l%/*}/'", 0)\n'
+			let i++
+			temp=$temp'call dlclose($'$((i-2))')\n'
+			let i++
+		else
+			echo "forgot to configure the script?"
+		fi
+	done
+	temp=$temp'detach\n'
+
+	echo -e 'The following commands:\n---\n'$temp'---\nwill be executed by '$(which gdb)' in '$gdb_delay' secs!!\n'
+
+	echo -e $temp >$gdb_commands
+
+	{ sleep $gdb_delay; gdb -batch -x $gdb_commands; rm $gdb_commands; } &
+}
+
+case $1 in 
+	start)
+	do_dlopen
+	;;
+	stop)
+	;;
+	status)
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
