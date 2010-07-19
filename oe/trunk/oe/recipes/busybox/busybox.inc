@@ -11,7 +11,7 @@ LICENSE = "GPLv2"
 SECTION = "base"
 PRIORITY = "required"
 
-#SamyGO: removed syslogd
+#SamyGO: removed syslogd, mountall, hwclock; added telnetd
 INC_PR = "r29"
 
 SRC_URI = "\
@@ -45,7 +45,7 @@ FILES_${PN}-telnetd = "${sysconfdir}/init.d/busybox-telnetd"
 
 FILES_${PN} += "${datadir}/udhcpc"
 
-INITSCRIPT_PACKAGES = "${PN}-httpd ${PN}-syslog ${PN}-telnetd"
+INITSCRIPT_PACKAGES = "${PN}-httpd ${PN}-udhcpd ${PN}-telnetd"
 INITSCRIPT_NAME_${PN}-httpd = "busybox-httpd"
 INITSCRIPT_NAME_${PN}-udhcpd = "busybox-udhcpd"
 INITSCRIPT_NAME_${PN}-telnetd = "busybox-telnetd"

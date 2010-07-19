@@ -13,7 +13,7 @@ PROVIDES += "virtual/libintl virtual/libiconv"
 RPROVIDES += "libc6 libstdc++6"
 
 # INC_PR for glibc.inc, glibc-initial.inc and glibc-stage.inc
-INC_PR = "r35"
+INC_PR = "r36"
 
 inherit autotools
 

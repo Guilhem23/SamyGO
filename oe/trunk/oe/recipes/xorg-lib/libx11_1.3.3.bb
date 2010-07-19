@@ -9,6 +9,7 @@ PR = "r7"
 
 XORG_PN = "libX11"
 
+#SamyGO: updated x11_disable_makekeys.patch
 SRC_URI += "file://x11_disable_makekeys.patch;patch=1 \
             file://dolt-fix.patch;patch=1 \
             ${@['file://keysymdef_include.patch;patch=1', ''][(bb.data.inherits_class('native', d))]} \

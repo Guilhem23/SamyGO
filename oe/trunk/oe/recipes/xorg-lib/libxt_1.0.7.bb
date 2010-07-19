@@ -10,6 +10,7 @@ XORG_PN = "libXt"
 
 EXTRA_OECONF += "--disable-install-makestrs --disable-xkb"
 
+#SamyGO: fix build makestrs
 do_compile() {
 	(
 		unset CC LD CXX CCLD

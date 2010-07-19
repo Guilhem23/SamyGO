@@ -50,10 +50,6 @@ dirs755_micro = "/dev /proc /sys ${sysconfdir}"
 dirs2775_micro = ""
 dirs1777_micro = "/tmp"
 
-dirs755_append_samygo = " /mtd_appdata /mtd_boot /mtd_contents \ 
-	   /mtd_down /mtd_exe /mtd_ram /mtd_rwarea /mtd_swu \
-	   /mtd_tlib /mtd_wiselink /dtv"
-
 media = "card cf net ram"
 media_micro = ""
 media_samygo = ""
@@ -161,18 +157,6 @@ do_install_append_slugos() {
 
 do_install_append_netbook-pro () {
 	mkdir -p ${D}/initrd
-}
-
-do_install_append_samygo() {
-	mkdir -p ${D}/mtd_exe/Java
-	ln -s mtd_exe/Java ${D}/Java
-
-	for i in mtd_chmap mtd_epg mtd_factory mtd_pers mtd_acap ; do
-		ln -s mtd_rwarea ${D}/$i
-	done
-	for i in mtd_cmmlib mtd_drv ; do
-		ln -s mtd_exe ${D}/$i
-	done
 }
 
 PACKAGES = "${PN}-dbg ${PN}-doc ${PN}"

@@ -3,7 +3,7 @@ SECTION = "base"
 PRIORITY = "required"
 LICENSE = "GPL"
 
-SRC_URI = "file://samsung-start.sh \
+SRC_URI = "file://samsung-install.sh \
 	file://MicomCtrl.c \
 "
 
@@ -12,13 +12,12 @@ do_configure () {
 }
 
 do_compile () {
-	$CC $CFLAGS $LDFLAGS -o ${S}/micomctrl ${S}/MicomCtrl.c
+	$CC $CFLAGS $LDFLAGS -o ${S}/MicomCtrl ${S}/MicomCtrl.c
 }
 
 do_install () {
 	install -d ${D}${base_sbindir}
-	install -m 0755 ${S}/micomctrl ${D}${base_sbindir}/
-	install -m 0755 ${WORKDIR}/samsung-start.sh ${D}${base_sbindir}/
+	install -m 0755 ${S}/MicomCtrl ${D}${base_sbindir}/
+	install -m 0755 ${WORKDIR}/samsung-install.sh ${D}${base_sbindir}/
 }
-
 

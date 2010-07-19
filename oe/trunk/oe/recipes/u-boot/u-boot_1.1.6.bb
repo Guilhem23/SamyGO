@@ -1,5 +1,6 @@
 require u-boot.inc
 
+#SamyGO: it's custom package
 PR = "r0"
 
 DEPENDS = ""
