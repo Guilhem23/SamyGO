@@ -7,8 +7,8 @@ PR = "r0"
 
 #SamyGO: added remove-libscg.patch
 SRC_URI = "cvs://anonymous@uaedev.cvs.sourceforge.net/cvsroot/uaedev;module=uae \
-           file://configure.patch;patch=1 \
-	   file://remove-libscg.patch;patch=1 \
+           file://configure.patch \
+           file://remove-libscg.patch \
 "
 
 inherit autotools

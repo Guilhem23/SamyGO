@@ -5,7 +5,7 @@ PR = "2"
 S = "${WORKDIR}/crypt-xor-${PV}"
 
 SRC_URI = "http://crypt-xor.sourceforge.net/stable/crypt-xor_${PV}-${PR}.tar.gz \
-	file://fix_compile.patch;patch=1 \
+	file://fix_compile.patch \
 "
 
 inherit native

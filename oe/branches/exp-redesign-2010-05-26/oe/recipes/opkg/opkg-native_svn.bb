@@ -6,7 +6,7 @@ DEPENDS = "curl-native"
 PR = "${INC_PR}"
 PROVIDES =+ "virtual/update-alternatives-native"
 
-SRC_URI += "file://opkg-libdir.patch;patch=1;maxrev=342"
+SRC_URI += "file://opkg-libdir.patch;maxrev=342"
 
 target_libdir := "${libdir}"
 

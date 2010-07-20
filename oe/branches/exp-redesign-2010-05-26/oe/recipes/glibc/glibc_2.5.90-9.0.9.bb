@@ -10,8 +10,6 @@ RPROVIDES_${PN}-dev = "libc6-dev virtual-libc-dev"
 BUILD_CPPFLAGS = "-I${STAGING_INCDIR_NATIVE}"
 TARGET_CPPFLAGS = "-I${STAGING_DIR_TARGET}${layout_includedir}"
 
-FILESDIR = "${@os.path.dirname(bb.data.getVar('FILE',d,1))}/glibc-${PV}"
-
 GLIBC_ADDONS ?= "ports,nptl,libidn"
 
 GLIBC_BROKEN_LOCALES = "sid_ET tr_TR mn_MN gez_ET gez_ER bn_BD te_IN"
@@ -39,28 +37,28 @@ RDEPENDS_${PN}-dev = "linux-libc-headers-dev"
 SRC_URI = "\
   ${SOURCEFORGE_MIRROR}/project/samygo/SamyGO%20OE/sources/git_sourceware.org.git.glibc.git_371f84a4dca19f1416c3f28db9980539d2f62905.tar.bz2;name=glibc \
   ${SOURCEFORGE_MIRROR}/project/samygo/SamyGO%20OE/sources/git_sourceware.org.git.glibc-ports.git_908afa831ca4403a689304a86e2014b4baa66366.tar.bz2;name=ports \
-  file://arm-memcpy.patch;patch=1 \
-  file://arm-longlong.patch;patch=1 \
-  file://fhs-linux-paths.patch;patch=1 \
-  file://dl-cache-libcmp.patch;patch=1 \
-  file://nptl-crosscompile.patch;patch=1 \
-  file://glibc-2.5-local-dynamic-resolvconf.patch;patch=1;pnum=0 \
-  file://glibc-check_pf.patch;patch=1;pnum=0 \
-  file://zecke-sane-readelf.patch;patch=1 \
-  file://ldd-unbash.patch;patch=1 \
+  file://arm-memcpy.patch \
+  file://arm-longlong.patch \
+  file://fhs-linux-paths.patch \
+  file://dl-cache-libcmp.patch \
+  file://nptl-crosscompile.patch \
+  file://glibc-2.5-local-dynamic-resolvconf.patch;striplevel=0 \
+  file://glibc-check_pf.patch;striplevel=0 \
+  file://zecke-sane-readelf.patch \
+  file://ldd-unbash.patch \
   file://generic-bits_select.h \
   file://generic-bits_types.h \
   file://generic-bits_typesizes.h \
   file://generic-bits_time.h \
   file://etc/ld.so.conf \
   file://generate-supported.mk \
-  file://glibc-2.6.1-RTLD_SINGLE_THREAD_P-1.patch;patch=1 \
-  file://glibc-2.6.1-use-short-for-fnstsw.patch;patch=1 \
-  file://glibc-use-isystem-include-fixed.patch;patch=1 \
-  file://glibc-arm-no-asm-page.patch;patch=1 \
-  file://march-i686.patch;patch=1;pnum=0 \
-  file://stack_size.patch;patch=1 \
-  file://selp-priority.patch;patch=1 \
+  file://glibc-2.6.1-RTLD_SINGLE_THREAD_P-1.patch \
+  file://glibc-2.6.1-use-short-for-fnstsw.patch \
+  file://glibc-use-isystem-include-fixed.patch \
+  file://glibc-arm-no-asm-page.patch \
+  file://march-i686.patch;striplevel=0 \
+  file://stack_size.patch \
+  file://selp-priority.patch \
 "
 
 SRC_URI[glibc.md5sum] = "39d55198a7da7f7974318e147534159d"

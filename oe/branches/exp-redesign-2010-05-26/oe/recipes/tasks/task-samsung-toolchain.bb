@@ -7,4 +7,4 @@ PV = "0.0.1"
 PR = "r0"
 
 DEPENDS += "virtual/libc "
-RDEPENDS = " "
+RDEPENDS_${PN} = " "

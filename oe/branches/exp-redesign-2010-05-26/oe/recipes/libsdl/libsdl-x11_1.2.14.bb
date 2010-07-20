@@ -9,10 +9,11 @@ DEPENDS = "alsa-lib virtual/libgl virtual/libx11 libxext tslib"
 DEPENDS_samygo = "virtual/libx11 libxext"
 DEPENDS_avr32 = "alsa-lib virtual/libx11 libxext tslib"
 PROVIDES = "virtual/libsdl"
-PR = "r3"
+PR = "r4"
 
 SRC_URI = " \
   http://www.libsdl.org/release/SDL-${PV}.tar.gz \
+  file://libtool-update.patch \
   file://sdl.m4 \
 "
 
@@ -48,9 +49,8 @@ do_configure_append () {
   cp ${WORKDIR}/sdl.m4 ${S}/
 }
 
-do_stage() {
-  autotools_stage_all		
-  rm ${STAGING_LIBDIR}/libSDL.la
+do_install_append() {
+  rm ${D}${libdir}/libSDL.la
 }
 
 FILES_${PN} = "${libdir}/lib*.so.*"

@@ -8,7 +8,7 @@ the standard compression program for its system."
 PR = "r1"
 
 SRC_URI = "${DEBIAN_MIRROR}/main/g/gzip/gzip_${PV}.orig.tar.gz \
-	   file://configure.patch;patch=1"
+	   file://configure.patch"
 
 S = "${WORKDIR}/gzip-${PV}"
 

@@ -6,23 +6,18 @@ require xorg-xserver-common.inc
 DESCRIPTION = "the X.Org X server"
 DEPENDS += "pixman libpciaccess openssl dri2proto glproto xorg-minimal-fonts font-util-native"
 PE = "2"
-PR = "${INC_PR}.1"
-
-# Needs newer mesa-dri, where is D_P = "-1"
-DEFAULT_PREFERENCE = "-1"
-DEFAULT_PREFERENCE_shr = "1"
-DEFAULT_PREFERENCE_samygo = "1"
+PR = "${INC_PR}.2"
 
 SRC_URI += " \
-            file://dolt-fix-1.7.0.patch;patch=1 \
-            file://randr-support-1.7.0.patch;patch=1 \
-	    file://hack-fbdev-ignore-return-mode.patch;patch=1 \
+            file://dolt-fix-1.7.0.patch \
+            file://randr-support-1.7.0.patch \
+	    file://hack-fbdev-ignore-return-mode.patch \
            "
 SRC_URI[archive.md5sum] = "7c3b873692f4e93938261d774510e78d"
 SRC_URI[archive.sha256sum] = "bddb974d8f21107ab8f79abf92cebb06ec13243f1ffd1ef56b48452c4994659d"
 
-SRC_URI_append_angstrom = " file://hack-assume-pixman-supports-overlapped-blt.patch;patch=1"
-SRC_URI_append_shr = " file://hack-assume-pixman-supports-overlapped-blt.patch;patch=1"
+SRC_URI_append_angstrom = " file://hack-assume-pixman-supports-overlapped-blt.patch"
+SRC_URI_append_shr = " file://hack-assume-pixman-supports-overlapped-blt.patch"
 
 do_install_prepend() {
         mkdir -p ${D}/${libdir}/X11/fonts
@@ -33,8 +28,8 @@ PACKAGE_ARCH_ion = "${MACHINE_ARCH}"
 XINERAMA = "${@['--disable-xinerama','--enable-xinerama'][bb.data.getVar('MACHINE',d) in ['ion']]}"
 
 EXTRA_OECONF += " ${CONFIG_MANAGER_OPTION} ${XINERAMA} --disable-kdrive --disable-xephyr --disable-xsdl --disable-xfake --disable-xfbdev --disable-dmx"
-#SamyGO: disable dri
+#SamyGO: disable dri, glx-tls
 EXTRA_OECONF += " --disable-glx-tls --disable-dri --disable-unit-tests "
-#EXTRA_OECONF += " --disable-glx-tls --enable-dri2 --disable-unit-tests "
+#EXTRA_OECONF += " --enable-dri2 --disable-unit-tests "
 
 export LDFLAGS += " -ldl "
