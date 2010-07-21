@@ -14,7 +14,7 @@ do_configure_append() {
 }
 
 #SamyGO:
-do_compile_prepend-darwin() {
+do_compile_prepend_darwin() {
         for i in $(find ${S} -name "Makefile") ; do
                 sed -i -e s:-Werror::g $i
         done
