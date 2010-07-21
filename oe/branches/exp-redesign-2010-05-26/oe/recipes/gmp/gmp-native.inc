@@ -19,7 +19,7 @@ TARGET_SYS_build-darwin   = "none-apple-darwin"
 HOST_SYS_build-darwin     = "none-apple-darwin"
 BUILD_SYS_build-darwin    = "none-apple-darwin"
 
-do_compile_append_build_darwin() {
+do_compile_append_build-darwin() {
     oe_runmake check
 }
 
