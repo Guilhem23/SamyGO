@@ -52,7 +52,7 @@ do_stage() {
         autotools_stage_all
 		install -d ${STAGING_INCDIR}/GL/	
 		#SamyGO: fix cp portability
-		cp -pP ${S}/include/GL/internal/* ${STAGING_INCDIR}/GL/internal/
+		cp -pPR ${S}/include/GL/internal* ${STAGING_INCDIR}/GL/
 		#cp -pPr ${S}/include/GL/internal* ${STAGING_INCDIR}/GL/
 }
 
@@ -64,6 +64,6 @@ do_install_append () {
     done
     install -d ${D}/${includedir}/GL
     #SamyGO: fix cp portability
-    cp -pP ${S}/include/GL/internal/* ${D}/${includedir}/GL/internal
+    cp -pPR ${S}/include/GL/internal* ${D}/${includedir}/GL/
     #cp -pPr ${S}/include/GL/internal* ${STAGING_INCDIR}/GL/
 }

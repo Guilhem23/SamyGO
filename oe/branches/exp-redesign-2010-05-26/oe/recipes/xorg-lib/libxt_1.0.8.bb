@@ -9,10 +9,11 @@ SRC_URI[archive.sha256sum] = "70f52c81258661811c8eae86a7a6dc910d0bf84cd48aeeed85
 
 EXTRA_OECONF += "--disable-install-makestrs --disable-xkb"
 
+#SamyGO: fix build makestrs
 do_compile() {
         (
                 unset CC LD CXX CCLD
-                oe_runmake -C util 'XT_CFLAGS=' 'CC=${BUILD_CC}' 'LD=${BUILD_LD}' 'CXX=${BUILD_CXX}' 'CCLD=${BUILD_CCLD}' 'CFLAGS=-D_GNU_SOURCE -I${STAGING_INCDIR_NATIVE} ${BUILD_CFLAGS}' 'LDFLAGS=${BUILD_LDFLAGS}' 'CXXFLAGS=${BUILD_CXXFLAGS}' 'CPPFLAGS=${BUILD_CPPFLAGS}' makestrs
+                oe_runmake -C util 'XT_CFLAGS=' 'CC=${BUILD_CC}' 'CPPFLAGS=' 'CFLAGS=-D_GNU_SOURCE' 'LDFLAGS='  makestrs
         ) || exit 1
         oe_runmake
 }
@@ -20,6 +21,3 @@ do_compile() {
 BBCLASSEXTEND = "native"
 
 XORG_PN = "libXt"
-
-#SamyGO:
-DEFAULT_PREFERENCE = "-1"

@@ -10,4 +10,7 @@ SRC_URI[demos.sha256sum] = "ea7b9ebfb7a80de2b275c0c9124c8a505382ec48411a2794ab82
 
 DEFAULT_PREFERENCE_shr = "2"
 
-EXTRA_OECONF += " --disable-gallium"
+#SamyGO: enable gallium software rasteriser
+#EXTRA_OECONF += "--disable-gallium"
+EXTRA_OECONF += "--enable-gallium-swrast"
+
