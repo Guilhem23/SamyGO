@@ -28,7 +28,7 @@ Serial : Q80VQLFK\nDevpath : 11\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfa
 	fi
 	# unstable/unusable
 	# obexftpd -c $REAL_DIR -b &
-	opd --mode OBEX --channel 10 --path $REAL_DIR --sdp --metadata &
+	opd --mode OBEX --channel 10 --path $REAL_DIR --sdp --metadata
 }
 
 case $1 in 
