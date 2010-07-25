@@ -11,6 +11,7 @@ INC_PR = "r25"
 FILESPATHPKG=. "libtool-${PV}:"
 
 do_configure_prepend () {
+	#SamyGO: fixed paths
 	export ac_cv_path_SED="${STAGING_BINDIR_NATIVE}/sed"
 	export ac_cv_path_GREP="${STAGING_BINDIR_NATIVE}/grep"
 	export ac_cv_path_EGREP="${STAGING_BINDIR_NATIVE}/grep -E"
