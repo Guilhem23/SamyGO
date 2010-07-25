@@ -11,9 +11,11 @@ INC_PR = "r25"
 FILESPATHPKG=. "libtool-${PV}:"
 
 do_configure_prepend () {
-	#SamyGO: fixed paths
-	export ac_cv_path_SED="${STAGING_BINDIR_NATIVE}/sed"
-	export ac_cv_path_GREP="${STAGING_BINDIR_NATIVE}/grep"
-	export ac_cv_path_EGREP="${STAGING_BINDIR_NATIVE}/grep -E"
-	export ac_cv_path_FGREP="${STAGING_BINDIR_NATIVE}/grep -F"
+	if ${@['true', 'false'][bb.data.inherits_class('native', d) or bb.data.inherits_class('sdk', d) or (bb.data.getVar('PN', d, 1) == 'libtool-cross')]}
+		#SamyGO: fixed paths
+		export ac_cv_path_SED="${STAGING_BINDIR_NATIVE}/sed"
+		export ac_cv_path_GREP="${STAGING_BINDIR_NATIVE}/grep"
+		export ac_cv_path_EGREP="${STAGING_BINDIR_NATIVE}/grep -E"
+		export ac_cv_path_FGREP="${STAGING_BINDIR_NATIVE}/grep -F"
+	fi
 }
