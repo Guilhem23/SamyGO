@@ -76,6 +76,7 @@ fi
 echo "SYSROOT=\"$SYSROOT\"" > /dtv/SGO.env
 echo "export TMPDIR=/dtv" >> /dtv/SGO.env
 echo "export HOME=/mtd_wiselink" >> /dtv/SGO.env
+echo "export SMB_CONF_PATH=\"$SYSROOT/etc/samba/smb.conf\"" >> /dtv/SGO.env
 
 # go to sed due busybox on T-SPHAUSC
 # echo "SYSROOT=\"$(echo "$S_SCRIPT" | cut -d " " -f2)\"" > /dtv/SGO.env
