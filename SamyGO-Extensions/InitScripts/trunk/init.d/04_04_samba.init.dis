@@ -28,7 +28,7 @@ SERVER=""
 SHARES=""
 FR_NAME="Samba Server"
 # M_OPTS="rw,user=${USER},password=${PASSWD}"
-M_OPTS="$PERM,user=${USER},password=${PASSWD}"
+M_OPTS="$PERM,user=${USER},password=${PASSWD},codepage=cp1250,iocharset=utf8"
 
 SERVERS="Don't set me!!"
 
@@ -38,6 +38,7 @@ do_mount()
 Serial : Q80VQLFH\nDevpath : 8\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat\n" >> /dtv/usb/log)
 
 	for i in $S_MOUNTS ; do
+		i="$(echo -n $i | sed -e 's/SGOspace/ /g')"
 		M_POINT="$DEST_DIR/$1/$(echo -n $i | sed -e "s/\\\$/_/g")"
 		mkdir -p "$M_POINT" 
 		if [ `cat /proc/mounts | grep -c "$M_POINT"` -lt "1" ] ; then	
@@ -55,7 +56,7 @@ get_shares()
 	for i in $SERVERS ; do
 	echo "on: $i" 
 		S_MOUNTS=$(smbclient -s "$SYSROOT/etc/samba/smb.conf" -U ${USER}%${PASSWD} \
-		-g -L $i | grep "Disk|" | grep -v "\\$" | grep -v " Service" | sed -r 's/.*\|(.*)\|.*/\1/')	
+		-g -L $i | grep "Disk|" | grep -v "\\$" | grep -v " Service" | sed -r 's/.*\|(.*)\|.*/\1/' | sed -r 's/ /SGOspace/g')	
 		# -g -L $i | grep "Disk|" | grep -v "\\$" | grep -v " Service" | cut -d "|" -f2)	
 	[ -n "$S_MOUNTS" ] && do_mount $i
 	done
@@ -81,7 +82,8 @@ case $1 in
 	# may can fail if device access the mount from content library
 	# for i in $(cat /proc/mounts | grep cifs | cut -d " " -f2) ; do
 	for i in $(cat /proc/mounts | grep cifs | sed 's/^\(.*\) \(.*\) cifs .*/\2/') ; do
-		umount $i 
+		i="$(echo -n $i | sed -r 's/\\040/ /g')"
+		umount "$i"
 	done
 	;;
 	status)
