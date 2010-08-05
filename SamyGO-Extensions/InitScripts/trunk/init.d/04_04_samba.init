@@ -42,7 +42,7 @@ Serial : Q80VQLFH\nDevpath : 8\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat
 		M_POINT="$DEST_DIR/$1/$(echo -n $i | sed -e "s/\\\$/_/g")"
 		mkdir -p "$M_POINT" 
 		if [ `cat /proc/mounts | grep -c "$M_POINT"` -lt "1" ] ; then	
-			mount -o "${M_OPTS}" -t cifs "//$1/$i" "$M_POINT"
+			/bin/busybox mount -o "${M_OPTS}" -t cifs "//$1/$i" "$M_POINT"
 		else
 			echo "$M_POINT is mounted!"
 		fi
@@ -75,15 +75,16 @@ get_servers()
 case $1 in 
 	start)
 	insmod $SYSROOT/lib/modules/cifs.ko
+	mkdir -p "$DEST_DIR"
 	get_servers
 	get_shares
 	;;
 	stop)
 	# may can fail if device access the mount from content library
 	# for i in $(cat /proc/mounts | grep cifs | cut -d " " -f2) ; do
-	for i in $(cat /proc/mounts | grep cifs | sed 's/^\(.*\) \(.*\) cifs .*/\2/') ; do
+	for i in $(cat /proc/mounts | grep cifs | grep "$DEST_DIR" | sed 's/^\(.*\) \(.*\) cifs .*/\2/') ; do
 		i="$(echo -n $i | sed -r 's/\\040/ /g')"
-		umount "$i"
+		/bin/busybox umount "$i"
 	done
 	;;
 	status)

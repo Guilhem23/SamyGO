@@ -87,8 +87,8 @@ case $1 in
 	# may can fail if device access the mount from content library
 	# hope there no nfsd on the tv ;-)
 	# for i in $(cat /proc/mounts | grep nfs | cut -d " " -f2) ; do
-	for i in $(cat /proc/mounts | grep nfs | sed 's/^\(.*\) \(.*\) nfs .*/\2/') ; do
-		umount $i
+	for i in $(cat /proc/mounts | grep "$DEST_DIR" | sed 's/^\(.*\) \(.*\) nfs .*/\2/') ; do
+		/bin/busybox umount $i
 	done
 	;;
 	status)

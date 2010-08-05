@@ -17,8 +17,8 @@ case $1 in
 	start)
 	lsmod | grep fuse
 	if [ "$?" -eq "0" ] ; then
-		mkdir $DEST_DIR
-		if [ `mount | grep -c "$DEST_DIR"` -lt "1" ] ; then
+		mkdir -p "$DEST_DIR"
+		if [ `/bin/busybox mount | grep -c "$DEST_DIR"` -lt "1" ] ; then
 			djmount $ENABLE_DEBUG -o fsname=vfat,iocharset=utf8 $DEST_DIR && \
 			$(echo -e "[sde]\nVendor : FuseMount\nProduct : UPNP Server\n\
 Serial : Q80VQLFE\nDevpath : 5\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat\n" >> /dtv/usb/log)
@@ -33,7 +33,7 @@ Serial : Q80VQLFE\nDevpath : 5\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat
 	stop)
 	killall -QUIT djmount 
 	sleep 2
-	umount $DEST_DIR && rm -rf $DEST_DIR
+	/bin/busybox umount "$DEST_DIR" && rm -rf $DEST_DIR
 	;;
 	status)
 	;;
