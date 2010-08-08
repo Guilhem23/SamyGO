@@ -14,7 +14,3 @@ SRC_URI += "file://workaround-bad-stdc++-build.patch \
 	file://auto-build.h \
 	file://workaround-wrong-native-ldflags.patch \
 "
-
-#do_configure_prepend () {
-#	sed -i -e 's,^LDFLAGS = ,g' ${S}/gcc/Makefile.in
-#}
