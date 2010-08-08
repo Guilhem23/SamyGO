@@ -37,4 +37,4 @@ EXTRA_OECONF_INTERMEDIATE = "--disable-libmudflap --disable-libgomp --disable-li
 
 ARM_INSTRUCTION_SET = "arm"
 
-BINV = "4.2"
+BINV = "4.2.0"
