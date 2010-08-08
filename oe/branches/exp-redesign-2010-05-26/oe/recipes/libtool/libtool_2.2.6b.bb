@@ -28,6 +28,8 @@ do_stage () {
 
 #SamyGO: fix paths
 do_install_append () {
-      sed -i -e "s,${STAGING_BINDIR_NATIVE}/sed,/bin/sed,g" -e "s,${STAGING_BINDIR_NATIVE}/grep,/bin/grep,g" ${D}${bindir}/libtoolize
+      if [ -f ${D}${bindir}/libtoolize ]; then
+            sed -i -e "s,${STAGING_BINDIR_NATIVE}/sed,/bin/sed,g" -e "s,${STAGING_BINDIR_NATIVE}/grep,/bin/grep,g" ${D}${bindir}/libtoolize
+      fi
 }
 
