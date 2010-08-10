@@ -55,13 +55,13 @@ do_dlopen()
 	echo -e 'The following commands:\n---\n'$temp'---\nwill be executed by '$(which gdb)' in '$gdb_delay' secs!!\n'
 
 	echo -e $temp >$gdb_commands
-
-	{ sleep $gdb_delay; gdb -batch -x $gdb_commands; rm $gdb_commands; } &
 }
 
 case $1 in 
 	start)
 	do_dlopen
+	sleep $gdb_delay
+	gdb -batch -x $gdb_commands &
 	;;
 	stop)
 	;;

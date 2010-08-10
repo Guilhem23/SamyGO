@@ -26,9 +26,6 @@ Serial : Q80VQLFK\nDevpath : 11\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfa
 	if [ ! -e "$DEST_DIR" ] ; then
 		ln -s $REAL_DIR $DEST_DIR
 	fi
-	# unstable/unusable
-	# obexftpd -c $REAL_DIR -b &
-	opd --mode OBEX --channel 10 --path $REAL_DIR --sdp --metadata
 }
 
 # old typo bug, migrate uploded files
@@ -37,6 +34,9 @@ Serial : Q80VQLFK\nDevpath : 11\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfa
 case $1 in 
 	start)
 	do_mount
+	# unstable/unusable
+	# obexftpd -c $REAL_DIR -b &
+	opd --mode OBEX --channel 10 --path $REAL_DIR --sdp --metadata &
 	;;
 	stop)
 	# killall -9 obexftpd
