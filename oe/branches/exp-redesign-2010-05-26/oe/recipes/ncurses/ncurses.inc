@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.gnu.org/software/ncurses/ncurses.html"
 LICENSE = "MIT"
 SECTION = "libs"
 DEPENDS = "ncurses-native"
-INC_PR = "r20"
+INC_PR = "r21"
 
 inherit autotools
 
@@ -34,7 +34,7 @@ export EXTRA_OEMAKE = '"BUILD_LDFLAGS=" "BUILD_CCFLAGS=${BUILD_CCFLAGS}"'
 # We could potentially take it off when its fixed in gcc 4.5
 
 #SamyGO: do not use it below option
-#CFLAGS_append_arm = " -fforward-propagate "
+#CFLAGS_EXTRA_append_arm = " -fforward-propagate"
 
 # This is necessary so that the "tic" command executed during the install can
 # link with the correct libary in staging.
@@ -54,14 +54,14 @@ do_install() {
 	for x in ansi console dumb linux rxvt screen sun vt{52,100,102,200,220} xterm-color xterm-xfree86
         do
                 local termfile="$(find "${D}${datadir}/terminfo/" -name "${x}" 2>/dev/null)"
-                local basedir="$(basename $(dirname "${termfile}"))"
+                local basedir="$(basename $(dirname "$termfile"))"
 
-                if [ -n "${termfile}" ]
+                if [ -n "$termfile" ]
                 then
-                        install -d ${D}${sysconfdir}/terminfo/${basedir}
-                        mv ${termfile} ${D}${sysconfdir}/terminfo/${basedir}/
-                        ln -s /etc/terminfo/${basedir}/${x} \
-                                ${D}${datadir}/terminfo/${basedir}/${x}
+                        install -d ${D}${sysconfdir}/terminfo/$basedir
+                        mv $termfile ${D}${sysconfdir}/terminfo/$basedir/
+                        ln -s /etc/terminfo/$basedir/${x} \
+                                ${D}${datadir}/terminfo/$basedir/${x}
                 fi
         done
 	# i think we can use xterm-color as default xterm
@@ -69,6 +69,7 @@ do_install() {
 	then
 		ln -sf xterm-color ${D}${sysconfdir}/terminfo/x/xterm
 	fi
+        install -d ${D}${sysconfdir}/terminfo/r
 	ln -sf rxvt ${D}${sysconfdir}/terminfo/r/rxvt-unicode
 
 	if [ "${PN}" = "ncurses" ]; then

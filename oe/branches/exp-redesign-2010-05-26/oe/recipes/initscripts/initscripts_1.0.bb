@@ -5,7 +5,7 @@ PRIORITY = "required"
 #DEPENDS = "makedevs"
 #RDEPENDS_${PN} = "makedevs"
 LICENSE = "GPL"
-PR = "r121"
+PR = "r123"
 
 #SamyGO: removed devices, mountall.sh, urandom, checkfs.sh, device_table.txt, save-rtc.sh
 SRC_URI = "file://functions \

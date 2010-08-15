@@ -12,6 +12,8 @@ PROVIDES += "virtual/libintl virtual/libiconv"
 #SamyGO: added runtime depedencies
 RPROVIDES += "libc6 libstdc++6"
 
+COMPATIBLE_TARGET_SYS ?= "(?!nios2)"
+
 # INC_PR for glibc.inc, glibc-initial.inc and glibc-stage.inc
 INC_PR = "r36"
 

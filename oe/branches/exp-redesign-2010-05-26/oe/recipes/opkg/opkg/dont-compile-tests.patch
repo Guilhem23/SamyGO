@@ -4,8 +4,8 @@ diff -ur old/Makefile.am new/Makefile.am
 @@ -1,6 +1,6 @@
  ACLOCAL_AMFLAGS = -I shave
  
--SUBDIRS = libbb libopkg src tests utils
-+SUBDIRS = libbb libopkg src utils
+-SUBDIRS = libbb libopkg src tests utils man
++SUBDIRS = libbb libopkg src utils man
  
  
  HOST_CPU=@host_cpu@

@@ -2,7 +2,9 @@ require linux-libc-headers.inc
 
 INHIBIT_DEFAULT_DEPS = "1"
 DEPENDS += "unifdef-native"
-PR = "r5"
+PR = "r0"
+
+COMPATIBLE_TARGET_SYS = "."
 
 SRC_URI = "${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-2.6.18.8.tar.bz2 \
            file://arm-syscall-define.patch"

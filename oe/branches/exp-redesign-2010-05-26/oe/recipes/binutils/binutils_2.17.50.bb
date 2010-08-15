@@ -4,6 +4,8 @@ LICENSE = "GPLv2"
 INC_PR = "r1"
 PR = "${INC_PR}.0"
 
+COMPATIBLE_TARGET_SYS = "."
+
 S = "${WORKDIR}/git"
 
 SRC_URI = "${SOURCEFORGE_MIRROR}/project/samygo/SamyGO%20OE/sources/git_sourceware.org.git.binutils.git_138bc74f170158c175024317a9ccee37aa7cf617.tar.bz2 \

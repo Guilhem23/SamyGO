@@ -1,6 +1,5 @@
-SYSROOT_PREPROCESS_FUNCS += "relocatable_binaries_preprocess"
-#SamyGO: disable usage chrpath for mac os x
-SYSROOT_PREPROCESS_FUNCS_darwin += ""
+#SamyGO: enable usage chrpath only on linux
+SYSROOT_PREPROCESS_FUNCS-linux += "relocatable_binaries_preprocess"
 
 CHRPATH_BIN ?= "chrpath"
 PREPROCESS_RELOCATE_DIRS ?= ""

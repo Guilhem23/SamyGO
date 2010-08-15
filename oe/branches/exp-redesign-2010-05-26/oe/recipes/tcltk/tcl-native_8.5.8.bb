@@ -1,6 +1,18 @@
 inherit native
 include tcl_8.5.8.bb
 
+SRC_URI = "\
+  ${SOURCEFORGE_MIRROR}/tcl/tcl${PV}-src.tar.gz \
+  file://confsearch.diff;striplevel=2 \
+  file://manpages.diff;striplevel=2 \
+  file://non-linux.diff;striplevel=2 \
+  file://rpath.diff;striplevel=2 \
+  file://tcllibrary.diff;striplevel=2 \
+  file://tclpackagepath.diff;striplevel=2 \
+  file://tclprivate.diff;striplevel=2 \
+  file://mips-tclstrtod.patch;striplevel=0 \
+"
+
 #SamyGO: added native version package
 do_stage() {
 	oe_libinstall -a libtclstub8.5 ${STAGING_LIBDIR}

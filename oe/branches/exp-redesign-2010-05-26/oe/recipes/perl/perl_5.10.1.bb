@@ -134,6 +134,13 @@ do_install() {
 
         # Fix up installed configuration
         if test "${MACHINE}" != "native"; then
+            #SamyGO: check fo paths
+            if [ -e ${D}${datadir}/perl/${PV}/pod ]; then
+                path=${D}${datadir}/perl/${PV}/pod/*.pod
+            fi
+            if [ -e ${D}${datadir}/perl/${PV}/pods ]; then
+                path=${D}${datadir}/perl/${PV}/pods/*.pod
+            fi
             sed -i -e "s,${D},,g" \
                    -e "s,-isystem${STAGING_INCDIR} ,,g" \
                    -e "s,${STAGING_LIBDIR},${libdir},g" \
@@ -142,7 +149,7 @@ do_install() {
                    -e "s,${TOOLCHAIN_PATH}${base_bindir}/,,g" \
                 ${D}${bindir}/h2xs \
                 ${D}${bindir}/h2ph \
-                ${D}${datadir}/perl/${PV}/pod/*.pod \
+                $path \
                 ${D}${datadir}/perl/${PV}/cacheout.pl \
                 ${D}${datadir}/perl/${PV}/FileCache.pm \
                 ${D}${libdir}/perl/${PV}/Config.pm \

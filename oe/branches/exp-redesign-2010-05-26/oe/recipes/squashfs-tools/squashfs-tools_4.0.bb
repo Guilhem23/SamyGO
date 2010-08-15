@@ -1,7 +1,7 @@
 
-#SamyGO: remove SRC_URI, S, updated checksums
+#SamyGO: remove SRC_URI, S, updated checksums to keep 4.0 version
 require squashfs-tools.inc
-PR = "${INC_PR}.3"
+PR = "${INC_PR}.0"
 
 EXTRA_OEMAKE += "LZMA_SUPPORT=1 LZMA_DIR=../.."
 TARGET_CC_ARCH += "${LDFLAGS}"

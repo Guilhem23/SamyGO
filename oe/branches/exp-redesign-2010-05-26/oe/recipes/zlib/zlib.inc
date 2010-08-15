@@ -8,9 +8,11 @@ INC_PR ="r7"
 # Below option is added to overcome the GCC bug on ARM 
 # see http://gcc.gnu.org/PR42981 for further details.
 # We could potentially take it off when its fixed in gcc 4.5
-
+CFLAGS += "${CFLAGS_EXTRA}"
 #SamyGO: do not use it below option
-#CFLAGS_append_arm = " -fforward-propagate "
+#CFLAGS_EXTRA_append_arm = " -fforward-propagate"
+CFLAGS_EXTRA_virtclass-native = ""
+CFLAGS_EXTRA_virtclass-sdk = ""
 
 BBCLASSEXTEND = "native sdk"
 

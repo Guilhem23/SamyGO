@@ -3,6 +3,8 @@ require gcc-common.inc
 DEPENDS = "mpfr gmp"
 NATIVEDEPS = "mpfr-native gmp-native"
 
+INC_PR = "r0"
+
 S = "${WORKDIR}/gcc-4.2.0"
 
 SRC_URI = "${GNU_MIRROR}/gcc/gcc-4.2.0/gcc-4.2.0.tar.bz2 \
@@ -22,6 +24,7 @@ SRC_URI = "${GNU_MIRROR}/gcc/gcc-4.2.0/gcc-4.2.0.tar.bz2 \
 	file://zecke-xgcc-cpp.patch \
 	file://cache-amnesia.patch \
 	file://pr34130.patch \
+	file://Makefile.in.patch \
 "
 
 SRC_URI[md5sum] = "4798c23548dc791ea12a139e18940684"
