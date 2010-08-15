@@ -3,11 +3,12 @@ HOMEPAGE = "http://www.karlrunge.com/x11vnc/"
 AUTHOR = "Karl Runge"
 SECTION = "x11/utils"
 LICENSE = "GPL"
-#SamyGO: do not depend on avahi
+#SamyGO: do not depend on avahi; added avoid-pointer-conflict.patch
 DEPENDS = "libxinerama openssl virtual/libx11 libxtst libxext jpeg zlib"
 #DEPENDS = "libxinerama openssl virtual/libx11 libxtst libxext avahi jpeg zlib"
 
-SRC_URI = "${SOURCEFORGE_MIRROR}/libvncserver/x11vnc-${PV}.tar.gz"
+SRC_URI = "${SOURCEFORGE_MIRROR}/libvncserver/x11vnc-${PV}.tar.gz \
+	file://avoid-pointer-conflict.patch"
 
 inherit autotools
 
