@@ -2,11 +2,11 @@ DESCRIPTION = "Common X11 Keyboard layouts"
 LICENSE = "MIT"
 #SamyGO: added glib-2.0
 DEPENDS = "intltool xkbcomp-native glib-2.0"
-RDEPENDS = "xkbcomp"
-PR = "r4"
+RDEPENDS_${PN} = "xkbcomp"
+PR = "r5"
 
 SRC_URI = "http://xlibs.freedesktop.org/xkbdesc/xkeyboard-config-${PV}.tar.bz2 \
-           file://abnt2-fixes.patch;patch=1"
+           file://abnt2-fixes.patch"
 
 inherit autotools
 

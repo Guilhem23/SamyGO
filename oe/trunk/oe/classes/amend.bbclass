@@ -21,9 +21,13 @@ python () {
     depends = d.getVar("__depends", 0) or []
     d.setVar("__depends", depends + [(file, 0) for file in amendfiles if not os.path.exists(file)])
 
-    existing = (file for file in amendfiles if os.path.exists(file))
-    try:
-        bb.parse.handle(existing.next(), d, 1)
-    except StopIteration:
-        pass
+    # Make sure we don't parse the same amend.inc file more than once, if
+    # there are duplicates in FILESPATH
+    seen = set()
+
+    for file in amendfiles:
+        if os.path.exists(file):
+            if file not in seen:
+                bb.parse.handle(file, d, 1)
+                seen.add(file)
 }

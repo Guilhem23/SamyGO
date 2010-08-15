@@ -1,3 +1,5 @@
+import oe.path
+
 class NotFoundError(Exception):
     def __init__(self, path):
         self.path = path
@@ -126,22 +128,18 @@ class PatchTree(PatchSet):
         return output
 
     def Push(self, force = False, all = False, run = True):
-        bb.note("self._current is %s" % self._current)
-        bb.note("patches is %s" % self.patches)
         if all:
             for i in self.patches:
                 if self._current is not None:
                     self._current = self._current + 1
                 else:
                     self._current = 0
-                bb.note("applying patch %s" % i)
                 self._applypatch(i, force)
         else:
             if self._current is not None:
                 self._current = self._current + 1
             else:
                 self._current = 0
-            bb.note("applying patch %s" % self.patches[self._current])
             return self._applypatch(self.patches[self._current], force)
 
 
@@ -234,15 +232,10 @@ class QuiltTree(PatchSet):
         if not self.initialized:
             self.InitFromDir()
         PatchSet.Import(self, patch, force)
-
-        args = ["import", "-p", patch["strippath"]]
-        if force:
-            args.append("-f")
-            args.append("-dn")
-        args.append(patch["file"])
-
-        self._runcmd(args)
-
+        oe.path.symlink(patch["file"], self._quiltpatchpath(patch["file"]))
+        f = open(os.path.join(self.dir, "patches","series"), "a");
+        f.write(os.path.basename(patch["file"]) + " -p" + patch["strippath"]+"\n")
+        f.close()
         patch["quiltfile"] = self._quiltpatchpath(patch["file"])
         patch["quiltfilemd5"] = bb.utils.md5_file(patch["quiltfile"])
 

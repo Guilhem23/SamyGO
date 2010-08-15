@@ -6,7 +6,7 @@ PR = "r58"
 
 # USE_VT and SERIAL_CONSOLE are generally defined by the MACHINE .conf.
 # Set PACKAGE_ARCH appropriately.
-PACKAGE_ARCH_${PN}-inittab = "${MACHINE_ARCH}"
+PACKAGE_ARCH_pn-${PN}-inittab = "${MACHINE_ARCH}"
 
 RDEPENDS_${PN} = "${PN}-inittab"
 
@@ -19,7 +19,7 @@ USE_VT ?= "1"
 SYSVINIT_ENABLED_GETTYS ?= "1"
 
 SRC_URI = "ftp://ftp.cistron.nl/pub/people/miquels/sysvinit/sysvinit-${PV}.tar.gz \
-           file://install.patch;patch=1 \
+           file://install.patch \
            file://need \
            file://provide \
            file://inittab \

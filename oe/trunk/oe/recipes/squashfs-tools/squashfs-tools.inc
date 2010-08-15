@@ -1,17 +1,17 @@
 DESCRIPTION = "Squashfs is a highly compressed read-only filesystem for Linux."
 SECTION = "base"
 LICENSE = "GPLv2"
-#SamyGO: remove zlib
+#SamyGO: remove zlib, attr
 DEPENDS = ""
-INC_PR = "r3"
-#SamyGO: added FILESDIR; SRC_URI set with ?
+INC_PR = "r5"
 
 S = "${WORKDIR}/squashfs${@bb.data.getVar('PV',d,1).replace('r','-r')}/squashfs-tools"
 
-FILESDIR = "${@os.path.dirname(bb.data.getVar('FILE',d,1))}/squashfs-tools-${PV}"
+BBCLASSEXTEND = "native"
+NATIVE_INSTALL_WORKS = "1"
 
 # required to share same place with -lzma specific packages
-FILESPATHPKG = "squashfs-tools-${PV}:squashfs-tools:files"
+FILESPATHPKG =. "squashfs-tools-${PV}:"
 
 SRC_URI = "${SOURCEFORGE_MIRROR}/squashfs/squashfs${@bb.data.getVar('PV',d,1).replace('r','-r')}.tar.gz"
 

@@ -41,7 +41,7 @@ DISTRO = \"${DISTRO}\"
 INHERIT = \"rm_work\"
 IMAGE_KEEPROOTFS = \"1\"
 CACHE = \"${OE_BASE}/build-${DISTRO}/cache/oe-cache.\${USER}\"
-ASSUME_PROVIDED += \" gmp-native mpfr-native git-native perl-native libxml-parser-perl-native desktop-file-utils-native \"
+ASSUME_PROVIDED += \" git-native desktop-file-utils-native linux-libc-headers-native \"
 PARALLEL_MAKE = \"-j 2\"
 #BB_NUMBER_THREADS = \"2\"" > ${OE_BASE}/build-${DISTRO}/conf/local.conf
 
@@ -68,7 +68,7 @@ echo
 if [ "${DISTRO}" = "samygo-cl" ]; then
 echo "--- Usage example: bitbake scummvm-cl ---"
 else
-echo "--- Usage example: bitbake externalboot-T-CHL7DEUC ---"
+echo "--- Usage example: bitbake externalboot-base ---"
 fi
 echo
 

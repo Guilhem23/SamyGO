@@ -3,12 +3,11 @@ HOMEPAGE = "http://www.gnu.org/software/ncurses/ncurses.html"
 LICENSE = "MIT"
 SECTION = "libs"
 DEPENDS = "ncurses-native"
+INC_PR = "r21"
 
 inherit autotools
 
 PARALLEL_MAKE=""
-
-FILESPATH = "${FILE_DIRNAME}/local:${FILE_DIRNAME}/ncurses-${PV}-${PR}:${FILE_DIRNAME}/ncurses-${PV}:${FILE_DIRNAME}/ncurses:${FILE_DIRNAME}"
 
 EXTRA_OECONF = "\
   --enable-static \
@@ -30,6 +29,13 @@ export BUILD_CCFLAGS = "-I${S}/ncurses -I${S}/include ${BUILD_CFLAGS}"
 export BUILD_LDFLAGS = ""
 export EXTRA_OEMAKE = '"BUILD_LDFLAGS=" "BUILD_CCFLAGS=${BUILD_CCFLAGS}"'
 
+# Below option is added to overcome the GCC bug on ARM
+# see http://gcc.gnu.org/PR42981 for further details.
+# We could potentially take it off when its fixed in gcc 4.5
+
+#SamyGO: do not use it below option
+#CFLAGS_EXTRA_append_arm = " -fforward-propagate"
+
 # This is necessary so that the "tic" command executed during the install can
 # link with the correct libary in staging.
 export LD_LIBRARY_PATH = "${STAGING_LIBDIR_NATIVE}"
@@ -48,14 +54,14 @@ do_install() {
 	for x in ansi console dumb linux rxvt screen sun vt{52,100,102,200,220} xterm-color xterm-xfree86
         do
                 local termfile="$(find "${D}${datadir}/terminfo/" -name "${x}" 2>/dev/null)"
-                local basedir="$(basename $(dirname "${termfile}"))"
+                local basedir="$(basename $(dirname "$termfile"))"
 
-                if [ -n "${termfile}" ]
+                if [ -n "$termfile" ]
                 then
-                        install -d ${D}${sysconfdir}/terminfo/${basedir}
-                        mv ${termfile} ${D}${sysconfdir}/terminfo/${basedir}/
-                        ln -s /etc/terminfo/${basedir}/${x} \
-                                ${D}${datadir}/terminfo/${basedir}/${x}
+                        install -d ${D}${sysconfdir}/terminfo/$basedir
+                        mv $termfile ${D}${sysconfdir}/terminfo/$basedir/
+                        ln -s /etc/terminfo/$basedir/${x} \
+                                ${D}${datadir}/terminfo/$basedir/${x}
                 fi
         done
 	# i think we can use xterm-color as default xterm
@@ -63,6 +69,7 @@ do_install() {
 	then
 		ln -sf xterm-color ${D}${sysconfdir}/terminfo/x/xterm
 	fi
+        install -d ${D}${sysconfdir}/terminfo/r
 	ln -sf rxvt ${D}${sysconfdir}/terminfo/r/rxvt-unicode
 
 	if [ "${PN}" = "ncurses" ]; then
@@ -70,16 +77,12 @@ do_install() {
 		mv ${D}${bindir}/reset ${D}${bindir}/reset.${PN}
 	fi
 }
-		
-		
 pkg_postinst_ncurses-tools () {
 	if [ "${PN}" = "ncurses" ]; then
 		update-alternatives --install ${bindir}/clear clear clear.${PN} 100
 		update-alternatives --install ${bindir}/reset reset reset.${PN} 100
 	fi
 }
-				
-			
 pkg_prerm_ncurses-tools () {
 	if [ "${PN}" = "ncurses" ]; then
 		update-alternatives --remove clear clear.${PN}
@@ -110,9 +113,7 @@ FILES_${PN}-tools = "\
 FILES_${PN}-terminfo = "\
   ${datadir}/terminfo \
 "
-  
-RSUGGESTS_${PN} = "ncurses-terminfo"
+RSUGGESTS_${PN} = "${PN}-terminfo"
 RPROVIDES_${PN} = "libncurses5"
 RCONFLICTS_${PN} = "libncurses5"
 RREPLACES_${PN} = "libncurses5"
-

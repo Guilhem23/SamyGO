@@ -17,7 +17,6 @@ FILES_libstdc++ = "${target_libdir}/libstdc++.so.*"
 
 do_install () {
 	oe_runmake 'DESTDIR=${D}' install
-
 	install -d ${D}${target_base_libdir}
 	install -d ${D}${target_libdir}
 
@@ -39,15 +38,18 @@ do_install () {
      
 	# Link gfortran to g77 to satisfy not-so-smart configure or hard coded g77
 	# gfortran is fully backwards compatible. This is a safe and practical solution.
-	if [ -f ${D}${CROSS_DIR}/bin/${TARGET_PREFIX}gfortran ]; then
+	if [ -f ${D}${TOOLCHAIN_PATH}/bin/${TARGET_PREFIX}gfortran ]; then
 		currdir="$PWD"
-		cd ${D}${CROSS_DIR}/bin/
+		cd ${D}${TOOLCHAIN_PATH}/bin/
 		ln -sf ${TARGET_PREFIX}gfortran ${TARGET_PREFIX}g77 || true
-		if [ -d ${CROSS_DIR}/${TARGET_SYS}/bin/ ] ; then 
-			cd ${CROSS_DIR}/${TARGET_SYS}/bin/
+		if [ -d ${TOOLCHAIN_PATH}/${TARGET_SYS}/bin/ ] ; then 
+			cd ${TOOLCHAIN_PATH}/${TARGET_SYS}/bin/
 			ln -sf gfortran g77 || true
 		fi
 		cd $currdir
 	fi
+	# We use libiberty from binutils or binutils-cross
+	rm -f ${D}${libdir}/libiberty.a
+	rm -f ${D}${target_libdir}/libiberty.a
 }
 

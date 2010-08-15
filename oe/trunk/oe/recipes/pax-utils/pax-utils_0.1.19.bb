@@ -10,7 +10,7 @@ PR = "r2"
 CPPFLAGS   += "-D_GNU_SOURCE "
 
 #SamyGO: fix compilation on os x
-SRC_URI += " file://fix-compilation.patch;patch=1"
+SRC_URI += " file://fix-compilation.patch"
 
 do_compile() {
     oe_runmake

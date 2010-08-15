@@ -3,9 +3,9 @@ SECTION = "base"
 PRIORITY = "required"
 #SamyGO: disabled makedevs depedency
 #DEPENDS = "makedevs"
-#RDEPENDS = "makedevs"
+#RDEPENDS_${PN} = "makedevs"
 LICENSE = "GPL"
-PR = "r120"
+PR = "r123"
 
 #SamyGO: removed devices, mountall.sh, urandom, checkfs.sh, device_table.txt, save-rtc.sh
 SRC_URI = "file://functions \

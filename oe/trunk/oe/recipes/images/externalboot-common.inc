@@ -14,10 +14,5 @@ INSTALL_PKGS = "\
 
 RRECOMMENDS = ""
 
-IMAGE_FSTYPES = "tar.gz"
-IMAGE_BASENAME = "externalboot-base"
-IMAGE_LINGUAS = ""
-IMAGE_INSTALL = "${INSTALL_PKGS} "
-
 inherit image
 

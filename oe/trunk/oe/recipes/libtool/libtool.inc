@@ -13,9 +13,10 @@ FILESPATHPKG=. "libtool-${PV}:"
 do_configure_prepend () {
 	if ${@['true', 'false'][bb.data.inherits_class('native', d) or bb.data.inherits_class('sdk', d) or (bb.data.getVar('PN', d, 1) == 'libtool-cross')]}
 	then
-		export ac_cv_path_SED="${ac_cv_path_SED=${base_bindir}/sed}"
-		export ac_cv_path_GREP="${ac_cv_path_GREP=${base_bindir}/grep}"
-		export ac_cv_path_EGREP="${ac_cv_path_EGREP=${base_bindir}/grep -E}"
-		export ac_cv_path_FGREP="${ac_cv_path_FGREP=${base_bindir}/grep -F}"
+		#SamyGO: fixed paths
+                export ac_cv_path_SED="${STAGING_BINDIR_NATIVE}/sed"
+                export ac_cv_path_GREP="${STAGING_BINDIR_NATIVE}/grep"
+                export ac_cv_path_EGREP="${STAGING_BINDIR_NATIVE}/grep -E"
+                export ac_cv_path_FGREP="${STAGING_BINDIR_NATIVE}/grep -F"
 	fi
 }

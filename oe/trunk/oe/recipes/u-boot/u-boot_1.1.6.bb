@@ -6,11 +6,11 @@ PR = "r0"
 DEPENDS = ""
 
 SRC_URI = "ftp://ftp.denx.de/pub/u-boot/u-boot-1.1.6.tar.bz2 \
-	file://common-fixes.patch;patch=1 \
-	file://fat-enhance.patch;patch=1 \
-	file://usb-enhance.patch;patch=1 \
-	file://keypress.patch;patch=1 \
-	file://ssdtv.patch;patch=1 \
+	file://common-fixes.patch \
+	file://fat-enhance.patch \
+	file://usb-enhance.patch \
+	file://keypress.patch \
+	file://ssdtv.patch \
 "
 
 SRC_URI[md5sum] = "5b1b1f7b3b1e06f75f5bfbd79891067b"

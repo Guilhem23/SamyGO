@@ -3,31 +3,31 @@ LICENSE = "GPLv2"
 DEPENDS = "binutils-cross u-boot-mkimage-native"
 
 SRC_URI = "${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2 \
-	file://arm-mm-2.6.19.patch;patch=1 \
-	file://rt-2.6.18.8-stripped.patch;patch=1 \
-	file://fix_nonlinux_compile.patch;patch=1 \
-	file://ignore-mod-magic-version.patch;patch=1 \
-	file://selp-arm.patch;patch=1 \
-	file://selp-core.patch;patch=1 \
-	file://selp-disk.patch;patch=1 \
-	file://selp-div64.patch;patch=1 \
-	file://selp-fs.patch;patch=1 \
-	file://selp-irq.patch;patch=1 \
-	file://selp-mm.patch;patch=1 \
-	file://selp-net.patch;patch=1 \
-	file://selp-ntfs.patch;patch=1 \
-	file://selp-scsi.patch;patch=1 \
-	file://selp-usb.patch;patch=1 \
-	file://selp-vfp.patch;patch=1 \
-	file://debian.patch;patch=1 \
-	file://gadget.patch;patch=1 \
-	file://pegasus.patch;patch=1 \
-	file://ssdtv-platform.patch;patch=1 \
+	file://arm-mm-2.6.19.patch \
+	file://rt-2.6.18.8-stripped.patch \
+	file://fix_nonlinux_compile.patch \
+	file://ignore-mod-magic-version.patch \
+	file://selp-arm.patch \
+	file://selp-core.patch \
+	file://selp-disk.patch \
+	file://selp-div64.patch \
+	file://selp-fs.patch \
+	file://selp-irq.patch \
+	file://selp-mm.patch \
+	file://selp-net.patch \
+	file://selp-ntfs.patch \
+	file://selp-scsi.patch \
+	file://selp-usb.patch \
+	file://selp-vfp.patch \
+	file://debian.patch \
+	file://gadget.patch \
+	file://pegasus.patch \
+	file://ssdtv-platform.patch \
 	file://defconfig_ssdtv \
 "
 
 # comment out below line to enable pci hack for b6000
-#SRC_URI += "file://b6000-pci-hack.patch;patch=1 "
+#SRC_URI += "file://b6000-pci-hack.patch "
 
 SRC_URI[md5sum] = "dce47badc1faf34b355a10b97ae5d391"
 SRC_URI[sha256sum] = "945b3014f8048cd87fdff90014afa4ff241f134bceafbfdbd42dba1be8df2ba8"

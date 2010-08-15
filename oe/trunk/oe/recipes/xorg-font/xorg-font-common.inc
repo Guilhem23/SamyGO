@@ -3,10 +3,10 @@ SECTION = "x11/fonts"
 LICENSE = "MIT-X"
 
 DEPENDS = " encodings font-alias font-util-native mkfontdir-native mkfontscale-native"
-RDEPENDS = "encodings font-util font-alias"
+RDEPENDS_${PN} = "encodings font-util font-alias"
 
 XORG_PN = "${PN}"
-INC_PR = "r1"
+INC_PR = "r2"
 
 SRC_URI = "${XORG_MIRROR}/individual/font/${XORG_PN}-${PV}.tar.bz2;name=archive"
 S = "${WORKDIR}/${XORG_PN}-${PV}"
@@ -26,10 +26,6 @@ do_install_append() {
 	find ${D}${libdir}/X11/fonts -type f -name fonts.scale | xargs rm -f
 	find ${D}${datadir}/fonts/X11 -type f -name fonts.dir | xargs rm -f
 	find ${D}${datadir}/fonts/X11 -type f -name fonts.scale | xargs rm -f	
-}
-
-do_stage() {
-	autotools_stage_all
 }
 
 PACKAGE_ARCH = "all"

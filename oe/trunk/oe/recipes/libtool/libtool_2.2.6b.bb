@@ -3,7 +3,7 @@ PR = "${INC_PR}.0"
 
 #SamyGO: added trailingslash.patch
 SRC_URI = "${GNU_MIRROR}/libtool/libtool-${PV}.tar.gz;name=archive \
-	file://trailingslash.patch;patch=1"
+	file://trailingslash.patch"
 SRC_URI[archive.md5sum] = "07da460450490148c6d2df0f21481a25"
 SRC_URI[archive.sha256sum] = "efe133e1014bca96998536f2e565a14fe0fde20cc83ff67135451e4e4e64ad57"
 
@@ -25,3 +25,11 @@ do_stage () {
        install -m 0644 libltdl/libltdl/*.h ${STAGING_INCDIR}/libltdl/
        oe_libinstall -a -so -C libltdl libltdl ${STAGING_LIBDIR}
 }
+
+#SamyGO: fix paths
+do_install_append () {
+      if [ -f ${D}${bindir}/libtoolize ]; then
+            sed -i -e "s,${STAGING_BINDIR_NATIVE}/sed,/bin/sed,g" -e "s,${STAGING_BINDIR_NATIVE}/grep,/bin/grep,g" ${D}${bindir}/libtoolize
+      fi
+}
+

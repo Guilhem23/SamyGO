@@ -10,14 +10,14 @@ inherit autotools gettext
 
 DEFAULT_PREFERENCE = "-1"
 
-INC_PR = "r24"
+INC_PR = "r25"
 
 # allows for a release candidate
 RC ?= ""
 
 SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/util-linux-ng/v${PV}/util-linux-ng-${PV}${RC}.tar.bz2;name=archive"
 
-SRC_URI_append_chinook-compat = " file://chinook_libtool.patch;patch=1 "
+SRC_URI_append_chinook-compat = " file://chinook_libtool.patch "
 
 PACKAGES =+ "${PN}-fdisk ${PN}-cfdisk ${PN}-sfdisk ${PN}-swaponoff \
 	     ${PN}-losetup ${PN}-umount ${PN}-mount ${PN}-readprofile \
@@ -27,7 +27,7 @@ PACKAGES_virtclass-native = ""
 
 PACKAGES_DYNAMIC = "libblkid* libuuid*"
 
-# Provide old util-linux names (several recipes still use DEPENDS or RDEPENDS = "util-linux"):
+# Provide old util-linux names (several recipes still use DEPENDS or RDEPENDS_${PN} = "util-linux"):
 PROVIDES = "util-linux"
 RPROVIDES_${PN} = "util-linux"
 RPROVIDES_util-linux-ng-fdisk = "util-linux-fdisk"

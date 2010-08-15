@@ -6,9 +6,9 @@ LICENSE = "GPL"
 PR = "r0"
 
 SRC_URI = "cvs://anonymous@uaedev.cvs.sourceforge.net/cvsroot/uaedev;module=uae \
-           file://configure.patch;patch=1 \
-	   file://remove-libscg.patch;patch=1 \
-	   file://build-shared.patch;patch=1"
+           file://configure.patch \
+           file://remove-libscg.patch \
+           file://build-shared.patch"
 
 inherit autotools
 
