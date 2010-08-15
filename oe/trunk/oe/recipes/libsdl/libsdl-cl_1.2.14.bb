@@ -8,8 +8,8 @@ PR = "r0"
 SRC_URI = " \
   http://www.libsdl.org/release/SDL-${PV}.tar.gz \
   file://sdl.m4 \
-  file://samygo-cl.patch;patch=1 \
-  file://samygo-cl-overide-libs.patch;patch=1 \
+  file://samygo-cl.patch \
+  file://samygo-cl-overide-libs.patch \
 "
 
 SRC_URI[md5sum] = "e52086d1b508fa0b76c52ee30b55bec4"

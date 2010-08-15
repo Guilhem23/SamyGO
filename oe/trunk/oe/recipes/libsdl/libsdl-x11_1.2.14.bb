@@ -9,10 +9,11 @@ DEPENDS = "alsa-lib virtual/libgl virtual/libx11 libxext tslib"
 DEPENDS_samygo = "virtual/libx11 libxext"
 DEPENDS_avr32 = "alsa-lib virtual/libx11 libxext tslib"
 PROVIDES = "virtual/libsdl"
-PR = "r3"
+PR = "r4"
 
 SRC_URI = " \
   http://www.libsdl.org/release/SDL-${PV}.tar.gz \
+  file://libtool-update.patch \
   file://sdl.m4 \
 "
 
@@ -20,7 +21,7 @@ S = "${WORKDIR}/SDL-${PV}"
 
 inherit autotools binconfig pkgconfig
 
-#SamyGO: disabled oss, alsa, video-fbcon, video-directfb, video-opengl, input-tslib
+#SamyGO: disabled oss, alsa, video-fbcon, video-directfb, video-opengl, input-tslib; enabled video-opengl
 EXTRA_OECONF = " \
   --disable-static --disable-debug --enable-cdrom --enable-threads --enable-timers --enable-endian \
   --enable-file --disable-oss --disable-esd --disable-arts \
@@ -28,7 +29,7 @@ EXTRA_OECONF = " \
   --disable-mintaudio --disable-nasm --enable-video-x11 --disable-video-dga \
   --disable-video-fbcon --disable-video-directfb --disable-video-ps2gs \
   --disable-video-xbios --disable-video-gem --disable-video-dummy \
-  --disable-video-opengl --enable-input-events --enable-pthreads \
+  --enable-video-opengl --enable-input-events --enable-pthreads \
   --disable-video-picogui --disable-video-qtopia --enable-dlopen \
   --disable-input-tslib --disable-video-ps3 \
 "
@@ -48,9 +49,8 @@ do_configure_append () {
   cp ${WORKDIR}/sdl.m4 ${S}/
 }
 
-do_stage() {
-  autotools_stage_all		
-  rm ${STAGING_LIBDIR}/libSDL.la
+do_install_append() {
+  rm ${D}${libdir}/libSDL.la
 }
 
 FILES_${PN} = "${libdir}/lib*.so.*"
