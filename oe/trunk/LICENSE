@@ -1,8 +1,8 @@
-Different components are under different licenses (a mix of 
-MIT and GPLv2). Please see:
+Different components are under different licenses (a mix of MIT and GPLv2).
+Please see:
 
 bitbake/COPYING (GPLv2)
-meta/COPYING.MIT (MIT)
+oe/COPYING.MIT (MIT)
 
 which cover the components in those subdirectories.
 
