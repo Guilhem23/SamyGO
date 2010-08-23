@@ -23,6 +23,8 @@ do_compile () {
 
 do_install() {
 	oe_runmake headers_install INSTALL_HDR_PATH=${D}${exec_prefix} ARCH=${ARCH}
+	#SamyGO: remove includes conflict with libc6
+	rm -rf ${D}${exec_prefix}/include/scsi
 }
 
 do_install_append_arm() {
