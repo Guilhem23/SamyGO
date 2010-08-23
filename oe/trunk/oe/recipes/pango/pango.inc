@@ -10,9 +10,8 @@ SECTION = "x11/libs"
 
 DEPENDS = "glib-2.0 fontconfig freetype zlib virtual/libiconv virtual/libx11 libxft gtk-doc cairo"
 
-#SamyGO: disable native
-#DEPENDS_virtclass-native = "glib-2.0-native cairo-native"
-#BBCLASSEXTEND = "native"
+DEPENDS_virtclass-native = "glib-2.0-native cairo-native"
+BBCLASSEXTEND = "native"
 
 PACKAGES_DYNAMIC = "pango-module-*"
 

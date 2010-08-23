@@ -6,9 +6,7 @@ UNIX-like platforms, Windows, OS/2 and BeOS."
 LICENSE = "LGPL"
 SECTION = "libs"
 PRIORITY = "optional"
-# SamyGO: glib-2.0-native removed, not very well portable
-#DEPENDS += "glib-2.0-native gtk-doc"
-DEPENDS += "gtk-doc"
+DEPENDS += "glib-2.0-native gtk-doc"
 DEPENDS += "virtual/libiconv virtual/libintl"
 PACKAGES =+ "gobject-2.0 gmodule-2.0 gthread-2.0 gio-2.0 glib-2.0-utils "
 
