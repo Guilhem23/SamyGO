@@ -9,7 +9,7 @@ PR = "r27"
 
 TARGET_CC_ARCH += "${LDFLAGS}"
 
-#SamyGO: added patches: allow-uppercase.patch, fix-for-cutoff-filenames.patch
+#LocalChange: added patch: fix-for-cutoff-filenames.patch
 SRC_URI = "${HANDHELDS_CVS};module=ipkg-utils \
            file://ipkg-utils-fix.patch \
            file://ipkg-py-sane-vercompare.patch \
@@ -18,7 +18,6 @@ SRC_URI = "${HANDHELDS_CVS};module=ipkg-utils \
            file://ipkg-make-index-track-stamps.patch \
            file://fields_tweaks.patch \
            file://ipkg-env.patch \
-	   file://allow-uppercase.patch \
 	   file://fix-for-cutoff-filenames.patch \
 	   "
 

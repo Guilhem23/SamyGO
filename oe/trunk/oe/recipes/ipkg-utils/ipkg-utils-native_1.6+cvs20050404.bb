@@ -7,7 +7,7 @@ inherit native
 
 NATIVE_INSTALL_WORKS = "1"
 
-#SamyGO: added portability patch for ar
+#LocalChange: added portability patch for 'ar'
 SRC_URI += "file://remove_f_from_ar_param.patch"
 
 # Avoid circular dependencies from package_ipk.bbclass
