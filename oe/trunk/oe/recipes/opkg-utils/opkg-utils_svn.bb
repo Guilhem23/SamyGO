@@ -10,9 +10,7 @@ PR = "r5"
 
 BBCLASSEXTEND = "native"
 
-#SamyGO: added patch file://allow-uppercase.patch
-SRC_URI = "svn://svn.openmoko.org/trunk/src/host/;module=opkg-utils;proto=http \
-	file://allow-uppercase.patch "
+SRC_URI = "svn://svn.openmoko.org/trunk/src/host/;module=opkg-utils;proto=http"
 
 TARGET_CC_ARCH += "${LDFLAGS}"
 S = "${WORKDIR}/opkg-utils"
