@@ -369,7 +369,7 @@ T-CHE6AUSC|T-CHE7AUSC|T-CHEAUSC|T-CHL5DAUC|T-CHL5DEUC|T-CHL7DAUC|T-CHL7DEUC|T-CH
 	fi
 	sync
 
-	export LD_LIBRARY_PATH=\"/lib:/usr/lib:/Java/lib:/mtd_cmmlib/Comp_LIB:/mtd_cmmlib/InfoLink/lib:/mtd_cmmlib/GAME_LIB:/mtd_cmmlib/DRM_LIB:/mtd_cmmlib/YWidget_LIB\"
+	export LD_LIBRARY_PATH=\"/lib:/Java/lib:/mtd_cmmlib/Comp_LIB:/mtd_cmmlib/InfoLink/lib:/mtd_cmmlib/GAME_LIB:/mtd_cmmlib/DRM_LIB:/mtd_cmmlib/YWidget_LIB\"
 
 	if [ -f /.custom_exedsp_cmd ]; then
 		CUSTOM_EXEDSP_CMD=\`cat \"/.custom_exedsp_cmd\"\`
