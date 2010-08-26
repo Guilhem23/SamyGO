@@ -84,7 +84,7 @@ def check_sanity(e):
 	if not check_app_exists('${BUILD_PREFIX}g++', e.data):
 		missing = missing + "C++ Compiler (${BUILD_PREFIX}g++),"
 
-	#SamyGO: added: wget, intltoolize, desktop-file-install; removed chrpath
+	#LocalChange: added: wget, intltoolize, desktop-file-install; removed chrpath
 	required_utilities = "patch help2man diffstat texi2html makeinfo cvs svn bzip2 tar gzip gawk md5sum wget intltoolize desktop-file-install"
 
 	# If we'll be running qemu, perform some sanity checks

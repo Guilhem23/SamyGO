@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.karlrunge.com/x11vnc/"
 AUTHOR = "Karl Runge"
 SECTION = "x11/utils"
 LICENSE = "GPL"
-#SamyGO: do not depend on avahi; added avoid-pointer-conflict.patch
+#LocalChange: do not depend on avahi; added avoid-pointer-conflict.patch
 DEPENDS = "libxinerama openssl virtual/libx11 libxtst libxext jpeg zlib"
 #DEPENDS = "libxinerama openssl virtual/libx11 libxtst libxext avahi jpeg zlib"
 

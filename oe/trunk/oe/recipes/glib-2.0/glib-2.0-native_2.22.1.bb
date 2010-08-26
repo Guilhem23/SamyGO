@@ -1,6 +1,6 @@
 require glib-2.0_${PV}.bb
 
-#SamyGO: added libiconv-native for mac os x
+#LocalChange: added libiconv-native for mac os x
 DEPENDS = "gettext-native gtk-doc-native"
 DEPENDS_append_darwin = " libiconv-native"
 EXTRA_OECONF = ""

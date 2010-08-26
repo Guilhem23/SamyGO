@@ -64,7 +64,7 @@ do_deploy[dirs] = "${S}"
 addtask deploy before do_build after do_compile
 
 do_stage() {
-#SamyGO: don't install mkimage
+#LocalChange: don't install mkimage
 #	install -d ${STAGING_BINDIR_NATIVE}
 #	install -m 755 tools/mkimage ${STAGING_BINDIR_NATIVE}/
 }

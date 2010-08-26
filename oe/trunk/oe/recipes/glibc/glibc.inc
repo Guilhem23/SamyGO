@@ -9,7 +9,7 @@ DEPENDS = "virtual/${TARGET_PREFIX}gcc-intermediate linux-libc-headers"
 #RDEPENDS_ldd += " bash"
 PROVIDES = "virtual/libc virtual/${TARGET_PREFIX}libc-for-gcc"
 PROVIDES += "virtual/libintl virtual/libiconv"
-#SamyGO: added runtime depedencies
+#LocalChange: added runtime depedencies
 RPROVIDES += "libc6 libstdc++6"
 
 COMPATIBLE_TARGET_SYS ?= "(?!nios2)"

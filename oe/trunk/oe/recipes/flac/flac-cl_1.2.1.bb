@@ -3,7 +3,7 @@ require flac-cl.inc
 PR = "r1"
 
 # fixes from openSUSE:
-#SamyGO: don't use that
+#SamyGO: don't use that patches
 #SRC_URI += "file://flac-gcc43-fixes.diff;striplevel=0 \
 #            file://flac-printf-format-fix.diff;striplevel=0"
 

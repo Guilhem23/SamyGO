@@ -23,7 +23,7 @@ do_compile_append_build-darwin() {
     oe_runmake check
 }
 
-#SamyGO: copy files into proper path
+#LocalChange: copy files into proper path
 do_stage_append_darwin() {
 	sed -i 's:none-apple-darwin:${OLD_HOST}:' ${STAGING_DIR}/none-apple-darwin/usr/lib/libgmp.la
 	cp ${STAGING_DIR}/none-apple-darwin/usr/include/* ${STAGING_DIR}/${OLD_BUILD}/usr/include/

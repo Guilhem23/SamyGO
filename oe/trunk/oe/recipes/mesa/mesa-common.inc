@@ -26,8 +26,7 @@ EXTRA_OECONF = "--enable-glu \
                 --disable-glut \
 	       "
 
-#SamyGO do not use tls
-#inherit glx-use-tls
+inherit glx-use-tls
 
 # Package contents vary according to ${MACHINE_DRI_MODULES}.
 PACKAGE_ARCH = "${MACHINE}"
@@ -51,7 +50,7 @@ FILES_libegl-dbg += "${libdir}/egl/.debug/*"
 do_stage() {
         autotools_stage_all
 		install -d ${STAGING_INCDIR}/GL/	
-		#SamyGO: fix cp portability
+		#LocalChange: fix cp portability
 		cp -pPR ${S}/include/GL/internal* ${STAGING_INCDIR}/GL/
 		#cp -pPr ${S}/include/GL/internal* ${STAGING_INCDIR}/GL/
 }
@@ -63,7 +62,7 @@ do_install_append () {
         install -m 0755 ${S}/progs/xdemos/${i} ${D}/${bindir}
     done
     install -d ${D}/${includedir}/GL
-    #SamyGO: fix cp portability
+    #LocalChange: fix cp portability
     cp -pPR ${S}/include/GL/internal* ${D}/${includedir}/GL/
     #cp -pPr ${S}/include/GL/internal* ${STAGING_INCDIR}/GL/
 }

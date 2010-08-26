@@ -1,6 +1,6 @@
 DESCRIPTION = "Common X11 Keyboard layouts"
 LICENSE = "MIT"
-#SamyGO: added glib-2.0
+#LocalChange: added glib-2.0
 DEPENDS = "intltool xkbcomp-native glib-2.0"
 RDEPENDS_${PN} = "xkbcomp"
 PR = "r5"

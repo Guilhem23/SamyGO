@@ -34,7 +34,7 @@ VIMFEATURES ?= "big"
 VIMX ?= "--without-x"
 VIMGUI ?= "none"
 
-#SamyGO: added --disable-darwin
+#LocalChange: added --disable-darwin
 EXTRA_OECONF = "--enable-gui=${VIMGUI} --disable-gtktest \
 		--disable-xim --with-features=${VIMFEATURES} \
 		--disable-gpm ${VIMX} --disable-netbeans --disable-darwin \

@@ -13,7 +13,7 @@ SRC_URI = "\
   file://mips-tclstrtod.patch;striplevel=0 \
 "
 
-#SamyGO: added native version package
+#LocalChange: added native version package
 do_stage() {
 	oe_libinstall -a libtclstub8.5 ${STAGING_LIBDIR}
 	if [ -e libtcl8.5.dylib ]; then
@@ -39,5 +39,5 @@ do_stage() {
 }
 
 
-#SamyGO: fixes empty packages
+#LocalChange: fixes empty packages
 PACKAGES = ""

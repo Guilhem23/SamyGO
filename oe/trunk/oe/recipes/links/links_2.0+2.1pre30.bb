@@ -1,11 +1,11 @@
 require links.inc
 
-#SamyGO: do not depend on gpm
+#LocalChange: do not depend on gpm
 #DEPENDS += "gpm"
 RCONFLICTS_${PN} = "links-x11"
 PR = "r2"
 
-#SamyGO: without fb, gpm; disable graphics
+#LocalChange: without fb, gpm; disable graphics
 EXTRA_OECONF = "--enable-javascript --with-libfl --enable-graphics \
 	        --with-ssl=${STAGING_LIBDIR}/.. --with-libjpeg \
 	        --without-libtiff --without-svgalib --without-fb \

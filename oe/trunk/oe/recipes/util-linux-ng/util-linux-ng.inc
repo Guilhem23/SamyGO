@@ -1,7 +1,7 @@
 DESCRIPTION = "Util-linux-ng is a suite of essential utilities for any Linux system."
 SECTION = "base"
 LICENSE = "GPL"
-#SamyGO disable udev usage
+#LocalChange: disable udev usage
 DEPENDS = "zlib ncurses virtual/libintl"
 #DEPENDS = "udev zlib ncurses virtual/libintl"
 DEPENDS_virtclass-native = "zlib-native ncurses-native lzo-native gettext-native"

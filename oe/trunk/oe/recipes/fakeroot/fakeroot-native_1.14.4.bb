@@ -6,7 +6,7 @@ inherit native
 
 EXTRA_OECONF = " --program-prefix="
 
-#SamyGO: don't depend on util-linux from native
+#LocalChange: don't depend on util-linux from native
 RDEPENDS = ""
 
 # Compatability for the rare systems not using or having SYSV

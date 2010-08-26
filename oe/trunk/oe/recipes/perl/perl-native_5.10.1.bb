@@ -7,12 +7,12 @@ PR = "r4"
 NATIVE_INSTALL_WORKS = "1"
 
 # Not tested enough
-#SamyGO: ok
+#LocalChange: ok
 #DEFAULT_PREFERENCE = "-1"
 
 FILESDIR = "${@os.path.dirname(bb.data.getVar('FILE',d,1))}/perl-${PV}"
 
-#SamyGO: added fix-ld-macosx.patch
+#LocalChange: added fix-ld-macosx.patch
 SRC_URI = "http://ftp.funet.fi/pub/CPAN/src/perl-${PV}.tar.gz;name=perl-${PV} \
            file://CPAN-Config.pm \
            file://Configure-multilib.patch \
@@ -30,7 +30,7 @@ S = "${WORKDIR}/perl-${PV}"
 
 inherit native
 
-#SamyGO: remove -Di_shadow
+#LocalChange: remove -Di_shadow
 do_configure () {
     ./Configure \
         -Dcc="${CC}" \

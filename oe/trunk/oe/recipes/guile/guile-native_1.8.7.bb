@@ -4,7 +4,7 @@ SRC_URI = "http://ftp.gnu.org/pub/gnu/guile/guile-${PV}.tar.gz \
            file://cpp-linemarkers.patch \
           "
 
-#SamyGO: disable 64 calls and ac_cv_func_rl_get_keymap
+#LocalChange: disable 64 calls and ac_cv_func_rl_get_keymap
 EXTRA_OECONF = "--without-64-calls ac_cv_func_rl_get_keymap=no"
 
 SRC_URI[md5sum] = "991b5b3efcbbc3f7507d05bc42f80a5e"

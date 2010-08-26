@@ -79,7 +79,7 @@ do_utf8_conversion() {
 	popd
 }
 
-#SamyGO: do not mess with target flags
+#LocalChange: do not mess with target flags
 export CPPFLAGS=""
 export CFLAGS=""
 

@@ -1,17 +1,17 @@
 DESCRIPTION = "neon is an HTTP and WebDAV client library, with a C interface."
 SECTION = "libs"
 LICENSE = "LGPL"
-#SamyGO: do not depend on gnutls but use openssl instead
+#LocalChange: do not depend on gnutls but use openssl instead
 DEPENDS = "zlib libxml2 expat time openssl"
 
-#SamyGO: use newer version, use fixed-system-target.patch
+#LocalChange: use newer version, use fixed-system-target.patch
 SRC_URI = "http://www.webdav.org/${PN}/${P}.tar.gz \
            file://pkgconfig.patch \
            file://fixed-system-target.patch"
 
 inherit autotools binconfig lib_package pkgconfig
 
-#SamyGO: do not depend on gnutls but use openssl instead
+#LocalChange: do not depend on gnutls but use openssl instead
 EXTRA_OECONF = "--with-libxml2 --with-expat --enable-shared"
 CFLAGS_append = ' -D__USE_UNIX98'
 

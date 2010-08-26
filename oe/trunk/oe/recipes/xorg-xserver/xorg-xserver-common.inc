@@ -31,7 +31,7 @@ SRC_URI = "${XORG_MIRROR}/individual/xserver/${XORG_PN}-${PV}.tar.bz2;name=archi
 
 S = "${WORKDIR}/${XORG_PN}-${PV}"
 
-#SamyGO: do not use tls
+#LocalChange: do not use tls
 #inherit autotools pkgconfig glx-use-tls
 inherit autotools pkgconfig
 

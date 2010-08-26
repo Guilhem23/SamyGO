@@ -32,7 +32,7 @@ SRC_URI[tarball.sha256sum] = "d74020ad2cc5a4dcc5109c44dbd0e22582d6ce42954b0f1ff2
 # so add -fomit-frame-pointer
 # this will be removed once the above bug is fixed.
 
-#SamyGO: do nnot use it
+#LocalChange: do not use it
 #CFLAGS_append = " -fomit-frame-pointer"
 
 EXTRA_OEMAKE += "V=1 ARCH=${TARGET_ARCH} CROSS_COMPILE=${TARGET_PREFIX}"

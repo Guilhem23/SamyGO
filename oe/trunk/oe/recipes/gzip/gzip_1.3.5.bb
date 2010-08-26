@@ -1,4 +1,4 @@
-#SamyGO: keep old support
+#LocalChange: keep old support
 LICENSE = "GPL"
 SECTION = "console/utils"
 PRIORITY = "required"

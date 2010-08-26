@@ -1,7 +1,7 @@
 DESCRIPTION = "SysV init scripts"
 SECTION = "base"
 PRIORITY = "required"
-#SamyGO: disabled makedevs depedency
+#LocalChange: disabled makedevs depedency
 #DEPENDS = "makedevs"
 #RDEPENDS_${PN} = "makedevs"
 LICENSE = "GPL"

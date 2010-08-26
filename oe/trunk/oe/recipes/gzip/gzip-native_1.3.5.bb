@@ -1,4 +1,4 @@
-#SamyGO: keep old support
+#LocalChange: keep old support
 
 require gzip_${PV}.bb
 inherit native

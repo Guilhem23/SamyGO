@@ -1,4 +1,4 @@
-#SamyGO: updated to newwer
+#LocalChange: updated to newer version
 DESCRIPTION = "This package provides the necessary \
 infrastructure for basic TCP/IP based networking."
 SECTION = "base"

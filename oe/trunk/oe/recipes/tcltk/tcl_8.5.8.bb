@@ -5,7 +5,7 @@ HOMEPAGE = "http://tcl.sourceforge.net"
 
 PR = "r7"
 
-#SamyGO: added fixed-system.patch
+#LocalChange: added fixed-system.patch
 SRC_URI = "\
   ${SOURCEFORGE_MIRROR}/tcl/tcl${PV}-src.tar.gz \
   file://confsearch.diff;striplevel=2 \

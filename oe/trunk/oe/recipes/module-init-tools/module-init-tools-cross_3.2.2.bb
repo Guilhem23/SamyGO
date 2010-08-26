@@ -1,7 +1,7 @@
 require module-init-tools.inc
 inherit cross
 DEFAULT_PREFERENCE = "0"
-#SamyGO: added virtual/${TARGET_PREFIX}depmod-1.0
+#LocalChange: added virtual/${TARGET_PREFIX}depmod-1.0
 PROVIDES += "virtual/${TARGET_PREFIX}depmod virtual/${TARGET_PREFIX}depmod-1.0 virtual/${TARGET_PREFIX}depmod-2.6"
 
 # Remove the RDEPENDS_${PN} we picked up from the "require";
@@ -14,7 +14,7 @@ do_install_append () {
         mv ${D}${bindir}/${TARGET_PREFIX}depmod ${D}${bindir}/${TARGET_PREFIX}depmod-2.6
 }
 
-#SamyGO: fixed build on OS X
+#LocalChange: fixed build on Mac OS X
 SRC_URI += "file://fix_build_native_nonlinux.patch"
 
 SRC_URI[md5sum] = "a1ad0a09d3231673f70d631f3f5040e9"

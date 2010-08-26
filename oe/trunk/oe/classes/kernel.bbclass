@@ -519,7 +519,7 @@ do_uboot_mkimage() {
             rm -f linux.bin
         else
             ${OBJCOPY} -O binary -R .note -R .comment -S vmlinux linux.bin
-            # SamyGO: don't gzip kernel image
+            #SamyGO: don't gzip kernel image
             #rm -f linux.bin.gz
             #gzip -9 linux.bin
             uboot-mkimage -A ${UBOOT_ARCH} -O linux -T kernel -C none -a ${UBOOT_LOADADDRESS} -e $ENTRYPOINT -n "${DISTRO_NAME}/${PV}/${MACHINE}" -d linux.bin arch/${ARCH}/boot/uImage

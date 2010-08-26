@@ -9,7 +9,7 @@ SRC_URI[archive.sha256sum] = "70f52c81258661811c8eae86a7a6dc910d0bf84cd48aeeed85
 
 EXTRA_OECONF += "--disable-install-makestrs --disable-xkb"
 
-#SamyGO: fix build makestrs
+#LocalChange: fix build makestrs
 do_compile() {
         (
                 unset CC LD CXX CCLD

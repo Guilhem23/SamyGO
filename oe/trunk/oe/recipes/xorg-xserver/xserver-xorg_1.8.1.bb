@@ -28,7 +28,7 @@ PACKAGE_ARCH_ion = "${MACHINE_ARCH}"
 XINERAMA = "${@['--disable-xinerama','--enable-xinerama'][bb.data.getVar('MACHINE',d) in ['ion']]}"
 
 EXTRA_OECONF += " ${CONFIG_MANAGER_OPTION} ${XINERAMA} --disable-kdrive --disable-xephyr --disable-xsdl --disable-xfake --disable-xfbdev --disable-dmx"
-#SamyGO: disable dri, glx-tls
+#LocalChange: disable dri, glx-tls
 EXTRA_OECONF += " --disable-glx-tls --disable-dri --disable-unit-tests "
 #EXTRA_OECONF += " --enable-dri2 --disable-unit-tests "
 

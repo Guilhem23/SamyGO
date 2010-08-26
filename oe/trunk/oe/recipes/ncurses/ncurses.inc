@@ -33,7 +33,7 @@ export EXTRA_OEMAKE = '"BUILD_LDFLAGS=" "BUILD_CCFLAGS=${BUILD_CCFLAGS}"'
 # see http://gcc.gnu.org/PR42981 for further details.
 # We could potentially take it off when its fixed in gcc 4.5
 
-#SamyGO: do not use it below option
+#LocalChange: do not use it below option
 #CFLAGS_EXTRA_append_arm = " -fforward-propagate"
 
 # This is necessary so that the "tic" command executed during the install can

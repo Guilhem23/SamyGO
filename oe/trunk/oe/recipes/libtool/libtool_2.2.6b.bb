@@ -1,7 +1,7 @@
 require libtool.inc
 PR = "${INC_PR}.0"
 
-#SamyGO: added trailingslash.patch
+#LocalChange: added trailingslash.patch
 SRC_URI = "${GNU_MIRROR}/libtool/libtool-${PV}.tar.gz;name=archive \
 	file://trailingslash.patch"
 SRC_URI[archive.md5sum] = "07da460450490148c6d2df0f21481a25"
@@ -26,7 +26,7 @@ do_stage () {
        oe_libinstall -a -so -C libltdl libltdl ${STAGING_LIBDIR}
 }
 
-#SamyGO: fix paths
+#LocalChange: fix paths
 do_install_append () {
       if [ -f ${D}${bindir}/libtoolize ]; then
             sed -i -e "s,${STAGING_BINDIR_NATIVE}/sed,/bin/sed,g" -e "s,${STAGING_BINDIR_NATIVE}/grep,/bin/grep,g" ${D}${bindir}/libtoolize

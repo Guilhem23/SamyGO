@@ -1,5 +1,5 @@
 require python.inc
-#SamyGO: disabled some libs
+#LocalChange: disabled some libs
 #DEPENDS = "openssl-native bzip2-full-native zlib-native readline-native"
 DEPENDS = "zlib-native gzip-native"
 PR = "${INC_PR}.2"

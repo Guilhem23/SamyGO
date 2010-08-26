@@ -8,13 +8,13 @@ DEPENDS = "virtual/db perl-native grep-native"
 PR = "r9"
 
 # Not tested enough
-#SamyGO: ok
+#LocalChange: ok
 #DEFAULT_PREFERENCE = "-1"
 
 # Major part of version
 PVM = "5.10"
 
-#SamyGO: added fix-extensions.patch and fix-errno.patch
+#LocalChange: added fix-extensions.patch and fix-errno.patch
 SRC_URI = "ftp://ftp.funet.fi/pub/CPAN/src/perl-${PV}.tar.gz;name=perl-${PV} \
 	file://perl_${PV}-8.diff.gz \
         file://Makefile.patch \
@@ -85,7 +85,7 @@ do_configure() {
         fi
 
         # Update some paths in the configuration
-        #SamyGO: fixup OE path
+        #LocalChange: fixup OE path
         sed -i -e 's,@DESTDIR@,${D},g' \
                -e 's,@ARCH@,${TARGET_ARCH}-${TARGET_OS},g' \
                -e "s%/usr/include/%${STAGING_DIR_HOST}/usr/include/%g" \
@@ -97,7 +97,7 @@ do_configure() {
             # These are strewn all over the source tree
             for foo in `grep -I -m1 \/usr\/include\/.*\\.h ${WORKDIR}/* -r | cut -f 1 -d ":"` ; do
                 echo Fixing: $foo
-                #SamyGO: fixup OE path
+                #LocalChange: fixup OE path
                 sed -e "s%/usr/include/%${STAGING_DIR_HOST}/usr/include/%g" -i $foo
             done
         fi
@@ -107,7 +107,7 @@ do_configure() {
         echo "OS = ${TARGET_OS}" >> config
 }
 do_compile() {
-#SamyGO: it's allready done above
+#LocalChange: it's allready done above
 #        if test "${MACHINE}" != "native"; then
 #            sed -i -e 's|/usr/include|${STAGING_DIR_HOST}/usr/include|g' ext/Errno/Errno_pm.PL
 #        fi
@@ -134,7 +134,7 @@ do_install() {
 
         # Fix up installed configuration
         if test "${MACHINE}" != "native"; then
-            #SamyGO: check fo paths
+            #LocalChange: check for paths
             if [ -e ${D}${datadir}/perl/${PV}/pod ]; then
                 path=${D}${datadir}/perl/${PV}/pod/*.pod
             fi

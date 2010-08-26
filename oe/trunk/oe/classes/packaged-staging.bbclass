@@ -326,7 +326,7 @@ populate_sysroot_postamble () {
 packagedstaging_fastpath () {
 	if [ "$PSTAGING_ACTIVE" = "1" ]; then
 		mkdir -p ${PSTAGE_TMPDIR_STAGE}/sysroots/
-		#SamyGO fixed portable of 'true' cmd
+		#LocalChange: fixed portable of 'true' cmd
 		cp -fpPR ${SYSROOT_DESTDIR}/${STAGING_DIR}/* ${PSTAGE_TMPDIR_STAGE}/sysroots/ || true
 	fi
 }
@@ -480,7 +480,7 @@ python do_package_stage () {
     bb.mkdirhier(destdir)
     # We need to include the package_stage stamp in the staging package so create one
     bb.build.make_stamp("do_package_stage", d)
-    #SamyGO fixed portability of cp without -d param
+    #LocalChange: fixed portability of cp without -d param
     os.system("cp -pR %s.do_* %s/" % (stampfn, destdir))
 
     pstage_set_pkgmanager(d)

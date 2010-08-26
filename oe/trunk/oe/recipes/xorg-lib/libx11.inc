@@ -30,7 +30,7 @@ EXTRA_OECONF_virtclass-nativesdk = " --without-xcb"
 # see http://gcc.gnu.org/PR42981 for further details.
 # We could potentially take it off when its fixed in gcc 4.5
 
-#SamyGO: do not use it below option
+#LocalChange: do not use it below option
 #CFLAGS_append_arm = " -fforward-propagate "
 
 SRC_URI += " file://keysymdef_include.patch \

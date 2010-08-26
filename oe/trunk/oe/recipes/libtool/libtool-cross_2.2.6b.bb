@@ -1,7 +1,7 @@
 require libtool_${PV}.bb
 PR = "${INC_PR}.0"
 
-#SamyGO: improved cross_compile.patch for OS X
+#LocalChange: improved cross_compile.patch for OS X
 SRC_URI += "\
   file://cross_compile.patch \
   file://prefix.patch \

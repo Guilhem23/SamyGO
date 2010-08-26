@@ -9,7 +9,7 @@ PR = "r2"
 
 CPPFLAGS   += "-D_GNU_SOURCE "
 
-#SamyGO: fix compilation on os x
+#LocalChange: fix compilation on Mac OS X
 SRC_URI += " file://fix-compilation.patch"
 
 do_compile() {

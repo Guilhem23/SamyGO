@@ -5,7 +5,7 @@ DEPENDS = "libsdl-x11 zlib"
 LICENSE = "GPL"
 PR = "r0"
 
-#SamyGO: added remove-libscg.patch
+#LocalChange: added remove-libscg.patch
 SRC_URI = "cvs://anonymous@uaedev.cvs.sourceforge.net/cvsroot/uaedev;module=uae \
            file://configure.patch \
            file://remove-libscg.patch \

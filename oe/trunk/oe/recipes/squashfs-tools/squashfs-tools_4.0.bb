@@ -1,5 +1,5 @@
 
-#SamyGO: remove SRC_URI, S, updated checksums to keep 4.0 version
+#LocalChange: remove SRC_URI, S, updated checksums to keep 4.0 version
 require squashfs-tools.inc
 PR = "${INC_PR}.0"
 

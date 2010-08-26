@@ -15,7 +15,7 @@
 # It is an error for the target not to exist.
 # If 'what' doesn't exist then an empty value is returned
 #
-#SamyGO: don't use ix86-common for i386
+#LocalChange: don't use ix86-common for i386
 def siteinfo_data(d):
     archinfo = {
         "arm": "endian-little bit-32 arm-common",

@@ -1,7 +1,7 @@
 DESCRIPTION = "Squashfs is a highly compressed read-only filesystem for Linux."
 SECTION = "base"
 LICENSE = "GPLv2"
-#SamyGO: remove zlib, attr
+#LocalChange: remove zlib, attr
 DEPENDS = ""
 INC_PR = "r5"
 

@@ -1,7 +1,7 @@
 require flex.inc
 PR = "${INC_PR}.0"
 
-#SamyGO: use this version package as compiler fine target and native
+#LocalChange: use this version package as compiler fine target and native
 SRC_URI = "${SOURCEFORGE_MIRROR}/flex/flex-${PV}.tar.bz2 \
            file://flex-lvalue.diff \
            file://fix-gen.patch \

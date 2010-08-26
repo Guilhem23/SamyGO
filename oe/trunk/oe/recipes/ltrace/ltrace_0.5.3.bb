@@ -6,7 +6,7 @@ LICENSE = "GPLv2"
 
 PR = "r2"
 
-#SamyGO: use newer patch
+#LocalChange: use newer patch
 SRC_URI = "\
   ${DEBIAN_MIRROR}/main/l/ltrace/ltrace_${PV}.orig.tar.gz;name=archive \
   ${DEBIAN_MIRROR}/main/l/ltrace/ltrace_${PV}-2.1.diff.gz;name=patch \
@@ -26,7 +26,7 @@ do_configure_prepend() {
 		arm*)  ln -sf ./linux-gnu sysdeps/linux-gnueabi ;;
 		mips*)  ln -sf ./mipsel sysdeps/linux-gnu/mips ;;
 	esac
-	#SamyGO: proper fixes to Makefile.in, Makefile; fixed events.c
+	#LocalChange: proper fixes to Makefile.in, Makefile; fixed events.c
 	sed -e 's:uname -m:echo arm-linux-gnueabi:g' \
 		sysdeps/linux-gnu/Makefile > sysdeps/linux-gnu/Makefile.in
 	sed -i -e 's:uname -m:echo arm-linux-gnueabi:g' \

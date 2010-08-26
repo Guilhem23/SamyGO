@@ -6,7 +6,7 @@ SRCREV = ${OPKG_SRCREV}
 PV = "0.1.8+svnr${SRCPV}"
 INC_PR = "r1"
 
-#SamyGO: added patch dont-compile-tests.patch
+#LocalChange: added patch dont-compile-tests.patch
 SRC_URI = "svn://opkg.googlecode.com/svn;module=trunk;proto=http \
 	file://configure \
 	file://dont-compile-tests.patch \

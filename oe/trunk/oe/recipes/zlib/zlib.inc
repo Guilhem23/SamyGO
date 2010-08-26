@@ -9,7 +9,7 @@ INC_PR ="r7"
 # see http://gcc.gnu.org/PR42981 for further details.
 # We could potentially take it off when its fixed in gcc 4.5
 CFLAGS += "${CFLAGS_EXTRA}"
-#SamyGO: do not use it below option
+#LocalChange: do not use it below option
 #CFLAGS_EXTRA_append_arm = " -fforward-propagate"
 CFLAGS_EXTRA_virtclass-native = ""
 CFLAGS_EXTRA_virtclass-sdk = ""

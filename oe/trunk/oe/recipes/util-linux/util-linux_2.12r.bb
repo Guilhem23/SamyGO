@@ -5,7 +5,7 @@ SRC_URI += "file://glibc-fix.patch"
 SRC_URI += "file://glibc-umount2.patch"
 SRC_URI += "file://fdiskbsdlabel-avr32.patch" 
 SRC_URI += "file://util-linux-2.12r-cramfs-1.patch" 
-#SamyGO: added below patch
+#LocalChange: added below patch
 SRC_URI += "file://sfdisk-fix-large-drives.patch"
 
 PR = "r15"

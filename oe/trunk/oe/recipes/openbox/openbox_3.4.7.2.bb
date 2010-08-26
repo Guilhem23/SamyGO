@@ -1,6 +1,6 @@
 DESCRIPTION = "openbox Window Manager"
 SECTION = "x11/wm"
-#SamyGO: added all below deps
+#LocalChange: added all below deps
 DEPENDS = "pango libxml2 startup-notification glib-2.0 libxcursor libx11 libxrandr"
 
 SRC_URI = "http://icculus.org/openbox/releases/openbox-${PV}.tar.gz"

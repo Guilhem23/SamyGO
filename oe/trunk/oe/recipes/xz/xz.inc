@@ -3,7 +3,7 @@ SECTION = "console/utils"
 LICENSE = "Public Domain"
 INC_PR = "r0"
 S ?= "${WORKDIR}/xz-${PV}"
-#SamyGO: disable assembler
+#LocalChange: disable assembler
 EXTRA_OECONF = "--enable-shared --disable-assembler"
 BBCLASSEXTEND = "native"
 

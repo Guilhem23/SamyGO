@@ -10,7 +10,7 @@ do_install() {
 	install -d ${D}/${datadir}/fonts/X11/misc
 	install -m 0644 ${WORKDIR}/misc/* ${D}/${datadir}/fonts/X11/misc/
 	install -d ${D}/${libdir}/X11
-	#SamyGO: fixed redunand -s at the and of command
+	#LocalChange: fixed redunand -s at the and of command
 	ln -sf ${datadir}/fonts/X11/ ${D}/${libdir}/X11/fonts
 
 }
