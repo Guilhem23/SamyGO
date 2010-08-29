@@ -26,8 +26,8 @@ SRC_URI = "${DEBIAN_MIRROR}/main/n/netbase/netbase_${PV}.tar.gz \
   file://if-post-down.d \
 "
 
-SRC_URI[md5sum] = "6994048ff06178c1210723a673729d4a"
-SRC_URI[sha256sum] = "77b3542e22ce942c495116d643cb3542c337377d8bae5492674d677021061c33"
+SRC_URI[md5sum] = "19cb9cda8699218a4f21d988472cdad4"
+SRC_URI[sha256sum] = "fe0ce52e6f1570da2347aacdde5d8cdee1dc9016e3880f9a67c5ef2a60bd016b"
 
 do_install () {
 	install -d ${D}${sysconfdir}/init.d
