@@ -26,7 +26,7 @@ EXTRA_IMAGEDEPENDS = ""
 # if RRECOMMENDS in InitScripts ?? * Arris *
 INSTALL_PACKAGES = " \
 task-samsung cksfv crypt-xor squashfs-tools StarterLib InitScripts \
-netsurf \
+# netsurf \
 "
 
 # BROKEN BUT NEEDED = libptp2
