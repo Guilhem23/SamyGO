@@ -1,6 +1,6 @@
 # This patch content was copied from Samsung kernel sources SELP.3.2.x-Chelsea.src.tgz,
 # from package released as GPL v2 http://www.samsung.com/global/opensource/files/32B650.zip
-# and http://opensource.samsung.com -> linux.tgz
+# and http://opensource.samsung.com -> UE40C8000.zip -> linux.tgz
 diff -urNP old/arch/arm/Kconfig new/arch/arm/Kconfig
 --- old/arch/arm/Kconfig	2010-07-17 13:15:19.000000000 +0200
 +++ new/arch/arm/Kconfig	2010-07-17 13:21:19.000000000 +0200
