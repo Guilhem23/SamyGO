@@ -120,35 +120,21 @@ diff -urNP old/arch/arm/kernel/armksyms.c new/arch/arm/kernel/armksyms.c
 +#endif
 diff -urNP old/arch/arm/kernel/head.S new/arch/arm/kernel/head.S
 --- old/arch/arm/kernel/head.S	2010-07-17 13:15:19.000000000 +0200
-+++ new/arch/arm/kernel/head.S	2010-07-17 20:56:38.000000000 +0200
-@@ -72,6 +72,23 @@
++++ new/arch/arm/kernel/head.S	2010-08-31 22:01:05.000000000 +0200
+@@ -72,6 +72,9 @@
  ENTRY(stext)
  	msr	cpsr_c, #PSR_F_BIT | PSR_I_BIT | SVC_MODE @ ensure svc mode
  						@ and irqs disabled
 +#if defined(CONFIG_MACH_SSDTV)
-+						@ SamyGO: detect memory chip size
-+	ldr	r0, =0x12345678
-+	ldr	r1, =0x68000000			@ MEM_BASE + 128M
-+	str	r0, [r1]
-+	ldr	r0, [r1]
-+	ldr	r1, =0x12345678
-+	cmp	r0, r1
-+	bne	small
-+big:
-+	ldr	r1, =10001			@ SamyGO: set machine for b650
-+	b	end
-+small:
-+	ldr	r1, =10002			@ SamyGO: set machine for b550
-+end:
-+	mov	r0, #0
++	ldr	r1, =10001			@ SamyGO: set machine for B series
 +#endif
  	mrc	p15, 0, r9, c0, c0		@ get processor id
  	bl	__lookup_processor_type		@ r5=procinfo r9=cpuid
  	movs	r10, r5				@ invalid processor (r5=0)?
 diff -urNP old/arch/arm/mach-ssdtv/Kconfig new/arch/arm/mach-ssdtv/Kconfig
 --- old/arch/arm/mach-ssdtv/Kconfig	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/Kconfig	2010-07-17 13:21:19.000000000 +0200
-@@ -0,0 +1,27 @@
++++ new/arch/arm/mach-ssdtv/Kconfig	2010-08-29 18:39:25.000000000 +0200
+@@ -0,0 +1,36 @@
 +if ARCH_SSDTV
 +
 +menu "Samsung DTV"
@@ -167,6 +153,15 @@ diff -urNP old/arch/arm/mach-ssdtv/Kconfig new/arch/arm/mach-ssdtv/Kconfig
 +	select VFP
 +
 +endchoice
++
++config SSDTV_PCI
++	default y
++	depends on PCI
++	bool "SSDTV PCI bus driver"
++
++config SSDTV_256MB
++	default n
++	bool "Set memory layout to 2x128MB"
 +
 +# WFI Command Not use
 +config NOT_USE_WFI
@@ -192,8 +187,8 @@ diff -urNP old/arch/arm/mach-ssdtv/Makefile.boot new/arch/arm/mach-ssdtv/Makefil
 +endif
 diff -urNP old/arch/arm/mach-ssdtv/mach-ssdtv.c new/arch/arm/mach-ssdtv/mach-ssdtv.c
 --- old/arch/arm/mach-ssdtv/mach-ssdtv.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/mach-ssdtv.c	2010-07-18 12:21:36.000000000 +0200
-@@ -0,0 +1,160 @@
++++ new/arch/arm/mach-ssdtv/mach-ssdtv.c	2010-08-31 20:45:31.000000000 +0200
+@@ -0,0 +1,113 @@
 +/*
 + * Copyright (C) 2008 Samsung Electronics.co
 + * Author : tukho.kim@samsung.com  06/19/2008
@@ -227,23 +222,18 @@ diff -urNP old/arch/arm/mach-ssdtv/mach-ssdtv.c new/arch/arm/mach-ssdtv/mach-ssd
 +extern void ssdtv_init(void);
 +extern void ssdtv_iomap_init(void);
 +
-+unsigned int ssdtv_mem0_size;
-+unsigned int ssdtv_mem1_size;
-+unsigned int ssdtv_sys_mem0_size;
-+unsigned int ssdtv_sys_mem1_size;
-+
 +static struct map_desc machine_io_desc[] __initdata = {
 +{	/* DTV sub block A */
 +	.virtual = 0xE0000000,
-+	.pfn     = 0,
-+	.length  = 0,
++	.pfn     = __phys_to_pfn(MACH_MEM0_BASE + SYS_MEM0_SIZE),
++	.length  = MACH_MEM0_SIZE - SYS_MEM0_SIZE,
 +	.type    = MT_DEVICE 
 +},
 +
 +{	/* DTV sub block B */
 +	.virtual = 0xE6000000,
-+	.pfn     = 0,
-+	.length  = 0,
++	.pfn     = __phys_to_pfn(MACH_MEM1_BASE + SYS_MEM1_SIZE),
++	.length  = MACH_MEM1_SIZE - SYS_MEM1_SIZE,
 +	.type    = MT_DEVICE 
 +},
 +
@@ -264,10 +254,6 @@ diff -urNP old/arch/arm/mach-ssdtv/mach-ssdtv.c new/arch/arm/mach-ssdtv/mach-ssd
 +
 +static void __init machine_iomap_init(void)
 +{
-+	machine_io_desc[0].pfn = __phys_to_pfn(MACH_MEM0_BASE + SYS_MEM0_SIZE);
-+	machine_io_desc[1].pfn = __phys_to_pfn(MACH_MEM1_BASE + SYS_MEM1_SIZE);
-+	machine_io_desc[0].length = MACH_MEM0_SIZE - SYS_MEM0_SIZE;
-+	machine_io_desc[1].length = MACH_MEM1_SIZE - SYS_MEM1_SIZE;
 +	iotable_init(machine_io_desc, ARRAY_SIZE(machine_io_desc));
 +}
 +
@@ -292,13 +278,8 @@ diff -urNP old/arch/arm/mach-ssdtv/mach-ssdtv.c new/arch/arm/mach-ssdtv/mach-ssd
 +	*(volatile unsigned int *)(VA_EHCI1_BASE + 0x9C) = 0x00000000;
 +}
 +
-+static void __init machine_fixup_b650(struct machine_desc *mdesc, struct tag *tags, char **cmdline, struct meminfo *meminfo)
++static void __init machine_fixup(struct machine_desc *mdesc, struct tag *tags, char **cmdline, struct meminfo *meminfo)
 +{
-+	ssdtv_mem0_size = SZ_256M;
-+	ssdtv_mem1_size = SZ_256M;
-+	ssdtv_sys_mem0_size = 0xC400000; // 196MB
-+	ssdtv_sys_mem1_size = 0x6500000; // 101MB ; 297MB total
-+
 +	meminfo->nr_banks = 2;
 +
 +	meminfo->bank[0].start = MACH_MEM0_BASE;
@@ -310,25 +291,7 @@ diff -urNP old/arch/arm/mach-ssdtv/mach-ssdtv.c new/arch/arm/mach-ssdtv/mach-ssd
 +	meminfo->bank[1].node =  1;
 +}
 +
-+static void __init machine_fixup_b550(struct machine_desc *mdesc, struct tag *tags, char **cmdline, struct meminfo *meminfo)
-+{
-+	ssdtv_mem0_size = SZ_128M;
-+	ssdtv_mem1_size = SZ_128M;
-+	ssdtv_sys_mem0_size = 0x4900000; // 73MB
-+	ssdtv_sys_mem1_size = 0x2700000; // 39MB ; 112MB total
-+
-+	meminfo->nr_banks = 2;
-+
-+	meminfo->bank[0].start = MACH_MEM0_BASE;
-+	meminfo->bank[0].size =  SYS_MEM0_SIZE;
-+	meminfo->bank[0].node =  0;
-+
-+	meminfo->bank[1].start = MACH_MEM1_BASE;
-+	meminfo->bank[1].size =  SYS_MEM1_SIZE;
-+	meminfo->bank[1].node =  1;
-+}
-+
-+MACHINE_START(SSDTV_B650, "Samsung DTV (Chelsea) B650 series")
++MACHINE_START(SSDTV, "Samsung DTV (Chelsea) B series")
 +	.phys_io	= PA_IO_BASE0,
 +	.io_pg_offst	= VA_IO_BASE0,
 +	.boot_params	= (PHYS_OFFSET + 0x100),
@@ -336,28 +299,13 @@ diff -urNP old/arch/arm/mach-ssdtv/mach-ssdtv.c new/arch/arm/mach-ssdtv/mach-ssd
 +	.init_irq	= ssdtv_init_irq,
 +	.timer		= &ssdtv_timer,
 +	.init_machine	= machine_init,
-+	.fixup		= machine_fixup_b650,
++	.fixup		= machine_fixup,
 +MACHINE_END
 +
-+MACHINE_START(SSDTV_B550, "Samsung DTV (Chelsea) B550 series")
-+	.phys_io	= PA_IO_BASE0,
-+	.io_pg_offst	= VA_IO_BASE0,
-+	.boot_params	= (PHYS_OFFSET + 0x100),
-+	.map_io		= machine_map_io,
-+	.init_irq	= ssdtv_init_irq,
-+	.timer		= &ssdtv_timer,
-+	.init_machine	= machine_init,
-+	.fixup		= machine_fixup_b550,
-+MACHINE_END
-+
-+EXPORT_SYMBOL(ssdtv_mem0_size);
-+EXPORT_SYMBOL(ssdtv_mem1_size);
-+EXPORT_SYMBOL(ssdtv_sys_mem0_size);
-+EXPORT_SYMBOL(ssdtv_sys_mem1_size);
 diff -urNP old/arch/arm/mach-ssdtv/pci.c new/arch/arm/mach-ssdtv/pci.c
 --- old/arch/arm/mach-ssdtv/pci.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/pci.c	2010-07-18 12:21:32.000000000 +0200
-@@ -0,0 +1,83 @@
++++ new/arch/arm/mach-ssdtv/pci.c	2010-08-31 20:47:52.000000000 +0200
+@@ -0,0 +1,84 @@
 +/*
 + *  Copyright (C) 1999 ARM Limited
 + *  Copyright (C) 2007 Samsung electronics.co
@@ -435,16 +383,17 @@ diff -urNP old/arch/arm/mach-ssdtv/pci.c new/arch/arm/mach-ssdtv/pci.c
 +
 +static int __init ssdtv_pci_init(void)
 +{
-+	if (machine_is_ssdtv_b650())
-+		pci_common_init(&ssdtv_pci);
++#ifdef CONFIG_SSDTV_PCI
++	pci_common_init(&ssdtv_pci);
++#endif
 +	return 0;
 +}
 +
 +subsys_initcall(ssdtv_pci_init);
 diff -urNP old/arch/arm/mach-ssdtv/ssdtv.c new/arch/arm/mach-ssdtv/ssdtv.c
 --- old/arch/arm/mach-ssdtv/ssdtv.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/ssdtv.c	2010-07-18 12:50:49.000000000 +0200
-@@ -0,0 +1,237 @@
++++ new/arch/arm/mach-ssdtv/ssdtv.c	2010-09-01 04:39:20.000000000 +0200
+@@ -0,0 +1,239 @@
 +/*
 + * Copyright (C) 2008 Samsung Electronics.co
 + * Author : tukho.kim@samsung.com	06/19/2008
@@ -672,6 +621,8 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv.c new/arch/arm/mach-ssdtv/ssdtv.c
 +{
 +	iotable_init(ssdtv_io_desc, ARRAY_SIZE(ssdtv_io_desc));
 +}
++
++void __init ssdtv_gpio_init(void);
 +
 +void __init ssdtv_init(void)
 +{
@@ -4177,13 +4128,12 @@ diff -urNP old/arch/arm/mm/proc-v6.S new/arch/arm/mm/proc-v6.S
  	/*
 diff -urNP old/arch/arm/tools/mach-types new/arch/arm/tools/mach-types
 --- old/arch/arm/tools/mach-types	2007-02-24 00:52:30.000000000 +0100
-+++ new/arch/arm/tools/mach-types	2010-07-17 18:56:04.000000000 +0200
-@@ -1093,3 +1093,5 @@
++++ new/arch/arm/tools/mach-types	2010-08-29 18:52:17.000000000 +0200
+@@ -1093,3 +1093,4 @@
  eti_b1			MACH_ETI_B1		ETI_B1			1080
  za9l_series		MACH_ZILOG_ZA9L		ZILOG_ZA9L		1081
  bit2440			MACH_BIT2440		BIT2440			1082
-+ssdtv_b650		MACH_SSDTV		SSDTV_B650		10001
-+ssdtv_b550		MACH_SSDTV		SSDTV_B550		10002
++ssdtv			MACH_SSDTV		SSDTV			10001
 diff -urNP old/drivers/Makefile new/drivers/Makefile
 --- old/drivers/Makefile	2007-02-24 00:52:30.000000000 +0100
 +++ new/drivers/Makefile	2010-07-17 13:21:19.000000000 +0200
@@ -6450,8 +6400,8 @@ diff -urNP old/include/asm-arm/arch-ssdtv/irqs.h new/include/asm-arm/arch-ssdtv/
 +
 diff -urNP old/include/asm-arm/arch-ssdtv/memory.h new/include/asm-arm/arch-ssdtv/memory.h
 --- old/include/asm-arm/arch-ssdtv/memory.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/include/asm-arm/arch-ssdtv/memory.h	2010-07-18 12:12:01.000000000 +0200
-@@ -0,0 +1,100 @@
++++ new/include/asm-arm/arch-ssdtv/memory.h	2010-09-01 04:23:06.000000000 +0200
+@@ -0,0 +1,101 @@
 +/****************************************************************8
 + * linux/include/asm-arm/arch-ssdtv/memory.h
 + * 
@@ -6473,16 +6423,6 @@ diff -urNP old/include/asm-arm/arch-ssdtv/memory.h new/include/asm-arm/arch-ssdt
 +#ifndef __ASM_ARCH_MEMORY_H
 +#define __ASM_ARCH_MEMORY_H
 +
-+#define MACH_MEM0_BASE 			0x60000000	/* West */
-+#define PHYS_OFFSET			MACH_MEM0_BASE
-+
-+#ifndef __ASSEMBLY__
-+
-+extern unsigned int ssdtv_mem0_size;
-+extern unsigned int ssdtv_mem1_size;
-+extern unsigned int ssdtv_sys_mem0_size;
-+extern unsigned int ssdtv_sys_mem1_size;
-+
 +/*
 + * Virtual view <-> DMA view memory address translations
 + * virt_to_bus: Used to translate the virtual address to an
@@ -6493,19 +6433,29 @@ diff -urNP old/include/asm-arm/arch-ssdtv/memory.h new/include/asm-arm/arch-ssdt
 +#define __virt_to_bus(x)		__virt_to_phys(x)
 +#define __bus_to_virt(x)		__phys_to_virt(x)
 +
-+#define MACH_MEM0_SIZE 			(ssdtv_mem0_size)
-+
++#define MACH_MEM0_BASE 			0x60000000	/* West */
 +#define MACH_MEM1_BASE 			0x70000000	/* East */
-+#define MACH_MEM1_SIZE 			(ssdtv_mem1_size)
 +
-+#define SYS_MEM0_SIZE			(ssdtv_sys_mem0_size)
-+#define SYS_MEM1_SIZE			(ssdtv_sys_mem1_size)
++#define PHYS_OFFSET			MACH_MEM0_BASE
++
++#ifndef __ASSEMBLY__
++
++#ifdef CONFIG_SSDTV_256MB
++#define MACH_MEM0_SIZE 			SZ_128M
++#define MACH_MEM1_SIZE 			SZ_128M
++#define SYS_MEM0_SIZE			(39 << 20)
++#define SYS_MEM1_SIZE			(73 << 20)
++#define KVADDR_MASK			0x0FFFFFFF
++#else
++#define MACH_MEM0_SIZE 			SZ_256M
++#define MACH_MEM1_SIZE 			SZ_256M
++#define SYS_MEM0_SIZE			(196 << 20)
++#define SYS_MEM1_SIZE			(101 << 20)
++#define KVADDR_MASK			0x1FFFFFFF
++#endif
 +
 +#define RANGE(value, start, size) 	( ((unsigned long)value >= (unsigned long)start) && \
 +						((unsigned long)value < ((unsigned long)start + (size_t)size)) )
-+
-+/* Kernel size limit */
-+#define KVADDR_MASK			(ssdtv_mem0_size + ssdtv_mem1_size - 1)
 +
 +/* Bank size limit 256MByte */
 +#define MACH_MEM_MASK			0x0FFFFFFF
@@ -6515,6 +6465,7 @@ diff -urNP old/include/asm-arm/arch-ssdtv/memory.h new/include/asm-arm/arch-ssdt
 +#define __phys_to_virt(x)		(((x >> MACH_MEM_SHIFT) & 1) ? \
 +						(PAGE_OFFSET + SYS_MEM0_SIZE + (x & MACH_MEM_MASK) ) : \
 +						(PAGE_OFFSET + (x & MACH_MEM_MASK)) )
++
 +
 +#define __virt_to_phys(x)		(RANGE(x, PAGE_OFFSET, SYS_MEM0_SIZE) ? \
 +						(MACH_MEM0_BASE + (x & KVADDR_MASK)) : \

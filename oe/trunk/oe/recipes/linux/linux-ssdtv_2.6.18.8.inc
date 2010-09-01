@@ -19,15 +19,14 @@ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2 \
 	file://selp-scsi.patch \
 	file://selp-usb.patch \
 	file://selp-vfp.patch \
+	file://squashfs.patch \
 	file://debian.patch \
 	file://gadget.patch \
 	file://pegasus.patch \
 	file://ssdtv-platform.patch \
-	file://defconfig_ssdtv \
 "
 
-# comment out below line to enable pci hack for b6000
-#SRC_URI += "file://b6000-pci-hack.patch "
+FILESPATHPKG_prepend = "linux-ssdtv-2.6.18.8:"
 
 SRC_URI[md5sum] = "dce47badc1faf34b355a10b97ae5d391"
 SRC_URI[sha256sum] = "945b3014f8048cd87fdff90014afa4ff241f134bceafbfdbd42dba1be8df2ba8"
@@ -52,10 +51,4 @@ do_install_append() {
 PACKAGES =+ "kernel-headers"
 FILES_kernel-headers = "${exec_prefix}/src/linux*"
 
-do_configure_prepend () {
-	cp ${WORKDIR}/defconfig_ssdtv .config
-	make include/linux/version.h
-}
-
 KERNEL_IMAGETYPE = "uImage"
-
