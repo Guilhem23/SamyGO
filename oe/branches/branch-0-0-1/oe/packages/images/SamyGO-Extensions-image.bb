@@ -153,6 +153,6 @@ ROOTFS_POSTPROCESS_COMMAND += "rootfs_postprocess"
 # libs on tv
 IGNORED_LIBS = "libc.so.6 libpthread.so.0 libgcc_s.so.1 libm.so.6 libdl.so.2 librt.so.1 libstdc++.so.6 libresolv.so.2"
 IGNORED_APPS = "*.util-linux tz* .debug"
-DIST_APPS = "${INSTALL_PACKAGES} djmount wakelan fusesmb fusesmb.cache showmount [sn]mb*"
+DIST_APPS = "${INSTALL_PACKAGES} djmount wakelan fusesmb fusesmb.cache showmount smbclient nmblookup"
 DIST_SAPPS = "ulockmgr_server vsftpd"
 
