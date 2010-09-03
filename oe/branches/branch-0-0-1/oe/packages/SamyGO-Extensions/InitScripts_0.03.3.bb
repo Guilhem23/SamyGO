@@ -7,7 +7,7 @@ HOMEPAGE = "http://samygo.sourceforge.net"
 PR = "r09"
 
 # RECOMMENDS = ""
-RRECOMMENDS += " StarterLib CoreScript nfs-utils-discover djmount samba vsftpd util-linux-mount util-linux-umount \
+RRECOMMENDS += " StarterLib CoreScript nfs-utils-discover samba vsftpd util-linux-mount util-linux-umount \
 		kernel-module-cifs kernel-module-dummy-hcd kernel-module-g-file-storage \
 		bluez-utils-nodbus fusesmb wakelan"
 # DEPENDS = ""
