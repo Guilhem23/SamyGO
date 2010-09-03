@@ -12,7 +12,7 @@ HOMEPAGE = "http://stb.ZsoltTech.Com/"
 ######################################################################################
 
 PV = "0.0.1"
-PR = "r05"
+PR = "r06"
 PROVIDES += " ${MACHINE}-${DISTRO_NAME}-Extensions-image "
 
 ######################################################################################
@@ -26,7 +26,6 @@ EXTRA_IMAGEDEPENDS = ""
 # if RRECOMMENDS in InitScripts ?? * Arris *
 INSTALL_PACKAGES = " \
 task-samsung cksfv crypt-xor squashfs-tools StarterLib InitScripts \
-# netsurf \
 "
 
 # BROKEN BUT NEEDED = libptp2

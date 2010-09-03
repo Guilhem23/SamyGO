@@ -17,3 +17,6 @@ SRC_URI = "${SOURCEFORGE_MIRROR}/djmount/djmount-0.71.tar.gz \
 	file://selp-buffsize.patch;patch=1 \
 "
 
+do_configure(){
+	oe_runconf
+}
