@@ -118,7 +118,6 @@ MTD_EXE="/mtd_exe"
 MTD_APPDATA="/mtd_appdata"
 MTD_TLIB="/mtd_tlib"
 INFO="/.info"
-RFSVERSION="/.version"
 START="/sbin/samsung-start.sh"
 
 download_firmware() {
@@ -193,7 +192,7 @@ case $TYPE in
 T-CHE7AUSC|T-CHEAUSC|T-CHL7DAUC|T-CHL7DEUC|T-CHU7DAUC|T-CHU7DEUC)
 	if [ ! -e LaunchCLManager_v0.01.zip ]; then
 		echo "Downloading custom T_Library.swf ..."
-		wget -c http://sourceforge.net/projects/samygo/files/SamyGO%20Applications/LaunchCLManager_v0.01.zip/download 2> /dev/null
+		wget -O LaunchCLManager_v0.01.zip -c http://sourceforge.net/projects/samygo/files/SamyGO%20Applications/LaunchCLManager_v0.01.zip/download 2> /dev/null
 		if [ $? != 0 ]; then
 			echo "Error downloading: LaunchCLManager_v0.01.zip!"
 			echo "Copy LaunchCLManager_v0.01.zip to current directory."
@@ -258,7 +257,7 @@ T-CHE7AUSC|T-CHEAUSC|T-CHL7DAUC|T-CHL7DEUC|T-CHU7DAUC|T-CHU7DEUC)
 	fi
 	;;
 T-CHE6AUSC|T-CHL5DAUC|T-CHL5DEUC)
-	unsquashfs -dest ${MTD_EXE} ${TYPE}/image/exe.img 1> /dev/null
+	unsquashfs -da 32 -fr 32 -dest ${MTD_EXE} ${TYPE}/image/exe.img 1> /dev/null
 	if [ $? != 0 ]; then
 		echo "Error unpack from exe.img!"
 		echo "Exiting..."
@@ -273,7 +272,7 @@ echo
 echo "Unpacking mtd_appdata..."
 echo
 
-unsquashfs -dest ${MTD_APPDATA} ${TYPE}/image/appdata.img 1> /dev/null
+unsquashfs -da 32 -fr 32 -dest ${MTD_APPDATA} ${TYPE}/image/appdata.img 1> /dev/null
 if [ $? != 0 ]; then
 	echo "Error unpack from appdata.img!"
 	echo "Exiting..."
@@ -394,6 +393,6 @@ chmod +x ${START}
 
 cd ..
 rm -rf tmp-work
-
+sync
 
 echo "Finished."
