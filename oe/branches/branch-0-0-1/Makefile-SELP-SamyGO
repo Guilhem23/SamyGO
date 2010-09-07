@@ -45,6 +45,9 @@ MACHINE ?= T-CHU7DEUC
 # MACHINE = T-CHE5IBRC
 # MACHINE = T-CSERIES92
 # MACHINE = T-CSERIES93
+#
+# arch -> mips
+# MACHINE = T-TDT5DEUC
 
 DISTRO = samygo-3.2
 SVN_AUTHOR_NAME = arris
@@ -91,6 +94,9 @@ static-image: initialize
 
 imaged: initialize 
 	cd $(OE_BASE)/build; . ./env.source; bitbake -v -D SamyGO-image
+
+mono: initialize 
+	cd $(OE_BASE)/build; . ./env.source; bitbake -v -D mono
 
 PatchFirm: initialize 
 	cd $(OE_BASE)/build; . ./env.source; bitbake -v -D SamyGO-PatchedFirmware-image 
