@@ -6105,8 +6105,8 @@ diff -urNP old/include/asm-arm/arch-ssdtv/memory.h new/include/asm-arm/arch-ssdt
 +#ifdef CONFIG_SSDTV_256MB
 +#define MACH_MEM0_SIZE 			SZ_128M
 +#define MACH_MEM1_SIZE 			SZ_128M
-+#define SYS_MEM0_SIZE			(39 << 20)
-+#define SYS_MEM1_SIZE			(73 << 20)
++#define SYS_MEM0_SIZE			(73 << 20)
++#define SYS_MEM1_SIZE			(39 << 20)
 +#define KVADDR_MASK			0x0FFFFFFF
 +#else
 +#define MACH_MEM0_SIZE 			SZ_256M
