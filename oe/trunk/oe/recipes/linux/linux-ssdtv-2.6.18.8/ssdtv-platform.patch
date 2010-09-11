@@ -1503,8 +1503,8 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_gpio_ports.c new/arch/arm/mach-ssdtv/ss
 +EXPORT_SYMBOL(ssdtv_gpio_init);
 diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c.c
 --- old/arch/arm/mach-ssdtv/ssdtv_i2c.c	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/ssdtv_i2c.c	2010-07-18 12:18:50.000000000 +0200
-@@ -0,0 +1,1278 @@
++++ new/arch/arm/mach-ssdtv/ssdtv_i2c.c	2010-09-09 06:41:01.000000000 +0200
+@@ -0,0 +1,980 @@
 +/*********************************************************************************************
 + *
 + *	ssdtv_i2c.c (Samsung Soc i2c device driver without i2c layer in kernel)
@@ -1516,10 +1516,9 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 + * published by the Free Software Foundation.
 + *
 + * SamyGO: http://samygo.sourceforge.net/
-+ * Content of this file is copied from sources released by Samsung
-+ * with GPLv2 license.
-+ * Origin: http://opensource.samsung.com ->
-+ * UE40C8000.zip -> linux.tgz -> linux/arch/arm/plat-sdp/sdp_i2c_edid.c
++ * This file is copied from sources released by Samsung with GPLv2 license.
++ * Origin: http://opensource.samsung.com
++ * LA46B650.zip -> linux.cip.open.tgz -> linux/drivers/char/sdp_i2c.c
 + * Later changes Copyright (C) 2010 SamyGO team
 + *
 + ********************************************************************************************/
@@ -1533,12 +1532,6 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +// Jan,08,2009  tukho.kim	i2c check bus modify MASTER TX -> MASTER_RX
 +// Mar,04,2009  tukho.kim	-ERESTARTSYS code 
 +// Mar,05,2009  tukho.kim	Timeout error 
-+// July,19,2009  tukho.kim	Add API "ssdtv_i2c_request" in Kernel 
-+// Sep,21,2009  tukho.kim 	code bug 20090821 switch case -> skip break
-+// Oct,08,2009  tukho.kim	add scl monitoring on/off function 1.2
-+// Oct,13,2009  tukho.kim	add byte delay function "1.21"
-+// Nov,01,2009  tukho.kim	add exp ddc read sequence "1.22"
-+// Dec,16,2009  tukho.kim	ask to apply skew value '7', (onkyo receive)   "1.221"
 + ********************************************************************************************/
 +
 +/*
@@ -1553,31 +1546,29 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +	3) wakeup : wake_up_interruptible(wait_queue_head_t *wq)
 +*/
 +
-+
 +#define DEBUG_SSDTV_I2C
-+#undef DEBUG_EXECUTE_FLOW
++//#define DEBUG_EXECUTE_FLOW
 +
 +#ifdef DEBUG_SSDTV_I2C
 +#  define SSDTV_I2C_DPRINTK(fmt, args...) printk("%s: " fmt, __FUNCTION__, ##args)
 +#else 
-+#  define SSDTV_I2C_DPRINTK(fmt, args...) 
++#  define SSDTV_I2C_DPRINTK(fmt, args...)
 +#endif
 +
 +#ifdef DEBUG_EXECUTE_FLOW
 +#  define DPRINTK_I2C_FLOW(fmt, args...) printk("%s: " fmt, __FUNCTION__, ##args)
 +#else 
-+#  define DPRINTK_I2C_FLOW(fmt, args...) 
++#  define DPRINTK_I2C_FLOW(fmt, args...)
 +#endif
 +
-+#define  DRV_NAME	"sdp i2c"
-+#define  DRV_VERSION	"1.221"
++#define  DRV_NAME	"ssdtv i2c"
++#define  DRV_VERSION	"0.7"
 +
 +#ifdef DEBUG_EXECUTE_FLOW
 +#define WAIT_FACTOR	5
 +#else
 +#define WAIT_FACTOR	1
 +#endif
-+
 +
 +#include <linux/kernel.h>
 +#include <linux/module.h>
@@ -1601,15 +1592,13 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +
 +struct i2c_packet_t {
 +	u8	status;			// transmission status & error status
-+	u8	slaveAddr;		// i2c slave(device) address
++	u8 	slaveAddr;		// i2c slave(device) address
 +	u8	subAddrSize;		// i2c sub address size
 +	u8	reserve8;		// align
-+	u16	reserve16;		// "1.22"
 +	u16	udelay;			// udelay
 +	u32	dataSize;		// i2c data size
 +	u8	*pSubAddr;		// i2c sub address buffer
 +	u8	*pData;			// i2c data buffer pointer 
-+	u8	reserve[4];		// "1.22"
 +};
 +
 +static struct i2c_ctrl_t {
@@ -1634,80 +1623,43 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +static void i2c_intr_stop(struct i2c_ctrl_t *pPort)
 +{
 +	u32 regVal;
-+	struct i2c_packet_t *pPacket = &pPort->packet;	 // 1.21
 +
-+	DPRINTK_I2C_FLOW("execute\n");
-+
++	DPRINTK_I2C_FLOW("i2c stop \n");
 +	regVal = R_I2C_CON;
 +	// i2c interrupt disable
-+	R_I2C_CON = I2CCON_INT_DIS(regVal);	
++	R_I2C_CON = I2CCON_INT_DIS(regVal);
 +	// stop generation 1
 +	R_I2C_STAT = I2CSTAT_STOP(R_I2C_STAT & 0xF0);
 +	// wake up
 +	pPort->syncCondition = 1;
 +	wake_up_interruptible(&pPort->syncQueue);
-+
 +	// stop generation 2
-+	I2CPEND_CLEAR;	
-+	// recovery i2c interrupt 
++	I2CPEND_CLEAR;
 +}
 +
-+static void i2c_intr_write(struct i2c_ctrl_t *pPort)
++static void i2c_intr_write (struct i2c_ctrl_t * pPort)
 +{
 +	struct i2c_packet_t *pPacket = &pPort->packet;	
 +
-+	DPRINTK_I2C_FLOW("execute\n");
-+
-+	if (pPacket->reserve8 & DEBUG_ALWAYS_NOT_ACK) {	// 1.2
-+		goto __after_ack_check;
-+	}
-+
-+	if (pPacket->status & STATUS_EDID) {		// 1.22
-+		if (!(pPacket->status & 1))
-+			goto __after_ack_check;		// 0x40, 0x42 skip ack
-+	}
-+
 +	// check acknowledge
-+   	if (I2CSTAT_RCV_NACK(R_I2C_STAT)){
-+		DPRINTK_I2C_FLOW("nack\n");
-+		// set error status
-+		pPacket->status |= STATUS_ERROR_FLAG;
-+		i2c_intr_stop(pPort);
-+	
-+		return;
-+   	}
-+
-+__after_ack_check:
-+	// 1.22
-+	if (pPacket->status & STATUS_EDID) {
-+		switch (pPacket->status & 0x3) {
-+			case (0):
-+				pPacket->status = (pPacket->I2C_EDID_SEGMENT) ? 
-+						STATUS_EDID_SEG_ACK : STATUS_EDID_SEG_NACK;
-+				R_I2C_DS = pPacket->I2C_EDID_SEGMENT;
-+				break;
-+			case (1): 
-+			case (2):
-+			default:
-+				pPacket->status = STATUS_READ_SUBADDR;
-+				R_I2C_DS = pPacket->slaveAddr;
-+				R_I2C_STAT = I2CSTAT_MASTER_TX;
-+				break;
-+		
++	if (pPacket->reserve8 != DEBUG_ALWAYS_NOT_ACK) {
++		if (I2CSTAT_RCV_NACK(R_I2C_STAT)){
++			DPRINTK_I2C_FLOW("nack\n");
++			// set error status
++			pPacket->status |= STATUS_ERROR_FLAG;
++			i2c_intr_stop(pPort);
++			return;
 +		}
-+		I2CPEND_CLEAR;	
 +	}
-+	// 1.22 end
 +
 +	// send sub address
-+	else if (pPacket->subAddrSize)	{
++	if (pPacket->subAddrSize) {
 +		DPRINTK_I2C_FLOW("subAddr 0x%02x\n", *pPacket->pSubAddr);
 +		R_I2C_DS = *pPacket->pSubAddr;
 +		pPacket->pSubAddr++;
 +		I2CPEND_CLEAR;
 +		pPacket->subAddrSize--;
 +	}
-+
 +	// change mode to read operation for combined read command
 +	else if (pPacket->status == STATUS_READ_SUBADDR) {
 +		DPRINTK_I2C_FLOW("change status 0x%02x\n", pPacket->slaveAddr);
@@ -1716,36 +1668,30 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +		R_I2C_STAT = I2CSTAT_MASTER_RX;
 +		I2CPEND_CLEAR;	// repeat start
 +	}
-+
 +	// send data 
-+	else if (pPacket->dataSize) {	// data send
++	else if (pPacket->dataSize) { // data send
 +		DPRINTK_I2C_FLOW("send data 0x%02x\n", *pPacket->pData);
 +		R_I2C_DS = *pPacket->pData;
 +		pPacket->pData++;
 +		I2CPEND_CLEAR;
 +		pPacket->dataSize--;
 +	}
-+
 +	// stop generation
 +	else { // stop 
 +		DPRINTK_I2C_FLOW("stop\n");
 +		i2c_intr_stop(pPort);
 +	}
-+
-+	return;
 +}
 +
-+static void i2c_intr_read(struct i2c_ctrl_t *pPort)
++static void i2c_intr_read (struct i2c_ctrl_t * pPort)
 +{
 +	u32 temp;
-+	struct i2c_packet_t *pPacket = &pPort->packet;
-+
-+	DPRINTK_I2C_FLOW("execute\n");
++	struct i2c_packet_t *pPacket = &pPort->packet;	
 +
 +	if (pPacket->status == STATUS_READ_START) {
 +		DPRINTK_I2C_FLOW("read start\n");
 +		// check acknowledge
-+		if (!(pPacket->reserve8 & DEBUG_ALWAYS_NOT_ACK)) { // 1.2
++		if (pPacket->reserve8 != DEBUG_ALWAYS_NOT_ACK) {
 +			if (I2CSTAT_RCV_NACK(R_I2C_STAT)) {
 +				// set error status
 +				pPacket->status |= STATUS_ERROR_FLAG;
@@ -1771,30 +1717,19 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +		case 1:
 +			DPRINTK_I2C_FLOW("read gen nack \n");
 +			R_I2C_CON = I2CCON_GEN_NACK(R_I2C_CON);
-+			I2CPEND_CLEAR;	
++			I2CPEND_CLEAR;
 +			break;
 +		default:
 +			DPRINTK_I2C_FLOW("read gen ack \n");
 +			R_I2C_CON = I2CCON_GEN_ACK(R_I2C_CON);
-+			I2CPEND_CLEAR;	
++			I2CPEND_CLEAR;
 +			break;
 +	}
 +}
 +
-+
-+void i2c_intr_control(struct i2c_ctrl_t *pPort)
++static void i2c_intr_control (struct i2c_ctrl_t * pPort)
 +{
 +	struct i2c_packet_t *pPacket = &pPort->packet;
-+
-+#ifdef DEBUG_EXECUTE_FLOW
-+	unsigned int regVal;
-+
-+	DPRINTK_I2C_FLOW("execute\n");
-+	DPRINTK_I2C_FLOW("pPort is 0x%08x\n", pPort);
-+	DPRINTK_I2C_FLOW("pPort->vBase 0x%x\n", pPort->vBase);
-+	regVal = R_I2C_CONE;
-+	DPRINTK_I2C_FLOW("R_I2C_CONE 0x%x\n", regVal);
-+#endif
 +
 +	// check stop generate by external environment
 +	if (I2CSTAT_STOP_DETECT(R_I2C_STAT) && !(I2CSTAT_BUSY)) {
@@ -1810,13 +1745,10 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +		return;
 +	}
 +
-+	// common operation 
-+	switch (pPacket->status){
++	// common operation
++	switch (pPacket->status) {
 +		case STATUS_WRITE:		// i2c write 
 +		case STATUS_READ_SUBADDR:	// i2c comb read
-+		case STATUS_EDID_READ:
-+		case STATUS_EDID_SEG_ACK:
-+		case STATUS_EDID_SEG_NACK:
 +			i2c_intr_write(pPort);
 +			break;
 +		case STATUS_READ_START:		// i2c read
@@ -1825,10 +1757,9 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +			break;
 +		case STATUS_TRY_READY:		// bus try to change to ready
 +			i2c_intr_stop(pPort);	// i2c stop
-+			break;			// code bug 20090821
 +		default:
-+			printk("i2c status is error 0x%x\n", pPacket->status);
-+			pPacket->status |= STATUS_ERROR_FLAG ;
++			printk("i2c status is error\n");
++			pPacket->status |= STATUS_ERROR_FLAG;
 +			i2c_intr_stop(pPort); // i2c stop 
 +			break;
 +	}
@@ -1838,37 +1769,29 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +{
 +	int i;
 +	u32 regVal;
-+	struct i2c_ctrl_t *pPort = (struct i2c_ctrl_t *)devId;
++	struct i2c_ctrl_t* pPort = (struct i2c_ctrl_t *) devId;
 +
-+	DPRINTK_I2C_FLOW("execute\n");
-+	DPRINTK_I2C_FLOW("pPort is 0x%08x\n", pPort);
 +	regVal = R_I2C_PEND;
 +
 +	for (i = 0; i < N_I2C_PORT; i++) {
-+		if(regVal & (1 << i)) {
-+			DPRINTK_I2C_FLOW("i2c intr %d\n", i);
++		if (regVal & (1 << i))
 +			i2c_intr_control(pPort+i);
-+		}
 +	}
 +
 +	return IRQ_HANDLED;
 +}
 +
-+static int i2c_set_clock(struct i2c_ctrl_t *pPort, u16 speedKhz)
++static int i2c_set_clock(struct i2c_ctrl_t* pPort, u16 speedKhz)
 +{
 +	int retVal = 0;
-+	struct i2c_packet_t * pPacket = &pPort->packet; // 1.2
-+
 +	const u32 i2cSrcClk = I2C_SRC_CLK; // unit is Khz
 +	u32 khz = (u32)speedKhz;
 +	u32 prescaler;
 +	u32 regVal;
 +
-+
-+	DPRINTK_I2C_FLOW("execute\n");
 +	// Max 400Khz 
 +	if (khz > 400)
-+		khz = 400;	
++		khz = 400;
 +	else if (khz < 10)
 +		khz = 10;
 +
@@ -1887,15 +1810,6 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +
 +	R_I2C_CON = I2CCON_CLK_PRE(prescaler, regVal);
 +
-+	// Oct,08,2009
-+	if(pPacket->reserve8 & MODE_SCL_MON_OFF){ 
-+		R_I2C_CONE |= 0x100;
-+	} else {
-+		R_I2C_CONE &= ~(0x100);
-+	}
-+	// Oct,08,2009 end
-+
-+	DPRINTK_I2C_FLOW("return\n");
 +	return retVal;
 +}
 +
@@ -1904,19 +1818,17 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +	int retVal = 0;
 +	u32 regVal;
 +	int retry = 5;
-+	struct i2c_packet_t* pPacket = &pPort->packet;
-+
-+	DPRINTK_I2C_FLOW("execute\n");
++	struct i2c_packet_t *pPacket = &pPort->packet;
 +
 +	if (I2CSTAT_BUSY)
-+		udelay(1000);  // wait to stop signal genertion 1ms 
-+			       // JAN,08,2009 100 ->1000 by tukho.kim
++		udelay(1000);	// wait to stop signal genertion 1ms 
++				// JAN,08,2009 100 ->1000 by tukho.kim
 +
-+	if (I2CSTAT_BUSY){
++	if (I2CSTAT_BUSY) {
 +		regVal = I2CCON_GEN_NACK(R_I2C_CON);
 +		regVal = I2CCON_INT_EN(regVal);
 +		R_I2C_CON = regVal;
-+		
++
 +		while (I2CSTAT_BUSY && retry) {
 +			// status 
 +			pPacket->status = STATUS_TRY_READY;
@@ -1926,10 +1838,11 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +			// a device of slave 0xff does not exist
 +			// try to send nack signal to device that is holding the bus
 +			R_I2C_DS = 0xFF;  // slave device stop nack
-+			R_I2C_STAT = I2CSTAT_MASTER_RX;   //Jan,08,2009 TX->RX by tukho.kim
++			R_I2C_STAT = I2CSTAT_MASTER_RX; //Jan,08,2009 TX->RX by tukho.kim
 +			// wait transmission
 +			// Mar,05,2009  tukho.kim
 +			retVal = wait_event_interruptible_timeout(pPort->syncQueue, pPort->syncCondition, 100);
++
 +			if (retVal == -ERESTARTSYS) {
 +				yield();
 +				udelay(1000);
@@ -1939,13 +1852,13 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +		}
 +	}
 +
-+	retVal = 0;  // Mar,05,2009  tukho.kim
++	retVal = 0;  // Mar,05,2009  tukho.kim 
 +
 +	if (I2CSTAT_BUSY) {
 +		printk(KERN_EMERG "i2c %d port recovery is failed, check bus line\n", pPort->port);
 +		retVal = -EIO;
 +	} else
-+		pPort->packet.status = STATUS_READY;	
++	 	pPort->packet.status = STATUS_READY;
 +
 +	return retVal;
 +}
@@ -1957,8 +1870,6 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +
 +	u64 i2cTimeOut;	// Mar,04,2009  tukho.kim
 +	int waitTime;	// Mar,05,2009  tukho.kim
-+
-+	DPRINTK_I2C_FLOW("execute\n");
 +
 +	R_I2C_CON = I2CCON_INT_EN(R_I2C_CON);
 +	// ack not generate and check ack bit 
@@ -1973,11 +1884,10 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +
 +	// wait transmission
 +	// Mar,04,2009  tukho.kim
-+	waitTime = wait_event_interruptible_timeout(
-+		pPort->syncQueue, pPort->syncCondition, 
-+		((pPacket->subAddrSize + pPacket->dataSize + 5) << WAIT_FACTOR)) ; 
++	waitTime = wait_event_interruptible_timeout(pPort->syncQueue, pPort->syncCondition,
++			((pPacket->subAddrSize + pPacket->dataSize + 5) << WAIT_FACTOR));
 +
-+	switch (waitTime){
++	switch (waitTime) {
 +		case (0):
 +			if (pPacket->subAddrSize || pPacket->dataSize) {
 +				SSDTV_I2C_DPRINTK("I2C ERR: port %d write time out error ==\n", pPort->port);
@@ -2009,21 +1919,18 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +		SSDTV_I2C_DPRINTK("I2C ERR: slave dev 0x%02x ================\n", pPacket->slaveAddr);
 +		SSDTV_I2C_DPRINTK("I2C ERR: error status 0x%02x================\n", pPacket->status);
 +		retVal = -EIO;
-+	}
++	}	
 +
 +	return retVal;
 +}
 +
-+
 +static int i2c_master_read(struct i2c_ctrl_t *pPort)
 +{
 +	int retVal = 0;
-+	struct i2c_packet_t *pPacket = &pPort->packet;
++	struct i2c_packet_t* pPacket = &pPort->packet;
 +
 +	u64 i2cTimeOut = 0;  // Mar,04,2009  tukho.kim
 +	int waitTime = 0;  // Mar,05,2009  tukho.kim
-+
-+	DPRINTK_I2C_FLOW("execute\n");
 +
 +	R_I2C_CON = I2CCON_INT_EN(R_I2C_CON);
 +	// ack not generate and check ack bit 
@@ -2037,24 +1944,23 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +	R_I2C_STAT = I2CSTAT_MASTER_RX;
 +	// wait transfer
 +	// Mar,04,2009  tukho.kim
-+	waitTime = wait_event_interruptible_timeout(
-+		pPort->syncQueue, pPort->syncCondition, 
-+		((pPacket->subAddrSize + pPacket->dataSize + 5) << WAIT_FACTOR)) ; 
++	waitTime = wait_event_interruptible_timeout(pPort->syncQueue, pPort->syncCondition,
++			((pPacket->subAddrSize + pPacket->dataSize + 5) << WAIT_FACTOR));
 +
 +	switch (waitTime) {
 +		case (0):
-+			if (pPacket->subAddrSize || pPacket->dataSize) {
-+				SSDTV_I2C_DPRINTK("I2C ERR: port %d read time out error ==\n", pPort->port);	// 1.22 modify
++			if(pPacket->subAddrSize || pPacket->dataSize) {
++				SSDTV_I2C_DPRINTK("I2C ERR: port %d write time out error ==\n", pPort->port);
 +				retVal = -EIO;   // Mar,05,2009  tukho.kim
 +			}
 +			break;
 +		case (-ERESTARTSYS):
 +			SSDTV_I2C_DPRINTK("I2C ERR: port %d -ERESTARTSYS is caused ==\n", pPort->port);
 +			i2cTimeOut = jiffies + ((pPacket->subAddrSize + pPacket->dataSize + 5) << WAIT_FACTOR);
-+			while (!pPort->syncCondition) {
++			while(!pPort->syncCondition) {
 +				yield();
 +				if (jiffies > i2cTimeOut) {
-+					SSDTV_I2C_DPRINTK("I2C ERR: port %d read time out error ==\n", pPort->port);	// 1.22 modify
++					SSDTV_I2C_DPRINTK("I2C ERR: port %d write time out error ==\n", pPort->port);
 +					retVal = -EIO;	// Mar,05,2009  tukho.kim
 +					break;
 +				}
@@ -2064,61 +1970,48 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +			break;
 +	}
 +	// Mar,04,2009  tukho.kim end
-+	//
++
 +	// check error status
-+	if (pPacket->status & STATUS_ERROR_FLAG)	{
++	if (pPacket->status & STATUS_ERROR_FLAG) {
 +		SSDTV_I2C_DPRINTK("I2C ERR: port %d read error ================\n", pPort->port);
 +		SSDTV_I2C_DPRINTK("I2C ERR: slave dev 0x%02x not exist ========\n", pPacket->slaveAddr);
 +		SSDTV_I2C_DPRINTK("I2C ERR: error status 0x%02x================\n", pPacket->status);
 +		retVal = -EIO;
-+	}	
++	}
 +
 +	return retVal;
 +}
 +
-+// combined
-+static int i2c_master_comb_read(struct i2c_ctrl_t *pPort, u8 cmd) // 1.22
++static int i2c_master_comb_read(struct i2c_ctrl_t *pPort)
 +{
 +	int retVal = 0;
 +	u32 regVal = R_I2C_CON;
 +	struct i2c_packet_t* pPacket = &pPort->packet;
 +
-+	u64 i2cTimeOut = 0; 	// Mar,04,2009  tukho.kim
-+	int waitTime = 0; 	// Mar,05,2009  tukho.kim
++	u64 i2cTimeOut = 0;	// Mar,04,2009  tukho.kim
++	int waitTime = 0;	// Mar,05,2009  tukho.kim
 +
-+	DPRINTK_I2C_FLOW("execute\n");
-+
-+	regVal = I2CCON_INT_EN(regVal);	
-+
-+	DPRINTK_I2C_FLOW("R_I2C_PEND 0x%x\n", R_I2C_PEND);
-+	// ack not generate and check ack bit 
++	regVal = I2CCON_INT_EN(regVal);
++	// ack not generate and check ack bit
 +	R_I2C_CON = I2CCON_GEN_NACK(regVal);
-+
++	// status write
++	pPacket->status = STATUS_READ_SUBADDR;
 +	// sync condition to false
 +	pPort->syncCondition = 0;
-+
-+	// status 
-+	pPacket->status = cmd; // 1.22
-+
 +	// send slave address
-+	if (cmd == STATUS_EDID_READ){
-+		R_I2C_DS = I2C_EDID_SEG_DEV; // 1.22 EDID spec
-+	} else {
-+		R_I2C_DS = pPacket->slaveAddr;
-+	}
-+	R_I2C_STAT = I2CSTAT_MASTER_TX;	
++	R_I2C_DS = pPacket->slaveAddr;
++	R_I2C_STAT = I2CSTAT_MASTER_TX;
 +
 +	// wait transmission
 +	// Mar,04,2009  tukho.kim
-+	waitTime = wait_event_interruptible_timeout(
-+		pPort->syncQueue, pPort->syncCondition, 
-+		((pPacket->subAddrSize + pPacket->dataSize + 5) << WAIT_FACTOR)) ; 
++	waitTime = wait_event_interruptible_timeout(pPort->syncQueue, pPort->syncCondition,
++			((pPacket->subAddrSize + pPacket->dataSize + 5) << WAIT_FACTOR));
 +
-+	switch (waitTime){
++	switch (waitTime) {
 +		case (0):
 +		// Timeout
 +			if (pPacket->subAddrSize || pPacket->dataSize) {
-+				SSDTV_I2C_DPRINTK("I2C ERR: port %d comb read time out error ==\n", pPort->port);
++				SSDTV_I2C_DPRINTK("I2C ERR: port %d write time out error ==\n", pPort->port);
 +				retVal = -EIO;   // Mar,05,2009  tukho.kim
 +			}
 +			break;
@@ -2129,9 +2022,9 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +
 +			while (!pPort->syncCondition) {
 +				yield();
-+		// Timeout
++				// Timeout
 +				if (jiffies > i2cTimeOut) {
-+					SSDTV_I2C_DPRINTK("I2C ERR: port %d comb read time out error ==\n", pPort->port);
++					SSDTV_I2C_DPRINTK("I2C ERR: port %d write time out error ==\n", pPort->port);
 +					retVal = -EIO;   // Mar,05,2009  tukho.kim
 +					break;
 +				}
@@ -2156,8 +2049,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +				SSDTV_I2C_DPRINTK("I2C ERR: comb read start not ack ==============\n");
 +				break;
 +			default:
-+				SSDTV_I2C_DPRINTK("I2C ERR: error status 0x%02x================\n"
-+						, pPacket->status);
++				SSDTV_I2C_DPRINTK("I2C ERR: error status 0x%02x================\n", pPacket->status);
 +				break;
 +		}
 +		retVal = -EIO;
@@ -2170,8 +2062,6 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +{
 +	int retVal = 0;
 +
-+	DPRINTK_I2C_FLOW("execute\n");
-+
 +	retVal = i2c_check_bus(pPort);
 +	if (retVal < 0)
 +		goto __ssdtv_write_out;
@@ -2182,18 +2072,17 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +
 +	retVal = i2c_master_write(pPort);
 +
++
 +__ssdtv_write_out:
-+	if (pPort->packet.udelay)
++	if(pPort->packet.udelay)
 +		udelay(pPort->packet.udelay);
 +
 +	return retVal;
 +}
 +
-+static int ssdtv_i2c_MasterRead(struct i2c_ctrl_t *pPort, u16 speedKhz)
++static int ssdtv_i2c_MasterRead(struct i2c_ctrl_t* pPort, u16 speedKhz)
 +{
 +	int retVal = 0;
-+
-+	DPRINTK_I2C_FLOW("execute\n");
 +
 +	retVal = i2c_check_bus(pPort);
 +	if (retVal < 0)
@@ -2212,21 +2101,17 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +	return retVal;
 +}
 +
-+static int ssdtv_i2c_MasterCombRead(struct i2c_ctrl_t *pPort, u16 speedKhz)
++static int ssdtv_i2c_MasterCombRead(struct i2c_ctrl_t* pPort, u16 speedKhz)
 +{
 +	int retVal = 0;
 +
-+	DPRINTK_I2C_FLOW("execute\n");
-+
 +	retVal = i2c_check_bus(pPort);
-+	if (retVal < 0)
-+		goto __ssdtv_combread_out;
++	if (retVal < 0) goto __ssdtv_combread_out;
 +
 +	retVal = i2c_set_clock(pPort, speedKhz);
-+	if (retVal < 0)
-+		goto __ssdtv_combread_out;
++	if (retVal < 0) goto __ssdtv_combread_out;
 +
-+	retVal = i2c_master_comb_read(pPort, STATUS_READ_SUBADDR);
++	retVal = i2c_master_comb_read(pPort);
 +
 +__ssdtv_combread_out:
 +
@@ -2240,8 +2125,6 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +{
 +	int retVal = 0;
 +	u16 rxDataSize = pPort->packet.dataSize;
-+
-+	DPRINTK_I2C_FLOW("execute\n");
 +
 +	retVal = i2c_check_bus(pPort);
 +	if (retVal < 0)
@@ -2276,153 +2159,6 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +	return retVal;
 +}
 +
-+static int ssdtv_i2c_EdidRead(struct i2c_ctrl_t *pPort, u16 speedKhz)
-+{
-+	int retVal = 0;
-+
-+	DPRINTK_I2C_FLOW("execute\n");
-+
-+	retVal = i2c_check_bus(pPort);
-+	if (retVal < 0)
-+		goto __ssdtv_edid_read_out;
-+
-+	retVal = i2c_set_clock(pPort, speedKhz);
-+	if (retVal < 0)
-+		goto __ssdtv_edid_read_out;
-+
-+	retVal = i2c_master_comb_read(pPort, STATUS_EDID_READ);
-+
-+__ssdtv_edid_read_out:
-+
-+	if (pPort->packet.udelay)
-+		udelay(pPort->packet.udelay);
-+
-+	return retVal;
-+}
-+
-+/* EXPORT BlOCK */
-+
-+int ssdtv_i2c_request(int port, unsigned int cmd, struct ssdtv_i2c_packet_t *pKernelPacket)
-+{
-+	int retVal = 0;
-+	struct i2c_ctrl_t *pPort;
-+	struct i2c_packet_t *pPacket;
-+
-+	DPRINTK_I2C_FLOW("execute\n");
-+	// check port number 	
-+	if (port >= N_I2C_PORT) {
-+		printk(KERN_ERR"[%s] ssdtv i2c can't support %d port\n", __FUNCTION__, port);
-+		return -1;
-+	}
-+
-+	// get port resource 
-+	pPort = i2c_ctrl + port;
-+	pPacket = &pPort->packet;
-+
-+	// remove R/W bit 
-+	pKernelPacket->slaveAddr = pKernelPacket->slaveAddr & 0xFE;
-+
-+	// 0xFE use at check_bus function 
-+	if (pKernelPacket->slaveAddr == 0xFE) {
-+		printk(KERN_WARNING "[%s]ssdtv i2c not support 0xFE address\n", __FUNCTION__);
-+		return -EINVAL;
-+	}
-+
-+	down(&pPort->mutex);
-+
-+	// get micro delay time
-+	pPacket->udelay = pKernelPacket->udelay + 10; // margin 10us for 100khz device
-+	// convert packet struct  
-+	pPacket->slaveAddr = pKernelPacket->slaveAddr;
-+	pPacket->dataSize = pKernelPacket->dataSize;
-+
-+	DPRINTK_I2C_FLOW("dataSize is %d\n",pPacket->dataSize);
-+
-+	if (pPacket->dataSize > PAGE_DATA_SIZE) {
-+		printk(KERN_ERR "[%s]i2c data size(%d) is overflow\n", __FUNCTION__, pPacket->dataSize);
-+		printk(KERN_ERR "[%s]i2c Max data is %d\n", __FUNCTION__, PAGE_DATA_SIZE);
-+		printk(KERN_ERR "You want to increase data size,change define MAX_DATA_SIZE in ssdtv_i2c.h");
-+		retVal =  -EINVAL;
-+		goto __ssdtv_i2c_request_out;
-+	}
-+
-+	pPacket->subAddrSize = pKernelPacket->subAddrSize;
-+
-+	if (pPacket->subAddrSize > 4) {
-+		printk(KERN_ERR "i2c don't supprt over 4 sub address device\n");
-+		retVal =  -EINVAL;
-+		goto __ssdtv_i2c_request_out;
-+	}
-+
-+	if (pPacket->subAddrSize) {
-+		pPacket->pSubAddr = pKernelPacket->pSubAddr;
-+	}
-+
-+	pPacket->pData	= pKernelPacket->pDataBuffer;
-+
-+	udelay(pPacket->udelay);
-+
-+	// execute command
-+	switch (cmd){
-+		case (I2C_CMD_WRITE):
-+			retVal = ssdtv_i2c_MasterWrite(pPort, pKernelPacket->speedKhz);
-+			if (retVal < 0) {
-+				if (pPacket->subAddrSize == pKernelPacket->subAddrSize)
-+					SSDTV_I2C_DPRINTK("[%s]i2c device start byte not ack\n", __FUNCTION__);
-+				else if (pPacket->dataSize == pKernelPacket->dataSize)
-+					SSDTV_I2C_DPRINTK("[%s]i2c device sub address not ack\n",__FUNCTION__);
-+				else if (pPacket->dataSize)
-+					SSDTV_I2C_DPRINTK("[%s]i2c device data %d not ack\n",
-+							__FUNCTION__, pKernelPacket->dataSize - pPacket->dataSize);
-+				else
-+					SSDTV_I2C_DPRINTK("[%s]i2c device is hang\n", __FUNCTION__);
-+			}
-+			break;
-+		case (I2C_CMD_READ):
-+			retVal = ssdtv_i2c_MasterRead(pPort, pKernelPacket->speedKhz);
-+			if (retVal < 0)  
-+				SSDTV_I2C_DPRINTK("[%s]i2c device start byte not ack\n", __FUNCTION__);
-+			break;
-+
-+		case (I2C_CMD_COMBINED_READ):
-+			retVal = ssdtv_i2c_MasterCombRead(pPort, pKernelPacket->speedKhz);
-+			if (retVal < 0) {
-+				if (pPacket->subAddrSize == pKernelPacket->subAddrSize)
-+					SSDTV_I2C_DPRINTK("[%s]i2c device start byte not ack\n", __FUNCTION__);
-+				else if (pPacket->dataSize == pKernelPacket->dataSize)
-+					SSDTV_I2C_DPRINTK("[%s]i2c device sub address not ack\n", __FUNCTION__);
-+				else
-+					SSDTV_I2C_DPRINTK("[%s]i2c device is hang\n", __FUNCTION__);
-+			}	
-+			break;
-+
-+		case (I2C_CMD_WRITE_N_READ):
-+			retVal = ssdtv_i2c_MasterWriteNRead(pPort, pKernelPacket->speedKhz);
-+			if (retVal < 0) {
-+				if (pPacket->subAddrSize == pKernelPacket->subAddrSize)
-+					SSDTV_I2C_DPRINTK("[%s]i2c device start byte not ack\n", __FUNCTION__);
-+				else if (pPacket->dataSize == pKernelPacket->dataSize)
-+					SSDTV_I2C_DPRINTK("[%s]i2c device sub address not ack\n", __FUNCTION__);
-+				else
-+					SSDTV_I2C_DPRINTK("[%s]i2c device is hang\n", __FUNCTION__);
-+			}
-+			break;
-+
-+		default:
-+			printk(KERN_WARNING "i2c command 0x%02x error\n", cmd);
-+			retVal = -EPERM;
-+			break;
-+	};
-+
-+__ssdtv_i2c_request_out:
-+	up(&pPort->mutex);
-+
-+	return retVal;
-+}
-+
-+EXPORT_SYMBOL(ssdtv_i2c_request);
-+/* EXPORT BlOCK End*/
-+
 +/* os dependent variable */
 +static int major;
 +static struct class *ssdtv_i2c_class;
@@ -2433,22 +2169,21 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +	int retVal = 0;
 +	u8 subAddr[4];
 +	struct ssdtv_i2c_packet_t userPacket;
-+	struct i2c_ctrl_t *pPort = (struct i2c_ctrl_t *) file->private_data;	
++	struct i2c_ctrl_t *pPort = (struct i2c_ctrl_t *)file->private_data;
 +	struct i2c_packet_t *pPacket = &pPort->packet;
 +
 +	// Dec,23,2008  tukho.kim       increase data size for one packet to 2MB
-+	u8 * largeDataBuffer = 0;	// save page data buffer
-+	u32  allocDataSize = 0; 
++	u8 * largeDataBuffer = 0; // save page data buffer
++	u32  allocDataSize = 0;
 +	
-+	DPRINTK_I2C_FLOW("execute\n");
 +	// get i2c arguement from spI in user region 
-+	copy_from_user((void *)&userPacket, (void *) args, sizeof(struct ssdtv_i2c_packet_t));
++	copy_from_user((void *)&userPacket, (void *)args, sizeof(struct ssdtv_i2c_packet_t));
 +
 +	// remove R/W bit 
 +	userPacket.slaveAddr = userPacket.slaveAddr & 0xFE;
 +
 +	// 0xFE use at check_bus function 
-+	if (userPacket.slaveAddr == 0xFE) {
++	if (userPacket.slaveAddr == 0xFE ) {
 +		printk(KERN_WARNING "ssdtv i2c not support 0xFE address\n");
 +		return -EINVAL;
 +	}
@@ -2475,7 +2210,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +
 +	pPacket->subAddrSize = userPacket.subAddrSize;
 +	if (pPacket->subAddrSize > 4){
-+		printk(KERN_ERR "i2c don't supprt over 4 sub address device\n");	
++		printk(KERN_ERR "i2c don't supprt over 4 sub address device\n");
 +		retVal =  -EINVAL;
 +		goto __ssdtv_i2c_ioctl_out;
 +	}
@@ -2488,14 +2223,13 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +	// Dec,23,2008  tukho.kim       increase data size for one packet to 2MB
 +	if (userPacket.dataSize > PAGE_DATA_SIZE) {
 +		allocDataSize = userPacket.dataSize;
-+		allocDataSize = (allocDataSize >> 12) + ((allocDataSize & 0xFFF)?1:0);
++		allocDataSize = (allocDataSize >> 12) + ((allocDataSize & 0xFFF) ? 1 : 0);
 +		allocDataSize = allocDataSize << 12;
 +
 +		largeDataBuffer =  (u8 *)vmalloc((unsigned long)allocDataSize);
 +
-+		if(!largeDataBuffer) {
-+			printk(KERN_ERR "i2c data buffer allocation failed %d: 0x%x\n", 
-+						pPort->port, userPacket.slaveAddr);
++		if (!largeDataBuffer) {
++			printk(KERN_ERR "i2c data buffer allocation failed %d: 0x%x\n", pPort->port, userPacket.slaveAddr);
 +			goto __ssdtv_i2c_ioctl_out;
 +		}
 +		pPacket->pData	= largeDataBuffer;
@@ -2516,13 +2250,11 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +				else if (pPacket->dataSize == userPacket.dataSize)
 +					SSDTV_I2C_DPRINTK("i2c device sub address not ack\n");
 +				else if (pPacket->dataSize)
-+					SSDTV_I2C_DPRINTK("i2c device data %d not ack\n",
-+							userPacket.dataSize - pPacket->dataSize);
-+				else
++					SSDTV_I2C_DPRINTK("i2c device data %d not ack\n", userPacket.dataSize - pPacket->dataSize);
++				else 
 +					SSDTV_I2C_DPRINTK("i2c device is hang\n");
 +			}
 +			break;
-+
 +		case (I2C_CMD_READ):
 +			retVal = ssdtv_i2c_MasterRead(pPort, userPacket.speedKhz);
 +			if (!(retVal < 0))
@@ -2539,11 +2271,10 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +					SSDTV_I2C_DPRINTK("i2c device start byte not ack\n");
 +				else if (pPacket->dataSize == userPacket.dataSize)
 +					SSDTV_I2C_DPRINTK("i2c device sub address not ack\n");
-+				else
++				else 
 +					SSDTV_I2C_DPRINTK("i2c device is hang\n");
 +			}
 +			break;
-+
 +		case (I2C_CMD_WRITE_N_READ):
 +			retVal = ssdtv_i2c_MasterWriteNRead(pPort, userPacket.speedKhz);
 +			if (!(retVal < 0))
@@ -2553,27 +2284,10 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +					SSDTV_I2C_DPRINTK("i2c device start byte not ack\n");
 +				else if (pPacket->dataSize == userPacket.dataSize)
 +					SSDTV_I2C_DPRINTK("i2c device sub address not ack\n");
-+				else
++				else 
 +					SSDTV_I2C_DPRINTK("i2c device is hang\n");
 +			}
 +			break;
-+		// 1.22
-+		case (I2C_CMD_EDID_READ):
-+			pPacket->I2C_EDID_SEGMENT = userPacket.I2C_EDID_SEGMENT;	
-+			retVal = ssdtv_i2c_EdidRead(pPort, userPacket.speedKhz);
-+			if (!(retVal < 0))
-+				copy_to_user(userPacket.pDataBuffer, pPort->pDataBuffer, userPacket.dataSize);
-+			else {
-+				if (pPacket->subAddrSize == userPacket.subAddrSize)
-+					SSDTV_I2C_DPRINTK("ddc EDID segment or start byte not ack\n");
-+				else if (pPacket->dataSize == userPacket.dataSize)
-+					SSDTV_I2C_DPRINTK("ddc EDID sub address not ack\n");
-+				else
-+					SSDTV_I2C_DPRINTK("i2c device is hang\n");
-+			}	
-+
-+			break;
-+		// 1.22
 +		default:
 +			printk(KERN_WARNING "i2c command 0x%02x error\n", cmd);
 +			retVal = -EPERM;
@@ -2585,7 +2299,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +	// Dec,23,2008  tukho.kim       increase data size for one packet to 2MB
 +	if (!largeDataBuffer) {
 +		vfree((void *)largeDataBuffer);
-+		largeDataBuffer = 0; 	// Mar,04,2009  tukho.kim
++		largeDataBuffer = 0; // Mar,04,2009  tukho.kim
 +	}
 +	// Dec,23,2008 end
 +
@@ -2594,16 +2308,13 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +	return retVal;
 +}
 +
-+
 +static int ssdtv_i2c_open(struct inode *inode, struct file *file)
 +{
 +	int retVal = 0;
 +	int port = iminor(inode);
 +	struct i2c_ctrl_t *pPort = &i2c_ctrl[port];
 +
-+	DPRINTK_I2C_FLOW("execute\n");
-+
-+	file->private_data = (void *)pPort;
++	file->private_data = (void*)pPort;
 +	pPort->useCount++;
 +
 +	return retVal;
@@ -2612,9 +2323,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +static int ssdtv_i2c_release (struct inode *inode, struct file *file)
 +{
 +	int retVal = 0;
-+	struct i2c_ctrl_t *pPort = (struct i2c_ctrl_t *) file->private_data;
-+
-+	DPRINTK_I2C_FLOW("execute\n");
++	struct i2c_ctrl_t *pPort = (struct i2c_ctrl_t *)file->private_data;
 +
 +	if (pPort->useCount > 0)
 +		pPort->useCount--;
@@ -2629,11 +2338,9 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +	.ioctl = ssdtv_i2c_ioctl,
 +};
 +
-+static int __devinit i2c_init(struct i2c_ctrl_t *pPort)
++static int __devinit i2c_init(struct i2c_ctrl_t * pPort)
 +{
 +	int retVal = 0;
-+
-+	DPRINTK_I2C_FLOW("execute\n");
 +
 +	// check i2c bus status
 +	if (i2c_check_bus(pPort) < 0) {
@@ -2645,7 +2352,6 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +
 +	// set skew value
 +	R_I2C_CONE = I2CCONE_SDA_SKEW(I2C_SDA_SKEW);
-+	DPRINTK_I2C_FLOW("R_I2C_CONE is 0x%x\n", R_I2C_CONE);
 +
 +	// initialize mutex resource 
 +	init_MUTEX(&pPort->mutex);
@@ -2659,21 +2365,18 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +	if (!pPort->pDataBuffer)
 +		return -1;
 +
-+	DPRINTK_I2C_FLOW("return\n");
-+
 +	return retVal;
 +}
 +
 +static int __devinit ssdtv_i2c_probe(struct platform_device *dev)
 +{
 +	int retVal = 0;
++
 +	dev_t devId;
 +	int i;
 +	char drvName[64];
 +	struct i2c_ctrl_t *pPort;
 +	u32 vBase;
-+
-+	DPRINTK_I2C_FLOW("execute\n");
 +
 +	retVal = alloc_chrdev_region(&devId, 0, N_I2C_PORT, SSDTV_I2C_DRV_NAME);
 +
@@ -2685,7 +2388,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +	cdev_init(&ssdtv_i2c_cdev, &ssdtv_i2c_fops);
 +	cdev_add(&ssdtv_i2c_cdev, devId, N_I2C_PORT);
 +
-+	ssdtv_i2c_class = class_create(THIS_MODULE, "sdp_i2c");
++	ssdtv_i2c_class = class_create(THIS_MODULE, "ssdtv_i2c");
 +
 +	if (IS_ERR(ssdtv_i2c_class)) {
 +		retVal = PTR_ERR(ssdtv_i2c_class);
@@ -2704,13 +2407,15 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +		pPort = &i2c_ctrl[i];
 +		pPort->port = i;
 +		pPort->vBase = (vBase + SSDTV_I2C_SFR_OFFSET +(i * 0x20));
-+		if (i2c_init(pPort) < 0)
-+			continue;
++		if(i2c_init(pPort) < 0) continue;
++#ifndef I2C_IRQ_SHARED
++		request_irq(pPort->irq, i2c_interrupt_handler, 0, "ssdtv_i2c_irq", (void *)pPort);
++#endif
 +		// device file create
 +		sprintf(drvName, "%s%d", SSDTV_I2C_DRV_NAME, i);
 +		class_device_create(ssdtv_i2c_class, NULL, MKDEV(major, i), NULL, drvName);
 +		// output initialize result 
-+		printk(KERN_INFO "SSDTV I2C %d port 0x%08x initialize base is 0x%08x\n", i,(u32)pPort,(u32)pPort->vBase);
++		printk(KERN_INFO "SSDTV I2C %d port initialize base is 0x%08x\n", i, pPort->vBase);
 +	}
 +#ifdef I2C_IRQ_SHARED
 +	request_irq(I2C_IRQ, i2c_interrupt_handler, 0, "ssdtv_i2c_irq", (void *)i2c_ctrl);
@@ -2727,13 +2432,12 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +{
 +	int retVal = 0;
 +
-+	DPRINTK_I2C_FLOW("execute\n");
-+
 +	cdev_del(&ssdtv_i2c_cdev);
 +	unregister_chrdev_region(MKDEV(major, 0), N_I2C_PORT);
-+	
++
 +	return retVal;
 +}
++
 +
 +static struct platform_device *ssdtv_i2c_platform_device;
 +static struct platform_driver ssdtv_i2c_device_driver = {
@@ -2761,7 +2465,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +
 +	retVal = platform_driver_register(&ssdtv_i2c_device_driver);
 +
-+	if(retVal < 0) {
++	if (retVal < 0) {
 +		platform_driver_unregister(&ssdtv_i2c_device_driver);
 +		return retVal;
 +	}
@@ -2771,22 +2475,20 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.c new/arch/arm/mach-ssdtv/ssdtv_i2c
 +	return retVal;
 +}
 +
-+static void __exit ssdtv_i2c_exit(void)
++static void __init ssdtv_i2c_exit(void)
 +{
 +	platform_driver_unregister(&ssdtv_i2c_device_driver);
 +	platform_device_unregister(ssdtv_i2c_platform_device);
 +}
 +
-+
 +module_init(ssdtv_i2c_init);
 +module_exit(ssdtv_i2c_exit);
 +
 +MODULE_LICENSE("GPL");
-+
 diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.h new/arch/arm/mach-ssdtv/ssdtv_i2c.h
 --- old/arch/arm/mach-ssdtv/ssdtv_i2c.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/ssdtv_i2c.h	2010-07-18 12:18:43.000000000 +0200
-@@ -0,0 +1,135 @@
++++ new/arch/arm/mach-ssdtv/ssdtv_i2c.h	2010-09-09 06:40:23.000000000 +0200
+@@ -0,0 +1,119 @@
 +/*********************************************************************************************
 + *
 + *	ssdtv_i2c.h (Samsung Soc i2c device driver without i2c layer in kernel)
@@ -2798,10 +2500,9 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.h new/arch/arm/mach-ssdtv/ssdtv_i2c
 + * published by the Free Software Foundation.
 + *
 + * SamyGO: http://samygo.sourceforge.net/
-+ * Content of this file is copied from sources released by Samsung
-+ * with GPLv2 license.
-+ * Origin: http://opensource.samsung.com ->
-+ * UE40C8000.zip -> linux.tgz -> linux/arch/arm/plat-sdp/sdp.h
++ * This file is copied from sources released by Samsung with GPLv2 license.
++ * Origin: http://opensource.samsung.com
++ * LA46B650.zip -> linux.cip.open.tgz -> linux/drivers/char/ssdtv_i2c.h
 + * Later changes Copyright (C) 2010 SamyGO team
 + *
 + ********************************************************************************************/
@@ -2810,12 +2511,9 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.h new/arch/arm/mach-ssdtv/ssdtv_i2c
 + * Date 	author		Description
 + * ----------------------------------------------------------------------------------------
 +// Sep,06,2008 	tukho.kim	add delay between setting DS reg and Pending register clear
-+// Sep,09,2008 	tukho.kim	ask to apply skew value '7' from VD division
++// Sep,09,2008 	tukho.kim	ask to apply skew value '7' from VD division �̱⼺ 
 +// Dec,23,2008 	tukho.kim	increase data size for one packet to 2MB
 +// Dec,24,2008 	tukho.kim	i2c check bus modify 
-+// Oct,13,2009  tukho.kim	add byte delay function "1.21"
-+// Nov,01,2009  tukho.kim	add exp ddc read sequence "1.22"
-+// Dec,16,2009  tukho.kim	ask to apply skew value '7', (onkyo receive)   "1.221"
 + ********************************************************************************************/
 +
 +#ifndef __SSDTV_I2C_H
@@ -2828,11 +2526,11 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.h new/arch/arm/mach-ssdtv/ssdtv_i2c
 +#define O_I2C_PEND	0xE0
 +#define I2C_SDA_SKEW	7  // Sep,09,2008 '1' -> '7'
 +
-+/* sdp i2c port base address, 4Kbyte mask - linux memory management*/
++/* ssdtv i2c port base address, 4Kbyte mask - linux memory management*/
 +#define SSDTV_PERI_SFR_BASE	(0x30090000)
 +#define SSDTV_I2C_SFR_OFFSET	(0x100)
 +
-+/* sdp i2c driver name */
++/* ssdtv i2c driver name */
 +#define SSDTV_I2C_DRV_NAME 	"sdp_i2c"
 +
 +/* Data buffer size */
@@ -2846,34 +2544,24 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.h new/arch/arm/mach-ssdtv/ssdtv_i2c
 +
 +
 +/* define status of i2c_packet_t */
-+#define STATUS_READY			0x00   	// ready
-+#define STATUS_WRITE			0x01   	// write, bus busy
++#define STATUS_READY			0x00	// ready
++#define STATUS_WRITE			0x01	// write, bus busy
 +#define STATUS_READ_SUBADDR		0x11	// write, bus busy
 +#define STATUS_READ_START		0x12	// read, bus busy
 +#define STATUS_READ_DATA		0x13	// read, bus busy
-+// 1.22, 0x20 -> 0x18
-+#define STATUS_TRY_READY		0x18    // use this at check_bus Dec,24,2008 // 1.22
-+
-+// 1.22
-+#define STATUS_EDID			(0x20)
-+#define STATUS_EDID_READ		(STATUS_EDID)		// 1.22, Nack is default
-+// 1.22, if segment is not '0', ack op
-+#define STATUS_EDID_SEG_ACK		(STATUS_EDID | 1)	
-+#define STATUS_EDID_SEG_NACK		(STATUS_EDID | 2)	
++#define STATUS_TRY_READY		0x20    // use this at check_bus Dec,24,2008
 +
 +/* exception status */
 +#define STATUS_ERROR_FLAG		0x80
 +#define STATUS_STOP_DETECT		0x40	// none, bus ready
 +
-+#define STATUS_WRITE_ERR		0x81   	// write, bus busy
++#define STATUS_WRITE_ERR		0x81	// write, bus busy
 +#define STATUS_READ_SUBADDR_ERR		0x91	// write, bus busy
 +#define STATUS_READ_START_ERR		0x92	// read, bus busy
 +#define STATUS_READ_DATA_ERR		0x93	// read, bus busy
 +
-+#define STATUS_EDID_READ_ERR		0xC1	// "1.22"
-+
-+#define R_I2C_REG(offset)		(*(volatile unsigned int*)(pPort->vBase + offset))
-+#define R_I2C_PEND			(*(volatile unsigned int*)(vPend))
++#define R_I2C_REG(offset)		(*(volatile unsigned int *)(pPort->vBase + offset))
++#define R_I2C_PEND			(*(volatile unsigned int *)(vPend))
 +
 +#define O_I2C_CON		(0x00)
 +#define O_I2C_STAT		(0x04)
@@ -2898,8 +2586,8 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.h new/arch/arm/mach-ssdtv/ssdtv_i2c
 +
 +#define I2CCON_CLK_PRE(val, regval)    ((regval & 0x3C0) | (val & 0x3F)) //0x3F [5:0]  // modify by tukho.kim 081014
 +
-+#define I2CSTAT_STOP_DETECT(regval)	(regval & 0x100)	//0x100 [8]
 +
++#define I2CSTAT_STOP_DETECT(regval)	(regval & 0x100)	//0x100 [8]
 +#define I2CSTAT_STOP_FLAG_CLR		(0x100)			//0x100 [8]
 +#define I2CSTAT_MASTER_RX		(0xB0)
 +#define I2CSTAT_MASTER_RX_STOP		(0x90)
@@ -2910,47 +2598,40 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c.h new/arch/arm/mach-ssdtv/ssdtv_i2c
 +#define I2CSTAT_BUSY			(R_I2C_STAT & (1 << 5)) //read [5]
 +#define I2CSTAT_BUS_ENABLE(regVal)	(regVal | (1 << 4))
 +#define I2CSTAT_RCV_NACK(regval)	(R_I2C_STAT & 1)
++
 +#define I2CCONE_SDA_SKEW(regval)	(regval & 0xF)		//[3:0]
 +
 +// Sep,06,2008 add udelay(1)
-+// Oct,13,2009  tukho.kim	add byte delay function "1.21"
 +#define I2CPEND_CLEAR			( { volatile u32 val = R_I2C_PEND; \
 +					     udelay(1); \
-+					     if (pPacket->reserve8 & BYTE_DELAY_ON) \
-+					        udelay((pPacket->reserve8 >> 4) * 10);\
 +					     R_I2C_PEND = (1 << pPort->port) & val; \
 +					 } )
 +
-+#endif // __SDP_I2C_H
++#endif // __SSDTV_I2C_H
 diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c_io.h new/arch/arm/mach-ssdtv/ssdtv_i2c_io.h
 --- old/arch/arm/mach-ssdtv/ssdtv_i2c_io.h	1970-01-01 01:00:00.000000000 +0100
-+++ new/arch/arm/mach-ssdtv/ssdtv_i2c_io.h	2010-07-18 12:19:18.000000000 +0200
-@@ -0,0 +1,73 @@
++++ new/arch/arm/mach-ssdtv/ssdtv_i2c_io.h	2010-09-09 06:40:11.000000000 +0200
+@@ -0,0 +1,49 @@
 +/*********************************************************************************************
 + *
 + *	ssdtv_i2c_io.h (Samsung Soc i2c device driver ioctl arguement)
 + *
 + *	author : tukho.kim@samsung.com
-+ *
++ *	
 + * This program is free software; you can redistribute it and/or modify
 + * it under the terms of the GNU General Public License version 2 as
 + * published by the Free Software Foundation.
 + *
 + * SamyGO: http://samygo.sourceforge.net/
-+ * Content of this file is copied from sources released by Samsung
-+ * with GPLv2 license.
-+ * Origin: http://opensource.samsung.com ->
-+ * UE40C8000.zip -> linux.tgz -> linux/arch/arm/plat-sdp/sdp_i2c_io.h
++ * This file is copied from sources released by Samsung with GPLv2 license.
++ * Origin: http://opensource.samsung.com
++ * LA46B650.zip -> linux.cip.open.tgz -> linux/drivers/char/ssdtv_i2c_io.h
 + * Later changes Copyright (C) 2010 SamyGO team
-+ *	
++ *
 + ********************************************************************************************/
 +/*********************************************************************************************
 + * Description 
 +// Dec,23,2008 	tukho.kim	increase data size for one packet to 2MB
-+// Oct,08,2009  tukho.kim	add scl monitoring on/off function "1.2"
-+// Oct,13,2009  tukho.kim	add byte delay function "1.21"
-+// Oct,14,2009  tukho.kim	add non-stop write and combined read command "1.30"
-+// Nov,01,2009  tukho.kim	remove "1.30", add function exp ddc read sequence "1.22"
 + ********************************************************************************************/
 +
 +#ifndef __SSDTV_I2C_IO_H
@@ -2962,22 +2643,9 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c_io.h new/arch/arm/mach-ssdtv/ssdtv_
 +#define I2C_CMD_COMBINED_READ	0x11
 +#define I2C_CMD_WRITE_N_READ	0x12
 +
-+/* DDC EDID READ */
-+#define I2C_CMD_EDID_READ	0x40	// 1.22
-+
 +/* define for debugging -> not check acknowledge*/
 +#define M_DEBUG			reserve[0]
-+#define DEBUG_ALWAYS_NOT_ACK	(1 << 0)  // 1.2
-+#define MODE_SCL_MON_OFF	(1 << 1)  // 1.2
-+#define BYTE_DELAY_ON		(1 << 2)  // 1.21
-+#define BYTE_DELAY_10US(a)	(a << 4)  // 1.21
-+
-+/* DDC EDID READ */
-+#define I2C_EDID_SEG_DEV	0x60    // 1.22, EDID read spec
-+#define I2C_EDID_SEGMENT	reserve[1]    // 1.22, EDID read spec
-+/* DDC EDID READ END */
-+
-+
++#define DEBUG_ALWAYS_NOT_ACK 	0xA5
 +
 +struct ssdtv_i2c_packet_t {
 +	unsigned char	slaveAddr;
@@ -2992,13 +2660,7 @@ diff -urNP old/arch/arm/mach-ssdtv/ssdtv_i2c_io.h new/arch/arm/mach-ssdtv/ssdtv_
 +	unsigned char	reserve[4];
 +};
 +
-+
-+#ifdef __KERNEL__
-+extern int ssdtv_i2c_request(int port, unsigned int cmd, struct ssdtv_i2c_packet_t *pKernelPacket);
-+#endif
-+
-+#endif
-+
++#endif // __SSDTV_I2C_IO_H
 diff -urNP old/arch/arm/mach-ssdtv/ssdtv_irq.c new/arch/arm/mach-ssdtv/ssdtv_irq.c
 --- old/arch/arm/mach-ssdtv/ssdtv_irq.c	1970-01-01 01:00:00.000000000 +0100
 +++ new/arch/arm/mach-ssdtv/ssdtv_irq.c	2010-07-18 12:20:01.000000000 +0200
