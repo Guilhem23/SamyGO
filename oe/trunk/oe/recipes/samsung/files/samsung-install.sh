@@ -122,7 +122,7 @@ START="/sbin/samsung-start.sh"
 
 download_firmware() {
 	echo
-	echo "Downloading $FILENAME ..."
+	echo "Downloading $URL ..."
 	echo
 	wget -c $URL
 	if [ $? != 0 ]; then
@@ -370,15 +370,8 @@ T-CHE6AUSC|T-CHE7AUSC|T-CHEAUSC|T-CHL5DAUC|T-CHL5DEUC|T-CHL7DAUC|T-CHL7DEUC|T-CH
 
 	export LD_LIBRARY_PATH=\"/lib:/Java/lib:/mtd_cmmlib/Comp_LIB:/mtd_cmmlib/InfoLink/lib:/mtd_cmmlib/GAME_LIB:/mtd_cmmlib/DRM_LIB:/mtd_cmmlib/YWidget_LIB\"
 
-	if [ -f /.custom_exedsp_cmd ]; then
-		CUSTOM_EXEDSP_CMD=\`cat \"/.custom_exedsp_cmd\"\`
-	fi
 	echo \"*** Starting exeDSP ***\"
-	if [ \"\$CUSTOM_EXEDSP_CMD\" ]; then
-		\$CUSTOM_EXEDSP_CMD
-	else
-		./exeDSP
-	fi
+	./exeDSP
 	echo \"*** Finished exeDSP ***\"
 	;;
 
