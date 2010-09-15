@@ -1,3 +1,7 @@
+2010-09-15 Ser Lev Arris <arris@ZsoltTech.Com> svn r1007
+	* keyauth implemented (patch insperation by tom_van)
+	  copy (scp) your ssh2 pubkey to tv -> /mtd_rwarea/authorized_keys
+
 2009-11-11 Ser Lev Arris <arris@ZsoltTech.Com> v0.02
 	* disabled telnet stuff in init-script
 	* if you just want to use telnet, delete SamyGO/etc/rc.sysinit

@@ -1,0 +1,8 @@
+first set password and username in 
+SamyGO/etc/init.d/04_04_fusesmb.init!!
+
+if jou are lucky your windows/samba shares are mounted
+
+Depends on: Extension-CoreScript, SamyGO-UPNP-Extension
+
+$Id$
