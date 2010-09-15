@@ -13,7 +13,7 @@
 . /dtv/SGO.env
 
 	### begin configure me
-
+	# see description at: http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=5&t=594&hilit=dtv%2Fgdbtrick.gdb&start=20#p6279
 	# gdb_commands: this is a temporary file where gdb commands are stored
 	gdb_commands=/dtv/gdbtrick.gdb
 
@@ -22,9 +22,10 @@
 	gdb_delay=1
 
 	# libraries: absolute path of libraries to be loaded
+	# like "/full/path/to/load_custom_module1.so /full/path/to/load_custom_module2.so" 
 	#            there can be several, separated spaces!!
 	#            this script requires paths WITHOUT spaces
-	libraries="/mtd_tlib/GGame/avrfix2-cip/load.so" # add more libraries here
+	libraries="NOTHING" # add your libraries here
 
 	### end configure me
 

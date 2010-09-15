@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id$
+
+. /dtv/SGO.env
+
+# be careful, you are root without password!
+
+case $1 in 
+	start)
+	vsftpd $SYSROOT/etc/vsftpd.conf &
+	;;
+	stop)
+	killall -QUIT vsftpd 
+	;;
+	status)
+	pidof vsftpd
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac

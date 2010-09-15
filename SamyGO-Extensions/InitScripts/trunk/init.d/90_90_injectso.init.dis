@@ -1,0 +1,53 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id$
+
+. /dtv/SGO.env
+
+### begin configure me
+# see description at: http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=6&t=862&start=0
+# libraries: absolute path of libraries to be loaded
+#	     like "/full/path/to/load_custom_module1.so /full/path/to/load_custom_module2.so"
+#            there can be several, separated spaces!!
+#            this script requires paths-names WITHOUT spaces
+libraries="NOTHING" # add your libraries here
+
+### end configure me
+
+do_inject()
+{
+
+	exeDSP_PID=$(pidof exeDSP)
+
+	for l in $libraries
+	do
+		if [ -e "$l" ] ;then
+			sleep 3 
+			injectso $exeDSP_PID $l Game_Main ${l%/*}/ &
+		else
+			echo "forgot to configure the script?"
+		fi
+	done
+}
+
+case $1 in 
+	start)
+	do_inject
+	;;
+	stop)
+	echo "Nothing to do"
+	;;
+	status)
+	echo "Ask root"
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
