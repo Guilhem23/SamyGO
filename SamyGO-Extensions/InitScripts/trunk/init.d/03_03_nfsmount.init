@@ -50,7 +50,7 @@ get_shares()
 		for i in $SERVERS ; do
 			echo $i
 			# S_MOUNTS=$(showmount --no-headers -e $i | cut -d " " -f1)	
-			S_MOUNTS=$(showmount --no-headers -e $i | sed 's/^\(.*\) *\*/\1/')	
+			S_MOUNTS=$(showmount --no-headers -e $i | sed 's/^\(.*\) .*/\1/')	
 			[ -n "$S_MOUNTS" ] && do_mount $i
 		done
 	else
