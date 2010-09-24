@@ -1,0 +1,112 @@
+#!/bin/sh
+#
+# © Copyright 1996-2009, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: $Id$
+#
+# This script is not under the GPL, you have the permission
+# to write your own and not use/modify this one!
+#
+# TODO: more sysv style, more error handling
+#
+. /dtv/SGO.env
+
+# Key Length (Bits) Byte Count Hexadecimal Character Count
+#	40             5                  10
+#	64             8                  16
+#	104            13                 26
+#	128            16                 32
+#	152            19                 28
+#	232            29                 58
+#	256            32                 64
+
+##### CHANGE MEEEEE !!!!! ######
+# essid: ssid / wlan network name
+#
+# just set _one_ of the keys WEPKEY or WPAKEY
+# 
+# wep-key format: 40, 104 or may 232 bit ≙ 5, 13 or 29 byte hex key 
+# like: 40 bit key, Sammy ≙ 53616D6D79
+# online converter -> http://www.string-functions.com/string-hex.aspx
+#
+# wpa-key (pre shared key (PSK) or personal mode) format:
+# 
+#
+ESSID="d"
+WEPKEY=""
+WPAKEY="" 
+##### CHANGE MEEEEE END ######
+
+IFACE_NAMES="rausb0 wlan0 ra11n0 ra0"
+all_down()
+{
+	# todo: ignore wired eth0?
+	killall -QUIT udhcpc
+
+	for i in $IFACE_NAMES ; do
+		ifconfig $i down
+	done
+	# with nag screen or without?
+	#	echo "index[0]
+	#product : eth0" > /dtv/usb/netlog
+	for i in rt73 rt2870sta ; do
+		rmmod $i
+	done
+
+	# # cat /dtv/usb/netlog
+	# index[0]
+	# product : ra11n0
+}
+
+wlan_up()
+{
+	for i in $SYSROOT/lib/modules/treasure/*.ko ; do
+		insmod $i
+		sleep 3
+	done
+	for i in $IFACE_NAMES ; do
+		# todo: skip if no interface (check with ifconfig -a)
+		ifconfig $i up && $(iwconfig $i mode Managed \
+		iwconfig $i essid "$ESSID")
+
+		if [ ! -z "$WEPKEY" ] ; then
+		       	iwconfig $i key "$WEPKEY"
+		elif [ ! -z "$WPAKEY" ] ; then
+			iwpriv $i set AuthMode=WPAPSK
+			iwpriv $i set EncrypType=TKIP
+			iwpriv $i set WPAPSK="$WPAKEY"
+		else
+			echo "Use open W-LAN"
+		fi
+
+		ifconfig $i up && udhcpc -i $i -t 12 -T 5 -b 
+		#	echo "index[0]
+		#product : ra11n0" > /dtv/usb/netlog
+	done
+}
+
+case $1 in 
+	start)
+	# try restart the network with new modules
+	if [ ! -z "$ESSID" ] ; then
+		all_down
+		wlan_up
+	else
+		echo "Fatal Error, Script $0: missing configuration!"
+	fi
+	;;
+	stop)
+	all_down
+	;;
+	status)
+	ifconfig
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
