@@ -36,9 +36,11 @@
 # wpa-key (pre shared key (PSK) or personal mode) format:
 # 
 #
-ESSID="d"
+# our_modules: one or more, but known list is, rt2570 rt3070sta rt3070sta rt73 
+ESSID=""
 WEPKEY=""
-WPAKEY="" 
+WPAKEY=""
+OUR_MODULES=""
 ##### CHANGE MEEEEE END ######
 
 IFACE_NAMES="rausb0 wlan0 ra11n0 ra0"
@@ -53,6 +55,8 @@ all_down()
 	# with nag screen or without?
 	#	echo "index[0]
 	#product : eth0" > /dtv/usb/netlog
+
+	# just remove known samsung modules
 	for i in rt73 rt2870sta ; do
 		rmmod $i
 	done
@@ -64,8 +68,8 @@ all_down()
 
 wlan_up()
 {
-	for i in $SYSROOT/lib/modules/treasure/*.ko ; do
-		insmod $i
+	for i in $OUR_MODULES ; do
+		insmod $SYSROOT/lib/modules/${i}.ko
 		sleep 3
 	done
 	for i in $IFACE_NAMES ; do
