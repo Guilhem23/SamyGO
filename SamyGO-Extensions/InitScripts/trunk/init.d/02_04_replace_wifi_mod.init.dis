@@ -35,12 +35,12 @@
 #
 # wpa-key (pre shared key (PSK) or personal mode) format:
 # 
+# our_modules: one or more, but known list is, rt2570 rt2870sta rt3070sta rt73 
 #
-# our_modules: one or more, but known list is, rt2570 rt3070sta rt3070sta rt73 
-ESSID=""
+ESSID="dd-wrt"
 WEPKEY=""
 WPAKEY=""
-OUR_MODULES=""
+OUR_MODULES="rt2570"
 ##### CHANGE MEEEEE END ######
 
 IFACE_NAMES="rausb0 wlan0 ra11n0 ra0"
@@ -56,8 +56,8 @@ all_down()
 	#	echo "index[0]
 	#product : eth0" > /dtv/usb/netlog
 
-	# just remove known samsung modules
-	for i in rt73 rt2870sta ; do
+	# just remove known samsung modules and my extra
+	for i in rt73 rt2870sta rt2570 ; do
 		rmmod $i
 	done
 
@@ -69,7 +69,7 @@ all_down()
 wlan_up()
 {
 	for i in $OUR_MODULES ; do
-		insmod $SYSROOT/lib/modules/${i}.ko
+		insmod $SYSROOT/lib/modules/${i}.ko ifname=ra11n%d
 		sleep 3
 	done
 	for i in $IFACE_NAMES ; do
@@ -88,8 +88,8 @@ wlan_up()
 		fi
 
 		ifconfig $i up && udhcpc -i $i -t 12 -T 5 -b 
-		#	echo "index[0]
-		#product : ra11n0" > /dtv/usb/netlog
+			echo "index[0]
+product : $i" > /dtv/usb/netlog
 	done
 }
 
