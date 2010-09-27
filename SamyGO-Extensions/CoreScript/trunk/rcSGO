@@ -26,6 +26,12 @@ if [ -x /etc/rc.early.local ]; then
 	echo ". /etc/rc.early.local" 1>&2
 fi
 
+# harden
+if [ ! -e /mtd_rwarea/passwd ]; then
+	echo "root:saJvQKUdIxRW2:0:0:SamyGO secured Root:/mtd_wiselink:/bin/sh" > /mtd_rwarea/passwd
+	mount -o bind /mtd_rwarea/passwd /etc/passwd
+fi
+
 # do the work (try to find SamyGO or start telnetd)
 # other user scripts are not supported SamyGO has 
 # extensions for automount etc...
