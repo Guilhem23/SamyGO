@@ -6,7 +6,7 @@
 #       donated for the SamyGo Project
 #       http://samygo.sourceforge.net/
 #
-#       Version: SamyGO svn $Id: 03_03_djmount.init 334 2010-01-21 18:58:15Z arris $
+#       Version: SamyGO svn $Id$
 
 . /dtv/SGO.env
 

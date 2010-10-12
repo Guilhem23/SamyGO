@@ -6,7 +6,7 @@
 #       donated for the SamyGo Project
 #       http://samygo.sourceforge.net/
 #
-#       Version: SamyGO svn $Id: 04_04_samba.init 346 2010-01-25 11:47:28Z arris $
+#       Version: SamyGO svn $Id$
 #
 
 . /dtv/SGO.env

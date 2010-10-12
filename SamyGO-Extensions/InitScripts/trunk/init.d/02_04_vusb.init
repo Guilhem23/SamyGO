@@ -6,7 +6,7 @@
 #       donated for the SamyGo Project
 #       http://samygo.sourceforge.net/
 #
-#       Version: SamyGO svn $Id: 02_04_vusb.init 329 2010-01-20 15:27:22Z arris $
+#       Version: SamyGO svn $Id$
 #
 # TODO: more sysv style, more error handling
 #

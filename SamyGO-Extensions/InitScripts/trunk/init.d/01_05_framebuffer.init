@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id$
+
+. /dtv/SGO.env
+
+case $1 in 
+	start)
+	mknod /dev/sam/fb0 c 29 0
+	# for systems with modular fb kernel support
+	# base: /lib/modules/2.6.18_SELP-ARM/kernel/drivers/video/
+	insmod $SYSROOT/lib/modules/fb.ko
+	insmod $SYSROOT/lib/modules/cfbcopyarea.ko
+	insmod $SYSROOT/lib/modules/cfbfillrect.ko
+	insmod $SYSROOT/lib/modules/cfbimgblt.ko
+	insmod $SYSROOT/lib/modules/vfb.ko
+	;;
+	stop)
+	;;
+	status)
+	cat /proc/fb
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
