@@ -38,6 +38,7 @@ do_inject()
 
 case $1 in 
 	start)
+	mkdir -p /mtd_rwarea/etc
 	do_inject
 	;;
 	stop)
