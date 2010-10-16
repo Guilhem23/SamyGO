@@ -39,7 +39,9 @@ do_configure() {
 do_install() {
 	install -d ${D}/scummvm
 	install -m 0644 ${S}/scummvm.so ${D}/scummvm/libscummvm.so
-	install -m 0644 ${S}/dists/engine-data/* ${D}/scummvm/
+	install -m 0644 ${S}/dists/engine-data/*.dat ${D}/scummvm/
+	install -m 0644 ${S}/dists/engine-data/queen.tbl ${D}/scummvm/
+	install -m 0644 ${S}/dists/engine-data/sky.cpt ${D}/scummvm/
 	install -m 0644 ${S}/dists/pred.dic ${D}/scummvm/
 	install -m 0644 ${S}/gui/themes/scummmodern.zip ${D}/scummvm/
 	install -m 0644 ${S}/backends/vkeybd/packs/vkeybd_default.zip ${D}/scummvm/
