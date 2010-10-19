@@ -1,14 +1,12 @@
-# samygo-extensions-image 
-#
-# Image configuration for the SamyGO Extensions Distribuion 
+# Image configuration for the SamyGO Flasable kernel 
 #
 #
 # Copyright Ser Lev Arris <arris@ZsoltTech.Com> (c) 2009-2010
 # License: GPL (see http://www.gnu.org/licenses/gpl.txt for a copy of the license)
 #
-# Filename: ${DISTRO_NAME}-Extensions-image.bb
-# Date: 04-Mai-2010 
-# $Id: SamyGO-All-Extensions_v0.03.6.bb 1037 2010-10-13 16:43:22Z arris $
+# Filename: ${DISTRO_NAME}-Flash-Image.bb
+# Date: 19-Oct-2010 
+# $Id: SamyGO-Flash-Image_v0.01.1.bb 1049 2010-10-19 18:05:13Z arris $
 
 DESCRIPTION = "<description>"
 MAINTAINER = "Ser Lev Arris <arris@ZsoltTech.Com>"
@@ -76,12 +74,12 @@ LIB_LIST = "${S}/liblist"
 # perform some patches to the rootfs
 rootfs_postprocess() {
 		install -d ${IMAGE_ROOTFS}/${MACHINE}/image
-		# redistribute crc ddcmp MicomCtrl ? (MicomCtrl from svn?)
 		# create partitions
 		for i in u-boot.bin uboot_env.bin fnw.bin Image ; do
 			oenote "create $i"
 		done
 		
+		# redistribute crc ddcmp MicomCtrl ? (MicomCtrl from svn?)
 		rm -f ${IMAGE_ROOTFS}/sbin/depmo* || true
 		mv ${IMAGE_ROOTFS}/sbin/* ${IMAGE_ROOTFS}/${MACHINE}/ || true
 		mv ${IMAGE_ROOTFS}/lib/modules ${IMAGE_ROOTFS}/${MACHINE}/
@@ -91,7 +89,8 @@ rootfs_postprocess() {
 
 		# original uImage has no comment (mkimage -n flag)? can we compress the kernel?
 		dd if=/dev/zero bs=1 count=${KERNEL_IMAGE_MAXSIZE} | tr '\0' '\377' > ${IMAGE_ROOTFS}/${MACHINE}/image/Image
-		dd if=${IMAGE_ROOTFS}/boot/uImage-2.6.18_SELP-ARM of=${IMAGE_ROOTFS}/${MACHINE}/image/Image bs=64 skip=1 conv=notrunc
+		dd if=${IMAGE_ROOTFS}/boot/uImage-2.6.18_SELP-ARM of=${IMAGE_ROOTFS}/${MACHINE}/image/Image bs=64 skip=1 conv=notrunc \
+		|| dd if=${IMAGE_ROOTFS}/boot/uzImage-2.6.18_SELP-ARM of=${IMAGE_ROOTFS}/${MACHINE}/image/Image bs=64 skip=1 conv=notrunc
 
 		# do the work for info.txt          serial_temp       validinfo.txt     version_info.txt
 		# some CIP has major_version minor_version
