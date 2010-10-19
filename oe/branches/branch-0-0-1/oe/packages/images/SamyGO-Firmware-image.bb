@@ -1,4 +1,4 @@
-# Image configuration for the SamyGO Flasable kernel 
+# Image configuration for the SamyGO Flashable kernel 
 #
 #
 # Copyright Ser Lev Arris <arris@ZsoltTech.Com> (c) 2009-2010
@@ -87,7 +87,7 @@ rootfs_postprocess() {
 		# dd if=/dev/zero bs=1 count=${UBOOT_MAXSIZE} | tr '\0' '\377' > ${IMAGE_ROOTFS}/${MACHINE}/image/u-boot.bin
 		# dd if=${DEPLOY_DIR_IMAGE}/${UBOOT_SYMLINK} of=${IMAGE_ROOTFS}/${MACHINE}/image/u-boot.bin conv=notrunc
 
-		# original uImage has no comment (mkimage -n flag)? can we compress the kernel?
+		# original uImage has no comment (mkimage -n flag)? can we the kernel too.
 		dd if=/dev/zero bs=1 count=${KERNEL_IMAGE_MAXSIZE} | tr '\0' '\377' > ${IMAGE_ROOTFS}/${MACHINE}/image/Image
 		dd if=${IMAGE_ROOTFS}/boot/uImage-2.6.18_SELP-ARM of=${IMAGE_ROOTFS}/${MACHINE}/image/Image bs=64 skip=1 conv=notrunc \
 		|| dd if=${IMAGE_ROOTFS}/boot/uzImage-2.6.18_SELP-ARM of=${IMAGE_ROOTFS}/${MACHINE}/image/Image bs=64 skip=1 conv=notrunc
