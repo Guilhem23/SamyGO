@@ -29,7 +29,7 @@ do_inject()
 	do
 		if [ -e "$l" ] ;then
 			sleep 3 
-			injectso $exeDSP_PID $l Game_Main ${l%/*}/ &
+			injectso $exeDSP_PID $l Game_Main ${l%/*}/ 
 		else
 			echo "forgot to configure the script?"
 		fi
