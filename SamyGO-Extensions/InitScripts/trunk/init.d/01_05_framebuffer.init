@@ -19,7 +19,7 @@ case $1 in
 	insmod $SYSROOT/lib/modules/cfbcopyarea.ko
 	insmod $SYSROOT/lib/modules/cfbfillrect.ko
 	insmod $SYSROOT/lib/modules/cfbimgblt.ko
-	insmod $SYSROOT/lib/modules/vfb.ko
+	insmod $SYSROOT/lib/modules/vfb.ko vfb_enable=1 videomemorysize=2073600
 	;;
 	stop)
 	;;
