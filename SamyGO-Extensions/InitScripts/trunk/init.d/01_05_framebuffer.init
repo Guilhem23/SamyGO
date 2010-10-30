@@ -15,6 +15,13 @@ case $1 in
 	mknod /dev/sam/fb0 c 29 0
 	# for systems with modular fb kernel support
 	# base: /lib/modules/2.6.18_SELP-ARM/kernel/drivers/video/
+	# TODO: fbcon
+	# cseries, mod order correct?
+	insmod $SYSROOT/lib/modules/fb_sys_fops.ko
+	insmod $SYSROOT/lib/modules/syscopyarea.ko
+	insmod $SYSROOT/lib/modules/sysfillrect.ko
+	insmod $SYSROOT/lib/modules/sysimgblt.ko
+
 	insmod $SYSROOT/lib/modules/fb.ko
 	insmod $SYSROOT/lib/modules/cfbcopyarea.ko
 	insmod $SYSROOT/lib/modules/cfbfillrect.ko
