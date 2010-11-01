@@ -19,6 +19,8 @@ if [ ! -e /proc/mounts ]; then
 	mount -n -t sysfs /sys /sys >/dev/null 2>&1
 fi
 
+KERN_VER=$(cat /proc/version  | sed -e 's/\(.*inux version \)\(.*\) \(.*@.*\)$/\2/')
+
 # for lsusb
 # mount -n -t usbfs usbfs /proc/bus/usb
 
@@ -80,6 +82,7 @@ else
 fi
 
 echo "SYSROOT=\"$SYSROOT\"" > /dtv/SGO.env
+echo "export MOD_DIR=$SYSROOT/lib/modules/$KERN_VER" >> /dtv/SGO.env
 echo "export TMPDIR=/dtv" >> /dtv/SGO.env
 echo "export HOME=/mtd_wiselink" >> /dtv/SGO.env
 echo "export SMB_CONF_PATH=\"$SYSROOT/etc/samba/smb.conf\"" >> /dtv/SGO.env
