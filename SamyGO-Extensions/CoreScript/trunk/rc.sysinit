@@ -71,13 +71,15 @@ if [ ! -e /mtd_rwarea/profile ]; then
 	cat /etc/profile | sed -e "s#^PATH=.*#PATH=\"$PATH\"#" | \
 	sed -e "s#^LD_LIBRARY_PATH=.*#LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH\"#" > /mtd_rwarea/profile
 	echo -e "ENV=/dtv/.ashrc\nexport ENV\n" >> /mtd_rwarea/profile
+	sed -i -e "s,^\(.*rc\.l*\),# no system init on login\n# \1," /mtd_rwarea/profile
 fi
 mount -o bind /mtd_rwarea/profile /etc/profile
 echo "alias ll='ls -l'" > /dtv/.ashrc	
 echo "PATH=\"$PATH\"" >> /dtv/.ashrc
 echo "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH\"" >> /dtv/.ashrc
 echo "FRAMEBUFFER=\"/dev/sam/fb0\"" >> /dtv/.ashrc
-echo "export PATH LD_LIBRARY_PATH FRAMEBUFFER" >> /dtv/.ashrc
+echo "TMPDIR=\"/dtv\"" >> /dtv/.ashrc
+echo "export PATH LD_LIBRARY_PATH FRAMEBUFFER TMPDIR" >> /dtv/.ashrc
 
 $DISTROOT/sbin/depmod -v -b $SYSROOT
 
