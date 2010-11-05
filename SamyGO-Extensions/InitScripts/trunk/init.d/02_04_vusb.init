@@ -34,10 +34,10 @@ case $1 in
 		# mkfs.ext3 -q -F -m 0 -b 1024 /dtv/vusb
 
 		# insmod $SYSROOT/lib/modules/treasure/dummy_hcd.ko
-		insmod $MOD_DIR/kernel/drivers/usb/dummy_hcd.ko
+		insmod $MOD_DIR/kernel/drivers/usb/gadget/dummy_hcd.ko
 		sleep 2
 		# insmod $SYSROOT/lib/modules/treasure/g_file_storage.ko
-		insmod $MOD_DIR/kernel/drivers/usb/g_file_storage.ko
+		insmod $MOD_DIR/kernel/drivers/usb/gadget/g_file_storage.ko
 		sleep 3
 	else
 		echo "Storge Device is present"
