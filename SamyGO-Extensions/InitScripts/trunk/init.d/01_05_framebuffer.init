@@ -17,16 +17,18 @@ case $1 in
 	# base: /lib/modules/2.6.18_SELP-ARM/kernel/drivers/video/
 	# TODO: fbcon
 	# cseries, mod order correct?
-	insmod $SYSROOT/lib/modules/fb_sys_fops.ko
-	insmod $SYSROOT/lib/modules/syscopyarea.ko
-	insmod $SYSROOT/lib/modules/sysfillrect.ko
-	insmod $SYSROOT/lib/modules/sysimgblt.ko
+	insmod $MOD_DIR/kernel/drivers/video/fb.ko
+	
+	insmod $MOD_DIR/kernel/drivers/video/fb_sys_fops.ko
+	insmod $MOD_DIR/kernel/drivers/video/syscopyarea.ko
+	insmod $MOD_DIR/kernel/drivers/video/sysfillrect.ko
+	insmod $MOD_DIR/kernel/drivers/video/sysimgblt.ko
 
-	insmod $SYSROOT/lib/modules/fb.ko
-	insmod $SYSROOT/lib/modules/cfbcopyarea.ko
-	insmod $SYSROOT/lib/modules/cfbfillrect.ko
-	insmod $SYSROOT/lib/modules/cfbimgblt.ko
-	insmod $SYSROOT/lib/modules/vfb.ko vfb_enable=1 videomemorysize=2073600
+	insmod $MOD_DIR/kernel/drivers/video/cfbcopyarea.ko
+	insmod $MOD_DIR/kernel/drivers/video/cfbfillrect.ko
+	insmod $MOD_DIR/kernel/drivers/video/cfbimgblt.ko
+
+	insmod $MOD_DIR/kernel/drivers/video/vfb.ko vfb_enable=1 videomemorysize=2073600
 	;;
 	stop)
 	;;

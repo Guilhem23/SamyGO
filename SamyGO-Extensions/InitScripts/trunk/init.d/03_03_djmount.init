@@ -10,7 +10,8 @@
 
 . /dtv/SGO.env
 
-DEST_DIR=/dtv/usb/upnp
+# for now hardcoded 
+DEST_DIR=/dtv/usb/sda1/upnp
 # ENABLE_DEBUG=" -ddebug "
 
 case $1 in 
@@ -20,8 +21,8 @@ case $1 in
 		mkdir -p "$DEST_DIR"
 		if [ `/bin/busybox mount | grep -c "$DEST_DIR"` -lt "1" ] ; then
 			djmount $ENABLE_DEBUG -o fsname=vfat,iocharset=utf8 $DEST_DIR && \
-			$(echo -e "[sde]\nVendor : FuseMount\nProduct : UPNP Server\n\
-Serial : Q80VQLFE\nDevpath : 5\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat\n" >> /dtv/usb/log)
+#			$(echo -e "[sde]\nVendor : FuseMount\nProduct : UPNP Server\n\
+#Serial : Q80VQLFE\nDevpath : 5\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat\n" >> /dtv/usb/log)
 		else
 			echo "$M_OPTS is mounted!"	
 		fi

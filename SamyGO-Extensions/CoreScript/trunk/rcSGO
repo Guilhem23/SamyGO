@@ -10,6 +10,10 @@
 
 # do some background checks (not implemented/need)
 
+# i'm not sure why usb gadget won't load, may we are too early in 
+# the boot process on C series
+sleep 9
+
 # some helper stuff
 alias .='source'
 
@@ -70,7 +74,16 @@ else
 			S_SCRIPT="/etc/telnetd_start.sh &"
 		else
 			echo "rc script not found in $SYSROOT"
-			S_SCRIPT="/bin/echo nop"
+			# this should work on A and C series if we shipp busybox
+			# /etc/telnetd_start.sh isn't existent?
+			if [ `cat /proc/mounts | grep -c "devpts"` -gt "0" ] ; then
+				echo "devpts is mounted, nothing to do"
+			else
+				# hope this won't break boot process
+				mount -n -t devpts devpts /dev/pts	
+			fi
+			# this isn't realy supported for now
+			S_SCRIPT="busybox telnetd -l /bin/sh 2>&1 &"
 			# TV has no nic -> first get usb wifi working
 			#	# T-RBYDEU -> no telnet start script, has inetd
 			#	ifconfig lo 127.0.0.1

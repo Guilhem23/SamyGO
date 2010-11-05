@@ -25,12 +25,13 @@ FR_NAME="NFS Server"
 M_OPTS="soft,tcp,nolock"
 
 SERVERS="Don't set me!!"
-DEST_DIR=/dtv/usb/nfs
+# for now hardcoded
+DEST_DIR=/dtv/usb/sda1/nfs
 
 do_mount()
 {
-		$(echo -e "[sdg]\nVendor : NfsMount\nProduct : $FR_NAME\n\
-Serial : Q80VQLFG\nDevpath : 7\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat\n" >> /dtv/usb/log)
+#		$(echo -e "[sdg]\nVendor : NfsMount\nProduct : $FR_NAME\n\
+#Serial : Q80VQLFG\nDevpath : 7\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat\n" >> /dtv/usb/log)
 	
 	for i in $S_MOUNTS ; do
 		M_POINT="$DEST_DIR/$1/$(echo -n $i | sed -e "s/\//_/g")"
@@ -76,16 +77,15 @@ get_servers()
 case $1 in 
 	start)
 	# for systems with modular nfs kernel support
-	insmod $SYSROOT/lib/modules/sunrpc.ko
-	insmod $SYSROOT/lib/modules/lockd.ko
-	insmod $SYSROOT/lib/modules/nfs_acl.ko
-	insmod $SYSROOT/lib/modules/nfs.ko
+	insmod $MOD_DIR/kernel/net/sunrpc/sunrpc.ko
+	insmod $MOD_DIR/kernel/fs/lockd/lockd.ko
+	insmod $MOD_DIR/kernel/fs/nfs_common/nfs_acl.ko
+	insmod $MOD_DIR/kernel/fs/nfs/nfs.ko
 	get_servers
 	get_shares
 	;;
 	stop)
 	# may can fail if device access the mount from content library
-	# hope there no nfsd on the tv ;-)
 	# for i in $(cat /proc/mounts | grep nfs | cut -d " " -f2) ; do
 	for i in $(cat /proc/mounts | grep "$DEST_DIR" | sed 's/^\(.*\) \(.*\) nfs .*/\2/') ; do
 		/bin/busybox umount $i

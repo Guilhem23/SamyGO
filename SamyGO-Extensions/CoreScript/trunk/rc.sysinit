@@ -75,6 +75,7 @@ if [ ! -e /mtd_rwarea/profile ]; then
 fi
 mount -o bind /mtd_rwarea/profile /etc/profile
 echo "alias ll='ls -l'" > /dtv/.ashrc	
+echo "alias md='mkdir -p'" >> /dtv/.ashrc	
 echo "PATH=\"$PATH\"" >> /dtv/.ashrc
 echo "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH\"" >> /dtv/.ashrc
 echo "FRAMEBUFFER=\"/dev/sam/fb0\"" >> /dtv/.ashrc
@@ -85,8 +86,8 @@ $DISTROOT/sbin/depmod -v -b $SYSROOT
 
 # load modules
 for i in $SYSROOT/lib/modules/*.ko ; do
-	# may problematic (implement modprobe)
-	insmod $i
+	# may problematic (implement modprobe). for now we insmod in *.init
+	echo "insmod $i, this behavior is outdated modules are handled by the init scripts!"
 done
 
 # try change modules

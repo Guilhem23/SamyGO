@@ -16,7 +16,7 @@ DEV_FILE=/dtv/fuse
 
 case $1 in 
     start)
-    	insmod $SYSROOT/lib/modules/fuse.ko
+    	insmod $MOD_DIR/kernel/fs/fuse/fuse.ko
 	[ -e "$DEV_FILE" ] || mknod $DEV_FILE -m 0666 c 10 229
 	;;
     stop)
