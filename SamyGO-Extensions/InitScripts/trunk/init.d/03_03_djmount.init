@@ -20,7 +20,8 @@ case $1 in
 	if [ "$?" -eq "0" ] ; then
 		mkdir -p "$DEST_DIR"
 		if [ `/bin/busybox mount | grep -c "$DEST_DIR"` -lt "1" ] ; then
-			djmount $ENABLE_DEBUG -o fsname=vfat,iocharset=utf8 $DEST_DIR && \
+			djmount $ENABLE_DEBUG -o fsname=vfat,iocharset=utf8 $DEST_DIR 
+#			&& \
 #			$(echo -e "[sde]\nVendor : FuseMount\nProduct : UPNP Server\n\
 #Serial : Q80VQLFE\nDevpath : 5\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat\n" >> /dtv/usb/log)
 		else
