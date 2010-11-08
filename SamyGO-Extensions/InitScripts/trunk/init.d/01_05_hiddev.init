@@ -25,7 +25,7 @@ case $1 in
 		echo "Starterlib did it"
 	fi
 	# usbcore is loaded here? hope so :-)
-	insmod $MOD_DIR/kernel/drivers/drivers/input/evdev.ko
+	insmod $MOD_DIR/kernel/drivers/input/evdev.ko
 	insmod $MOD_DIR/kernel/drivers/usb/input/usbhid.ko
 	insmod $MOD_DIR/kernel/drivers/hid/hid.ko
 	insmod $MOD_DIR/kernel/drivers/hid/usbhid/usbhid.ko
