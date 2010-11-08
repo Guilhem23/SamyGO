@@ -1,0 +1,42 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id$
+
+. /dtv/SGO.env
+
+case $1 in 
+	start)
+	if [ ! -d "/dtv/usb/dev/input" ] ; then
+		mkdir -p "/dtv/usb/dev/input"
+		i=0
+		while [ $i -le 4 ] ; do
+			mknod /dtv/usb/dev/input/mouse$i c 13 $(($i + 32))
+			mknod /dtv/usb/dev/input/event$i c 13 $(($i + 64))
+			i=$(( i + 1 )) 
+		done
+		mknod /dtv/usb/dev/input/mice c 13 63
+	else
+		echo "Starterlib did it"
+	fi
+	# usbcore is loaded here? hope so :-)
+	insmod $MOD_DIR/kernel/drivers/drivers/input/evdev.ko
+	insmod $MOD_DIR/kernel/drivers/usb/input/usbhid.ko
+	insmod $MOD_DIR/kernel/drivers/hid/hid.ko
+	insmod $MOD_DIR/kernel/drivers/hid/usbhid/usbhid.ko
+	;;
+	stop)
+	;;
+	status)
+	cat /sys/class/input/input*/name
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
