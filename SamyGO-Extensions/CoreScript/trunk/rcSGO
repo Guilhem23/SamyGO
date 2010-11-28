@@ -65,6 +65,7 @@ else
 		/mtd_tlib/*/SamyGO \
 		/mtd_tlib/*/*/SamyGO \
 		/mtd_down/SamyGO \
+		/mtd_contents/SamyGO \
 		/mtd_wiselink/SamyGO} ;	do
 		if [ -x $SYSROOT/etc/rc.sysinit ] ; then
 			S_SCRIPT="cd $SYSROOT ; ./etc/rc.sysinit 2>&1 &"
@@ -83,7 +84,7 @@ else
 				mount -n -t devpts devpts /dev/pts	
 			fi
 			# this isn't realy supported for now
-			S_SCRIPT="busybox telnetd -l /bin/sh 2>&1 &"
+			S_SCRIPT="$SYSROOT/bin/busybox telnetd -l /bin/sh 2>&1 &"
 			# TV has no nic -> first get usb wifi working
 			#	# T-RBYDEU -> no telnet start script, has inetd
 			#	ifconfig lo 127.0.0.1
