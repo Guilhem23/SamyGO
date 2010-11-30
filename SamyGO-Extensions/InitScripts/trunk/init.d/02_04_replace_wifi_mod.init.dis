@@ -35,12 +35,13 @@
 #
 # wpa-key (pre shared key (PSK) or personal mode) format:
 # 
-# our_modules: one or more, but known list is, rt2570 rt2870sta rt3070sta rt73 
+# our_modules: one or more, but known list is, rt2570 rt2870sta rt3070sta rt73
+# change: our_modules: _one_ of rt2570 rt2870sta rt3070sta rt73 rt3370sta
 #
-ESSID="dd-wrt"
+ESSID=""
 WEPKEY=""
 WPAKEY=""
-OUR_MODULES="rt2570"
+OUR_MODULES=""
 ##### CHANGE MEEEEE END ######
 
 IFACE_NAMES="rausb0 wlan0 ra11n0 ra0"
@@ -69,11 +70,23 @@ all_down()
 wlan_up()
 {
 	for i in $OUR_MODULES ; do
-		insmod $SYSROOT/lib/modules/${i}.ko ifname=ra11n%d
+		insmod $SYSROOT/lib/modules/${i}.ko 
+		# ifname=ra11n%d <- not supported by all driver
 		sleep 3
 	done
-	for i in $IFACE_NAMES ; do
-		# todo: skip if no interface (check with ifconfig -a)
+
+	# unconfigured?
+	# wlan0     IEEE 802.11abg  Mode:Managed  Access Point: Not-Associated
+	# up
+	# wlan0     IEEE 802.11abg  ESSID:"dd-wrt"
+	# todo: skip if no interface (check with ifconfig -a)
+	# or parse cat /sys/class/net/*/wireless/ ?
+	for DONG in /sys/class/net/* ; do
+		if [ -d $DONG/wireless ]; then
+			i=$(echo $DONG | sed -e "s,^/.*/.*/.*/\(.*\)/.*,\1,")
+		else
+			break
+		fi
 		ifconfig $i up && $(iwconfig $i mode Managed \
 		iwconfig $i essid "$ESSID")
 
