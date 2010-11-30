@@ -16,13 +16,13 @@
 . /dtv/SGO.env
 
 # Key Length (Bits) Byte Count Hexadecimal Character Count
-#	40             5                  10
-#	64             8                  16
-#	104            13                 26
-#	128            16                 32
-#	152            19                 28
-#	232            29                 58
-#	256            32                 64
+#       40             5                  10
+#       64             8                  16
+#       104            13                 26
+#       128            16                 32
+#       152            19                 28
+#       232            29                 58
+#       256            32                 64
 
 ##### CHANGE MEEEEE !!!!! ######
 # essid: ssid / wlan network name
@@ -54,7 +54,7 @@ all_down()
 		ifconfig $i down
 	done
 	# with nag screen or without?
-	#	echo "index[0]
+	#       echo "index[0]
 	#product : eth0" > /dtv/usb/netlog
 
 	# just remove known samsung modules and my extra
@@ -70,7 +70,10 @@ all_down()
 wlan_up()
 {
 	for i in $OUR_MODULES ; do
-		insmod $SYSROOT/lib/modules/${i}.ko 
+		insmod $MOD_DIR/kernel/drivers/rt73/Module/${i}.ko 
+		insmod $MOD_DIR/kernel/drivers/rt2870/os/linux/${i}.ko 
+		insmod $MOD_DIR/kernel/drivers/net/${i}.ko 
+		insmod $MOD_DIR/extra/${i}.ko 
 		# ifname=ra11n%d <- not supported by all driver
 		sleep 3
 	done
@@ -83,15 +86,15 @@ wlan_up()
 	# or parse cat /sys/class/net/*/wireless/ ?
 	for DONG in /sys/class/net/* ; do
 		if [ -d $DONG/wireless ]; then
-			i=$(echo $DONG | sed -e "s,^/.*/.*/.*/\(.*\)/.*,\1,")
+			i=$(echo $DONG | sed -e "s,^/.*/.*/.*/\(.*\),\1,")
 		else
-			break
+			echo "not wireless dev"
 		fi
-		ifconfig $i up && $(iwconfig $i mode Managed \
+		ifconfig $i up && $(iwconfig $i mode Managed ;\
 		iwconfig $i essid "$ESSID")
 
 		if [ ! -z "$WEPKEY" ] ; then
-		       	iwconfig $i key "$WEPKEY"
+			iwconfig $i key "$WEPKEY"
 		elif [ ! -z "$WPAKEY" ] ; then
 			iwpriv $i set AuthMode=WPAPSK
 			iwpriv $i set EncrypType=TKIP
@@ -101,7 +104,7 @@ wlan_up()
 		fi
 
 		ifconfig $i up && udhcpc -i $i -t 12 -T 5 -b 
-			echo "index[0]
+		echo "index[0]
 product : $i" > /dtv/usb/netlog
 	done
 }
