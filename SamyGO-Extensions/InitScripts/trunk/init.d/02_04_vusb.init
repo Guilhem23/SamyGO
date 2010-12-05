@@ -39,6 +39,10 @@ case $1 in
 		# insmod $SYSROOT/lib/modules/treasure/g_file_storage.ko
 		insmod $MOD_DIR/kernel/drivers/usb/gadget/g_file_storage.ko
 		sleep 3
+		# TODO:
+		# find vusb in /sys
+		# /sys/class/block/sd?/device/vendor <- search SamyGO ?
+		# and set a variable for mount point
 	else
 		echo "Storge Device is present"
 	fi

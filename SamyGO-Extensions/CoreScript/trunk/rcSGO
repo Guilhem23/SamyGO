@@ -11,7 +11,9 @@
 # do some background checks (not implemented/need)
 
 # i'm not sure why usb gadget won't load, may we are too early in 
-# the boot process on C series
+# the boot process on C series?
+# TODO: tv-type detection /.version or PROJECT_TAG?
+#	avoid multiple starts.
 sleep 9
 
 # some helper stuff
