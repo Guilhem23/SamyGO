@@ -13,96 +13,108 @@
 # i'm not sure why usb gadget won't load, may we are too early in 
 # the boot process on C series?
 # TODO: tv-type detection /.version or PROJECT_TAG?
-#	avoid multiple starts.
+#	avoid multiple starts. <- done with if /dtv/SGO.env...
 sleep 9
 
-# some helper stuff
-alias .='source'
+if [ ! -e /dtv/SGO.env ] ; then
+	# some helper stuff
+	alias .='source'
 
-# if running as real linuxrc 
-if [ ! -e /proc/mounts ]; then
-	mount -n -t proc /proc /proc
-	mount -n -t sysfs /sys /sys >/dev/null 2>&1
-fi
-
-KERN_VER=$(cat /proc/version  | sed -e 's/\(.*inux version \)\(.*\) \(.*@.*\)$/\2/')
-
-# for lsusb
-# mount -n -t usbfs usbfs /proc/bus/usb
-
-if [ -x /etc/rc.early.local ]; then
-	echo ". /etc/rc.early.local" 1>&2
-fi
-
-# harden
-if [ ! -e /mtd_rwarea/passwd ]; then
-	echo "root:saJvQKUdIxRW2:0:0:SamyGO secured Root:/mtd_wiselink:/bin/sh" > /mtd_rwarea/passwd
-fi
-mount -o bind /mtd_rwarea/passwd /etc/passwd
-
-# do the work (try to find SamyGO or start telnetd)
-# other user scripts are not supported SamyGO has 
-# extensions for automount etc...
-# feature requests at: http://samygo.sourceforge.net/
-
-# just here for testing
-S_SCRIPT="echo Bummer > /dev/kmsg"
-
-# http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=4&t=207&start=0&hilit=libSamyGO
-# samyGo use on LN52A850 (T-SPHAUSC v.1004)
-# Postby tskitishvili » Wed Dec 16, 2009 2:56 am 
-# ... no cut in busybox
-
-if [ ! -z $1 ] ; then
-	if [ -x "$1"/etc/rc.sysinit ] ; then
-		SYSROOT="$1"
-		S_SCRIPT="cd $1 ; ./etc/rc.sysinit 2>&1 &"
+	# if running as real linuxrc 
+	if [ ! -e /proc/mounts ]; then
+		mount -n -t proc /proc /proc
+		mount -n -t sysfs /sys /sys >/dev/null 2>&1
 	fi
-else
-	for SYSROOT in ${1:- \
-		/dtv/usb/sd*/SamyGO \
-		/dtv/usb/sd*/*/SamyGO \
-		/dtv/usb/sd*/*/*/SamyGO \
-		/mtd_tlib/SamyGO \
-		/mtd_tlib/*/SamyGO \
-		/mtd_tlib/*/*/SamyGO \
-		/mtd_down/SamyGO \
-		/mtd_contents/SamyGO \
-		/mtd_wiselink/SamyGO} ;	do
-		if [ -x $SYSROOT/etc/rc.sysinit ] ; then
-			S_SCRIPT="cd $SYSROOT ; ./etc/rc.sysinit 2>&1 &"
-			break	
-			# if no extension installed try telnet
-		elif [ -x /etc/telnetd_start.sh ] ; then
-			S_SCRIPT="/etc/telnetd_start.sh &"
-		else
-			echo "rc script not found in $SYSROOT"
-			# this should work on A and C series if we shipp busybox
-			# /etc/telnetd_start.sh isn't existent?
-			if [ `cat /proc/mounts | grep -c "devpts"` -gt "0" ] ; then
-				echo "devpts is mounted, nothing to do"
-			else
-				# hope this won't break boot process
-				mount -n -t devpts devpts /dev/pts	
-			fi
-			# this isn't realy supported for now
-			# busybox telnetd forks perse, but who knows...
-			S_SCRIPT="$SYSROOT/bin/busybox telnetd 2>&1 &"
-			# TV has no nic -> first get usb wifi working
-			#	# T-RBYDEU -> no telnet start script, has inetd
-			#	ifconfig lo 127.0.0.1
-			#	# hmm
-			#	mount -t devpts devpts /dev/pts
-			#	S_SCRIPT="/usr/sbin/inetd >/dev/null 2>&1 &"
-		fi
-	done
-fi
 
-echo "SYSROOT=\"$SYSROOT\"" > /dtv/SGO.env
-echo "export MOD_DIR=$SYSROOT/lib/modules/$KERN_VER" >> /dtv/SGO.env
-echo "export TMPDIR=/dtv" >> /dtv/SGO.env
-echo "export HOME=/mtd_wiselink" >> /dtv/SGO.env
-echo "export SMB_CONF_PATH=\"$SYSROOT/etc/samba/smb.conf\"" >> /dtv/SGO.env
+	KERN_VER=$(cat /proc/version  | sed -e 's/\(.*inux version \)\(.*\) \(.*@.*\)$/\2/')
+
+	# for lsusb
+	# mount -n -t usbfs usbfs /proc/bus/usb
+
+	if [ -x /etc/rc.early.local ]; then
+		echo ". /etc/rc.early.local" 1>&2
+	fi
+
+	if [ -d /mtd_wiselink ] ; then
+		NEW_HOME="/mtd_wiselink"
+	else
+		NEW_HOME="/mtd_contents"
+	fi
+
+	# harden
+	if [ ! -e /mtd_rwarea/passwd ]; then
+		echo "root:saJvQKUdIxRW2:0:0:SamyGO secured Root:$NEW_HOME:/bin/sh" > /mtd_rwarea/passwd
+	fi
+	mount -o bind /mtd_rwarea/passwd /etc/passwd
+
+	# do the work (try to find SamyGO or start telnetd)
+	# other user scripts are not supported SamyGO has 
+	# extensions for automount etc...
+	# feature requests at: http://samygo.sourceforge.net/
+
+	# just here for testing
+	S_SCRIPT="echo Bummer >> /dev/kmsg"
+
+	# http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=4&t=207&start=0&hilit=libSamyGO
+	# samyGo use on LN52A850 (T-SPHAUSC v.1004)
+	# Postby tskitishvili » Wed Dec 16, 2009 2:56 am 
+	# ... no cut in busybox
+
+	if [ ! -z $1 ] ; then
+		if [ -x "$1"/etc/rc.sysinit ] ; then
+			SYSROOT="$1"
+			S_SCRIPT="cd $1 ; ./etc/rc.sysinit 2>&1 &"
+		fi
+	else
+		for SYSROOT in ${1:- \
+			/dtv/usb/sd*/SamyGO \
+			/dtv/usb/sd*/*/SamyGO \
+			/dtv/usb/sd*/*/*/SamyGO \
+			/mtd_tlib/SamyGO \
+			/mtd_tlib/*/SamyGO \
+			/mtd_tlib/*/*/SamyGO \
+			/mtd_down/SamyGO \
+			/mtd_contents/SamyGO \
+			/mtd_wiselink/SamyGO} ;	do
+			if [ -x $SYSROOT/etc/rc.sysinit ] ; then
+				S_SCRIPT="cd $SYSROOT ; ./etc/rc.sysinit 2>&1 &"
+				break	
+				# if no extension installed try telnet
+			elif [ -x /etc/telnetd_start.sh ] ; then
+				S_SCRIPT="/etc/telnetd_start.sh &"
+			else
+				echo "rc script not found in $SYSROOT"
+				# this should work on A and C series if we shipp busybox
+				# /etc/telnetd_start.sh isn't existent?
+				if [ `cat /proc/mounts | grep -c "devpts"` -gt "0" ] ; then
+					echo "devpts is mounted, nothing to do"
+				else
+					# hope this won't break boot process
+					mount -n -t devpts devpts /dev/pts	
+				fi
+				# this isn't realy supported for now
+				# busybox telnetd forks perse, but who knows...
+				S_SCRIPT="$SYSROOT/bin/busybox telnetd 2>&1 &"
+				# TV has no nic -> first get usb wifi working
+				#	# T-RBYDEU -> no telnet start script, has inetd
+				#	ifconfig lo 127.0.0.1
+				#	# hmm
+				#	mount -t devpts devpts /dev/pts
+				#	S_SCRIPT="/usr/sbin/inetd >/dev/null 2>&1 &"
+			fi
+		done
+	fi
+
+	echo "SYSROOT=\"$SYSROOT\"" > /dtv/SGO.env
+	echo "MOUNT_PATH=\"MountPlaceholder\"" >> /dtv/SGO.env
+	echo "export MOD_DIR=$SYSROOT/lib/modules/$KERN_VER" >> /dtv/SGO.env
+	echo "export TMPDIR=/dtv" >> /dtv/SGO.env
+	echo "export HOME=$NEW_HOME" >> /dtv/SGO.env
+	echo "export SMB_CONF_PATH=\"$SYSROOT/etc/samba/smb.conf\"" >> /dtv/SGO.env
+
+else
+	S_SCRIPT="echo Skip >> /dev/kmsg"
+fi
 
 # go to sed due busybox on T-SPHAUSC
 # echo "SYSROOT=\"$(echo "$S_SCRIPT" | cut -d " " -f2)\"" > /dtv/SGO.env
