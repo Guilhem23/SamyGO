@@ -15,9 +15,7 @@
 case $1 in 
 	start)
 	# on C series: can't open '/proc/scsi/scsi': No such file or directory?
-	# script is running before /proc is mounted??
-	# may it ends with: dummy_hcd: failed to claim resource 0
-	if [ `cat /proc/scsi/scsi | grep -c "Type:"` -lt "1" ] ; then
+#	if [ `cat /proc/scsi/scsi | grep -c "Type:"` -lt "1" ] ; then
 		
 		# create unsusable dummy device
 		# dd if=/dev/zero of=/dtv/vusb bs=512 count=4
@@ -39,13 +37,22 @@ case $1 in
 		# insmod $SYSROOT/lib/modules/treasure/g_file_storage.ko
 		insmod $MOD_DIR/kernel/drivers/usb/gadget/g_file_storage.ko
 		sleep 3
-		# TODO:
+		
 		# find vusb in /sys
-		# /sys/class/block/sd?/device/vendor <- search SamyGO ?
 		# and set a variable for mount point
-	else
-		echo "Storge Device is present"
-	fi
+		for i in /sys/class/block/sd?/device/vendor ; do
+			if [ `cat $i | grep -c "SamyGO Virt"` -gt "0" ] ; then
+				echo "found gadget at: $i"
+				dev=`echo $i | sed 's/^\/.*\(sd.\)\/.*/\1/g'`
+				echo "scsidev: $dev"
+			else
+				echo "real storage device at: $i"
+			fi
+		done
+#	else
+#		echo "Storage Device is present"
+#	fi
+	sed -i -e "s,MountPlaceholder,/dtv/usb/$dev," /dtv/SGO.env
 	;;
 	stop)
 	# what's about umount?

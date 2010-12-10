@@ -9,9 +9,9 @@
 #       Version: SamyGO svn $Id$
 
 . /dtv/SGO.env
+# sleep 9
 
-# for now hardcoded 
-DEST_DIR=/dtv/usb/sda1/upnp
+DEST_DIR=$MOUNT_PATH/upnp
 # ENABLE_DEBUG=" -ddebug "
 
 case $1 in 

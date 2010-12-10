@@ -36,7 +36,7 @@
 # wpa-key (pre shared key (PSK) or personal mode) format:
 # 
 # our_modules: one or more, but known list is, rt2570 rt2870sta rt3070sta rt73
-# change: our_modules: _one_ of rt2570 rt2870sta rt3070sta rt73 rt3370sta
+# change: our_modules: _one_ of rt2570 rt2870sta rt3070sta rt73 rt3370sta rtnet3572sta
 #
 ESSID=""
 WEPKEY=""

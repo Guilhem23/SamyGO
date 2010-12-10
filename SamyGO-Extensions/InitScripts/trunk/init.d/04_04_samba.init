@@ -10,7 +10,7 @@
 #
 
 . /dtv/SGO.env
-
+# sleep 9
 ##### CHANGE MEEEEE !!!!! ######
 USER=""
 PASSWD=""
@@ -22,8 +22,7 @@ PERM="rw" # can be ro or rw
 [ -z $USER ] && exit 1
 [ -z $PASSWD ] && exit 1
 
-# for now hardcoded
-DEST_DIR=/dtv/usb/sda1/smb
+DEST_DIR=$MOUNT_PATH/smb
 SERVER=""
 # SERVER="10.0.0.1" # if you want a fixed server
 SHARES=""
