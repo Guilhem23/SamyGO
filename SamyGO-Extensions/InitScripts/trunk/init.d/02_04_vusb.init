@@ -40,7 +40,7 @@ case $1 in
 		
 		# find vusb in /sys
 		# and set a variable for mount point
-		for i in /sys/class/block/sd?/device/vendor ; do
+		for i in /sys/block/sd?/device/model ; do
 			if [ `cat $i | grep -c "SamyGO Virt"` -gt "0" ] ; then
 				echo "found gadget at: $i"
 				dev=`echo $i | sed 's/^\/.*\(sd.\)\/.*/\1/g'`
