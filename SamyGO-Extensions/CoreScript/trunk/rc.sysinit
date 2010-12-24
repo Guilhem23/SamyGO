@@ -67,12 +67,20 @@ echo "export ENV=\"/dtv/.ashrc\"" >> /dtv/SGO.env
 echo "export FRAMEBUFFER=\"/dev/sam/fb0\"" >> /dtv/SGO.env
 
 # bit comfort after login
-if [ ! -e /mtd_rwarea/profile ]; then
+# if [ ! -e /mtd_rwarea/profile ]; then
 	cat /etc/profile | sed -e "s#^PATH=.*#PATH=\"$PATH\"#" | \
 	sed -e "s#^LD_LIBRARY_PATH=.*#LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH\"#" > /mtd_rwarea/profile
 	echo -e "ENV=/dtv/.ashrc\nexport ENV\n" >> /mtd_rwarea/profile
-	sed -i -e "s,^\(.*rc\.l*\),# no system init on login\n# \1," /mtd_rwarea/profile
-fi
+	sed -i -e "s,^\(.*rc\.l*\),echo \"no system init on login\"\n# \1," /mtd_rwarea/profile
+	# trash on sh based devices
+        sed -i -e "s#^export PATH=\(.*\)#PATH=\"$PATH:\1\"#" /mtd_rwarea/profile
+        sed -i -e "s#^export LD_LIBRARY_PATH=\(.*\)#export LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH\1\"#" /mtd_rwarea/profile
+	sed -i -e "s,^\(.*echo.*\),echo \'\1\'," /mtd_rwarea/profile
+	sed -i -e "s,^\(.*mount.*\),echo \'\1\'," /mtd_rwarea/profile
+	sed -i -e "s,^\(.*exit.*\),echo \'\1\'," /mtd_rwarea/profile
+	sed -i -e "s,^\(.*insmod.*\),echo \'\1\'," /mtd_rwarea/profile
+	sed -i -e "s,^\(.*util.*\),echo \'\1\'," /mtd_rwarea/profile
+# fi
 mount -o bind /mtd_rwarea/profile /etc/profile
 echo "alias ll='ls -l'" > /dtv/.ashrc	
 echo "alias md='mkdir -p'" >> /dtv/.ashrc	
