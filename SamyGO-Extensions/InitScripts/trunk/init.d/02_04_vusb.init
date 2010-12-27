@@ -25,7 +25,8 @@ case $1 in
 		# also no limits to usb mounts
 		# we need to find mount point, on most devices it's sda
 		# but it will differ in some situations
-		mkfs.vfat -C /dtv/vusb 200
+		# mkfs.vfat -C /dtv/vusb 200
+		mkfs.vfat -C /dtv/vusb $(($(df -k | grep dtv | sed -e 's,^\(.*\) \(.*\) \(.*\) \(.*\) \(.*\) \(.*\),\2,') / 3 ))
 		
 		# create usable virtual device (don't store data on it what you need tomorrow too!!)
 		# dd if=/dev/zero of=/dtv/vusb bs=1M count=2
