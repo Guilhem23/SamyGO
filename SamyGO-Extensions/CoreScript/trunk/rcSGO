@@ -69,6 +69,7 @@ if [ ! -e /dtv/SGO.env ] ; then
 			/mtd_tlib/*/*/SamyGO \
 			/mtd_down/SamyGO \
 			/mtd_contents/SamyGO \
+			/mtd_rwcommon/SamyGO \
 			/mtd_wiselink/SamyGO} ;	do
 			if [ -x $SYSROOT/etc/rc.sysinit ] ; then
 				S_SCRIPT="cd $SYSROOT ; ./etc/rc.sysinit 2>&1 &"
