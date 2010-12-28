@@ -28,6 +28,12 @@ case $1 in
 		# mkfs.vfat -C /dtv/vusb 200
 		mkfs.vfat -C /dtv/vusb $(($(df -k | grep dtv | sed -e 's,^\(.*\) \(.*\) \(.*\) \(.*\) \(.*\) \(.*\),\2,') / 3 ))
 		
+		# TODO: for recording on c series xfs stuff.
+		# /dev/stl0/21            392.3M    142.9M    249.4M  36% /mtd_rwcommon
+		# dd if=/dev/zero of=/mtd_rwcommon/vusb bs=1M count=16
+		# /sbin/mkfs.xfs -f -d name=/mtd_rwcommon/vusb
+		# ln -s /mtd_rwcommon/vusb /dtv/
+
 		# create usable virtual device (don't store data on it what you need tomorrow too!!)
 		# dd if=/dev/zero of=/dtv/vusb bs=1M count=2
 		# mkfs.ext3 -q -F -m 0 -b 1024 /dtv/vusb
