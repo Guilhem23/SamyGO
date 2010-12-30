@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# © Copyright 1996-2011, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id$
+
+. /dtv/SGO.env
+
+# customize php.ini & httpd.conf
+
+case $1 in 
+	start)
+	httpd $SYSROOT/etc/apache2/httpd.conf $PARAMS &
+	;;
+	stop)
+	killall -QUIT httpd
+	;;
+	status)
+	pidof httpd
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
