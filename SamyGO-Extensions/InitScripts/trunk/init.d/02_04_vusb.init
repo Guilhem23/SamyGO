@@ -30,6 +30,9 @@ case $1 in
 		
 		# TODO: for recording on c series xfs stuff.
 		# /dev/stl0/21            392.3M    142.9M    249.4M  36% /mtd_rwcommon
+		# needs to be adapted:
+		# http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=12&p=10567#p10567
+		#
 		# dd if=/dev/zero of=/mtd_rwcommon/vusb bs=1M count=16
 		# /sbin/mkfs.xfs -f -d name=/mtd_rwcommon/vusb
 		# ln -s /mtd_rwcommon/vusb /dtv/
