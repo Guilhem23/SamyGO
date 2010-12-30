@@ -38,6 +38,9 @@
 # 
 # USE_MODULE: _one_ of rt2570 rt2870sta rt3070sta rt73 rt3370sta rtnet3572sta
 #
+# if you just like to mod original modules (echo "$UVEND $UPROD" > /sys/bus/usb/drivers/rt2870/new_id) see:
+#	http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=12&t=987&p=10230#p10230
+
 ESSID=""
 WEPKEY=""
 WPAKEY=""
