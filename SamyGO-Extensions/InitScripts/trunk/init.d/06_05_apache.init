@@ -1,0 +1,61 @@
+#!/bin/sh
+#
+# © Copyright 1996-2011, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id$
+
+. /dtv/SGO.env
+
+# customize php.ini & httpd.conf
+PARAMS="-d $SYSROOT/etc -D PHP5"
+case $1 in 
+	start)
+	mkdir -p /dtv/cgi-bin
+	# sample cgi, usage: http://192.168.1.51/cgi-bin/test.cgi?/etc/passwd
+	echo '#!/bin/sh
+CAT=/bin/cat
+	
+echo Content-type: text/plain
+echo ""
+	
+	$CAT $1' > /dtv/cgi-bin/test.cgi
+	chmod a+x /dtv/cgi-bin/test.cgi
+	# sample php
+	echo '<? phpinfo(); ?>' > /dtv/index.php
+
+	# for mod_php (sig 11 for now)
+	echo "SetEnv LD_LIBRARY_PATH \"$LD_LIBRARY_PATH\"" > $SYSROOT/etc/apache2/modules.d/70_mod_php5.conf.tmp
+	cat $SYSROOT/etc/apache2/modules.d/70_mod_php5.conf >> $SYSROOT/etc/apache2/modules.d/70_mod_php5.conf.tmp
+	mv -f $SYSROOT/etc/apache2/modules.d/70_mod_php5.conf.tmp $SYSROOT/etc/apache2/modules.d/70_mod_php5.conf
+
+	# for php-cgi (works)
+	echo "SetEnv LD_LIBRARY_PATH \"$LD_LIBRARY_PATH\"
+	ScriptAlias /local-bin $SYSROOT/opt/privateer/usr/bin
+	AddHandler application/x-httpd-php5 php
+	Action application/x-httpd-php5 /local-bin/php-cgi
+	<Directory \"$SYSROOT/opt/privateer/usr/bin\">                                                  
+	AllowOverride None                                                                                
+	Options None                                                                                  
+	Order allow,deny                                                                          
+	Allow from all                                                                        
+	</Directory>" > $SYSROOT/etc/apache2/modules.d/70_mod_php5_cgi.conf
+
+	cp -af $SYSROOT/phpsysinfo /dtv/
+
+	httpd -f $SYSROOT/etc/apache2/httpd.conf $PARAMS &
+	;;
+	stop)
+	httpd -f $SYSROOT/etc/apache2/httpd.conf -k stop
+	;;
+	status)
+	pidof httpd
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
