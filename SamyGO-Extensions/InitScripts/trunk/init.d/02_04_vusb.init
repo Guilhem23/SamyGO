@@ -36,6 +36,7 @@ case $1 in
 		# dd if=/dev/zero of=/mtd_rwcommon/vusb bs=1M count=16
 		# /sbin/mkfs.xfs -f -d name=/mtd_rwcommon/vusb
 		# ln -s /mtd_rwcommon/vusb /dtv/
+		# OBSOLETE: gone to 80_80_record_to_nwshare.init 
 
 		# create usable virtual device (don't store data on it what you need tomorrow too!!)
 		# dd if=/dev/zero of=/dtv/vusb bs=1M count=2
