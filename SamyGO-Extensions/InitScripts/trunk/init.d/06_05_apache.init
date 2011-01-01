@@ -27,16 +27,11 @@ echo ""
 	# sample php
 	echo '<? phpinfo(); ?>' > /dtv/index.php
 
-	# for mod_php (sig 11 for now)
-	echo "SetEnv LD_LIBRARY_PATH \"$LD_LIBRARY_PATH\"" > $SYSROOT/etc/apache2/modules.d/70_mod_php5.conf.tmp
-	cat $SYSROOT/etc/apache2/modules.d/70_mod_php5.conf >> $SYSROOT/etc/apache2/modules.d/70_mod_php5.conf.tmp
-	mv -f $SYSROOT/etc/apache2/modules.d/70_mod_php5.conf.tmp $SYSROOT/etc/apache2/modules.d/70_mod_php5.conf
-
 	# for php-cgi (works)
 	echo "SetEnv LD_LIBRARY_PATH \"$LD_LIBRARY_PATH\"
-	ScriptAlias /local-bin $SYSROOT/opt/privateer/usr/bin
+	ScriptAlias /privateer-bin $SYSROOT/opt/privateer/usr/bin
 	AddHandler application/x-httpd-php5 php
-	Action application/x-httpd-php5 /local-bin/php-cgi
+	Action application/x-httpd-php5 /privateer-bin/php-cgi
 	<Directory \"$SYSROOT/opt/privateer/usr/bin\">                                                  
 	AllowOverride None                                                                                
 	Options None                                                                                  
@@ -49,7 +44,7 @@ echo ""
 	httpd -f $SYSROOT/etc/apache2/httpd.conf $PARAMS &
 	;;
 	stop)
-	httpd -f $SYSROOT/etc/apache2/httpd.conf -k stop
+	httpd -k stop -f $SYSROOT/etc/apache2/httpd.conf 
 	;;
 	status)
 	pidof httpd
