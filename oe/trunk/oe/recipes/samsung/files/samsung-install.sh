@@ -21,7 +21,7 @@
 
 echo
 echo " --- Installer of Original Samsung Software ---"
-echo " --- SamyGO  http://samygo.sourceforge.net  ---"
+echo " --- SamyGO http://www.samygo.tv ---"
 echo
 
 while true; do
@@ -190,12 +190,12 @@ done
 
 case $TYPE in
 T-CHE7AUSC|T-CHEAUSC|T-CHL7DAUC|T-CHL7DEUC|T-CHU7DAUC|T-CHU7DEUC)
-	if [ ! -e LaunchCLManager_v0.01.zip ]; then
+	if [ ! -e LaunchCLManager.zip ]; then
 		echo "Downloading custom T_Library.swf ..."
-		wget -O LaunchCLManager_v0.01.zip -c http://sourceforge.net/projects/samygo/files/SamyGO%20Applications/LaunchCLManager_v0.01.zip/download 2> /dev/null
+		wget -O LaunchCLManager.zip -c http://sourceforge.net/projects/samygo/files/SamyGO%20OE/LaunchCLManager.zip/download 2> /dev/null
 		if [ $? != 0 ]; then
-			echo "Error downloading: LaunchCLManager_v0.01.zip!"
-			echo "Copy LaunchCLManager_v0.01.zip to current directory."
+			echo "Error downloading: LaunchCLManager.zip!"
+			echo "Copy LaunchCLManager.zip to current directory."
 			echo "Exiting..."
 			exit 1
 		fi
@@ -297,7 +297,7 @@ T-CHE7AUSC|T-CHEAUSC|T-CHL7DAUC|T-CHL7DEUC|T-CHU7DAUC|T-CHU7DEUC)
 	echo
 	echo "Creating minimal mtd_tlib..."
 	echo
-	unzip -qq ../LaunchCLManager_v0.01.zip
+	unzip -qq ../LaunchCLManager.zip
 	mkdir -p ${MTD_TLIB}/swf
 	mv T_Library.swf ${MTD_TLIB}/swf/
 	;;
@@ -385,7 +385,10 @@ esac
 chmod +x ${START}
 
 cd ..
+
+echo "Removing temporary files..."
 rm -rf tmp-work
+
 sync
 
 echo "Finished."
