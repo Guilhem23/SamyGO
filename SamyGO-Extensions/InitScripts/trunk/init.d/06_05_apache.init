@@ -10,34 +10,90 @@
 
 . /dtv/SGO.env
 
-# customize php.ini & httpd.conf
-PARAMS="-d $SYSROOT/etc -D PHP5"
+WEBROOT="/dtv/www"
+CGIDIR="/dtv/cgi-bin"
+
+# customize php.ini & httpd.conf?
+PARAMS="-d $SYSROOT/etc -D PHP5CGI"
 case $1 in 
 	start)
-	mkdir -p /dtv/cgi-bin
+	
 	# sample cgi, usage: http://192.168.1.51/cgi-bin/test.cgi?/etc/passwd
+	mkdir -p $CGIDIR $WEBROOT
 	echo '#!/bin/sh
 CAT=/bin/cat
 	
 echo Content-type: text/plain
 echo ""
 	
-	$CAT $1' > /dtv/cgi-bin/test.cgi
-	chmod a+x /dtv/cgi-bin/test.cgi
+	$CAT $1' > $CGIDIR/test.cgi
+	chmod a+x $CGIDIR/test.cgi
+	
 	# sample php
-	echo '<? phpinfo(); ?>' > /dtv/index.php
+	echo '<? phpinfo(); ?>' > $WEBROOT/index.php
+
+	# generate config
+	echo "ServerRoot \"$SYSROOT/opt/privateer/usr\"
+LockFile \"/dtv/httpd.lock\"
+PidFile \"/dtv/httpd.pid\"
+Listen 80
+User root
+ServerAdmin arris@ZsoltTech.Com
+ServerName 127.0.0.1:80
+DocumentRoot \"$WEBROOT\"
+<Directory />
+	Options FollowSymLinks
+	AllowOverride None
+	Order deny,allow
+	Deny from all
+</Directory>
+<Directory \"$WEBROOT\">
+	Options Indexes FollowSymLinks
+	AllowOverride None
+	Order allow,deny
+	Allow from all
+</Directory>
+<IfModule dir_module>
+	DirectoryIndex index.html
+</IfModule>
+<FilesMatch "^\.ht">
+	Order allow,deny
+	Deny from all
+	Satisfy All
+</FilesMatch>
+ErrorLog \"/mtd_ram/error_log\"
+LogLevel warn
+ScriptAlias /cgi-bin/ \"$CGIDIR/\"
+<Directory \"$CGIDIR\">
+	AllowOverride None
+	Options None
+	Order allow,deny
+	Allow from all
+</Directory>
+DefaultType text/plain
+<IfModule mime_module>
+	TypesConfig $SYSROOT/etc/apache2/mime.types
+</IfModule>
+Include $SYSROOT/etc/apache2/modules.d/70_mod_php5_cgi.conf
+<IfModule ssl_module>
+	SSLRandomSeed startup builtin
+	SSLRandomSeed connect builtin
+</IfModule>" > $SYSROOT/etc/apache2/httpd.conf
 
 	# for php-cgi (works)
 	echo "SetEnv LD_LIBRARY_PATH \"$LD_LIBRARY_PATH\"
-	ScriptAlias /privateer-bin $SYSROOT/opt/privateer/usr/bin
-	AddHandler application/x-httpd-php5 php
-	Action application/x-httpd-php5 /privateer-bin/php-cgi
-	<Directory \"$SYSROOT/opt/privateer/usr/bin\">                                                  
+<IfDefine PHP5CGI>
+ScriptAlias /privateer-bin $SYSROOT/opt/privateer/usr/bin
+AddHandler application/x-httpd-php5 php
+Action application/x-httpd-php5 /privateer-bin/php-cgi
+DirectoryIndex index.html index.php
+</IfDefine>
+<Directory \"$SYSROOT/opt/privateer/usr/bin\">                                                  
 	AllowOverride None                                                                                
 	Options None                                                                                  
 	Order allow,deny                                                                          
 	Allow from all                                                                        
-	</Directory>" > $SYSROOT/etc/apache2/modules.d/70_mod_php5_cgi.conf
+</Directory>" > $SYSROOT/etc/apache2/modules.d/70_mod_php5_cgi.conf
 
 	cp -af $SYSROOT/phpsysinfo /dtv/
 
