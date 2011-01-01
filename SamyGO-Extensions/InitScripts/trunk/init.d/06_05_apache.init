@@ -95,7 +95,7 @@ DirectoryIndex index.html index.php
 	Allow from all                                                                        
 </Directory>" > $SYSROOT/etc/apache2/modules.d/70_mod_php5_cgi.conf
 
-	cp -af $SYSROOT/phpsysinfo /dtv/
+	cp -af $SYSROOT/phpsysinfo $WEBROOT/
 
 	httpd -f $SYSROOT/etc/apache2/httpd.conf $PARAMS &
 	;;
