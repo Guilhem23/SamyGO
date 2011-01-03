@@ -26,7 +26,7 @@ case $1 in
 		# we need to find mount point, on most devices it's sda
 		# but it will differ in some situations
 		# mkfs.vfat -C /dtv/vusb 200
-		mkfs.vfat -C /dtv/vusb $(($(df -k | grep dtv | sed -e 's,^\(.*\) \(.*\) \(.*\) \(.*\) \(.*\) \(.*\),\2,') / 3 ))
+		mkfs.vfat -C /dtv/vusb $(($(df -k /dtv | grep dtv | sed -e 's,^\(.*\) \(.*\) \( .*% /dtv\),\2,') / 3 ))
 		
 		# TODO: for recording on c series xfs stuff.
 		# /dev/stl0/21            392.3M    142.9M    249.4M  36% /mtd_rwcommon
@@ -71,9 +71,10 @@ case $1 in
 	rmmod dummy_hcd
 	;;
 	status)
+	cat /sys/block/sd?/device/model
 	;;
 	*)
-	echo "Usage: $0 {start|stop}" 1>&2
+	echo "Usage: $0 {start|stop|status}" 1>&2
 	exit 0
 	;;
 esac

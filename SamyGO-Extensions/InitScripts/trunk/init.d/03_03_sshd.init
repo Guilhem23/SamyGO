@@ -40,6 +40,7 @@ case $1 in
 	killall -KILL dropbear
 	;;
 	status)
+	ps | grep drop | grep -v grep	
 	;;
 	*)
 	echo "Usage: $0 {start|stop}" 1>&2

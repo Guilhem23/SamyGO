@@ -20,7 +20,7 @@ case $1 in
 	killall -QUIT vsftpd 
 	;;
 	status)
-	pidof vsftpd
+	ps | grep vsftpd | grep -v grep
 	;;
 	*)
 	echo "Usage: $0 {start|stop|status}" 1>&2

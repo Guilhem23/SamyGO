@@ -92,9 +92,10 @@ case $1 in
 	done
 	;;
 	status)
+	/bin/mount | grep "$DEST_DIR"
 	;;
 	*)
-	echo "Usage: $0 {start|stop}" 1>&2
+	echo "Usage: $0 {start|stop|status}" 1>&2
 	exit 0
 	;;
 esac
