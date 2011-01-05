@@ -48,8 +48,8 @@ find_self()
 
 # if running as real rc.sysinit
 if [ ! -e /proc/mounts ]; then
-	mount -n -t proc /proc /proc
-	mount -n -t sysfs /sys /sys >/dev/null 2>&1
+	/bin/mount -n -t proc /proc /proc
+	/bin/mount -n -t sysfs /sys /sys >/dev/null 2>&1
 fi
 if [ -x /etc/rc.early.local ]; then
 	echo ". /etc/rc.early.local" 1>&2
@@ -81,7 +81,7 @@ echo "export FRAMEBUFFER=\"/dev/sam/fb0\"" >> /dtv/SGO.env
 	sed -i -e "s,^\(.*insmod.*\),echo \'\1\'," /mtd_rwarea/profile
 	sed -i -e "s,^\(.*util.*\),echo \'\1\'," /mtd_rwarea/profile
 # fi
-mount -o bind /mtd_rwarea/profile /etc/profile
+/bin/mount -o bind /mtd_rwarea/profile /etc/profile
 echo "alias ll='ls -l'" > /dtv/.ashrc	
 echo "alias md='mkdir -p'" >> /dtv/.ashrc	
 echo "PATH=\"$PATH\"" >> /dtv/.ashrc
