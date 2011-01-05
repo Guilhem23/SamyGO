@@ -88,12 +88,15 @@ wlan_up()
 	# wlan0     IEEE 802.11abg  ESSID:"dd-wrt"
 	# todo: skip if no interface (check with ifconfig -a)
 	# or parse cat /sys/class/net/*/wireless/ ?
+	i=""
 	for DONG in /sys/class/net/* ; do
 		if [ -d $DONG/wireless ]; then
 			i=$(echo $DONG | sed -e "s,^/.*/.*/.*/\(.*\),\1,")
 		else
 			echo "not wireless dev"
 		fi
+	done
+	if [ ! -z $i ] ; then
 		ifconfig $i up && $(iwconfig $i mode Managed ;\
 		iwconfig $i essid "$ESSID")
 
@@ -110,7 +113,9 @@ wlan_up()
 		ifconfig $i up && udhcpc -i $i -t 12 -T 5 -b 
 		echo "index[0]
 product : $i" > /dtv/usb/netlog
-	done
+	else
+		echo "no wireless found"
+	fi
 }
 
 case $1 in 
