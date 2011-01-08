@@ -1,0 +1,85 @@
+#!/bin/sh
+#
+# © Copyright 1996-2011, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id$
+
+. /dtv/SGO.env
+export PHPRC=$SYSROOT/etc/php/apache2-php5/php.ini
+
+WEBROOT="/dtv/www"
+CGIDIR="$WEBROOT/cgi-bin"
+
+# customize php.ini & httpd.conf?
+PARAMS="-p 81 -c $SYSROOT/etc/httpd.conf -r 'Busy-Web'"
+case $1 in 
+	start)
+	
+	# sample cgi, usage: http://192.168.1.51/cgi-bin/test.cgi
+	mkdir -p $CGIDIR $WEBROOT $SYSROOT/etc/php/apache2-php5
+	echo "#!/bin/sh
+echo Content-type: text/html
+echo \"\"
+echo \"<head>
+<title>Stop Start</title></head><body bgcolor=\'#FFFFFF\' text=\'#000000\' alink=\'#ff0000\' vlink=\'#00007f\' link=\'#0000ff\'>\"
+if [ -z \$2 ] ; then
+	for i in $SYSROOT/etc/init.d/*.init ; do
+		echo \"<H3>\$i <a href=\\\"/cgi-bin/test.cgi?\$i+start\\\">start</a> <a href=\\\"/cgi-bin/test.cgi?\$i+stop\\\">stop</a></H3>\"
+		echo "Status:"
+		echo \"<H5>\"
+		\$i status 2>&1 | sed -e \"s,$,</br>,\"
+		echo \"</H5>\"
+	done
+else
+		echo \"<center><form><textarea rows=10 cols=120 wrap=soft>\"
+	/bin/sh -x \$1 \$2 2>&1
+		echo \"</textarea></form></center>\"
+	echo \"\$1 with parameter \$2 <br/>\"
+	echo \" <a href=\\\"/cgi-bin/test.cgi\\\">Back</a><br/>\"
+fi
+echo \"</body>\"" > $CGIDIR/test.cgi
+	chmod a+x $CGIDIR/test.cgi
+	
+	# sample php
+	echo '<? phpinfo(); ?>' > $WEBROOT/index.php
+
+	# generate config
+	echo "H:$WEBROOT
+I:index.php
+*.php:$SYSROOT/opt/privateer/usr/bin/php-cgi
+# A:10.0.0.0/8
+# A:192.168
+# A:172.16.0.0/12
+# A:127.0.0.0/8	
+#A:169.254.0.0/16
+# D:*" > $SYSROOT/etc/httpd.conf
+	echo "A:10.0.0.0/8
+A:192.168
+A:172.16.0.0/12
+A:127.0.0.0/8
+A:169.254.0.0/16
+D:*" > $CGIDIR/httpd.conf
+
+	# fix php.ini
+	sed -i -e "s,/usr/lib/extensions,$SYSROOT/opt/privateer/extensions," $SYSROOT/etc/php/apache2-php5/php.ini || \
+		echo "extension_dir = \"$SYSROOT/opt/privateer/extensions\"" > $SYSROOT/etc/php/apache2-php5/php.ini
+
+	cp -af $SYSROOT/phpsysinfo $WEBROOT/
+
+	busybox httpd $PARAMS &
+	;;
+	stop)
+	kill -9 $(netstat -tanup | grep busybox | grep ":81" | sed -e "s,\(.* \)\(.*\)/.*,\2,")
+	;;
+	status)
+	netstat -tanup | grep busybox | grep ":81"
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
