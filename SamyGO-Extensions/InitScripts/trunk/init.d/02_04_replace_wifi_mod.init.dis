@@ -61,7 +61,7 @@ all_down()
 	#product : eth0" > /dtv/usb/netlog
 
 	# just remove known samsung modules and my extra
-	# and now i'll wait until soembody check the rigt order for c series
+	# and now i'll wait until somebody check the right order for c series
 	for i in rt73 rt2870sta rt3572sta rtnet3572sta rtutil3572sta rt2570 ; do
 		rmmod $i
 	done
@@ -74,6 +74,7 @@ all_down()
 wlan_up()
 {
 	for i in $USE_MODULE ; do
+		# TODO: logic if multiple modules with same name present
 		insmod $MOD_DIR/kernel/drivers/rt73/Module/${i}.ko 
 		insmod $MOD_DIR/kernel/drivers/rt2870/os/linux/${i}.ko 
 		insmod $MOD_DIR/kernel/drivers/net/${i}.ko 
