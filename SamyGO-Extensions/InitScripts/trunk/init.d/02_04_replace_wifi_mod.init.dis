@@ -45,6 +45,9 @@ ESSID=""
 WEPKEY=""
 WPAKEY=""
 USE_MODULE=""
+# see: http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=13&t=1258&p=11342#p11342
+WEPKEY_INDEX="" # maybe "2"
+WEPKEY_MODE="" # maybe "restricted"
 ##### CHANGE MEEEEE END ######
 
 IFACE_NAMES="rausb0 wlan0 ra11n0 ra0"
@@ -102,7 +105,9 @@ wlan_up()
 		iwconfig $i essid "$ESSID")
 
 		if [ ! -z "$WEPKEY" ] ; then
-			iwconfig $i key "$WEPKEY"
+			[ -z "$WEPKEY_MODE" ] && iwconfig $i key "$WEPKEY"
+			[ ! -z "$WEPKEY_INDEX" ] && iwconfig $i key [$WEPKEY_INDEX]
+			[ ! -z "$WEPKEY_MODE" ] && iwconfig $i key $WEPKEY_MODE "$WEPKEY"
 		elif [ ! -z "$WPAKEY" ] ; then
 			iwpriv $i set AuthMode=WPAPSK
 			iwpriv $i set EncrypType=TKIP
