@@ -12,19 +12,23 @@
 
 case $1 in 
 	start)
-	if [ ! -d "/dtv/usb/dev/input" ] ; then
-		mkdir -p "/dtv/usb/dev/input"
+	if [ ! -d "/dtv/input" ] ; then
+		mkdir -p "/dtv/input" "/dtv/usb" # usb?
 		i=0
 		while [ $i -le 4 ] ; do
-			mknod /dtv/usb/dev/input/mouse$i c 13 $(($i + 32))
-			mknod /dtv/usb/dev/input/event$i c 13 $(($i + 64))
+			mknod /dtv/event$i c 13 $(($i + 64)) # make netsurf happy
+			mknod /dtv/input/mouse$i c 13 $(($i + 32))
+			mknod /dtv/input/event$i c 13 $(($i + 64))
+			mknod /dtv/hidraw$i c 251 $i # hmm...
 			i=$(( i + 1 )) 
 		done
-		mknod /dtv/usb/dev/input/mice c 13 63
+		mknod /dtv/input/mice c 13 63
+		mknod /dtv/usb/hiddev0 c 180 96
 	else
 		echo "Starterlib did it"
 	fi
 	# usbcore is loaded here? hope so :-)
+	# think about hidraw stuff
 	insmod $MOD_DIR/kernel/drivers/input/evdev.ko
 	insmod $MOD_DIR/kernel/drivers/usb/input/usbhid.ko
 	insmod $MOD_DIR/kernel/drivers/hid/hid.ko
