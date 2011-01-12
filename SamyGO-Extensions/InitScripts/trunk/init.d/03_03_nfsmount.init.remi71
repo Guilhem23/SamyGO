@@ -1,0 +1,113 @@
+#!/bin/sh
+#
+# http://www.gnu.org/licenses/gpl-howto.html
+#
+# This script is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+# 
+# This script is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this script.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyleft by Remigio Conti 20110110 to allow mount from list of more than one fixed server
+#	see: http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=12&t=1332&start=0
+#
+
+. /dtv/SGO.env
+
+#
+# NFS share in the form of:
+#
+# SHARE_n='<SERVER NAME or IP>:<SHARE>'
+#
+# For multiple share on the same server use multiple entry with the same server name.
+#
+
+SHARE_1='mediaserver01.shareskills.org:/home/remi/localdata/media'
+SHARE_2='fileserver01.shareskills.org:/var/landata/photo'
+
+FR_NAME="NFS Server"
+# M_OPTS="soft,udp,async,nolock,rsize=32768,wsize=8192"
+# M_OPTS="rw,soft,udp,nolock,rsize=32768,wsize=32768"
+# M_OPTS="soft,tcp,nolock,rsize=32768,wsize=32768"
+# M_OPTS="soft,tcp,nolock,rsize=8192,wsize=8192"
+M_OPTS="soft,tcp,nolock"
+
+DEST_DIR=$MOUNT_PATH/nfs
+
+do_mount()
+{
+	#		$(echo -e "[sdg]\nVendor : NfsMount\nProduct : $FR_NAME\n\
+	#Serial : Q80VQLFG\nDevpath : 7\nLun : 0\nMountDir : $DEST_DIR\nFileSystem : vfat\n" >> /dtv/usb/log)
+
+	M_POINT="$DEST_DIR/$1/$(echo -n "$2" | sed -e "s/\//_/g")"
+	mkdir -p "$M_POINT" 
+	if [ `cat /proc/mounts | grep -c "$M_POINT"` -lt "1" ] ; then
+		/bin/busybox mount -o "$M_OPTS" "$1:$2" "$M_POINT"
+		if [ $? = 0 ]; then
+			echo "Share $1:$2 successfully mounted on $M_POINT" 
+		else
+			echo "Error during mount of $1:$2 on $M_POINT"
+		fi
+	else
+		echo "Share $1:$2 is already mounted!"
+	fi
+}
+
+get_shares()
+{
+	ENDARRAY=false
+	N=1
+	while [ $ENDARRAY = false ]
+	do
+		eval SHARE=\${SHARE_${N}}
+		if [ -z "$SHARE" ]; then
+			ENDARRAY=true
+		else
+			SERVER=`echo "$SHARE"|cut -d ':' -f1`
+			SHPATH=`echo "$SHARE"|cut -d ':' -f2`
+			echo -n "Check if server $SERVER is reachable..."
+			showmount --no-header -e $SERVER 1>/dev/null 2>&1
+			if [ $? = 0 ]; then
+				echo 'ok'
+				do_mount "$SERVER" "$SHPATH"
+			else
+				echo 'NOT reachable skip!'
+			fi
+			let N=N+1
+		fi
+	done
+}
+
+
+case $1 in 
+	start)
+	# for systems with modular nfs kernel support
+	insmod $MOD_DIR/kernel/net/sunrpc/sunrpc.ko
+	insmod $MOD_DIR/kernel/fs/lockd/lockd.ko
+	insmod $MOD_DIR/kernel/fs/nfs_common/nfs_acl.ko
+	insmod $MOD_DIR/kernel/fs/nfs/nfs.ko
+	get_shares
+	;;
+	stop)
+	# may can fail if device access the mount from content library
+	# for i in $(cat /proc/mounts | grep nfs | cut -d " " -f2) ; do
+	for i in $(cat /proc/mounts | grep "$DEST_DIR" | sed 's/^\(.*\) \(.*\) nfs .*/\2/') ; do
+		/bin/busybox umount $i
+	done
+	;;
+	status)
+	/bin/mount | grep "$DEST_DIR"
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
+

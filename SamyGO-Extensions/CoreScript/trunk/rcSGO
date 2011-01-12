@@ -106,6 +106,7 @@ if [ ! -e /dtv/SGO.env ] ; then
 	echo "export TMPDIR=/dtv" >> /dtv/SGO.env
 	echo "export HOME=$NEW_HOME" >> /dtv/SGO.env
 	echo "export SMB_CONF_PATH=\"$SYSROOT/etc/samba/smb.conf\"" >> /dtv/SGO.env
+	echo "LOGFILE=\"$SYSROOT/samygo.log\"" >> /dtv/SGO.env
 
 else
 	S_SCRIPT="echo Skip >> /dev/kmsg"

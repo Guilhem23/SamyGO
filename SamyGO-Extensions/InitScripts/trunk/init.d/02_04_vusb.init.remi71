@@ -1,0 +1,81 @@
+#!/bin/sh
+#
+# http://www.gnu.org/licenses/gpl-howto.html
+#
+# This script is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+# 
+# This script is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this script.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyleft by Remigio Conti 20110110 to support PVR Recording over network
+#	see: http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=12&t=1332&start=0
+#
+
+. /dtv/SGO.env
+
+case $1 in 
+	start)
+	mkfs.vfat -C /dtv/vusb 500
+	insmod $MOD_DIR/kernel/drivers/usb/gadget/dummy_hcd.ko
+	sleep 2
+
+	GFILESTORAGE='/dtv/vusb'
+	PVRIMAGE="$SYSROOT/pvrimage"
+
+	if [ -e $PVRIMAGE ]; then
+		GFILESIZE=`du $PVRIMAGE |cut -f1`
+		if [ $GFILESIZE -ge 1536000 ]; then  	
+			GFILESTORAGE="$GFILESTORAGE,$PVRIMAGE"
+			echo "Found pvrimage file $PVRIMAGE size=$GFILESIZE KByte, so enabling PVR Record over NFS"
+		else 
+			echo "Found pvrimage file $PVRIMAGE size=$GFILESIZE KByte, but size is less than required (1536000 KBYTE), so PVR Record over NFS will not be enabled"    
+		fi
+	else
+		echo "pvrimage $PVRIMAGE NOT found, so PVR Record over NFS will not be enabled"
+	fi
+
+	insmod $MOD_DIR/kernel/drivers/usb/gadget/g_file_storage.ko file="$GFILESTORAGE"
+	sleep 3
+
+	FOUND=false
+	SAMYGODEVS=''
+	for i in /sys/block/sd?/device/model ; do
+		if [ `cat $i | grep -c "SamyGO Virt"` -gt "0" ]; then
+			CURDEV="`echo $i | sed 's/^\/.*\(sd.\)\/.*/\1/g'`"
+			SAMYGODEVS="$SAMYGODEVS /dev/$CURDEV"
+			if [ $FOUND = false ]; then
+				echo "found gadget at: $i"
+				dev=$CURDEV
+				echo "scsidev: $dev"
+				FOUND=true
+			fi
+		else
+			echo "real storage device at: $i"
+		fi
+	done
+	SAMYGODEVS=`echo $SAMYGODEVS|sed 's/^[[:space:]]//'`
+
+	sed -i -e "s,MountPlaceholder,/dtv/usb/$dev," /dtv/SGO.env
+	echo "SAMYGODEVS=\"$SAMYGODEVS\"" >> /dtv/SGO.env
+	;;
+	stop)
+	rmmod g_file_storage
+	rmmod dummy_hcd
+	;;
+	status)
+	cat /sys/block/sd?/device/model
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
+

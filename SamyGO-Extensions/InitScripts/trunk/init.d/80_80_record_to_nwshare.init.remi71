@@ -1,0 +1,153 @@
+#!/bin/sh
+#
+# © Copyleft 1996-2011, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#	based on research of:
+#		andy_nl:	http://sourceforge.net/apps/phpbb/samygo/memberlist.php?mode=viewprofile&u=1728
+#		gipas:		http://sourceforge.net/apps/phpbb/samygo/memberlist.php?mode=viewprofile&u=1751
+#	http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=12&t=1100&start=20#p10553
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+# http://www.gnu.org/licenses/gpl-howto.html
+#
+# This script is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+# 
+# This script is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this script.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# 
+# TODO: more sysv style, more error handling
+#
+# Modified by Remigio Conti 20110110
+#
+
+. /dtv/SGO.env
+
+# Remote NFS fileserver for recording 
+PVRSERVER='mediaserver01.shareskills.org'
+
+# Remote NFS share for recording
+PVRPATH='/home/remi/localdata/media/tv01/pvr_record'
+
+# NFS mount options. If you experince problem like slow performance, try change this.
+# M_OPTS="soft,udp,async,nolock,rsize=32768,wsize=8192"
+# M_OPTS="rw,soft,udp,nolock,rsize=32768,wsize=32768"
+# M_OPTS="soft,tcp,nolock,rsize=32768,wsize=32768"
+# M_OPTS="soft,tcp,nolock,rsize=8192,wsize=8192"
+M_OPTS="soft,tcp,nolock"
+
+# Number of second to wait for pvrimage mount point to be ready. 
+# If you experience problem like "No virtual device found ready for PVR or already mounted" message in samygo.log then try to increase this.
+WAIT=25
+
+
+WriteToLog ()
+{
+	case $2 in
+		1)
+		NOW=`date +%Y%m%d-%H%M%S`
+		echo "$3" "$NOW $1" >>$LOGFILE
+		;;
+		2)
+		echo "$3" "$1" >>$LOGFILE
+		;;
+	esac
+}
+
+CheckNFSServer ()
+{
+	WriteToLog "Check if server $1 is reachable and NFS service available..." 1 '-n'
+	showmount --no-header -e $1 1>/dev/null 2>&1
+	if [ $? = 0 ]; then		
+		WriteToLog 'OK' 2
+		return 0
+	else
+		echo "NFS server $1 not reachable or NFS service not available"
+		WriteToLog 'not reachable or NFS service not available' 2
+		return 1
+	fi
+}
+
+SearchPVRImageMP ()
+{
+	FOUND=false
+	WriteToLog 'Search for mount point of pvrimage...' 1
+	sleep $WAIT
+	for DEV in `echo $SAMYGODEVS`
+	do
+		MPOINT=`grep -e ^$DEV /proc/mounts | cut -d " " -f 2`
+		if [ -e "$MPOINT/.PlaceHolderDO-NOT-REMOVE" ] && [ $FOUND = false ]; then
+			PVRMPOINT=$MPOINT
+			FOUND=true
+			WriteToLog "pvrimage mount point is $PVRMPOINT" 1
+		fi
+	done
+
+}
+
+MountNFSShare ()
+{
+	WriteToLog "Mount of $2:$3 on $4... " 1 '-n'
+	/bin/busybox mount -o "$1" "$2:$3" "$4" 2>>$LOGFILE
+
+	if [ $? = 0 ]; then
+		WriteToLog 'OK' 2
+		CONTENTSDIR="$4/CONTENTS"
+		if ! [ -d "$CONTENTSDIR" ]; then
+			echo -n "Creating directory $CONTENTSDIR for the first time..."
+			WriteToLog "Creating directory $CONTENTSDIR for the first time..." 1 '-n'
+			mkdir "$CONTENTSDIR"
+			echo "OK"
+			WriteToLog 'OK' 2
+			echo -n "Creating .PVRPfmChkLog file..."
+			WriteToLog 'Creating .PVRPfmChkLog file...' 1 '-n'
+			echo '1' > "$CONTENTSDIR/.PVRPfmChkLog"
+			echo "OK"
+			WriteToLog 'OK' 2
+		fi
+		echo "PVR on server $2 is now ready in localpath $4"
+		WriteToLog "PVR on server $2 is now ready in localpath $4" 1
+	else
+		echo "Error during mount of $2:$3 on $4 see $LOGFILE for details"
+	fi
+}
+
+case $1 in 
+	start)
+	echo >$LOGFILE
+	WriteToLog 'Start Record to Network Share script (80_80_record_to_nwshare.init)' 1
+	CheckNFSServer "$PVRSERVER"
+	if [ $? = 0 ]; then
+		SearchPVRImageMP
+
+		if [ $FOUND = true ]; then
+			MountNFSShare "$M_OPTS" "$PVRSERVER" "$PVRPATH" "$PVRMPOINT"	  
+		else
+			echo 'No virtual device found ready for PVR or already mounted'
+			WriteToLog 'No virtual device found ready for PVR or already mounted' 1
+		fi 
+	fi
+	WriteToLog 'End Record to Network Share script (80_80_record_to_nwshare.init)' 1	
+	;;
+	stop)
+	echo "pls request it on forum"
+	;;
+	status)
+	echo "pls request it on forum"
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
