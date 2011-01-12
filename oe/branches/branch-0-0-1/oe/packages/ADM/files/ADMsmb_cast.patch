@@ -1,0 +1,11 @@
+--- a/ADMsmb.c	2011-01-12 17:03:44.000000000 +0100
++++ b/ADMsmb.c	1998-08-07 04:16:58.000000000 +0200
+@@ -139,7 +139,7 @@
+     {
+       usleep (100000);
+ 
+-      if (recvfrom (socket_client, buffer2,sizeof(buffer2), 0, (struct sockaddr *) &sin_dst, &(int) longueur) != -1)
++      if (recvfrom (socket_client, buffer2,sizeof(buffer2), 0, (struct sockaddr *) &sin_dst, (socklen_t *) &longueur) != -1)
+ 	{         
+ 
+ 	  if (nmb2->rep_num != 0)
