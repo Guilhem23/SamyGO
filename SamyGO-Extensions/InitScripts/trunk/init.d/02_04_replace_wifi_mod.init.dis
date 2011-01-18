@@ -63,9 +63,8 @@ all_down()
 	#       echo "index[0]
 	#product : eth0" > /dtv/usb/netlog
 
-	# just remove known samsung modules and my extra
 	# and now i'll wait until somebody check the right order for c series
-	for i in rt73 rt2870sta rt3572sta rtnet3572sta rtutil3572sta rt2570 ; do
+	for i in rt73 rt2870sta rt3070sta rt3370sta rt3572sta rtnet3572sta rtutil3572sta rt2570 ; do
 		rmmod $i
 	done
 
