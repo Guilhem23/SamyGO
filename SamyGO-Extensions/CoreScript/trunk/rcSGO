@@ -20,8 +20,8 @@ if [ ! -e /dtv/SGO.env ] ; then
 		mount -n -t sysfs /sys /sys >/dev/null 2>&1
 	fi
 	
-	# make our mount happy
-	/bin/mount -o bind /proc/mounts /etc/mtab
+	# make our mount happy, but this breaks djmount so revert it.
+	# /bin/mount -o bind /proc/mounts /etc/mtab
 
 	KERN_VER=$(cat /proc/version  | sed -e 's/\(.*inux version \)\(.*\) \(.*@.*\)$/\2/')
 
