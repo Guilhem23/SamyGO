@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# © Copyright 1996-2011, SamyGO
+#
+#
+# . /dtv/SGO.env
+
+case $1 in 
+	start)
+	# enable loopback network interface, required on some b-series (b550,b6000?)
+	ifconfig lo 127.0.0.1
+	# unhide 'unsupported' filesystems from usb mount
+	sed -i "s,\(FileSystem : \)ext.,\1vfat,g" /dtv/usb/log
+	;;
+	stop)
+	;;
+	status)
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
