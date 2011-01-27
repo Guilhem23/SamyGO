@@ -53,6 +53,7 @@ case $1 in
 		
 		# find vusb in /sys
 		# and set a variable for mount point
+		dev="sda1" # set fallback if someting wrong with modules
 		for i in /sys/block/sd?/device/model ; do
 			if [ `cat $i | grep -c "SamyGO Virt"` -gt "0" ] ; then
 				echo "found gadget at: $i"
