@@ -110,6 +110,8 @@ wlan_up()
 		elif [ ! -z "$WPAKEY" ] ; then
 			iwpriv $i set AuthMode=WPAPSK
 			iwpriv $i set EncrypType=TKIP
+		# http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=3&t=14&sid=f5284c449201f8d0f4c0549f15b87da0&start=160#p13948
+		# iwpriv $i set EncrypType=AES
 			iwpriv $i set WPAPSK="$WPAKEY"
 		else
 			echo "Use open W-LAN"
