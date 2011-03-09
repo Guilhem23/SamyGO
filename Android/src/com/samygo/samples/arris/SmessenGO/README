@@ -1,0 +1,9 @@
+you can start the receiver like:
+
+Intent mSendToSamy = new Intent(context, SendToSamy.class);
+mSendToSamy.putExtras(intent);
+mSendToSamy.putExtra("category", "SMS");
+mSendToSamy.putExtra("caller", message_from);
+mSendToSamy.putExtra("data", message);
+context.sendBroadcast(mSendToSamy);
+
