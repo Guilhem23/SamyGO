@@ -71,48 +71,21 @@ public class SendToSamy extends BroadcastReceiver {
 				MyName = "SamyGO";
 				Category = extras.getString("category");
 				Number = extras.getString("caller");
-				Name = Number;
+				Name = getDisplayName(context, Number);
 				Message = extras.getString("data");
 
 				if (Category.startsWith("Schedule")){
-					Uri uri = Uri.withAppendedPath(PhoneLookup.CONTENT_FILTER_URI, Uri.encode(Number));
-					Cursor cur = context.getContentResolver().query(uri,
-							new String[] { PhoneLookup.DISPLAY_NAME },
-							null, null, null );
-					if (cur.moveToFirst()) {
-						int nameIdx = cur.getColumnIndex(PhoneLookup.DISPLAY_NAME);
-						Name = cur.getString(nameIdx);
-					}
 					StartD = extras.getLong("beginTime");
 					EndD = extras.getLong("endTime");
 					Message = "Alert Count: " + extras.getInt("android.intent.extra.ALARM_COUNT");
 					Log.i(TAG, "Alert: " + extras.toString());
-					cur.close();
 				} else if (Category.startsWith("SM")){
-
-					Uri uri = Uri.withAppendedPath(PhoneLookup.CONTENT_FILTER_URI, 
-							Uri.encode(Number));
-					Cursor cur = context.getContentResolver().query(uri,
-							new String[] { PhoneLookup.DISPLAY_NAME },
-							null, null, null );
-					if ( cur.moveToFirst() ) {
-						int nameIdx = cur.getColumnIndex(PhoneLookup.DISPLAY_NAME);
-						Name = cur.getString(nameIdx);
-					}
-					cur.close();
 					Log.i(TAG, "SMS: " + extras.toString());
 				} else {
-					Uri uri = Uri.withAppendedPath(PhoneLookup.CONTENT_FILTER_URI, 
-							Uri.encode(intent.getStringExtra("incoming_number")));
-					Cursor cur = context.getContentResolver().query(uri,
-							new String[] { PhoneLookup.DISPLAY_NAME },
-							null, null, null );
-					if( cur.moveToFirst() ) {
-						int nameIdx = cur.getColumnIndex(PhoneLookup.DISPLAY_NAME);
-						Name = cur.getString(nameIdx);
-					}
-					cur.close();
-					Log.i(TAG, "Call: "+extras.toString());
+					// TODO: check setting for mute on call
+					// if extras.getString("state") == "RINGING" -> start of call
+					// on extras.getString("state") == "IDLE" -> end of call
+					Log.i(TAG, "Call: " + extras.toString());
 				}
 			}
 			// SecondEditTextPref or where you store tv's ip
@@ -203,6 +176,21 @@ public class SendToSamy extends BroadcastReceiver {
 			// woops
 		}
 		return 1;
+	}
+
+	public String getDisplayName(Context context, String caller) {
+		String DpName = context.getString(android.R.string.unknownName);
+		Uri uri = Uri.withAppendedPath(PhoneLookup.CONTENT_FILTER_URI,
+				Uri.encode(caller));
+		Cursor cur = context.getContentResolver().query(uri,
+				new String[] { PhoneLookup.DISPLAY_NAME },
+				null, null, null );
+		if ( cur.moveToFirst() ) {
+			int nameIdx = cur.getColumnIndex(PhoneLookup.DISPLAY_NAME);
+			DpName = cur.getString(nameIdx);
+		}
+		cur.close();
+		return DpName;
 	}
 
 	public String getDate() {
