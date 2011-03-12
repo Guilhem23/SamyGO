@@ -77,7 +77,7 @@ DocumentRoot \"$WEBROOT\"
 	Deny from all
 	Satisfy All
 </FilesMatch>
-ErrorLog \"/mtd_ram/error_log\"
+ErrorLog \"/dtv/apache_error_log\"
 LogLevel warn
 ScriptAlias /cgi-bin/ \"$CGIDIR/\"
 <Directory \"$CGIDIR\">
