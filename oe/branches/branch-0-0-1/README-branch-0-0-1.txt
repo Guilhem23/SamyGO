@@ -106,9 +106,44 @@ FAQ:
 	   when i try to compile glibc?
 	A: http://crossgcc.rts-software.org/doku.php?id=i386linuxgccformac
 
+	If you are building under x86_64 you may encounter the following errors:
+
+		/usr/bin/ld: skipping incompatible /usr/lib/gcc/x86_64-linux-gnu/4.2.3/libstdc++.a when searching for -lstdc++
+ 		/usr/bin/ld: cannot find -lstdc++
+ 		collect2: ld returned 1 exit status
+
+	You should install g++-multilib:
+
+	sudo apt-get install g++-multilib
+
+	If you are experiencing the following errors:
+
+		/usr/bin/ld: skipping incompatible /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../libz.so when searching for -lz
+ 		/usr/bin/ld: skipping incompatible /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../libz.a when searching for -lz
+ 		/usr/bin/ld: skipping incompatible /usr/lib/libz.so when searching for -lz
+ 		/usr/bin/ld: skipping incompatible /usr/lib/libz.a when searching for -lz
+ 		/usr/bin/ld: cannot find -lz
+
+	You should install lib32z1-dev:
+
+	sudo apt-get install lib32z1-dev
+
+	If you are experiencing the following errors:
+
+ 		/usr/bin/ld: skipping incompatible /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../libncurses.so when searching for -lncurses
+ 		/usr/bin/ld: skipping incompatible /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../libncurses.a when searching for -lncurses
+ 		/usr/bin/ld: skipping incompatible /usr/lib/libncurses.so when searching for -lncurses
+ 		/usr/bin/ld: skipping incompatible /usr/lib/libncurses.a when searching for -lncurses
+ 		/usr/bin/ld: cannot find -lncurses
+
+	You should install lib32ncurses5-dev:
+
+	sudo apt-get install lib32ncurses5-dev
+
 Known BUGS:
 	* not striped kernel-modules will be packaged -> fixed
 	* lot of c99 warnings on busybox build
 	* sh4 wrong gcc used on kernel-module build
 		fixed for fuse-module (CC=KERNEL_CC)
+
 
