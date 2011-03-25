@@ -66,6 +66,8 @@ echo "PATH=\"$PATH\"" >> /dtv/SGO.env
 echo "export ENV=\"/dtv/.ashrc\"" >> /dtv/SGO.env
 echo "export FRAMEBUFFER=\"/dev/sam/fb0\"" >> /dtv/SGO.env
 
+# disable parsing and create new one (at line ~ 99)
+if 0 ; then
 # bit comfort after login
 # if [ ! -e /mtd_rwarea/profile ]; then
 	cat /etc/profile | sed -e "s#^PATH=.*#PATH=\"$PATH\"#" | \
@@ -92,6 +94,13 @@ echo "export FRAMEBUFFER=\"/dev/sam/fb0\"" >> /dtv/SGO.env
 	# disable call of rc.local
 	sed -i -e "s@^\(.*rc\.l*\)@echo \"SamyGO: caught rc.local init, just login\"\n# \1@" /mtd_rwarea/profile
 # fi
+fi
+
+echo "export PATH=\"$PATH:/usr/sbin:/usr/bin:/bin:/sbin\"" > /mtd_rwarea/profile
+echo "export LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH\"" >> /mtd_rwarea/profile
+echo "export PS1='# '" >> /mtd_rwarea/profile
+echo -e "ENV=/dtv/.ashrc\nexport ENV\n" >> /mtd_rwarea/profile
+
 /bin/mount -o bind /mtd_rwarea/profile /etc/profile
 echo "alias ll='ls -l'" > /dtv/.ashrc	
 echo "alias md='mkdir -p'" >> /dtv/.ashrc	
