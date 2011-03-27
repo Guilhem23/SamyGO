@@ -98,6 +98,18 @@ int STMovie_SetDisplaySize(int fit)
   int po[2];
   int pi[2];
 
+  // mm_VideoInfo sometimes points to null handle
+  // use the first non null then
+  if (! handle) {
+    if (mm_VideoInfoStruct[0].handle1) {
+      handle= mm_VideoInfoStruct[0].handle1;
+      DebugPrintf("SetSize mm_VideoInfoStruct[0]\n");
+    } else {
+      handle= mm_VideoInfoStruct[1].handle1;
+      DebugPrintf("SetSize mm_VideoInfoStruct[1]\n");
+    }
+  }
+
   if (iw < 16)
     iw = 16;			// some reasonable minimum, just for the case
   if (ih < 9)
@@ -178,7 +190,7 @@ int STMovie_SetDisplaySize(int fit)
     DebugPrintf("STVID_SetOutputWindowMode Error\n");
   }
 
-  DebugPrintf("Patched SetSize MPEG AR %0x, In %dx%d, Out %dx%d-%d-%d\n",
+  DebugPrintf("arfix 1.2 SetSize MPEG AR %0x, In %dx%d, Out %dx%d-%d-%d\n",
 	      mpegAspectRatio, iw, ih, ow, oh, ox, oy);
   if (STVID_SetSize(handle, 0, 0, iw, ih, ox, oy, ow, oh)) {
     DebugPrintf("STVID_SetSize Error\n");

@@ -1,5 +1,5 @@
 
-WiseLink video player aspect ratio fix version 1.1
+WiseLink video player aspect ratio fix version 1.2
 ==================================================
 
 Patch to original Samsung firmware T-RBYDEUC-1013.1
@@ -15,15 +15,19 @@ into account in auto fit mode.
 Otherwise if PAL resolution (720x576) is detected in Auto fit mode,
 aspect ratio 4:3 is used.
 
-
-Known problems
---------------
-When playing H.264 content, original scaling control routines return an error
-and video is played fullscreen independently of menu setting.
+The patch also fixes an error which prevented scaling of some video
+formats (e.g. H264 in MPEG TS container)
 
 
-Instructions
-------------
+
+Applying permanently
+--------------------
+Use SamyGO Firmware Patcher to patch original firmware and then
+proceed with standard firmware update.
+
+
+In-memory patching
+------------------
 For safety of first tests I prefer dynamic patching in TV memory instead
 of permanent firmware patch.
 I recommend you to enable telnet/ssh access first although any way to start
@@ -32,18 +36,18 @@ a shell script inside TV is sufficient.
 Unpack zip content to an USB flash or to a network share and insert/mount
 it to TV. Change to patch directory and run arfix.sh
 
-# cd /dtv/usb/sdb1/T-RBYDEUC-1013.1-arfix_1.1/
+# cd /dtv/usb/sdb1/T-RBYDEUC-1013.1-arfix_1.2/
 # ls -l
--rw-r--r--    1 1000     1000         2754 Mar  1  2010 README
--rw-r--r--    1 1000     1000         2876 Mar  1  2010 T-RBYDEUC-1013.1-arfix_1.1.elfpatch
--rwxr-xr-x    1 1000     1000           80 Mar  1  2010 arfix.sh
--rwxr-xr-x    1 1000     1000        55804 Mar  1  2010 elfpatcher
+-rw-r--r--    1 root     0            2673 Mar 27  2011 README
+-rw-r--r--    1 root     0            2960 Mar 27  2011 T-RBYDEUC-1013.1-arfix_1.2.elfpatch
+-rwxr-xr-x    1 root     0              80 Mar 27  2011 arfix.sh
+-rwxr-xr-x    1 root     0           55864 Mar 27  2011 elfpatcher
 # ./arfix.sh
-Reading patches from file T-RBYDEUC-1013.1-arfix_1.1.elfpatch
+Reading patches from file T-RBYDEUC-1013.1-arfix_1.2.elfpatch
 Checking .checkVersion 16 bytes at 0x1508978
-Writing .patch1 848 bytes at 0x056f43c
+Writing .patch1 932 bytes at 0x056f43c
 Writing .patch4 12 bytes at 0x073d334
-Writing .patch7 2 bytes at 0x0740320
+Writing .patch7 4 bytes at 0x0740320
 Writing .patch6 4 bytes at 0x0740470
 Writing .patch5 4 bytes at 0x0b04e8c
 Writing .patch2 108 bytes at 0x0d16520
@@ -53,17 +57,14 @@ Writing .patch3 180 bytes at 0x0d167a0
 
 Changes will be lost after exeDSP restart (TV off/on).
 
-
-Applying permanently
---------------------
 If you have verified the patch works, you can copy patch files to
 /mtd_rwarea or /mtd_exe (is writable on this model)
 and call arfix.sh from you customized boot script.
 Don't call arfix.sh before initialization of exeDSP is completed!
 A 20 second delay from start exeDSP should be sufficient.
 
-You can also apply patch to exeDSP file. See elfpatcher -h and DIY
-or wait until patch is integrated into SamyGO Firmware Patcher.
+You can also apply patch to exeDSP file. If you are experienced
+in embedded linux, see elfpatcher -h and DIY.
 
 
 Warranty

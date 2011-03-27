@@ -32,6 +32,8 @@ SECTIONS
   .patch7 0x740320 : {
     BYTE(0x40)
     BYTE(0x20)	/* switch (sourceType) in CMovieManager__Parsing */
+    BYTE(0x40)
+    BYTE(0x60)
   }
 
   .patch6 0x740470 : {
@@ -55,6 +57,8 @@ SECTIONS
   SetProfile = 0x405c60;
 
   SendEvent = 0x503e20;
+
+  ParserReset = 0x73d340;
 
   GetApplication = 0x7b4520;
   GetWString = 0x7b83c0;
