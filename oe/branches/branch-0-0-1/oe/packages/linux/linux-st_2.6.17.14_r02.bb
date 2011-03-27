@@ -32,7 +32,9 @@ ARCH = "sh"
 do_unpack2() {
         tar -xvzf ${WORKDIR}/linux_st.tar.gz -C ${WORKDIR}/
 	rm -f ${WORKDIR}/*.zip ${WORKDIR}/SELP* ${WORKDIR}/*.tgz ${WORKDIR}/*.gz ${WORKDIR}/Re* ${WORKDIR}/*.bz2 || true
-	find ${WORKDIR}/ \( -name '*.[ch]' -o -name 'Makefile*' -o -name 'K[bc]*' \) -exec chmod 644 {} \;
+	# find ${WORKDIR}/ \( -name '*.[ch]' -o -name 'Makefile*' -o -name 'K[bc]*' \) -exec chmod 644 {} \;
+	chmod -R a+w ${S}	
+	
 }
 
 addtask unpack2 before do_patch after do_unpack
@@ -40,6 +42,8 @@ addtask unpack2 before do_patch after do_unpack
 do_configure_prepend() {
 	rm include/asm-sh/mach/stb7100ref && tar xvzf arch/sh/boards/st/stb7100ref.tar.gz -C include/asm-sh/
 	oe_machinstall -m 0644 ${WORKDIR}/${MACHINE}-dotconfig ${S}/.config
+
+	echo ${KERNEL_LOCALVERSION} > ${S}/localversion-stm
 	
 	perl -pi -e "s/# (CONFIG_CIFS) .*/\1=m/" ${S}/.config
 	perl -pi -e "s/# (CONFIG_USB_GADGET) .*/\1=m/" ${S}/.config
