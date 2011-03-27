@@ -18,6 +18,7 @@
    SamyGo Home Page: http://samygo.sourceforge.net
    */
 
+#include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/ptrace.h>
@@ -65,7 +66,7 @@ void usage(void)
 {
 	printf(
 			"\n"
-			"elfpatcher 1.2\n"
+			"elfpatcher 1.3\n"
 			"Takes one or more elf32 files and writes the content of segments named .patch*\n"
 			"Patching a binary file is potentially dangerous, use solely at your own risk\n"
 			"\n"
@@ -235,21 +236,23 @@ int FindDestSection(int addr)
 	}
 }
 
+/*
+  PtracePeek rounds size up to machine word boundary!
+  Alloc bf at least 3 byte longer than size.
+*/
 int PtracePeek(unsigned char *bf, int addr, int size)
 {
 	int i;
-	union {
-		long l;
-		unsigned char b[2];
-	} d;
+	long d;
 
-	for (i = 0; i < s_shdr->sh_size;) {
-		d.l = ptrace(PTRACE_PEEKTEXT, pid, (void *)(addr + i), NULL);
+	assert(sizeof(long) != 4);	/* we must have the same word size as sh4 */
+
+	for (i = 0; i < s_shdr->sh_size; i+= sizeof(d)) {
+		d = ptrace(PTRACE_PEEKTEXT, pid, (void *)(addr + i), NULL);
 		if (errno) {
 			return errno;
 		}
-		bf[i++] = d.b[0];
-		bf[i++] = d.b[1];
+		*(int*)(bf + i) = d;
 	}
 	return 0;
 }
@@ -258,19 +261,18 @@ int PtracePoke(unsigned const char *bf, int addr, int size)
 {
 	int i;
 	long pr;
-	union {
-		unsigned short w;
-		unsigned char b[2];
-	} d;
+	long d;
 
-	for (i = 0; i < s_shdr->sh_size; i+= 2) {
-		d.b[0] = bf[i];
-		d.b[1] = bf[i+1];
-		pr = ptrace(PTRACE_POKETEXT, pid, addr + i, d.w);
+	for (i = 0; i < s_shdr->sh_size; i+= sizeof(d)) {
+		d = *(int*)(bf + i);
+		pr = ptrace(PTRACE_POKETEXT, pid, addr + i, d);
 		if (pr == -1) {
 			perror("ptrace poke");
 			return errno;
 		}
+	}
+	if (i != s_shdr->sh_size) {
+		fprintf(stderr, "end of segment is not aligned to machine word boundary!\n");
 	}
 	return 0;
 }
