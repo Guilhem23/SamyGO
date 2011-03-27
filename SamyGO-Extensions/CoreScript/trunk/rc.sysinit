@@ -31,7 +31,9 @@ p_from_rel_info()
 {
 	if [ -e $1 ]; then
 		# DISTROOT="$SYSROOT/opt/$(head -n 1 "$1" | cut -d " " -f1)"
-		DISTROOT="$SYSROOT/opt/$(head -n 1 "$1" | sed 's/^\(\w*\) *.*/\1/')"
+		# DISTROOT="$SYSROOT/opt/$(head -n 1 "$1" | sed 's/^\(\w*\) *.*/\1/')"
+		# no head on A-series
+		DISTROOT="$SYSROOT/opt/$(sed q "$1" | sed 's/^\(\w*\) *.*/\1/')"
 	else
 		DISTROOT="$SYSROOT"
 	fi

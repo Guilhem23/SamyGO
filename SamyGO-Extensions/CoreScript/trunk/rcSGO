@@ -34,8 +34,10 @@ if [ ! -e /dtv/SGO.env ] ; then
 
 	if [ -d /mtd_wiselink ] ; then
 		NEW_HOME="/mtd_wiselink"
-	else
+	elif [ -d /mtd_contents ] ; then
 		NEW_HOME="/mtd_contents"
+	else
+		NEW_HOME="/dtv"
 	fi
 
 	# harden
