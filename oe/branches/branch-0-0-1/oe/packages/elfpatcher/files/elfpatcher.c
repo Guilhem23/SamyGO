@@ -43,6 +43,11 @@ int python_patch;
 #else
 #define python_patch 0
 #endif
+#ifdef REVERSE_LD
+int reverse_ld;
+#else
+#define reverse_ld 0
+#endif
 
 char *d_fn;
 int d_fd;
@@ -84,6 +89,9 @@ void usage(void)
 #ifdef PYTHON_PATCH
 			"-y ....... format patch for python hexlify\n"
 #endif
+#ifdef REVERSE_LD
+			"-r ....... generate ld script for reverse patch\n"
+#endif
 			"\n"
 	      );
 }
@@ -92,7 +100,7 @@ void PrintHex(unsigned char *bf, int size)
 {
 	int i;
 	for (i = 0; i < size; i++)
-		printf(python_patch ? "%02x" : " %02x", *bf++);
+		printf(python_patch ? "%02x" : reverse_ld ? "BYTE(0x%02x)\n" : " %02x", *bf++);
 }
 
 void ElfErr(const char *fn_name)
@@ -245,7 +253,7 @@ int PtracePeek(unsigned char *bf, int addr, int size)
 	int i;
 	long d;
 
-	assert(sizeof(long) != 4);	/* we must have the same word size as sh4 */
+	assert(sizeof(void *) == sizeof(long));
 
 	for (i = 0; i < s_shdr->sh_size; i+= sizeof(d)) {
 		d = ptrace(PTRACE_PEEKTEXT, pid, (void *)(addr + i), NULL);
@@ -285,11 +293,14 @@ int main(int argc, char *const argv[])
 	int r, opt;
 	int result = 0;
 	int w_fd= -1;
+	const char* optch= "vcinp:e:"
 #ifdef PYTHON_PATCH
-	const char* optch= "vcinyp:e:";
-#else
-	const char* optch= "vcinp:e:";
+	"y"
 #endif
+#ifdef REVERSE_LD
+	"r"
+#endif
+	;
 
 	while ((opt = getopt(argc, argv, optch)) != -1) {
 		switch (opt) {
@@ -305,6 +316,13 @@ int main(int argc, char *const argv[])
 #ifdef PYTHON_PATCH
 			case 'y':
 				python_patch = 1;
+				compare = 1;
+				verbosity = 2;
+				break;
+#endif
+#ifdef REVERSE_LD
+			case 'r':
+				reverse_ld = 1;
 				compare = 1;
 				verbosity = 2;
 				break;
@@ -419,13 +437,15 @@ int main(int argc, char *const argv[])
 		fprintf(stderr, "%s %s %d bytes at 0x%07x\n",
 			op_name[op], s_sectname, s_shdr->sh_size, s_shdr->sh_addr);
 
-		if (verbosity) {
+		if (reverse_ld) {
+			printf("%s 0x%07x : {\n", s_sectname, s_shdr->sh_addr);
+		} else if (verbosity) {
 			printf(python_patch ? "( 0x%07x, '" : "0x%07x:", off);
 		}
 
 		if (op == OP_COMPARE || op == OP_CHECK || verbosity >= 2) {
 			if (pid) {
-				pbf = (unsigned char *)malloc(s_shdr->sh_size);
+				pbf = (unsigned char *)malloc(s_shdr->sh_size + sizeof(void*));
 				if (pbf) {
 					if (!PtracePeek(pbf, addr, s_shdr->sh_size)) {
 						d_orig = pbf;
@@ -438,7 +458,7 @@ int main(int argc, char *const argv[])
 
 		if (verbosity >= 2 && d_orig) {
 			PrintHex(d_orig, s_shdr->sh_size);
-			printf(python_patch ? "', '" : " :");
+			printf(python_patch ? "', '" : reverse_ld ? "}\n\n" : " :");
 		}
 
 		if (op == OP_CHECK) {
@@ -479,7 +499,7 @@ int main(int argc, char *const argv[])
 			}
 		}
 
-		if (verbosity) {
+		if (verbosity && ! reverse_ld) {
 			PrintHex(s_data->d_buf, s_shdr->sh_size);
 			printf(python_patch ? "' ),\n" : "\n\n");
 		}
