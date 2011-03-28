@@ -6,7 +6,7 @@
 # 	donated for the SamyGo Project
 #	http://samygo.sourceforge.net/ 
 #
-#	Version: SamyGO-CoreScript svn $Id: rcSGO 345 2010-01-25 11:44:05Z arris $
+#	Version: SamyGO-CoreScript svn $Id$
 
 # do some background checks (not implemented/need)
 
@@ -36,8 +36,10 @@ if [ ! -e /dtv/SGO.env ] ; then
 		NEW_HOME="/mtd_wiselink"
 	elif [ -d /mtd_contents ] ; then
 		NEW_HOME="/mtd_contents"
-	else
+	elif [ -d /dtv ] ; then
 		NEW_HOME="/dtv"
+	else
+		NEW_HOME="/sdcard"
 	fi
 
 	# harden
