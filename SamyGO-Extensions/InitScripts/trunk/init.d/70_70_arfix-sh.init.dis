@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# © Copyright 2011 by tom_van 
+#	< http://sourceforge.net/apps/phpbb/samygo/memberlist.php?mode=viewprofile&u=572 > 
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id$
+
+. /dtv/SGO.env
+
+for i in $DISTROOT/usr/share/elfpatches/*arfix*.elfpatch
+do
+	ARFIX_ELFPATCH=$i
+done
+
+PID=$(pidof exeDSP)
+
+case $1 in 
+	start)
+	elfpatcher -p $PID $ARFIX_ELFPATCH
+	;;
+	status)
+	elfpatcher -c -p $PID $ARFIX_ELFPATCH
+	;;
+	*)
+	echo "Usage: $0 {start|status}" 1>&2
+	exit 0
+	;;
+esac

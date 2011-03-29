@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id$
+
+. /dtv/SGO.env
+
+case $1 in 
+	start)
+	# create config file
+	cp -f $DISTROOT/mdev.conf /mtd_rwarea/
+	# mount -t tmpfs -o size=64k,mode=0755 tmpfs /dev
+	# mkdir /dev/pts
+	# mount -t devpts devpts /dev/pts
+	echo $DISTROOT/usr/sbin/mdev > /proc/sys/kernel/hotplug
+	mdev -s
+	;;
+	stop)
+	echo /sbin/hotplug > /proc/sys/kernel/hotplug
+	;;
+	status)
+	cat /proc/sys/kernel/hotplug
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac

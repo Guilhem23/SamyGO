@@ -47,7 +47,7 @@ echo \"</body>\"" > $CGIDIR/test.cgi
 	echo '<? phpinfo(); ?>' > $WEBROOT/index.php
 
 	# generate config
-	echo "ServerRoot \"$SYSROOT/opt/privateer/usr\"
+	echo "ServerRoot \"$DISTROOT/usr\"
 LockFile \"/dtv/httpd.lock\"
 PidFile \"/dtv/httpd.pid\"
 Listen 80
@@ -119,11 +119,11 @@ DirectoryIndex index.html index.html.var index.php index.phtml
 	echo "<IfDefine PHP5CGI>
 SetEnv LD_LIBRARY_PATH \"$LD_LIBRARY_PATH\"
 SetEnv PHPRC $SYSROOT/etc/php/apache2-php5/php.ini
-ScriptAlias /privateer-bin $SYSROOT/opt/privateer/usr/bin
+ScriptAlias /privateer-bin $DISTROOT/usr/bin
 AddHandler application/x-httpd-php5 php
 Action application/x-httpd-php5 /privateer-bin/php-cgi
 DirectoryIndex index.html index.php
-<Directory \"$SYSROOT/opt/privateer/usr/bin\">                                                  
+<Directory \"$DISTROOT/usr/bin\">                                                  
 	AllowOverride None                                                                                
 	Options None                                                                                  
 	Order allow,deny                                                                          
@@ -132,8 +132,8 @@ DirectoryIndex index.html index.php
 </IfDefine>" > $SYSROOT/etc/apache2/modules.d/70_mod_php5_cgi.conf
 
 	# fix php.ini
-	sed -i -e "s,/usr/lib/extensions,$SYSROOT/opt/privateer/extensions," $SYSROOT/etc/php/apache2-php5/php.ini || \
-		echo "extension_dir = \"$SYSROOT/opt/privateer/extensions\"" > $SYSROOT/etc/php/apache2-php5/php.ini
+	sed -i -e "s,/usr/lib/extensions,$DISTROOT/extensions," $SYSROOT/etc/php/apache2-php5/php.ini || \
+		echo "extension_dir = \"$DISTROOT/extensions\"" > $SYSROOT/etc/php/apache2-php5/php.ini
 
 	cp -af $SYSROOT/phpsysinfo $WEBROOT/
 

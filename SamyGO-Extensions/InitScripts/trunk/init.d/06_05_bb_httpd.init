@@ -50,7 +50,7 @@ echo \"</body>\"" > $CGIDIR/test.cgi
 	# generate config
 	echo "H:$WEBROOT
 I:index.php
-*.php:$SYSROOT/opt/privateer/usr/bin/php-cgi
+*.php:$DISTROOT/usr/bin/php-cgi
 # A:10.0.0.0/8
 # A:192.168
 # A:172.16.0.0/12
@@ -65,8 +65,8 @@ A:169.254.0.0/16
 D:*" > $CGIDIR/httpd.conf
 
 	# fix php.ini
-	sed -i -e "s,/usr/lib/extensions,$SYSROOT/opt/privateer/extensions," $SYSROOT/etc/php/apache2-php5/php.ini || \
-		echo "extension_dir = \"$SYSROOT/opt/privateer/extensions\"" > $SYSROOT/etc/php/apache2-php5/php.ini
+	sed -i -e "s,/usr/lib/extensions,$DISTROOT/extensions," $SYSROOT/etc/php/apache2-php5/php.ini || \
+		echo "extension_dir = \"$DISTROOT/extensions\"" > $SYSROOT/etc/php/apache2-php5/php.ini
 
 	cp -af $SYSROOT/phpsysinfo $WEBROOT/
 
