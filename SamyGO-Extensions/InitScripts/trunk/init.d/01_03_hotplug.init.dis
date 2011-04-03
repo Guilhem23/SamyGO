@@ -12,13 +12,21 @@
 
 case $1 in 
 	start)
-	# create config file
+	# we really need the stuff for external firmware
+	insmod $MOD_DIR/kernel/drivers/base/firmware_class.ko
+
+	# copy/link firmware directory so mdev find it
+	ln -sf $SYSROOT/firmware /dtv/firmware
+
+	# copy config file
 	cp -f $DISTROOT/mdev.conf /mtd_rwarea/
+
+	# just for custom rootfs at boot time 
 	# mount -t tmpfs -o size=64k,mode=0755 tmpfs /dev
 	# mkdir /dev/pts
 	# mount -t devpts devpts /dev/pts
 	echo $DISTROOT/usr/sbin/mdev > /proc/sys/kernel/hotplug
-	mdev -s
+	# mdev -s
 	;;
 	stop)
 	echo /sbin/hotplug > /proc/sys/kernel/hotplug
