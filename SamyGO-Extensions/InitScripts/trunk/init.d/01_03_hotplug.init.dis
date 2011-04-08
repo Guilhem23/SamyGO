@@ -20,6 +20,38 @@ case $1 in
 
 	# copy config file
 	cp -f $DISTROOT/mdev.conf /mtd_rwarea/
+	sed -i "s,MDEV_HELPER_DIR,$DISTROOT/lib," /mtd_rwarea/mdev.conf
+
+	# sample load of dvb modules:
+	insmod $MOD_DIR/kernel/drivers/i2c/i2c-core.ko
+	insmod $MOD_DIR/kernel/drivers/media/dvb/dvb-core/dvb-core.ko
+	insmod $MOD_DIR/kernel/drivers/media/dvb/frontends/dvb-pll.ko
+	insmod $MOD_DIR/kernel/drivers/media/dvb/dvb-usb/dvb-usb.ko
+
+	insmod $MOD_DIR/kernel/drivers/media/dvb/frontends/stb0899.ko
+	insmod $MOD_DIR/kernel/drivers/media/dvb/frontends/stb6100.ko
+	# dvb-usb,i2c-core,stb0899,usbcore,dvb-core,stb6100 
+	insmod $MOD_DIR/kernel/drivers/media/dvb/dvb-usb/dvb-usb-az6027.ko
+	
+	# dvb-usb,usbcore
+	insmod $MOD_DIR/kernel/drivers/media/dvb/dvb-usb/dvb-usb-vp702x.ko
+	insmod $MOD_DIR/kernel/drivers/media/dvb/dvb-usb/dvb-usb-vp7045.ko
+	
+	insmod $MOD_DIR/kernel/drivers/media/dvb/frontends/af9013.ko
+	insmod $MOD_DIR/kernel/drivers/media/common/tuners/qt1010.ko
+	insmod $MOD_DIR/kernel/drivers/media/common/tuners/mxl5005s.ko
+	insmod $MOD_DIR/kernel/drivers/media/common/tuners/mt2060.ko
+	insmod $MOD_DIR/kernel/drivers/media/common/tuners/mc44s803.ko
+	insmod $MOD_DIR/kernel/drivers/media/common/tuners/tda18271.ko
+	# qt1010,dvb-usb,mxl5005s,i2c-core,usbcore,mt2060,mc44s803,dvb-pll,af9013,tda18271
+	insmod $MOD_DIR/kernel/drivers/media/dvb/dvb-usb/dvb-usb-af9015.ko
+
+#	# till kernel isn't patched:
+#	echo 30 > /sys/class/firmware/timeout # give the firmware loader some time to do its job
+#	sleep 1 # wait for the kernel to handle the timeout
+#	echo 1 > /sys/class/firmware/1-1.2/loading # switch loading on
+#	cat /dtv/firmware/dvb-usb-az6027-03.fw > /sys/class/firmware/1-1.2/data # do it
+#	echo 0 > /sys/class/firmware/1-1.2/loading # switch it off again
 
 	# just for custom rootfs at boot time 
 	# mount -t tmpfs -o size=64k,mode=0755 tmpfs /dev
