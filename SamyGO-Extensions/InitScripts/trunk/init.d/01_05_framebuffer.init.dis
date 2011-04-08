@@ -29,6 +29,9 @@ case $1 in
 	insmod $MOD_DIR/kernel/drivers/video/cfbimgblt.ko
 
 	insmod $MOD_DIR/kernel/drivers/video/vfb.ko vfb_enable=1 videomemorysize=2073600
+
+	fbset -fb $FRAMEBUFFER -db $SYSROOT/etc/fb.modes fb
+
 	# little test, just for fun.
 	cat /dev/urandom > /dev/sam/fb0
 	cat /dev/zero > /dev/sam/fb0 
@@ -36,7 +39,7 @@ case $1 in
 	stop)
 	;;
 	status)
-	cat /proc/fb
+	fbset -fb $FRAMEBUFFER -i
 	;;
 	*)
 	echo "Usage: $0 {start|stop|status}" 1>&2
