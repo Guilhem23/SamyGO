@@ -1,9 +1,25 @@
+/* vi: set sw=4 ts=4: */
+
 you can start the receiver like:
 
-Intent mSendToSamy = new Intent(context, SendToSamy.class);
-mSendToSamy.putExtras(intent);
-mSendToSamy.putExtra("category", "SMS");
-mSendToSamy.putExtra("caller", message_from);
-mSendToSamy.putExtra("data", message);
-context.sendBroadcast(mSendToSamy);
+/* for SMS message */
+...
+if(intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED"))
+.../* get data from pdus and put info into message_from and message */...
+	Intent mSendToSamy = new Intent(context, SendToSamy.class);
+	mSendToSamy.putExtras(intent);
+	mSendToSamy.putExtra("category", "SMS");
+	mSendToSamy.putExtra("caller", message_from);
+	mSendToSamy.putExtra("data", message);
+	context.sendBroadcast(mSendToSamy);
+
+/* for CALLS */
+...
+if(intent.getAction().equals("android.intent.action.PHONE_STATE"))
+	Intent mSendToSamy = new Intent(context, SendToSamy.class);
+	mSendToSamy.putExtras(intent);
+	mSendToSamy.putExtra("category", "Incoming Call");
+	mSendToSamy.putExtra("caller", intent.getStringExtra(EXTRA_INCOMING_NUMBER));
+	mSendToSamy.putExtra("data", "Ring...");
+	context.sendBroadcast(mSendToSamy);
 
