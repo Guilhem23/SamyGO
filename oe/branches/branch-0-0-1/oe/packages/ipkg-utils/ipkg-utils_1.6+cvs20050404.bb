@@ -5,9 +5,10 @@ LICENSE = "GPL"
 CONFLICTS = "ipkg-link"
 RDEPENDS = "python"
 SRCDATE = "20050404"
-PR = "r13"
+PR = "r14"
 
-SRC_URI = "${HANDHELDS_CVS};module=ipkg-utils \
+# SRC_URI = "${HANDHELDS_CVS};module=ipkg-utils \
+SRC_URI = "http://stb.zsolttech.com/global/opensource/files/ipkg-utils_anoncvs.handhelds.org__20050930.tar.gz \
            file://index_speedup.patch;patch=1"
 
 S = "${WORKDIR}/ipkg-utils"

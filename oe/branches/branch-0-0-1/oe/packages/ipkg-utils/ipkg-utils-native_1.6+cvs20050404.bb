@@ -5,7 +5,7 @@ SRC_URI += "file://ipkg-utils-fix.patch;patch=1 \
 "
 
 RDEPENDS = ""
-PR = "r09"
+PR = "r10"
 
 inherit native
 

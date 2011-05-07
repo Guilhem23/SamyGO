@@ -1,9 +1,10 @@
 include ipkg.inc
-PR = "r1"
+PR = "r2"
 
 S = "${WORKDIR}/ipkg-${PV}"
 
-SRC_URI = "http://www.handhelds.org/pub/packages/ipkg/ipkg-${PV}.tar.gz \
+# SRC_URI = "http://www.handhelds.org/pub/packages/ipkg/ipkg-${PV}.tar.gz \
+SRC_URI = "http://stb.zsolttech.com/global/opensource/files/ipkg-${PV}.tar.gz \
 	file://terse.patch;patch=1 \
 	file://fix_make_directory.patch;patch=1"
 
