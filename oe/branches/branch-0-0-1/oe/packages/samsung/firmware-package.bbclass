@@ -25,6 +25,8 @@ do_patch () {
 			dd if=${FIRMWARE_CLASS}/image/$i.sec of=${FIRMWARE_CLASS}/image/$i.sec.cut bs=${SHORT} count=1	
 			openssl aes-128-cbc -d -in ${FIRMWARE_CLASS}/image/$i.sec.cut -out ${FIRMWARE_CLASS}/image/$i.enc \
 				-pass pass:7cb49e2a2fb8c4dd1df3b41e20cbb6179c8bd240
+			# for T-VAL... (tested just with samsung-firmware_3001.1+Samsung.bb -> ok) 
+			# -pass pass:011fa825d88c76c8128b14592d859898008eae79
 		fi
 		# x-or .enc file if present
 		if [ -e ${FIRMWARE_CLASS}/image/$i.enc ] ; then
