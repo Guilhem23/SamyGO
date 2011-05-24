@@ -117,12 +117,11 @@ diff -urNP old/src/audio/dummy/SDL_dummyaudio.c new/src/audio/dummy/SDL_dummyaud
  }
  
  static Uint8 *DUMMYAUD_GetAudioBuf(_THIS)
-@@ -122,6 +146,8 @@
+@@ -122,6 +146,7 @@
  		SDL_FreeAudioMem(this->hidden->mixbuf);
  		this->hidden->mixbuf = NULL;
++		AudioClose();
  	}
-+
-+	AudioClose();
  }
  
  static int DUMMYAUD_OpenAudio(_THIS, SDL_AudioSpec *spec)
