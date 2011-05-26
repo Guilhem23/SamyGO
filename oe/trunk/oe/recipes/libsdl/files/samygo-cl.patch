@@ -62,7 +62,7 @@ diff -urNP old/src/audio/dummy/SDL_dummyaudio.c new/src/audio/dummy/SDL_dummyaud
  }
  
  static void DUMMYAUD_DeleteDevice(SDL_AudioDevice *device)
-@@ -92,23 +92,47 @@
+@@ -92,23 +92,31 @@
  }
  
  AudioBootStrap DUMMYAUD_bootstrap = {
@@ -83,28 +83,12 @@ diff -urNP old/src/audio/dummy/SDL_dummyaudio.c new/src/audio/dummy/SDL_dummyaud
 +
 +	if (this->hidden->FrameTick)
 +	{
-+		SDL_Delay(ticks);
-+/*		ticks = ((Sint32)(this->hidden->NextFrame - SDL_GetTicks())) - 10;
++		ticks = ((Sint32)(this->hidden->NextFrame - SDL_GetTicks())) - 10;
 +		if (ticks > 0)
 +		{
-+			unsigned int t = 0;
-+			do {
-+				t = SDL_GetTicks();
-+				if ((this->hidden->NextFrame - t) < ticks / 2) {
-+					SDL_Delay(ticks / 10);
-+				} else {
-+					break;
-+				}
-+			} while(1);
-+			do {
-+				t = SDL_GetTicks();
-+				if ((this->hidden->NextFrame - t) < ticks) {
-+				} else {
-+					break;
-+				}
-+			} while(1);
++			SDL_Delay(ticks);
 +		}
-+*/	}
++	}
  }
  
  static void DUMMYAUD_PlayAudio(_THIS)
