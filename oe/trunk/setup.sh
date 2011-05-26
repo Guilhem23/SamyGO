@@ -32,6 +32,7 @@ if [ "${DISTRO}" = "samygo-cl" ]; then
 fi
 
 if [ ! -f ${OE_BASE}/build-${DISTRO}/conf/local.conf ] || [ ! -f ${OE_BASE}/build-${DISTRO}/env.source ] || [ "$1" = "--force" ]; then
+	PATH_TO_TOOLS="sysroots/`uname -m`-`uname -s | awk '{print tolower($0)}'`/usr"
 	echo "DL_DIR = \"${DL_DIR}\"
 OE_BASE = \"${OE_BASE}\"
 BBFILES = \"${BBF}\"
@@ -48,13 +49,20 @@ BB_NUMBER_THREADS = \"2\"" > ${OE_BASE}/build-${DISTRO}/conf/local.conf
 	echo "OE_BASE=\"${OE_BASE}\"
 export BBPATH=\"\${OE_BASE}/oe/:\${OE_BASE}/bb/:\${OE_BASE}/build-${DISTRO}/\"
 if [ ! \`echo \${PATH} | grep \${OE_BASE}/bb/bin\` ]; then
-	export PATH=\${OE_BASE}/bb/bin:\${PATH}:\${OE_BASE}/build-${DISTRO}/tmp/cross/armv6/bin
+	export PATH=\${OE_BASE}/bb/bin:\${PATH}
 fi
 export LD_LIBRARY_PATH=
 export PYTHONPATH=${OE_BASE}/bb/lib
 export LANG=C" > ${OE_BASE}/build-${DISTRO}/env.source
 
-echo "--- Created ${OE_BASE}/build-${DISTRO}/conf/local.conf and ${OE_BASE}/build-${DISTRO}/env.source ---"
+echo "
+if [ ! \`echo \${PATH} | grep armv6/bin\` ]; then
+	export PATH=${OE_BASE}/${PATH_TO_TOOLS}/armv6/bin:${OE_BASE}/${PATH_TO_TOOLS}/bin:\${PATH}
+fi
+" > ${OE_BASE}/build-${DISTRO}/crosstools-setup
+
+
+echo "--- Created ${OE_BASE}/build-${DISTRO}/conf/local.conf, ${OE_BASE}/build-${DISTRO}/env.source and ${OE_BASE}/build-${DISTRO}/crosstools-setup ---"
 
 fi
 
