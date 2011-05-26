@@ -13,15 +13,18 @@ diff -urNP old/include/begin_code.h new/include/begin_code.h
 diff -urNP old/src/audio/SDL_audio.c new/src/audio/SDL_audio.c
 --- old/src/audio/SDL_audio.c	2009-10-13 12:25:35.000000000 +0200
 +++ new/src/audio/SDL_audio.c	2010-06-20 21:36:51.000000000 +0200
-@@ -117,6 +117,8 @@
+@@ -117,9 +117,9 @@
  };
  SDL_AudioDevice *current_audio = NULL;
  
 +extern void AudioPause(int);
 +
  /* Various local functions */
- int SDL_AudioInit(const char *driver_name);
- void SDL_AudioQuit(void);
+-int SDL_AudioInit(const char *driver_name);
+-void SDL_AudioQuit(void);
+ 
+ /* The general mixing thread function */
+ int SDLCALL SDL_RunAudio(void *audiop)
 @@ -592,6 +594,10 @@
  	if ( audio ) {
  		audio->paused = pause_on;
@@ -771,3 +774,16 @@ diff -urNP old/src/video/dummy/SDL_nullvideo.h new/src/video/dummy/SDL_nullvideo
      void *buffer;
  };
  
+diff -urNP old/src/video/SDL_video.c new/src/video/SDL_video.c
+--- old/src/video/SDL_video.c	2011-05-26 23:15:19.000000000 +0200
++++ new/src/video/SDL_video.c	2011-05-26 23:12:36.000000000 +0200
+@@ -135,9 +135,6 @@
+ SDL_VideoDevice *current_video = NULL;
+ 
+ /* Various local functions */
+-int SDL_VideoInit(const char *driver_name, Uint32 flags);
+-void SDL_VideoQuit(void);
+-void SDL_GL_UpdateRectsLock(SDL_VideoDevice* this, int numrects, SDL_Rect* rects);
+ 
+ static SDL_GrabMode SDL_WM_GrabInputOff(void);
+ #if SDL_VIDEO_OPENGL
