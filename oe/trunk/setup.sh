@@ -32,7 +32,7 @@ if [ "${DISTRO}" = "samygo-cl" ]; then
 fi
 
 if [ ! -f ${OE_BASE}/build-${DISTRO}/conf/local.conf ] || [ ! -f ${OE_BASE}/build-${DISTRO}/env.source ] || [ "$1" = "--force" ]; then
-	PATH_TO_TOOLS="sysroots/`uname -m`-`uname -s | awk '{print tolower($0)}'`/usr"
+	PATH_TO_TOOLS="build-${DISTRO}/sysroots/`uname -m`-`uname -s | awk '{print tolower($0)}'`/usr"
 	echo "DL_DIR = \"${DL_DIR}\"
 OE_BASE = \"${OE_BASE}\"
 BBFILES = \"${BBF}\"
