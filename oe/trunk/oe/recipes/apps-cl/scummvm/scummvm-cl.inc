@@ -44,9 +44,11 @@ do_install() {
 	install -m 0644 ${S}/dists/engine-data/sky.cpt ${D}/scummvm/
 	install -m 0644 ${S}/dists/pred.dic ${D}/scummvm/
 	install -m 0644 ${S}/gui/themes/scummmodern.zip ${D}/scummvm/
+	install -m 0644 ${S}/gui/themes/translations.dat ${D}/scummvm/
 	install -m 0644 ${S}/backends/vkeybd/packs/vkeybd_default.zip ${D}/scummvm/
 	install -m 0644 ${S}/AUTHORS ${D}/scummvm/
 	install -m 0644 ${S}/COPYING ${D}/scummvm/
+	install -m 0644 ${S}/COPYING.BSD ${D}/scummvm/
 	install -m 0644 ${S}/COPYING.LGPL ${D}/scummvm/
 	install -m 0644 ${S}/COPYRIGHT ${D}/scummvm/
 	install -m 0644 ${S}/NEWS ${D}/scummvm/
