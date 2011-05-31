@@ -12,6 +12,9 @@
 
 . /dtv/SGO.env
 
+# https://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=5&t=1872&p=16294#p16291
+export MALLOC_CHECK_=0
+
 	### begin configure me
 	# see description at: http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=5&t=594&hilit=dtv%2Fgdbtrick.gdb&start=20#p6279
 	# gdb_commands: this is a temporary file where gdb commands are stored
