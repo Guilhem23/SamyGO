@@ -31,11 +31,11 @@ diff -r 7b51c215fc54 Makefile.in
  		   $(notdir $(MAN1)))					\
  	       $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt		\
  	       $(BUILD_ROOT)$(etcdir)/quilt.quiltrc			\
--	       $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
-+	       $(BUILD_ROOT)$(docdir)/$(PACKAGE)/
+-	       $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/		\
++	       $(BUILD_ROOT)$(docdir)/$(PACKAGE)/			\
+ 	       $(BUILD_ROOT)$(emacsdir)/quilt.el
  
  check: $(TESTS:test/%.test=test/.%.ok)
- check-all: $(TESTS:test/%.test=check-%)
 diff -r 7b51c215fc54 configure
 --- a/configure	Sat Mar  4 17:16:21 2006 -0800
 +++ b/configure	Sat Mar  4 17:59:09 2006 -0800
@@ -43,12 +43,12 @@ diff -r 7b51c215fc54 configure
    fi
  
  
--echo "$as_me:$LINENO: checking whether $CP -l works" >&5
--echo $ECHO_N "checking whether $CP -l works... $ECHO_C" >&6
+-{ echo "$as_me:$LINENO: checking whether $CP -l works" >&5
+-echo $ECHO_N "checking whether $CP -l works... $ECHO_C" >&6; }
 -touch conftest.1
 -if $CP -l conftest.1 conftest.2 2>/dev/null; then
--	echo "$as_me:$LINENO: result: yes" >&5
--echo "${ECHO_T}yes" >&6
+-	{ echo "$as_me:$LINENO: result: yes" >&5
+-echo "${ECHO_T}yes" >&6; }
 -else
 -	{ { echo "$as_me:$LINENO: error: no
 -
@@ -77,11 +77,11 @@ diff -r 7b51c215fc54 configure
 -
 -
 -if test -z "$INTERNAL_DATE"; then
--  echo "$as_me:$LINENO: checking whether $DATE --rfc-822 works" >&5
--echo $ECHO_N "checking whether $DATE --rfc-822 works... $ECHO_C" >&6
+-  { echo "$as_me:$LINENO: checking whether $DATE --rfc-822 works" >&5
+-echo $ECHO_N "checking whether $DATE --rfc-822 works... $ECHO_C" >&6; }
 -  if $DATE --rfc-822 >/dev/null 2>/dev/null; then
--	echo "$as_me:$LINENO: result: yes" >&5
--echo "${ECHO_T}yes" >&6
+-	{ echo "$as_me:$LINENO: result: yes" >&5
+-echo "${ECHO_T}yes" >&6; }
 -  else
 -	{ { echo "$as_me:$LINENO: error: no
 -
@@ -102,18 +102,6 @@ diff -r 7b51c215fc54 configure
  
  
  
-diff -r 7b51c215fc54 quilt/diff.in
---- a/quilt/diff.in	Sat Mar  4 17:16:21 2006 -0800
-+++ b/quilt/diff.in	Sat Mar  4 17:59:09 2006 -0800
-@@ -303,7 +303,7 @@ then
- 
- 	if [ ${#files[@]} -gt 0 ] \
- 	   && ! ( cd $QUILT_PC/$last_patch &&
--		  cp -l --parents "${files[@]}" $workdir/ )
-+		  mycpl $workdir/ "${files[@]}" )
- 	then
- 		printf $"Failed to copy files to temporary directory\n" >&2
- 		die 1
 diff -r 7b51c215fc54 quilt/mail.in
 --- a/quilt/mail.in	Sat Mar  4 17:16:21 2006 -0800
 +++ b/quilt/mail.in	Sat Mar  4 17:59:09 2006 -0800
@@ -123,7 +111,7 @@ diff -r 7b51c215fc54 quilt/mail.in
  {
 -	local timestamp=$(date --utc "+%Y%m%d%H%M%S.%N")
 +	local timestamp=$(date -u "+%Y%m%d%H%M%S.000000000")
- 	echo "$timestamp@${opt_sender#*@}"
+ 	echo "$timestamp@${opt_sender_address#*@}"
  }
  
 @@ -334,7 +334,7 @@ introduction="$(gen_tempfile)"
@@ -157,18 +145,6 @@ diff -r 7b51c215fc54 quilt/mail.in
  
  	modify="$(awk '
  	sub(/^Recipient-/, "")	{ r = $0
-diff -r 7b51c215fc54 quilt/pop.in
---- a/quilt/pop.in	Sat Mar  4 17:16:21 2006 -0800
-+++ b/quilt/pop.in	Sat Mar  4 17:59:09 2006 -0800
-@@ -93,7 +93,7 @@ check_for_pending_changes()
- 	if [ -d $QUILT_PC/$patch ]
- 	then
- 		if ! rmdir $workdir ||  # note that this is racey...
--		   ! cp -rl $QUILT_PC/$patch $workdir
-+		   ! (for i in "$(find "$QUILT_PC/$patch" -type f)"; do mycpl $workdir $i; done)
- 		then
- 			printf $"Failed to copy files to temporary directory\n" >&2
- 			rm -rf $workdir
 diff -r 7b51c215fc54 quilt/scripts/patchfns.in
 --- a/quilt/scripts/patchfns.in	Sat Mar  4 17:16:21 2006 -0800
 +++ b/quilt/scripts/patchfns.in	Sat Mar  4 17:59:09 2006 -0800
