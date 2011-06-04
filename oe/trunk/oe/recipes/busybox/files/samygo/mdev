@@ -39,6 +39,22 @@ mount -t tmpfs tmpfs /dev -o size=800k
 # Register mdev as hotplug event helper
 echo "$MDEV" > /proc/sys/kernel/hotplug
 
+# Mount Samsung /dtv directory
+mkdir /dtv
+if [ `mount | grep -c /dtv` == 0 ]; then
+	mount -t tmpfs none /dtv -o size=10M,mode=1777
+fi
+mkdir /dtv/usb
+
+# Create input devices
+mkdir /dev/input
+i=0
+while [ $i -le 31 ]
+do
+	mknod /dtv/event$i c 13 $(($i + 64))
+	i=$(( i + 1 ))
+done
+
 # Populate /dev from /sys info
 echo "Populating /dev using mdev"
 $MDEV -s

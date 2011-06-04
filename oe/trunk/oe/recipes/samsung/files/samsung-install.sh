@@ -352,13 +352,11 @@ T-CHE6AUSC|T-CHE7AUSC|T-CHEAUSC|T-CHL5DAUC|T-CHL5DEUC|T-CHL7DAUC|T-CHL7DEUC|T-CH
 
 	echo \"32\" > /proc/sys/kernel/msgmni
 
-	mkdir -p /dev/sam /dtv
+	mkdir -p /dev/sam
 	if [ \`mount | grep -c /dev/sam\` == 0 ]; then
 		mount -t tmpfs none /dev/sam -o size=1K,mode=1777
 	fi
-	if [ \`mount | grep -c /dtv\` == 0 ]; then
-		mount -t tmpfs none /dtv -o size=10M,mode=1777
-	fi
+
 	if [ \`mount | grep -c /mtd_ram\` == 0 ]; then
 		mount -t tmpfs none /mtd_ram -o size=10M,mode=1777
 	fi
