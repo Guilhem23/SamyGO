@@ -56,6 +56,7 @@ export PYTHONPATH=${OE_BASE}/bb/lib
 export LANG=C" > ${OE_BASE}/build-${DISTRO}/env.source
 
 echo "
+source ${OE_BASE}/build-${DISTRO}/env.source
 if [ ! \`echo \${PATH} | grep armv6/bin\` ]; then
 	export PATH=${OE_BASE}/${PATH_TO_TOOLS}/armv6/bin:${OE_BASE}/${PATH_TO_TOOLS}/bin:\${PATH}
 fi
