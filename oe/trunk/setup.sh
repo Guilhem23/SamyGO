@@ -44,7 +44,7 @@ IMAGE_KEEPROOTFS = \"1\"
 CACHE = \"${OE_BASE}/build-${DISTRO}/cache/oe-cache.\${USER}\"
 ASSUME_PROVIDED += \" git-native desktop-file-utils-native linux-libc-headers-native \"
 PARALLEL_MAKE = \"-j 2\"
-BB_NUMBER_THREADS = \"1\"" > ${OE_BASE}/build-${DISTRO}/conf/local.conf
+BB_NUMBER_THREADS = \"2\"" > ${OE_BASE}/build-${DISTRO}/conf/local.conf
 
 	echo "OE_BASE=\"${OE_BASE}\"
 export BBPATH=\"\${OE_BASE}/oe/:\${OE_BASE}/bb/:\${OE_BASE}/build-${DISTRO}/\"
