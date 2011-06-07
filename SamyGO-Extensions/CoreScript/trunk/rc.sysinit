@@ -58,6 +58,7 @@ echo "export DISTROOT=\"$DISTROOT\"" >> /dtv/SGO.env
 # bit comfort after login and disable samsung grap
 echo "export PATH=\"$PATH:/usr/sbin:/usr/bin:/bin:/sbin\"" > /mtd_rwarea/profile
 echo "export LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH\"" >> /mtd_rwarea/profile
+echo "export SCREENDIR=/dtv/screen" >> /mtd_rwarea/profile
 echo "export PS1='# '" >> /mtd_rwarea/profile
 echo -e "ENV=/dtv/.ashrc\nexport ENV\n" >> /mtd_rwarea/profile
 
@@ -65,6 +66,7 @@ echo -e "ENV=/dtv/.ashrc\nexport ENV\n" >> /mtd_rwarea/profile
 
 echo "alias ll='ls -l'" > /dtv/.ashrc	
 echo "alias md='mkdir -p'" >> /dtv/.ashrc	
+echo "alias vi='busybox vi'" >> /dtv/.ashrc	
 echo "PATH=\"$PATH\"" >> /dtv/.ashrc
 echo "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH\"" >> /dtv/.ashrc
 echo "FRAMEBUFFER=\"/dev/sam/fb0\"" >> /dtv/.ashrc
