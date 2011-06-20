@@ -14,8 +14,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#define MINORBITS	8
-#define MKDEV(ma,mi)	(((ma) << MINORBITS) | (mi))
+#if !defined(__APPLE__)
+#include <sys/sysmacros.h>
+#endif
 
 /* These are all stolen from busybox's libbb to make
  * error handling simpler (and since I maintain busybox, 
@@ -133,7 +134,7 @@ static void add_new_device(char *name, char *path, unsigned long uid,
 	mknod(name, mode, rdev);
 	chown(path, uid, gid);
 //	printf("Device: %s %s  UID: %ld  GID: %ld  MODE: %ld  MAJOR: %d  MINOR: %d\n",
-//			path, name, uid, gid, mode, (short)(rdev >> 8), (short)(rdev & 0xff));
+//			path, name, uid, gid, mode, (short)major(rdev), (short)minor(rdev));
 }
 
 static void add_new_file(char *name, char *path, unsigned long uid,
@@ -197,7 +198,7 @@ static int interpret_table_entry(char *line)
 	if (!strcmp(path, "/")) {
 		error_msg_and_die("Device table entries require absolute paths");
 	}
-	name = xstrdup(path + 1);
+	name = xstrdup(path+1);
 	sprintf(path, "%s/%s\0", rootdir, name);
 
 	switch (type) {
@@ -223,15 +224,11 @@ static int interpret_table_entry(char *line)
 
 			for (i = start; i < start+count; i++) {
 				sprintf(buf, "%s%d", name, i);
-				/* FIXME:  MKDEV uses illicit insider knowledge of kernel 
-				 * major/minor representation...  */
-				rdev = MKDEV(major, minor + (i * increment - start));
+				rdev = makedev(major, minor + (i * increment - start));
 				add_new_device(buf, path, uid, gid, mode, rdev);
 			}
 		} else {
-			/* FIXME:  MKDEV uses illicit insider knowledge of kernel 
-			 * major/minor representation...  */
-			dev_t rdev = MKDEV(major, minor);
+			dev_t rdev = makedev(major, minor);
 
 			add_new_device(name, path, uid, gid, mode, rdev);
 		}
