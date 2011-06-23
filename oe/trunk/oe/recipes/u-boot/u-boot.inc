@@ -67,4 +67,5 @@ do_stage() {
 #LocalChange: don't install mkimage
 #	install -d ${STAGING_BINDIR_NATIVE}
 #	install -m 755 tools/mkimage ${STAGING_BINDIR_NATIVE}/
+	:
 }
