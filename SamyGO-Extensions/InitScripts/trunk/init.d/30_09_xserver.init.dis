@@ -11,14 +11,14 @@
 . /dtv/SGO.env
 
 ##### CHANGE MEEEEE !!!!! ######
-# _one_ of: sdl fbdev mesa mali
+# _one_ of: sdl fbdev vfb mesa mali
 X_SERV="sdl"
 ##### CHANGE MEEEEE END ######
 
 
 case $1 in 
 	start)
-	LD_PRELOAD=$DISTROOT/usr/lib/libSGexeDSP-ng.so:/mtd_exe/YWidget_LIB/libYahooSDLHWAcceleration.so:/mtd_exe/GAME_LIB/libGPlayerPorting.so Xsdl -nolock -nolisten unix -extension GLX -screen 640x480x32 -ac -fp $SYSROOT/usr/share/fonts/X11/misc -xkbdir $SYSROOT/usr/share/X11/xkb -xkbcompdir $SYSROOT/usr/bin"
+	LD_PRELOAD="$DISTROOT/lib/libSGexeDSP-ng.so:/mtd_exe/YWidget_LIB/libYahooSDLHWAcceleration.so:/mtd_exe/GAME_LIB/libGPlayerPorting.so" X$X_SERV -nolock -nolisten unix -extension GLX -screen 640x480x32 -ac -fp $SYSROOT/usr/share/fonts/X11/misc -xkbdir $SYSROOT/usr/share/X11/xkb -xkbcompdir $SYSROOT/usr/bin
 	;;
 	stop)
 	killall -9 X$X_SERV
