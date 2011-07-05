@@ -1,0 +1,46 @@
+--- build/tmp/work/sh4-linux/glibc-2.5.0-2.7.0-r1/GLIBC/glibc-2.5/sysdeps/generic/ldsodefs.h	2006-08-24 22:27:05.000000000 +0200
++++ libc-internal/ldsodefs.h	2011-04-06 14:39:05.049529000 +0200
+@@ -34,10 +34,10 @@
+ #include <sys/mman.h>
+ #include <link.h>
+ #include <dl-lookupcfg.h>
+-#include <dl-sysdep.h>
++//#include <dl-sysdep.h>
+ #include <bits/libc-lock.h>
+ #include <hp-timing.h>
+-#include <tls.h>
++//#include <tls.h>
+ 
+ __BEGIN_DECLS
+ 
+--- build/tmp/work/sh4-linux/glibc-2.5.0-2.7.0-r1/GLIBC/glibc-2.5/include/libc-symbols.h	2006-02-24 04:27:11.000000000 +0100
++++ libc-internal/libc-symbols.h	2011-04-06 14:47:10.318637622 +0200
+@@ -52,7 +52,7 @@
+ /* And we also need the data for the reentrant functions.  */
+ #define _REENTRANT	1
+ 
+-#include <config.h>
++//#include <config.h>
+ 
+ /* The symbols in all the user (non-_) macros are C symbols.
+    NO HAVE_ELF implies a.out.  */
+@@ -814,7 +814,7 @@
+ #endif
+ 
+ /* Get some dirty hacks.  */
+-#include <symbol-hacks.h>
++//#include <symbol-hacks.h>
+ 
+ /* Move compatibility symbols out of the way by placing them all in a
+    special section.  */
+--- build/tmp/work/sh4-linux/glibc-2.5.0-2.7.0-r1/GLIBC/glibc-2.5/include/link.h	2006-09-20 22:28:55.000000000 +0200
++++ libc-internal/link.h	2011-04-06 14:16:40.233332996 +0200
+@@ -42,7 +42,7 @@
+ #include <stddef.h>
+ #include <bits/linkmap.h>
+ #include <dl-lookupcfg.h>
+-#include <tls.h>		/* Defines USE_TLS.  */
++//#include <tls.h>		/* Defines USE_TLS.  */
+ 
+ 
+ /* Some internal data structures of the dynamic linker used in the

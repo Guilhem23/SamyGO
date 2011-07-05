@@ -1,0 +1,5 @@
+# Following libraries will be loaded at exeDSP startup
+# Line format:
+#	library.so [start_function_name [start_function_parameter]]
+
+launcher.so
