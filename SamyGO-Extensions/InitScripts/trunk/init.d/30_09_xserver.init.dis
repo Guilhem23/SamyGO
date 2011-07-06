@@ -11,6 +11,8 @@
 . /dtv/SGO.env
 
 ##### CHANGE MEEEEE !!!!! ######
+# is kdrive or xorg
+# KDRIVE="yes"
 # _one_ of: sdl fbdev vfb org mesa mali
 X_SERV="sdl"
 ##### CHANGE MEEEEE END ######
