@@ -21,7 +21,13 @@ PACKAGES = "${PN}"
 
 S = ${WORKDIR}
 
-FW_VER = ${@re.sub('\+Samsung', '', bb.data.getVar('PREFERRED_VERSION_samsung-firmware', d, 1))}
+python __anonymous () {
+    import bb, re
+    fw_ver = re.sub('\+Samsung', '', bb.data.getVar('PREFERRED_VERSION_samsung-firmware', d, 1))
+    bb.data.setVar('FW_VER', fw_ver, d)
+    fw_part = fw_ver.split(".")
+}
+
 FIRMWARE = ${MACHINE}-${FW_VER}
 
 # T-RBYDEUC exeDSP has symbols stripped, so we need one ld script
