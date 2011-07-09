@@ -39,7 +39,7 @@ killall exeDSP
 sleep 3
 ./elfpatcher -e /mtd_exe/exeDSP inj-dbgin.elfpatch
 sync
-mount -o remount,ro /mtd_exe
+mount -o remount,ro /exe
 echo "Installation finished. Going to reboot TV in 5 seconds."
 sleep 5
 /mtd_boot/MicomCtrl 29
