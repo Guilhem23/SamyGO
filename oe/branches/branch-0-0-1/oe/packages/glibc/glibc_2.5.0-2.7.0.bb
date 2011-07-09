@@ -45,6 +45,7 @@ SRC_URI = "${SAMSUNG_OS_MIRROR}/LE46A956.zip \
 #           file://ldsocache-varrun.patch;patch=1 \
 #           file://nptl-crosscompile.patch;patch=1 \
 	file://zecke-sane-readelf.patch;patch=1 \
+	file://pthread-init-from-static.patch;patch=1 \
 #           file://ldd-unbash.patch;patch=1 \
 	   file://generic-bits_select.h \
 	   file://generic-bits_types.h \

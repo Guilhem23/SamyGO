@@ -1,0 +1,16 @@
+# This patch fixes segmentation fault when libpthread is started
+# from statically linked binary
+--- glibc-2.5/nptl/init.c	2006-08-23 19:41:31.000000000 +0200
++++ glibc-2.5/nptl/init.c	2011-06-05 15:45:26.235019268 +0200
+@@ -369,7 +369,10 @@
+ 
+ #ifdef SHARED
+   /* Transfer the old value from the dynamic linker's internal location.  */
+-  *__libc_dl_error_tsd () = *(*GL(dl_error_catch_tsd)) ();
++  if (GL(dl_error_catch_tsd))
++    *__libc_dl_error_tsd () = *(*GL(dl_error_catch_tsd)) ();
++  else
++    *__libc_dl_error_tsd () = NULL;
+   GL(dl_error_catch_tsd) = &__libc_dl_error_tsd;
+ 
+   /* Make __rtld_lock_{,un}lock_recursive use pthread_mutex_{,un}lock,
