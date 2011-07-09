@@ -21,6 +21,7 @@
     }
   }
   
+  if (name ~ /^_x_/) next;
   sub(/::/,"__",name);
   sub(/\r$/,"",name);
   printf("  %s = 0x%06x;\n", name, adr);

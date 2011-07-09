@@ -13,26 +13,26 @@ LIB=-L $(OE_STAGE)/lib
 
 all: inj-dbgin.elfpatch libc_stub.so libpthread_stub.so stub_stripped sym.so inj.so launcher.so
 
-libc_stub.ld: exedsp.functions libc_vars.ld idafc2ld.awk
+libc_stub.ld: exedsp.functions libc_vars.ld list2ld.awk
 	@echo '/* Script for ld : dspEXE / libc */' > $@
 	@echo 'SECTIONS' >> $@
 	@echo '{' >> $@
-	awk -f idafc2ld.awk libc=1 $< >> $@
+	awk -f list2ld.awk libc=1 $< >> $@
 	cat libc_vars.ld >> $@
 	@echo '}' >> $@
 
-libpthread_stub.ld: exedsp.functions idafc2ld.awk
+libpthread_stub.ld: exedsp.functions list2ld.awk
 	@echo '/* Script for ld : dspEXE / pthread */' > $@
 	@echo 'SECTIONS' >> $@
 	@echo '{' >> $@
-	awk -f idafc2ld.awk pthread=1 $< >> $@
+	awk -f list2ld.awk pthread=1 $< >> $@
 	@echo '}' >> $@
 
-sym.ld: exedsp.functions exedsp.vars idafc2ld.awk
+sym.ld: exedsp.functions exedsp.vars list2ld.awk
 	@echo '/* Script for ld : dspEXE symbols */' > $@
 	@echo 'SECTIONS' >> $@
 	@echo '{' >> $@
-	awk -f idafc2ld.awk pthread=2 libc=2 $< >> $@
+	awk -f list2ld.awk pthread=2 libc=2 $< >> $@
 	egrep -v ' _IO_| __environ' exedsp.vars >> $@
 	@echo '}' >> $@
 
@@ -56,8 +56,8 @@ libc-internal: libc-internal.diff
 libc_stub.so : syminit.c exedsp-abs.h libc_stub.ld libc-internal
 	$(CC) $(SOLIB_CFLAGS) -Ilibc-internal -DSONAME=$(@:.so=) -o $@ $(filter %.c %.ld,$^)
 
-libpthread_stub.so : syminit.c exedsp-abs.h libpthread_stub.ld libpthread_stub.map libc-internal
-	$(CC) $(SOLIB_CFLAGS) -Ilibc-internal -DSONAME=$(@:.so=) -o $@ $(filter %.c %.ld,$^) -Wl,--version-script=$(filter %.map,$^)
+libpthread_stub.so : syminit.c exedsp-abs.h libpthread_stub.ld libc-internal
+	$(CC) $(SOLIB_CFLAGS) -Ilibc-internal -DSONAME=$(@:.so=) -o $@ $(filter %.c %.ld,$^)
 
 sym.so : syminit.c exedsp-abs.h sym.ld libc-internal stub_stripped/libc_stub.so stub_stripped/libpthread_stub.so
 	$(CC) $(SOSTUB_CFLAGS) -Ilibc-internal -DSONAME=$(@:.so=) -DMAKE_GLOBAL -o $@ $(filter %.c %.ld,$^) -Wl,-init,_initGlobalSym

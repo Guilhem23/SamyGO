@@ -67,8 +67,8 @@ int VDH_SetBrightness(unsigned char brightness,int x);
 int VDH_SetContrast(unsigned char contrast,int x);
 int VDH_SetEnergySave(int level, int backlight);
 
-void SetBrightness(void*this, int);
-void* GetPtrMainOrPIP(void*thisUnused,int);
+void SetBrightness(void*this, int x);
+void* GetPtrMainOrPIP(void*thisUnused,int x);
 
 void** _ZTV8CLuncher;
 void _ZN8CLuncher6t_MainEv(void*this);
