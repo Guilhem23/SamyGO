@@ -799,7 +799,7 @@
 0x91ff40 1290 GetChannel
 0x94fe60 2910 TCDisplayBase::t_SetChannel
 0x97e720 18 CurrentTvModeCaller
-0x98d5e0 22 htons
+0x98d5e0 22 htons_1
 0x99ccb4 240 STI2C_Open
 0x99ce38 186 STI2C_Read
 0x99cfc8 186 STI2C_Write
@@ -1078,10 +1078,10 @@
 0x141a3c0 140 __find_specmb
 0x141a460 1960 __parse_one_specmb
 0x141ac20 364 __fxprintf
-0x141adc0 522 __new_fclose
+0x141adc0 522 _IO_fclose
 0x141b2e0 274 _IO_fflush
 0x141b480 388 _IO_fgets
-0x141b7c0 16 __new_fopen
+0x141b7c0 16 _IO_fopen
 0x141b7e0 266 _IO_fputs
 0x141b980 266 _IO_fread
 0x141bb20 522 _IO_ftell
@@ -1300,7 +1300,7 @@
 0x1444500 298 __vfprintf_chk
 0x14446c0 420 __readonly_area
 0x14448a0 42 htonl
-0x14448e0 22 htons_0
+0x14448e0 22 htons
 0x1444900 80 inet_ntoa
 0x1448080 24 _dl_get_tls_static_info
 0x1448700 122 _dl_make_stack_executable
@@ -1397,6 +1397,8 @@
 0x1468ba0 62 __dlopen
 0x1468c00 150 dlopen_doit
 0x1468cc0 30 __dlclose
+0x1468d20 78 __dlsym
+0x1468da0 34 dlsym_doit
 0x1468ea0 178 __strsep_g
 0x1468fc0 304 __profil
 0x1469140 16 __profile_frequency

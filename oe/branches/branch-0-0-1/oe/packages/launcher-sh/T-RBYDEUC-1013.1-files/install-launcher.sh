@@ -30,18 +30,20 @@ echo
 echo "Press Ctrl-C to abort or Return to continue"
 read x
 
-cp mtd_exe/* /mtd_exe/
-cp mtd_rwarea/libso.autoload /mtd_rwarea/
+if [ ! -f /mtd_rwarea/libso.autoload ]; then
+	cp mtd_rwarea/libso.autoload /mtd_rwarea/
+fi
 
 killall exeDSP
 /mtd_boot/MicomCtrl 23
 ( while sleep 0.8; do echo x > /proc/watchdog; done )&
 sleep 3
+cp mtd_exe/* /mtd_exe/
 ./elfpatcher -e /mtd_exe/exeDSP inj-dbgin.elfpatch
 sync
 mount -o remount,ro /exe
-echo "Installation finished. Going to reboot TV in 5 seconds."
-sleep 5
+echo "Installation finished. Going to reboot TV in 10 seconds."
+sleep 10
 /mtd_boot/MicomCtrl 29
 /mtd_boot/MicomCtrl 29
 
