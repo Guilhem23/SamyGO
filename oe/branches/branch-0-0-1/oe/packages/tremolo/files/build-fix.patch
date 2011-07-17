@@ -1,0 +1,13 @@
+--- /home/Software/OpenEmbedded/SamsungDTV-SELP/samygo-3.2/build/tmp/work/armv6-SamyGO_OE.dev-linux-gnueabi/tremolo-cl-007-r0/Makefile~	2007-08-07 19:18:34.000000000 +0200
++++ /home/Software/OpenEmbedded/SamsungDTV-SELP/samygo-3.2/build/tmp/work/armv6-SamyGO_OE.dev-linux-gnueabi/tremolo-cl-007-r0/Makefile	2011-07-17 12:29:32.000000000 +0200
+@@ -74,8 +74,8 @@
+ 	cp os_types.h /cygdrive/c/cvs/scummvm/trunk/backends/platform/wince/libs/include/tremolo006/
+ 
+ libTremolo006.lib: $(LIBOBJS)
+-	arm-wince-pe-ar cru $@ $^
+-	arm-wince-pe-ranlib $@
++	$(AR) $@ $^
++	$(RANLIB) $@
+ 
+ bitwiseTEST.o: bitwise.c
+ 	$(CC) $(CFLAGS) -c -o bitwiseTEST.o bitwise.c -D_V_BIT_TEST
