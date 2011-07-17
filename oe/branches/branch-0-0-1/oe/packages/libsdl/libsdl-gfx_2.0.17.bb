@@ -12,6 +12,8 @@ S = "${WORKDIR}/SDL_gfx-${PV}"
 
 inherit autotools
 
+export SDL_CONFIG = "${STAGING_BINDIR}/sdl-config-${HOST_SYS}"
+
 EXTRA_OECONF = "--disable-mmx"
 
 do_stage() {
