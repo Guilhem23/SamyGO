@@ -6,7 +6,7 @@ HOMEPAGE = "http://samygo.sourceforge.net"
 PR = "r1"
 
 # for install with SDL stuff
-DEPENDS_SDL = "SDL-Samsung freetype libsdl-ttf"
+DEPENDS_SDL = "SDL-Samsung freetype libsdl-ttf libsdl-gfx"
 
 DEPENDS = "elfpatcher glibc ${DEPENDS_SDL}"
 RDEPENDS = "elfpatcher"
@@ -80,12 +80,23 @@ strip_and_install_lib() {
 	${STRIP} -o ${WORKDIR}/${destname} ${STAGING_LIBDIR}/${1}
 	install -m 0644 ${WORKDIR}/${destname} ${DLIB}
 }
+
 do_sdl_install() {
 # unfortunately /mtd_exe has RFS filesystem so no symbolic links
 	strip_and_install_lib libpthread-2.5.so libpthread.so.0
 	strip_and_install_lib libSDL.so
 	strip_and_install_lib libfreetype.so.6.4.0 libfreetype.so.6
 	strip_and_install_lib libSDL_ttf-2.0.so.0.* libSDL_ttf-2.0.so.0
+	strip_and_install_lib libSDL_gfx.so.0.* libSDL_gfx.so.0
+}
+
+do_populate_staging() {
+	mkdir -p ${STAGING_DIR}/${PACKAGE_ARCH}-${TARGET_OS}/exedsp/include/
+	install -m 0644 exedsp.h ${STAGING_DIR}/${PACKAGE_ARCH}-${TARGET_OS}/exedsp/include/
+	mkdir -p ${STAGING_DIR}/${PACKAGE_ARCH}-${TARGET_OS}/exedsp/${FIRMWARE}/include/
+	install -m 0644 exedsp-abs.h ${STAGING_DIR}/${PACKAGE_ARCH}-${TARGET_OS}/exedsp/${FIRMWARE}/include/
+	mkdir -p ${STAGING_DIR}/${PACKAGE_ARCH}-${TARGET_OS}/exedsp/lib/
+	install -m 0644 stub_stripped/* ${STAGING_DIR}/${PACKAGE_ARCH}-${TARGET_OS}/exedsp/lib/
 }
 
 #FILES_${PN} = "/etc/init.d /usr/share/elfpatches"

@@ -59,7 +59,7 @@ SECTIONS
   /* DebugDumpMonInfo - missing return */
   .patch7 0x69FDB8 : { *(.patchtextDbgMonInfoRet1) }
   .patch8 0x69FE4C : { *(.patchtextDbgMonInfoRet2) }
-  ASSERT( . <= 0x69FE60, "patchtextDbgMomInfoRet is too big to fit into exeDSP")
+  ASSERT( . <= 0x69FE60, "patchtextDbgMonInfoRet is too big to fit into exeDSP")
 
   .patch9 0x11B1154 : { *(.patchtextStartUPnP) }
   ASSERT( . <= 0x011B1180, "patchtextStartUPnP is too big to fit into exeDSP")
