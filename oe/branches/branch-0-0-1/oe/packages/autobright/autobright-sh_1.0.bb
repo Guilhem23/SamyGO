@@ -1,4 +1,4 @@
-DESCRIPTION = "libGame.so launcher and .so lib injector for exeDSP"
+DESCRIPTION = "LCD backlight auto adjusting to ambient light level"
 SECTION = "category"
 MAINTAINER = "Tomas Vanek <use@samygo.forum>"
 HOMEPAGE = "http://samygo.sourceforge.net"
