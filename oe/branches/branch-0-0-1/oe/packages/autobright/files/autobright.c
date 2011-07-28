@@ -21,6 +21,8 @@
 #include <time.h>
 
 #include "exedsp.h"
+#include "exedsp-abs.h"
+#include "autobright.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -32,6 +34,8 @@ static sigjmp_buf env;
 volatile int thr_cancel= 0;
 pthread_t thr;
 void *status;
+
+sensorCallBack_t sensorCallBack;
 
 ///////////////////////////////////////////////////////////////////////////////
 // must be first in .text for reporting correct load address
@@ -58,13 +62,6 @@ static sighandler_t InjSignal(int sig, sighandler_t handler)
 
 ///////////////////////////////////////////////////////////////////////////////
 
-typedef struct {
-  float x;
-  float y;
-} aproxTable_t;
-
-#define MAX_SENSOR_CONV 20
-
 aproxTable_t photoSensorConv[MAX_SENSOR_CONV] = {
 // conversion of delay photo R,C to backlight level
   { 0, 127.9 },
@@ -75,7 +72,7 @@ aproxTable_t photoSensorConv[MAX_SENSOR_CONV] = {
   { 65536, 35 },
 };
 
-int backlight, contrast, brightness;
+int backlight;
 unsigned lastLight;
 time_t tmLastSet;
 
@@ -102,7 +99,8 @@ void LoadApproxTable(void)
 {
   char bf[256];
   int idx= 0;
-  FILE* f= fopen("/mtd_rwarea/autobright.conf", "r");
+  float x= 0.0, y= 0.0;
+  FILE* f= fopen(CONF_PATH, "r");
   if (! f) return;
   
   while (fgets(bf, sizeof(bf), f)) {
@@ -110,26 +108,31 @@ void LoadApproxTable(void)
     char* p2= strtok(NULL, " \t\r\n");
     if (! p1 || p1[0] == '#' || ! p2) continue;
     if (idx >= MAX_SENSOR_CONV) break;
-    photoSensorConv[idx].x= strtod(p1, NULL);    
-    photoSensorConv[idx].y= strtod(p2, NULL);
+    photoSensorConv[idx].x= x= strtod(p1, NULL);    
+    photoSensorConv[idx].y= y= strtod(p2, NULL);
     idx++;
   }
   fclose(f);
-  if (idx >= MAX_SENSOR_CONV) {
-    photoSensorConv[MAX_SENSOR_CONV - 1].x= 65535;
-  } else {
-    photoSensorConv[idx].x= 65535;
-    photoSensorConv[idx].y= photoSensorConv[idx-1].y;
+  if (x < 65535.0) {
+    if (idx >= MAX_SENSOR_CONV) {
+      photoSensorConv[MAX_SENSOR_CONV - 1].x= 65536;
+    } else {
+      photoSensorConv[idx].x= 65536;
+      photoSensorConv[idx].y= y;
+    }
   }    
 }
 
-void AutoBright(unsigned light)
+int AutoBright(unsigned light)
 {
   float fl;
   int dir= 0;
   int steps= 0;
   long steptime= 0;
   lastLight= light;
+  if (sensorCallBack) {
+    sensorCallBack(light);
+  }
   fl= ApproxByTable(photoSensorConv, light);
   if (backlight == 0) {
     LockLocalDimming();
@@ -146,21 +149,25 @@ void AutoBright(unsigned light)
     steps= backlight - fl;
   }
   if (steps > 1) {
-    steptime= 900000 / steps;
+    if (steps > 40) steps= 40;
+    steptime= 300000 / steps;
     if (steptime > 1000000 / 25) steptime= 1000000 / 25;
     // we do not want flickering - keep minimal speed of change
   }
   if (steps > 0) {
+    int i= 0;
     while (1) {
       backlight+= dir;
       LockLocalDimming();
       LocalDimmingIICWrite(0x30, backlight);    
       UnlockLocalDimming();
-      if (--steps == 0) break;
+      i++;
+      if (i >= steps) break;
       usleep(steptime);
     }
     printf("autobright.so: sensor %u, backlight %d\n", light, backlight);
   }
+  return steps;
 }
 
 
@@ -193,8 +200,10 @@ int StrcmpDebugPatched(char *str1, const char *str2)
 #ifdef USB_SENSOR
 #include <usb.h>
 
-#define VENDOR_ID 0x03eb
-#define PRODUCT_ID 0x204f
+#define VENDOR_ID1 0x03eb
+#define PRODUCT_ID1 0x204f
+#define VENDOR_ID2 0x4242
+#define PRODUCT_ID2 0x0002
 #define INTERFACE 0
 
 #define HID_REPORT_GET 0x01
@@ -219,10 +228,10 @@ usb_dev_handle *setup_libusb_access()
 
   for (bus = usb_get_busses(); bus; bus = bus->next) {
     for (dev = bus->devices; dev; dev = dev->next) {
-      if (dev->descriptor.idVendor == VENDOR_ID &&
-          dev->descriptor.idProduct == PRODUCT_ID) {
+      if ((dev->descriptor.idVendor == VENDOR_ID1 && dev->descriptor.idProduct == PRODUCT_ID1)
+       || (dev->descriptor.idVendor == VENDOR_ID2 && dev->descriptor.idProduct == PRODUCT_ID2)) {
       	printf("autobright.so: usbhid with Vendor Id: %x and Product Id: %x found.\n",
-	        VENDOR_ID, PRODUCT_ID);
+	        dev->descriptor.idVendor, dev->descriptor.idProduct);
         if (!(devh = usb_open(dev))) {
           printf("autobright.so: Could not open USB device\n");
           return NULL;
@@ -236,6 +245,7 @@ usb_dev_handle *setup_libusb_access()
 void *ThreadUsbSensorRead(void *t)
 {
   while (! thr_cancel) {
+    int delay= timeout * 1000;   // 5 seconds to recheck USB after error
     if (! devh) {
       devh= setup_libusb_access();
     }
@@ -249,23 +259,22 @@ void *ThreadUsbSensorRead(void *t)
       } else {
         int len;
         char bf[2];
-        len = usb_control_msg(devh,
-          USB_ENDPOINT_IN + USB_TYPE_CLASS + USB_RECIP_INTERFACE,
-          HID_REPORT_GET,
-          0,
-          INTERFACE,
-          bf, sizeof(bf), timeout);
+        len = usb_interrupt_read(devh, USB_ENDPOINT_IN | 1,  bf,  sizeof(bf), timeout);
         if (len < 0) {
           printf("autobright.so: Usb control message error\n");
           usb_close(devh);
           devh= NULL;
         } else if (len >= 2) {
           usb_release_interface(devh, INTERFACE);
-          AutoBright(((unsigned char*)bf)[0] + (((unsigned char*)bf)[1] << 8));
+          if (AutoBright(((unsigned char*)bf)[0] + (((unsigned char*)bf)[1] << 8))) {
+            delay= 10000;   // backlight changed, continue after small delay
+          } else {
+            delay= 300000;  // no change, cca 3 checks per second 
+          }
         }
       }
     }
-    usleep(1000000);
+    usleep(delay);
   }
   printf("autobright.so thread exit\n");
   return NULL;
@@ -307,12 +316,12 @@ static int PatchAll(int bPatch)
   void *dest;
   void *a;
 #ifdef SERIAL_SENSOR
-  dest= (void*)0x6BCCE8;
+  dest= (void*)UartInputThread_strcmp_ptr;
   a= bPatch ? (void*)&StrcmpDebugPatched : (void*)&strcmp;
   int r= PatchCode(dest, &a, 4);
   if (r) return r;
 #endif
-  dest= (void*)0x65243C;
+  dest= (void*)VDH_SetEnergySave_DevLDSetEnergySaving_ptr;
   a= bPatch ? (void*)&DevLDSetEnergySavingPatched : (void*)&DevLDSetEnergySaving;
   return PatchCode(dest, &a, 4);
 }
