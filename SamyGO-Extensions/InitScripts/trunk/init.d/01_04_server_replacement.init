@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+# © Copyright 1996-2011, SamyGO
+#
+# $Id$
+# 
+# . /dtv/SGO.env
+
+DEPLOY_SERVER="" # in testing phase 
+
+case $1 in 
+	start)
+	[ -z "$DEPLOY_SERVER" ] && exit 
+	echo '# /mtd_rwarea/hosts
+127.0.0.1       localhost
+'${DEPLOY_SERVER}'     infolink.pavv.co.kr
+# '${DEPLOY_SERVER}'     devinfolink.pavv.co.kr
+'${DEPLOY_SERVER}'     www.samsungotn.net
+# '${DEPLOY_SERVER}'     test.samsungotn.net
+# '${DEPLOY_SERVER}'     www.samsungrm.net
+# '${DEPLOY_SERVER}'     test.samsungrm.net
+# end of hosts file' > /mtd_rwarea/hosts
+
+	/bin/mount -o bind /mtd_rwarea/hosts /etc/hosts
+	;;
+	stop)
+	/bin/umount /etc/hosts
+	# and clean resolvers cache, don't care now
+	;;
+	status)
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
