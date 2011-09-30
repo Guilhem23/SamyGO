@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# © Copyright 1996-2011, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+#       Version: SamyGO svn $Id$
+#
+
+. /dtv/SGO.env
+
+	# export TMPDIR=/dtv
+
+case $1 in 
+	start)
+	echo "root:0:NO PASSWORDXXXXXXXXXXXXXXXXXXXXX:NO PASSWORDXXXXXXXXXXXXXXXXXXXXX:[NU         ]:LCT-00000000:" > /dtv/pp
+
+	smbd -s $SYSROOT/etc/smb.conf --lockdir=/dtv --piddir=/dtv --private-dir=/dtv
+	;;
+	stop)
+	echo "do it somehow"
+	;;
+	status)
+	pidof smbd
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
