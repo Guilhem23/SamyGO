@@ -48,7 +48,7 @@ case $1 in
 		sleep 2
 		# insmod $SYSROOT/lib/modules/treasure/g_file_storage.ko
 		insmod $MOD_DIR/kernel/drivers/usb/gadget/g_file_storage.ko || \
-		insmod $MOD_DIR/kernel/drivers/mstar/usb/gadget/g_file_storage.ko
+		insmod $MOD_DIR/kernel/drivers/mstar/usb/gadget/g_file_storage.ko release=0x0206
 		sleep 3
 		
 		# find vusb in /sys
