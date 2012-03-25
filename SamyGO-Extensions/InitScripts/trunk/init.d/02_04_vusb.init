@@ -43,29 +43,42 @@ case $1 in
 		# mkfs.ext3 -q -F -m 0 -b 1024 /dtv/vusb
 
 		# insmod $SYSROOT/lib/modules/treasure/dummy_hcd.ko
-		insmod $MOD_DIR/kernel/drivers/usb/gadget/dummy_hcd.ko || \
-		insmod $MOD_DIR/kernel/drivers/mstar/usb/gadget/dummy_hcd.ko
-		sleep 2
+		insmod $MOD_DIR/kernel/drivers/usb/gadget/dummy_hcd.ko && sleep 2 # || \ mstar modules won't work. do we need a sleep here???
+		rm -f $MOD_DIR/kernel/drivers/mstar/usb/gadget/dummy_hcd.ko
+	
 		# insmod $SYSROOT/lib/modules/treasure/g_file_storage.ko
-		insmod $MOD_DIR/kernel/drivers/usb/gadget/g_file_storage.ko || \
-		insmod $MOD_DIR/kernel/drivers/mstar/usb/gadget/g_file_storage.ko release=0x0206
-		sleep 3
+		insmod $MOD_DIR/kernel/drivers/usb/gadget/g_file_storage.ko && sleep 3 # || \  mstar modules won't work. do we need a sleep here???
+		rm -f $MOD_DIR/kernel/drivers/mstar/usb/gadget/g_file_storage.ko
 		
 		# find vusb in /sys
 		# and set a variable for mount point
-		dev="sda1" # set fallback if someting wrong with modules
+		rdev="sdj" # init state
+		dev="sdj" # set fallback if someting wrong with modules
 		for i in /sys/block/sd?/device/model ; do
 			if [ `cat $i | grep -c "SamyGO Virt"` -gt "0" ] ; then
 				echo "found gadget at: $i"
 				dev=`echo $i | sed 's/^\/.*\(sd.\)\/.*/\1/g'`
 				echo "scsidev: $dev"
 			else
-				echo "real storage device at: $i"
+				# catch last one. hm, really required? 
+				rdev=`echo $i | sed 's/^\/.*\(sd.\)\/.*/\1/g'`
+				echo "real storage device at: $i ($rdev)"
 			fi
 		done
 #	else
 #		echo "Storage Device is present"
 #	fi
+	# if rdev == dev -> no vusb and no real usb
+	# if rdev != dev -> vusb or real usb or both
+	# if rdev != dev + check where "sdj" -> vusb or real and "sdj" tels what's not present
+	# how to detect that we need to write to log or usblog?
+	if [ "$dev" == "sdj" ] ; then
+		# make [usb]log
+		 $(echo -e "[${dev}]\nVendor : SamyGO Virt.\nProduct : SamyGO Virt.\n\
+Serial : Q80VQLFK\nDevpath : 11\nLun : 0\nScsiDevicePath : /dev/${dev}\nMountDir : /dtv/usb/${dev}\nFileSystem : vfat\n" >> /dtv/usb/usblog)
+	mkdir -p /dtv/usb/${dev}
+	fi
+	
 	sed -i -e "s,MountPlaceholder,/dtv/usb/$dev," /dtv/SGO.env
 	;;
 	stop)
