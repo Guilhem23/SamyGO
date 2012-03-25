@@ -43,12 +43,14 @@ case $1 in
 		# mkfs.ext3 -q -F -m 0 -b 1024 /dtv/vusb
 
 		# insmod $SYSROOT/lib/modules/treasure/dummy_hcd.ko
-		insmod $MOD_DIR/kernel/drivers/usb/gadget/dummy_hcd.ko && sleep 2 # || \ mstar modules won't work. do we need a sleep here???
-		rm -f $MOD_DIR/kernel/drivers/mstar/usb/gadget/dummy_hcd.ko
+		insmod $MOD_DIR/kernel/drivers/usb/gadget/dummy_hcd.ko ||
+		insmod $MOD_DIR/kernel/drivers/mstar/usb/gadget/dummy_hcd.ko
+		sleep 2
 	
 		# insmod $SYSROOT/lib/modules/treasure/g_file_storage.ko
-		insmod $MOD_DIR/kernel/drivers/usb/gadget/g_file_storage.ko && sleep 3 # || \  mstar modules won't work. do we need a sleep here???
-		rm -f $MOD_DIR/kernel/drivers/mstar/usb/gadget/g_file_storage.ko
+		insmod $MOD_DIR/kernel/drivers/usb/gadget/g_file_storage.ko ||
+		insmod $MOD_DIR/kernel/drivers/mstar/usb/gadget/g_file_storage.ko
+		sleep 3
 		
 		# find vusb in /sys
 		# and set a variable for mount point
