@@ -1,0 +1,46 @@
+#!/bin/sh
+#
+# © Copyright 2012,
+#       by juzis28 <juzis28@gmail.com>
+#
+#       Version: SamyGO svn $Id$
+#
+# TODO: more sysv style, more error handling
+#
+#. /dtv/SGO.env
+
+case $1 in
+	start)
+	for i in *.ra*
+	do
+		dir=${i%.ra*}
+		if [ ! -d $dir ]; then
+			mkdir $dir
+			echo "$dir created"
+		else
+			echo "$dir exists"
+		fi
+
+		if [ `mount | grep -c $dir` == 1 ] ; then
+			echo "$dir already mounted"
+		else
+			rar2fs $i $dir
+		fi
+	done
+	find . -type d -empty -exec rmdir {} \;
+	echo "empty directories deleted"
+	;;
+	stop)
+	for i in `mount | grep "fuse.rar2fs" | awk '{print $3}'`; do
+		umount $i
+		echo "$i unmounted"
+	done
+	;;
+	status)
+	mount | grep "fuse.rar2fs" | awk '{print $3}'
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
