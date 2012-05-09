@@ -44,7 +44,7 @@
 ESSID=""
 WEPKEY=""
 WPAKEY=""
-USE_MODULE=""
+USE_MODULE="rt2570"
 # see: http://sourceforge.net/apps/phpbb/samygo/viewtopic.php?f=13&t=1258&p=11342#p11342
 WEPKEY_INDEX="" # maybe "2"
 WEPKEY_MODE="" # maybe "restricted"
@@ -77,6 +77,7 @@ wlan_up()
 {
 	for i in $USE_MODULE ; do
 		# TODO: logic if multiple modules with same name present
+		insmod $MOD_DIR/k2wrlz/${i}.ko # ifname=ra11n%d 
 		insmod $MOD_DIR/kernel/drivers/rt73/Module/${i}.ko 
 		insmod $MOD_DIR/kernel/drivers/rt2870/os/linux/${i}.ko 
 		insmod $MOD_DIR/kernel/drivers/net/${i}.ko 
@@ -100,6 +101,8 @@ wlan_up()
 		fi
 	done
 	if [ ! -z $i ] ; then
+		ifrename -i $i -n ra11n0 -V -c /dev/null
+		i="ra11n0"
 		ifconfig $i up && $(iwconfig $i mode Managed ;\
 		iwconfig $i essid "$ESSID")
 
