@@ -18,8 +18,10 @@ case $1 in
 	mount -t tmpfs none /mtd_ram
 	# prepare for full module replacement
 	# lsmod | sed 's#.* .*[0-9] .*[0-9] \(.*\)#\1#' | sed 's#,# #g' 
-	# for d-series
-	$SYSROOT/bin/busybox nc -l -l -p 1023 -e /bin/sh &
+	# just for d-series and e-series!!!!
+#	$SYSROOT/bin/busybox nc -l -l -p 1023 -e /bin/sh &
+#        $SYSROOT/bin/busybox tcpsvd -vE 0.0.0.0 21 $SYSROOT/bin/busybox ftpd -w / &
+        cp -fa /dtv/usb/sd*/smb_userdata /mtd_rwarea/smb_userdata
 	;;
 	stop)
 	;;
