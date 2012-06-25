@@ -57,7 +57,7 @@ case $1 in
 		rdev="sdj" # init state
 		dev="sdj" # set fallback if someting wrong with modules
 		for i in /sys/block/sd?/device/model ; do
-			if [ `cat $i | grep -c "SamyGO"` -gt "0" ] ; then
+			if [ `cat $i | grep -c "Virt"` -gt "0" ] ; then
 				echo "found gadget at: $i"
 				dev=`echo $i | sed 's/^\/.*\(sd.\)\/.*/\1/g'`
 				echo "scsidev: $dev"
