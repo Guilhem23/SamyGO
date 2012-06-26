@@ -7,6 +7,9 @@
 
 case $1 in 
 	start)
+	 $SYSROOT/bin/console &
+	 $SYSROOT/bin/authuld_echop &
+	 $SYSROOT/bin/echop_uep_kill &
 	# enable loopback network interface, required on some b-series (b550,b6000?)
 	ifconfig lo 127.0.0.1
 	# unhide 'unsupported' filesystems from usb mount (don't work?)
