@@ -109,6 +109,7 @@ if [ ! -e /dtv/SGO.env ] ; then
 
 	echo "SYSROOT=\"$SYSROOT\"" > /dtv/SGO.env
 	echo "MOUNT_PATH=\"MountPlaceholder\"" >> /dtv/SGO.env
+# TODO: implement MOD_DIR=$SYSROOT/lib/modules/80/$KERN_VER MOD_DIR=$SYSROOT/lib/modules/81/$KERN_VER for es series
 	echo "export MOD_DIR=$SYSROOT/lib/modules/$KERN_VER" >> /dtv/SGO.env
 	echo "export TMPDIR=/dtv" >> /dtv/SGO.env
 	echo "export HOME=$NEW_HOME" >> /dtv/SGO.env
