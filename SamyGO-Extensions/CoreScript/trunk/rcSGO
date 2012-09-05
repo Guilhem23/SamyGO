@@ -115,7 +115,7 @@ if [ ! -e /dtv/SGO.env ] ; then
 	elif [ $(grep -c "0081" /.version) -eq 1 ] ; then
 		mv $SYSROOT/lib/modules/81/* $SYSROOT/lib/modules/ || echo "not first run..."
 	elif [ $(grep -c "0062" /.version) -eq 1 ] ; then
-		mv $SYSROOT/lib/modules/81/* $SYSROOT/lib/modules/ || echo "not first run..."
+		mv $SYSROOT/lib/modules/62/* $SYSROOT/lib/modules/ || echo "not first run..."
 	else
 		echo "no e-series?"
 	fi
