@@ -19,6 +19,9 @@ case $1 in
 # '${DEPLOY_SERVER}'     test.samsungotn.net
 # '${DEPLOY_SERVER}'     www.samsungrm.net
 # '${DEPLOY_SERVER}'     test.samsungrm.net
+# disable samsung advertisement...
+# '${DEPLOY_SERVER}'     ad.samsungadhub.com
+# '${DEPLOY_SERVER}'     rd.samsungadhub.com
 # end of hosts file' > /mtd_rwarea/hosts
 
 	/bin/mount -o bind /mtd_rwarea/hosts /etc/hosts
