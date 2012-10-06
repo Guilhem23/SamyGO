@@ -116,9 +116,19 @@ if [ ! -e /dtv/SGO.env ] ; then
 		mv $SYSROOT/lib/modules/81/* $SYSROOT/lib/modules/ || echo "not first run..."
 	elif [ $(grep -c "0062" /.version) -eq 1 ] ; then
 		mv $SYSROOT/lib/modules/62/* $SYSROOT/lib/modules/ || echo "not first run..."
+	elif [ $(grep -c "0063" /.version) -eq 1 ] ; then
+		mv $SYSROOT/lib/modules/63/* $SYSROOT/lib/modules/ || echo "not first run..."
+	elif [ $(grep -c "1006" /.version) -eq 1 ] ; then
+		mv $SYSROOT/lib/modules/1006/* $SYSROOT/lib/modules/ || echo "not first run..."
+	elif [ $(grep -c "1008" /.version) -eq 1 ] ; then
+		mv $SYSROOT/lib/modules/1008/* $SYSROOT/lib/modules/ || echo "not first run..."
 	else
-		echo "no e-series?"
+		echo "NOP"
 	fi
+#"Firenze 1008"          KERNEL MODULE VERSION : "1007_275"
+#"Firenze 1006"          KERNEL MODULE VERSION : "1006_274"
+
+
 	echo "export MOD_DIR=$SYSROOT/lib/modules/$KERN_VER" >> /dtv/SGO.env
 	echo "export TMPDIR=/dtv" >> /dtv/SGO.env
 	echo "export HOME=$NEW_HOME" >> /dtv/SGO.env
