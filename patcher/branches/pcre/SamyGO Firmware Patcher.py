@@ -83,7 +83,7 @@ def xor(fileTarget, key=''):
 		f.seek(-40, 2)
 		a = f.read()
 		f.seek(0)
-		match = re.search(r'([TB]-\w{4,13})[TB]-', a)
+		match = re.search(r'.*([TB]-\w{4,13})[TB]-.*', a)
 		if match:
 			keyData = match.group(1)
 			print 'found', match.group(1)
@@ -1052,6 +1052,10 @@ def DecryptAll( in_dir ):
 			print "AES Encrytped CI+ firmware detected."
 		for f in files:
 			print "Processing file", f
+			if f.endswith('enc'):#maybe already decrypted sec file...
+				encmode='CI'
+				print "ups, file alredy decrypted??? pls. manually cleanup, delete *.enc and *.img files in firmware directory" , f
+				return
 			if( encmode == 'CI+'):
 				encfile = AESdec( fwdir + os.path.sep + f, firmware=key[0] )
 			else:
