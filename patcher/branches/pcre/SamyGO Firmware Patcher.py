@@ -1054,7 +1054,7 @@ def DecryptAll( in_dir ):
 			print "Processing file", f
 			if f.endswith('enc'):#maybe already decrypted sec file...
 				encmode='CI'
-				print "ups, file alredy decrypted??? pls. manually cleanup, delete *.enc and *.img files in firmware directory" , f
+				print "ups, file alredy decrypted??? pls. manually cleanup, delete *.enc and *.img files in firmware directory"
 				return
 			if( encmode == 'CI+'):
 				encfile = AESdec( fwdir + os.path.sep + f, firmware=key[0] )
