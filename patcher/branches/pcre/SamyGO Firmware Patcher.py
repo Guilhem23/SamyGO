@@ -60,6 +60,7 @@ import urllib
 import struct
 import stat
 import time
+import re 
 
 #XOR file with given key, (slow!)
 def xor(fileTarget, key=''):
@@ -82,8 +83,13 @@ def xor(fileTarget, key=''):
 		f.seek(-40, 2)
 		a = f.read()
 		f.seek(0)
-		a = a[a.find( 'T-' ):]
-		keyData = a[:a[1:].find( 'T-' )+1]
+		match = re.search(r'([TB]-\w{4,13})[TB]-', a)
+		if match:
+			keyData = match.group(1)
+			print 'found', match.group(1)
+		else:
+			print 'Fatal Error: no XOR key found.'
+			sys.exit()
 
 	print "XOR Key : ",  keyData
 
