@@ -1,0 +1,81 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+# virtual xfs image for PVR to nfs shares by DEUS.
+# Use combined to 03_03_nfsmount.init and 80_80_record_to_nwshare.init.
+# disable 02_04_vusb.init if use this script.
+# 
+. /dtv/SGO.env
+
+case $1 in 
+	start)
+	[ -e $SYSROOT/etc/init.d/02_04_vusb.init ] && exit 1
+	[ ! -e $SYSROOT/etc/init.d/03_03__nfsmount.init ] && exit 1
+	[ ! -e $SYSROOT/etc/init.d/80_80_record_to_nwshare.init ] && exit 1
+	mkfs.vfat -C /dtv/vusb 500
+	insmod $MOD_DIR/kernel/drivers/usb/gadget/dummy_hcd.ko || \
+	insmod $MOD_DIR/kernel/drivers/mstar/usb/gadget/dummy_hcd.ko
+
+	XFSIMAGE=""$SYSROOT"/xfsimage"
+	XFSMOUNT="/dtv/xfsmount"
+	PVRIMAGE=""$XFSMOUNT"/pvrimage"
+	PVRMOUNT=""$XFSMOUNT"/pvrmount"
+	GFILESTORAGE="/dtv/vusb"
+
+	[ ! -d $XFSMOUNT ] && mkdir $XFSMOUNT
+	[ ! -f $XFSIMAGE ] && dd if=/dev/zero of=$XFSIMAGE bs=1M count=17 status=noxfer 2>/dev/null
+	mkfs.xfs -qf $XFSIMAGE
+	cat /proc/mounts | grep -q "$XFSMOUNT" || /bin/busybox mount -o loop $XFSIMAGE $XFSMOUNT
+	if [ ! -f $PVRIMAGE ]; then
+		dd if=/dev/zero of="$PVRIMAGE" bs=1M count=1 seek=1536 status=noxfer 2>/dev/null
+		mkfs.xfs "$PVRIMAGE"
+		mkdir -p "$PVRMOUNT"
+		/bin/busybox mount -o loop "$PVRIMAGE" "$PVRMOUNT"
+		touch ""$PVRMOUNT"/.PlaceHolderDO-NOT-REMOVE"
+		/bin/busybox umount "$PVRMOUNT"
+	fi
+	[ -e $PVRIMAGE ] && GFILESTORAGE="$GFILESTORAGE,$PVRIMAGE"
+	
+	insmod $MOD_DIR/kernel/drivers/usb/gadget/g_file_storage.ko file="$GFILESTORAGE" || \
+	insmod $MOD_DIR/kernel/drivers/mstar/usb/gadget/g_file_storage.ko file="$GFILESTORAGE"
+	sleep 3
+
+	FOUND=false
+	SAMYGODEVS=''
+	for i in /sys/block/sd?/device/model ; do
+		if [ `cat $i | grep -c "SamyGO Virt"` -gt "0" ]; then
+			CURDEV="`echo $i | sed 's/^\/.*\(sd.\)\/.*/\1/g'`"
+			SAMYGODEVS="$SAMYGODEVS /dev/$CURDEV"
+			if [ $FOUND = false ]; then
+				echo "found gadget at: $i"
+				dev=$CURDEV
+				echo "scsidev: $dev"
+				FOUND=true
+			fi
+		else
+			echo "real storage device at: $i"
+		fi
+	done
+	SAMYGODEVS=`echo $SAMYGODEVS|sed 's/^[[:space:]]//'`
+
+	sed -i -e "s,MountPlaceholder,/dtv/usb/$dev," /dtv/SGO.env
+	echo "SAMYGODEVS=\"$SAMYGODEVS\"" >> /dtv/SGO.env
+	;;
+	stop)
+	rmmod g_file_storage
+	# some troubles if we mess around with dummy_hcd, so not remove on stop
+	# rmmod dummy_hcd
+	;;
+	status)
+	cat /sys/block/sd?/device/model
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
