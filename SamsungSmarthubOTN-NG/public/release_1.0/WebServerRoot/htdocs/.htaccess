@@ -1,0 +1,11 @@
+ServerSignature Off
+ErrorDocument 403 /errors/errorpage.php?force=400
+ErrorDocument 404 /errors/errorpage.php
+
+Header add MyHeader "Hello SamyGO, it took %D microseconds \
+for me to serve this request at %t %{Request_URI}e."
+
+<FilesMatch ".*.asp">
+ForceType application/x-httpd-php
+</FilesMatch>
+
