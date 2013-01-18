@@ -1,0 +1,8 @@
+# for openapi
+<FilesMatch ".*">
+ForceType application/x-httpd-php
+</FilesMatch>
+<FilesMatch "openapi.php">
+Deny From All
+ErrorDocument 403 "Maybe not found."
+</FilesMatch>

@@ -1,0 +1,130 @@
+<?php
+# main SmartHub, don't touch it....
+require_once('SimpleMidleMan.inc');
+include_once('WidgetHelper.inc');
+
+function uniq_xml($xml, $tmplate = 'rsp_list_uniq.xsl') {
+	$xslt = new XSLTProcessor();
+	$xmlDoc = new DOMDocument('1.0', 'UTF-8');
+	$xslDoc = new DOMDocument('1.0', 'UTF-8');
+	$xslDoc->loadXML(file_get_contents($tmplate, TRUE));
+	$xmlDoc->loadXML($xml->asXML());
+	$xslt->importStylesheet($xslDoc);
+	$domresu = $xslt->transformToDoc($xmlDoc);
+	$xmlresu = new SimpleXMLElement($domresu->saveXML());
+	return $xmlresu;
+}
+
+if($_SERVER['REQUEST_METHOD'] == "PUT"){ /* TODO: b-series submit full list, e-series per widget */
+	$UserDataXML = new SimpleXMLElement($gUserData); /* TODO: error check? */
+	if($WhoAmI == "mystorage" && file_exists($UserWidetList)){ /* e-series part */
+		$xml_user_wlist = simplexml_load_file($UserWidetList);
+		sxml_append($xml_user_wlist, $UserDataXML->widget);
+		$gUserData = uniq_xml($xml_user_wlist, 'list_uniq.xsl')->asXML();
+		CError::LogStr("Merged Result: ".$gUserData);
+	}
+	/* private hacked (in 2009): sync list betw. servers + make the list uniq. */
+	$f = fopen($UserWidetList, "w+");
+	fwrite($f, $gUserData, strlen($gUserData));
+	fwrite($f, "\n", 1);
+	fclose($f);
+	header("HTTP/1.1 200 OK");
+	SendPage($xml->asXML());
+#SendPage($respxml->asXML()); /* b-series response with error if samsungserver don't know the widget */
+}
+if($_SERVER['REQUEST_METHOD'] == "DELETE"){ /* TODO: handle it in same case then PUT? */
+	header("HTTP/1.1 200 OK");
+	SendPage($xml->asXML());
+#SendPage($respxml->asXML()); /* hm, curl gave us valid response? */
+} // user widget synq requests
+
+
+# first visit or user made reset.
+if(!file_exists($UserWidetList)){
+	$xmlstr = '<?xml version="1.0" encoding="UTF-8"?><list></list>';
+	$gUserData = new mySXE($xmlstr);
+} else {
+	$gUserData = simplexml_load_file($UserWidetList);
+}
+CError::LogStr("Servers User WidgetList: ".$gUserData->asXML());
+
+if(isset($QParts['category']) === FALSE){
+#        $xml = uniq__xml($xml);
+#        // $xml = transform_to_xml($xml);
+	CError::LogStr("- TODO - xml make uniq?");
+}
+
+
+# b-series:
+#  - START -/openapi/service/widget/gallery?category=Manager
+# sample how to change version to 1.067, but need check if device is b-series
+if(strstr($_SERVER['HTTP_TOKEN'], "XX")){
+	if($QParts['category'] == "Manager" || $WhoAmI == "400009002"){
+		$respxml->list->widget['version'] = '1.067'; /* ignore date and size, don't care */
+	}
+# and on dl-location request: /openapi/service/widget/400009002 
+# on dec. 2012 some new attributes added by samsung, don't care
+	if($WhoAmI == "400009002"){
+		$respxml->list->widget['url'] = 'http://d2s7bi153972zt.cloudfront.net/selif/widget/201106/400009002/1.067/widget/WidgetMgr-1.067.all.110622.zip';
+	}
+# in case we use our own xml file: 
+#if($QParts['category'] == "Manager" || $WhoAmI == "400009002"){
+#	$respxml = new SimpleXMLElement($xmlstr); 
+#}
+	SendPage($respxml->asXML());
+}
+
+# c-series:
+#
+
+# d-series:
+#
+
+# e-series:
+#
+$xmlstr = "<?xml version='1.0' encoding='UTF-8'?><rsp stat='ok'><list xmlns:media='http://search.yahoo.com/mrss'></list></rsp>";
+$xmlstr = "<?xml version='1.0' encoding='UTF-8'?><rsp stat='ok'></rsp>";
+$nxml = new SimpleXMLElement($xmlstr);
+$list = $nxml->addChild("list");
+
+if($WhoAmI == "list"){
+	CError::LogStr("e-series in $WhoAmI, need manipulation/merge?");
+	foreach($respxml->list->widget as $widget){
+		if($widget['id'] == "10120000099" || $widget['id'] == "11111000009" || $widget['id'] == "20121000003" || $widget['id'] == "10110001001" || $widget['id'] == "111199000764"){
+			sxml_append($list, $widget);	
+		}
+	}	
+} elseif($WhoAmI == "gallery"){
+	if($QParts['featured'] == "signature"){
+		foreach($respxml->list->widget as $widget){
+			if($widget['id'] == "10120000099" || $widget['id'] == "20121000003" || $widget['id'] == "10110001001" || $widget['id'] == "111199000764"){
+				sxml_append($list, $widget);	
+			}
+		}	
+	} elseif($QParts['featured'] == "partners"){
+		foreach($respxml->list->widget as $widget){
+			if($widget['id'] == "11111000009" || $widget['id'] == "20121000003" || $widget['id'] == "10110001001" || $widget['id'] == "111199000764"){
+				sxml_append($list, $widget);	
+			}
+		}	
+	} else {
+		foreach($respxml->list->widget as $widget){
+			if($widget['id'] == "10120000099" || $widget['id'] == "20121000003" || $widget['id'] == "10110001001" || $widget['id'] == "111199000764"){
+				sxml_append($list, $widget);	
+			}
+
+		}
+
+	}
+# CError::LogStr(print_r($respxml->list->widget, 1));
+} else {
+	CError::LogStr("noting to do for e-series in $WhoAmI");
+	SendPage($respxml->asXML());
+}
+
+# f-series:
+# ModelID 13_FOXP ?
+#echo $doc->savexml();
+
+SendPage($nxml->asXML());
+?>

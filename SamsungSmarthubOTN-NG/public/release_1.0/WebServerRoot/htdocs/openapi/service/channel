@@ -1,0 +1,13 @@
+<?php
+require_once('SimpleMidleMan.inc');
+
+# b-series:
+# - START -/openapi/service/channel/1022
+# - START -/openapi/service/channel/gallery?category=Announcement
+# - START -/openapi/service/channel/1182
+
+# e-series:
+# BrowserConfig - START - 4649 -/openapi/service/channel/4649
+ 
+SendPage($respxml->asXML());
+?>

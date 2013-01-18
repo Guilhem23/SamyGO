@@ -1,0 +1,20 @@
+<?php
+# b-series asking here around...
+# samsung server answere depends on ModelId and CountryCode
+require_once('SimpleMidleMan.inc');
+
+# samsung engine
+# <application id="1" name="INFOLINK3.0" url="http://infolink.pavv.com"/>
+
+# for change too yahoo engine on b-series:
+#$respxml->list->application['id'] = 2;
+#$respxml->list->application['name'] = "MEDIALINK";
+#$respxml->list->application['url'] = "http://medialink.pavv.com";
+
+# internal test: own hub -> result on tv = Unsupported Service
+#$respxml->list->application['id'] = 3;
+#$respxml->list->application['name'] = "SUPERHUB";
+#$respxml->list->application['url'] = "http://infolink.samygo.tv";
+ 
+SendPage($respxml->asXML());
+?>

@@ -1,0 +1,11 @@
+<?php
+# for OTN, info handling
+require_once('SimpleMidleMan.inc');
+
+$RSAPubKey = trim(file_get_contents('/home/Video-HD/Samsung/mykey.pem.secpub'));
+# change key if required, TODO: the check when.
+$respxml->ds_key = NULL;
+$respxml->addCData($respxml->ds_key, $RSAPubKey);
+
+SendPage($respxml->asXML());
+?>

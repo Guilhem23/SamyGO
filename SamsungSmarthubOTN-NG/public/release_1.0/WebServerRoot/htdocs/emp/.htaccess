@@ -1,0 +1,4 @@
+<FilesMatch "^(emp)$">
+ForceType application/x-httpd-php 
+</FilesMatch>
+

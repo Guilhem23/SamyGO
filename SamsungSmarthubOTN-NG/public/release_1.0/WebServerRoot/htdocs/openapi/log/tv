@@ -1,0 +1,6 @@
+<?php
+# original this url not exist, just here for testing
+require_once('SimpleMidleMan.inc');
+
+SendPage($respxml->asXML());
+?>

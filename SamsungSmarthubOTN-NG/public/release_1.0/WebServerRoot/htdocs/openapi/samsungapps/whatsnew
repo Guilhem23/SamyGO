@@ -1,0 +1,15 @@
+<?php
+# STATUS_ Work in progress.
+# overlay for SamsungApps icon and upper area in AppStore
+require_once('SimpleMidleMan.inc');
+
+# SamsungApps-Widget should be present!!!
+foreach($respxml->list->widget as $widget){
+	if($widget['id'] != "111299001922"){
+		$respxml->list->widget[$counter] = NULL;
+	}
+		$counter++;
+}
+
+SendPage($respxml->asXML());
+?>

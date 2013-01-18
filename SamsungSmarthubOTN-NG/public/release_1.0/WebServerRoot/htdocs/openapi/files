@@ -1,0 +1,44 @@
+<?php
+require_once('SimpleMidleMan.inc');
+
+# b- series:
+# [Referer] => file://localhost/mtd_down/widgets/manager/400009002/index.html
+# - START -/openapi/files/channel/200903/1022/10062/agreement_AT.xml
+if(strstr($WhoAmI, "agreement")){
+	$respxml->service->contents = NULL;
+	$respxml->addCData($respxml->service->contents, "Dumb...");
+	$respxml->log->contents = NULL;
+	$respxml->addCData($respxml->log->contents, "Dumb...");
+	$respxml->disclaimer->contents = NULL;
+	$respxml->addCData($respxml->disclaimer->contents, "Dumb...");
+SendPage($respxml->asXML());
+}
+
+# e-series:
+# BrowserConfig, but seems to be ignored???
+if($QURLParts[3] == "201104" || $QURLParts[3] == "201202"){ 
+	foreach($respxml->server as $server){
+		if($server->default == "yes"){
+			$respxml->server->default = "no";
+		}
+	}
+
+	$server = $respxml->addChild("server");
+	$server->addChild("name", "SamyGO");
+	$server->addCDChild("openapi", 'http://forum.samygo.tv/search.php?keywords=^^###^^');
+	$server->addChild("default", "yes");
+
+	$respxml->home->startpage = NULL;
+	$respxml->addCData($respxml->home->startpage, "http://forum.samygo.tv");
+}
+
+SendPage($respxml->asXML());
+# pages seen:
+# /openapi/files/channel/200903/1022/10062/agreement_AT.xml
+# /openapi/files/channel/201104/4649/13859/Austria.xml
+# /openapi/files/channel/201104/4662/13872/UK.xml?timestamp=1358359029310
+# /openapi/files/channel/201202/5271/14417/Austria.xml
+# /openapi/files/channel/201202/5271/14417/Austria.xml?timestamp=1358422464875
+# /openapi/files/channel/201203/4603/13584/2011_Austria.xml
+# /openapi/files/channel/201205/5158/14196/2012_Austria_voice(1).xml
+?>

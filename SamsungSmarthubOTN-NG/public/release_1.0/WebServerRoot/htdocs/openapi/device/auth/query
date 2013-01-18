@@ -1,0 +1,34 @@
+<?php
+# for queries to: www.samsungrm.net
+# TODO: check header Category = EMP/... too for different service.
+require_once('SimpleMidleMan.inc');
+
+list($tmpM, $tmpV) = explode(',', $_SERVER['HTTP_PARAM']);
+$respxml->rm->queryinfo->notice->noticelist[1][url] = 'http://'.$_SERVER['SERVER_NAME'].'/emp/emp/empinfo_'.$tmpM.'_'.$tmpV.'.xml';
+$respxml->rm->queryinfo->notice->noticelist[2][url] = 'https://infolink.pavv.co.kr/emp/emp/empinfo_'.$tmpM.'_'.$tmpV.'.xml';
+
+## e-series temporary...
+#        list($tmpM, $tmpV) = explode(',', $_SERVER['HTTP_PARAM']);
+#        $xmlstr = '<?xml version="1.0" encoding="UTF-8"?><rsp></rsp>';
+#        $xml = new mySXE($xmlstr);
+#        $xml->addAttribute("stat", "ok");
+#        $session1 = $xml->addChild("session");
+#        $session1->addAttribute("id", $g_session_id);
+#        $seedkey1 = $session1->addChild("seedkey", $seedkey);
+#        $session1->addChild("expired", get_KoreanTimeforSeedKey());
+#        $rm1 = $xml->addChild("rm");
+#        $rm1->addAttribute("version", "1.1");
+#        $qinfo1 = $rm1->addChild("queryinfo");
+#        $notice1 = $qinfo1->addChild("notice");
+#        $noticelist1 = $notice1->addChild("noticelist");
+#        $noticelist1->addAttribute("id", "1");
+#        $noticelist1->addAttribute("url", 'https://'.$_SERVER['SERVER_NAME'].'/emp/emp/empinfo_'.$tmpM.'_'.$tmpV.'.xml');
+#        $noticelist2 = $notice1->addChild("noticelist");
+#        $noticelist2->addAttribute("id", "2");
+#        $noticelist2->addAttribute("url", 'http://infolink.zsolttech.com/emp/emp/empinfo_'.$tmpM.'_'.$tmpV.'.xml');
+#        $rm1->addChild("retid", "81");
+#        #$rm1->addChild("retid");
+#SendPage($xml->asXML());
+
+SendPage($respxml->asXML());
+?>

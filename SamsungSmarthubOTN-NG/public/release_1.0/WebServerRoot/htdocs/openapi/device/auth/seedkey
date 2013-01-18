@@ -1,0 +1,20 @@
+<?php
+require_once('SimpleMidleMan.inc');
+
+if(isset($respxml['offline'])){ /* just for fun, if failed... */
+$seedkey = hash("sha256", get_KoreanTime());
+$session1 = $xml->addChild("session");
+$session1->addAttribute("id", sprintf("%x", mt_rand()) );
+$user1 = $session1->addChild("user");
+        #$user1->addAttribute("id", "_LEXXB650_EU_0012fb84de9b");
+        $user1->addAttribute("id", "_UEYYB7000_0012fb84de9b");
+        $user1->addAttribute("protected", "no");
+        $user1->addAttribute("confirmed", "yes");
+        $seedkey1 = $session1->addChild("seedkey", $seedkey);
+        $session1->addChild("expired", get_KoreanTimeforSeedKeyGMT()); /* for otn dif. format: 2011-08-09T15:47:44Z */
+	
+}
+
+#SendChunked($respxml, false, true);
+SendPage($respxml->asXML());
+?>

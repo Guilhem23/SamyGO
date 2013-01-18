@@ -1,0 +1,10 @@
+<?php
+# just in case device really use the info from here...
+require_once('SimpleMidleMan.inc');
+
+if(isset($respxml->list->service['url'])){
+	$respxml->list->service['url'] = "https://" . $_SERVER['SERVER_NAME'] . "/openapi/log/" . $QParts['service'];
+}
+
+SendPage($respxml->asXML());
+?>

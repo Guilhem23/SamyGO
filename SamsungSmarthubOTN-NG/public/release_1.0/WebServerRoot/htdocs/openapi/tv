@@ -1,0 +1,6 @@
+<?php
+# for OTN. m_notice and notice handling
+require_once('SimpleMidleMan.inc');
+
+SendPage($respxml->asXML());
+?>

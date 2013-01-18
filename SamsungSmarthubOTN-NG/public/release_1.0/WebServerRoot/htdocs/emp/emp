@@ -1,0 +1,68 @@
+<?PHP
+require_once('SimpleMidleMan.inc');
+# require_once('Helpers.inc');
+
+/* X10
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empAppAnalyzer_VER_1.19.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empAuthSMG_VER_0.200.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empBrowserCommonPlugin_VER_1.81.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empCamera_VER_1.120513.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empDownload_VER_2.510.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empNaver_VER_1.007.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empNService_VER_0.53.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empPsaApp_VER_1.006.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empQs_VER_1.007.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empSignature_VER_1.000.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empSkype_VER_1.120601.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empSpotify_VER_0.215.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empT9_VER_2.302.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empTalk_VER_2.420.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empWebBrowser_VER_2.25.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empWebBrowserDRI_VER_2.25.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empWLibPlugin_VER_0.001.zip
+ * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empXT9_VER_2.700.zip
+ */
+
+$tmp = preg_split('/_/', basename($QURLParts[2], ".xml"));
+
+$xmlstr = '<?xml version="1.0" encoding="UTF-8"?><emplist></emplist>';
+$xml = new mySXE($xmlstr);
+$emps['X10P'] = array(	"empAppAnalyzer" => "1.19", "empAuthSMG" => "0.200", "empBrowserCommonPlugin" => "1.81",
+		"empCamera" => "1.120513", "empDownload" => "2.510",  
+		"empNaver" => "1.007", "empNService" => "0.53", 
+		"empPsaApp" => "1.006", "empQs" => "1.007", "empSignature" => "1.000", "empSkype" => "1.120601",
+		"empSpotify" => "0.215", "empT9" => "2.302", "empTalk" => "2.420", "empWebBrowser" => "2.25", "empWebBrowserDRI" => "2.25",
+		"empWLibPlugin" => "0.001", "empXT9" => "2.700"
+	     );
+
+#"empBrowserCommonPlugin" was 1.87
+#empDownload" was "2.513"
+$emps['ECHOP'] = array(	"empAppAnalyzer" => "1.19", "empAuthSMG" => "0.200", "empBlockbuster" => "1.031", "empBrowserCommonPlugin" => "1.94",
+		"empCamera" => "1.120307", "empDownload" => "2.700", "empGamepad" => "1.30", "empHAControl" => "1.02", 
+		"empNaver" => "1.007", "empNRDP32" => "1.013", "empNService" => "0.56", "empPrinter" => "1.41",
+		"empPsaApp" => "1.006", "empQs" => "1.007", "empSignature" => "1.000", "empSkype" => "1.120602",
+		"empSpotify" => "0.215", "empT9" => "2.302", "empTalk" => "2.420", "empWebBrowser" => "2.25",
+		"empWLibPlugin" => "0.001", "empXT9" => "2.700"
+	     );
+
+$emps['FIRENZE'] = $emps['GENOAS'] = $emps['GENOAP'] = $emps['ECHOB'] = $emps['BROADCOM'] = $emps['X6'] = $emps['ECHOP'];
+
+$pref = $tmp[1];
+$emp_ver = $tmp[2];
+$emps[$pref]["empSamyGO"] = "3.15";
+$emps[$pref]["empSamyGOPlugin"] = "3.15";
+
+foreach ($emps[$pref] as $key => $val){
+	$file = $xml->addChild("file");
+	$file->AddAttribute("id", $key);
+	$file->AddAttribute("version", $val);
+	$name = $pref . "_" . $emp_ver . "_" . $key . "_VER_" . $val . ".zip";
+	$file->AddAttribute("name", $name);
+	$file->AddAttribute("url", "http://".$_SERVER['SERVER_NAME']."/emp/empfiles/$name");
+	$file_info = stat($_SERVER['DOCUMENT_ROOT']."/emp/empfiles/$name");
+	$file->AddAttribute("size", $file_info['size']);
+}
+
+#SendChunked($xml, true, true);
+SendPage($xml->asXML());
+?>

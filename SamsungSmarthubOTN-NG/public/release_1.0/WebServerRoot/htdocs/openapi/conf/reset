@@ -1,0 +1,9 @@
+<?php
+# SmartHub user reset
+require_once('SimpleMidleMan.inc');
+
+CError::LogStr("- User SmartHub reset - $UserWidetList");
+unlink($UserWidetList);
+
+SendPage($respxml->asXML());
+?>
