@@ -1,0 +1,14 @@
+<?php
+require_once('SimpleMidleMan.inc');
+
+# e-series:
+# after widget instell, confirm.
+# - /tvGateway/service -> -  Like to POST -
+
+if($WhoAmI == "checkUrl"){
+	$respxml->currencyUnit = "€";
+	$respxml->directPurchaseAvailable = "Y";
+}
+
+SendPage($respxml->asXML());
+?>

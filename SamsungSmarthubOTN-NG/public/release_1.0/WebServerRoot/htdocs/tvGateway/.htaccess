@@ -1,0 +1,4 @@
+# for AppStore
+<FilesMatch ".*">
+ForceType application/x-httpd-php
+</FilesMatch>
