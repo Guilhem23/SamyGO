@@ -1,6 +1,6 @@
 <?php
 ini_set('date.timezone', 'Europe/Berlin');
-#ini_set('display_errors', 'On');
+ini_set('display_errors', 'Off');
 #ini_set('error_log', '/tmp/SGPHP.log');
 
 define('SERVER_NAME', 'SamyGO Deploy Server (Microsoft-IIS/19.3)');
@@ -27,17 +27,45 @@ class mySXE extends SimpleXMLElement {
 	function getName(){
 		return dom_import_simplexml($this)->nodeName;
 	}
-
 	function getType(){
 		return dom_import_simplexml($this)->nodeType;
 	}
-	function remove($xpath) {
-
+	function keepNodesByAttrib($nodename, $attribute, $values){
+		$arg = '@' . $attribute . '!=';
+		foreach($values as $val){
+			$arg .= $val . ' and @' . $attribute . '!=' ;
+		}
+		$arg = substr($arg, 0, -(strlen($attribute) + 8));
+		$tmp = $this->findm('//'.$nodename.'['.$arg.']');
+		foreach ($tmp as $node) {
+			$node->remove();
+		}
+		return $this;
 	}
-	function removeNodeByAttrib($nodename,$attribute,$value){
-		$data = $this->xpath("*/$nodename/[$attribute=$value]");
-		$parent = $data[0]->xpath("parent::*");
-		unset($parent);
+	function keepOneByAttrib($nodename, $attribute, $value){
+		$tmp = $this->findm("//$nodename"."[@".$attribute."!=$value]");
+		foreach ($tmp as $node) {
+			$node->remove();
+		}
+		return $this;
+	}
+	function removeNodesByAttrib($nodename, $attribute, $values){
+		foreach($values as $val){
+			$this->findone('//'.$nodename.'[@'.$attribute.'='.$val.']')->remove();	
+		}
+		return $this;
+	}
+	protected function findm($xpath) {
+		$tmp = $this->xpath($xpath);
+		return ($tmp[0]) ? $tmp : null;
+	}
+	protected function findone($xpath) {
+		$tmp = $this->xpath($xpath);
+		return isset($tmp[0]) ? $tmp[0] : null;
+	}
+	protected function remove() {
+		$dom = dom_import_simplexml($this);
+		return $dom->parentNode->removeChild($dom);
 	}
 	function appendChild($name, $content) {
 		$dom = dom_import_simplexml($this);
@@ -47,17 +75,17 @@ class mySXE extends SimpleXMLElement {
 		$dom = dom_import_simplexml($this);
 		$dom->appendChild($dom->ownerDocument->createElement($name));
 		$cdata = $dom->ownerDocument->createCDATASection($string);
-                return $dom->appendChild($cdata);
+		return $dom->appendChild($cdata);
 	}
 	function addCData($path, $string){
 		$dom = dom_import_simplexml($path);
-	        $cdata = $dom->ownerDocument->createCDATASection($string);
-	        return $dom->appendChild($cdata);
+		$cdata = $dom->ownerDocument->createCDATASection($string);
+		return $dom->appendChild($cdata);
 	}	
 	function insertCData($string){
 		$dom = dom_import_simplexml($this);
-	        $cdata = $dom->ownerDocument->createCDATASection($string);
-	        return $dom->appendChild($cdata);
+		$cdata = $dom->ownerDocument->createCDATASection($string);
+		return $dom->appendChild($cdata);
 	}	
 	function saveXML($string = NULL){
 		$dom = new DOMDocument('1.0', 'UTF-8');
@@ -69,7 +97,7 @@ class mySXE extends SimpleXMLElement {
 	}
 	function pPrint($string = NULL){
 		$domnode = dom_import_simplexml($this);
-	
+
 		if (!$domnode) {
 			echo 'Error while converting XML';
 			exit;
