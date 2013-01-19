@@ -3,13 +3,12 @@
 # overlay for SamsungApps icon and upper area in AppStore
 require_once('SimpleMidleMan.inc');
 
-# SamsungApps-Widget should be present!!!
-foreach($respxml->list->widget as $widget){
-	if($widget['id'] != "111299001922"){
-		$respxml->list->widget[$counter] = NULL;
-	}
-		$counter++;
-}
+# SamsungApps-Widget should be present?
+$respxml->keepOneByAttrib("widget", "id", "111299001922");
+
+# as little xpath example ;-)
+#$dumb = array("111299001922", "111299002398");
+#$respxml->keepNodesByAttrib("widget", "id", $dumb);
 
 SendPage($respxml->asXML());
 ?>

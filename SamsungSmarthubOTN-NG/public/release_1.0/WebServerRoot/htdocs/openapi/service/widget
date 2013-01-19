@@ -82,39 +82,24 @@ if(strstr($_SERVER['HTTP_TOKEN'], "XX")){
 
 # e-series:
 #
-$xmlstr = "<?xml version='1.0' encoding='UTF-8'?><rsp stat='ok'><list xmlns:media='http://search.yahoo.com/mrss'></list></rsp>";
-$xmlstr = "<?xml version='1.0' encoding='UTF-8'?><rsp stat='ok'></rsp>";
-$nxml = new SimpleXMLElement($xmlstr);
-$list = $nxml->addChild("list");
+$KeepOriginalApps = array("10120000099", "11111000009", "20121000003", "10110001001");
 
 if($WhoAmI == "list"){
 	CError::LogStr("e-series in $WhoAmI, need manipulation/merge?");
-	foreach($respxml->list->widget as $widget){
-		if($widget['id'] == "10120000099" || $widget['id'] == "11111000009" || $widget['id'] == "20121000003" || $widget['id'] == "10110001001" || $widget['id'] == "111199000764"){
-			sxml_append($list, $widget);	
-		}
-	}	
-} elseif($WhoAmI == "gallery"){
+# TODO: merge in users allready installed widgets...
+	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
+} 
+elseif($WhoAmI == "gallery"){
 	if($QParts['featured'] == "signature"){
-		foreach($respxml->list->widget as $widget){
-			if($widget['id'] == "10120000099" || $widget['id'] == "20121000003" || $widget['id'] == "10110001001" || $widget['id'] == "111199000764"){
-				sxml_append($list, $widget);	
-			}
-		}	
-	} elseif($QParts['featured'] == "partners"){
-		foreach($respxml->list->widget as $widget){
-			if($widget['id'] == "11111000009" || $widget['id'] == "20121000003" || $widget['id'] == "10110001001" || $widget['id'] == "111199000764"){
-				sxml_append($list, $widget);	
-			}
-		}	
+# TODO: merge in SamsGO widgets...
+		$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
+	} 
+	elseif($QParts['featured'] == "partners"){
+# TODO: merge in SamsGO widgets...
+		$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
 	} else {
-		foreach($respxml->list->widget as $widget){
-			if($widget['id'] == "10120000099" || $widget['id'] == "20121000003" || $widget['id'] == "10110001001" || $widget['id'] == "111199000764"){
-				sxml_append($list, $widget);	
-			}
-
-		}
-
+# TODO: merge in SamsGO widgets...
+		$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
 	}
 # CError::LogStr(print_r($respxml->list->widget, 1));
 } else {
@@ -126,5 +111,5 @@ if($WhoAmI == "list"){
 # ModelID 13_FOXP ?
 #echo $doc->savexml();
 
-SendPage($nxml->asXML());
+SendPage($respxml->asXML());
 ?>
