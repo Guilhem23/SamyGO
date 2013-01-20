@@ -100,7 +100,7 @@ class mySXE extends SimpleXMLElement{
 			</xsl:copy>
 			</xsl:template>
 			<xsl:template match="//' . $nodename . '">
-			<xsl:if test="not(@' . $attribute . ' = preceding-sibling::widget/@' . $attribute . ')">
+			<xsl:if test="not(@' . $attribute . ' = preceding-sibling::' . $nodename . '/@' . $attribute . ')">
 			<xsl:copy-of select="."/>
 			</xsl:if>
 			</xsl:template>
