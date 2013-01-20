@@ -1,6 +1,6 @@
 <?php
 ini_set('date.timezone', 'Europe/Berlin');
-ini_set('display_errors', 'Off');
+#ini_set('display_errors', 'Off');
 #ini_set('error_log', '/tmp/SGPHP.log');
 
 define('SERVER_NAME', 'SamyGO Deploy Server (Microsoft-IIS/19.3)');
@@ -22,7 +22,7 @@ class CError {
 	}
 } // class CError
 
-class mySXE extends SimpleXMLElement {
+class mySXE extends SimpleXMLElement{
 	function getName(){
 		return dom_import_simplexml($this)->nodeName;
 	}
@@ -86,6 +86,32 @@ class mySXE extends SimpleXMLElement {
 			else
 				$refNode->appendChild($merge);
 		}
+		return $this;
+	}
+	function MakeUniq($nodename = "widget", $attribute = "id"){
+		unset($this->Uniq);
+		$uni = '<?xml version="1.0"?>
+			<!-- Created by ZsoltTech.Com® -->
+			<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+			<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
+			<xsl:template match="node() | @*">
+			<xsl:copy>
+			<xsl:apply-templates select="node() | @*"/>
+			</xsl:copy>
+			</xsl:template>
+			<xsl:template match="//' . $nodename . '">
+			<xsl:if test="not(@' . $attribute . ' = preceding-sibling::widget/@' . $attribute . ')">
+			<xsl:copy-of select="."/>
+			</xsl:if>
+			</xsl:template>
+			</xsl:stylesheet>';
+		$dom = dom_import_simplexml($this);
+		$xslt = new XSLTProcessor();
+		$xslDoc = new DOMDocument('1.0', 'UTF-8');
+		$xslDoc->loadXML($uni);
+		$xmlDoc = $dom->ownerDocument;
+		$xslt->importStylesheet($xslDoc);
+		$this->Uniq = $xslt->transformToXML($xmlDoc);
 		return $this;
 	}
 	function appendChild($name, $content) {
