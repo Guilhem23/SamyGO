@@ -56,14 +56,29 @@ function DoProxy()
 	curl_setopt($tuCurl, CURLOPT_SSL_VERIFYHOST, FALSE);
 	curl_setopt($tuCurl, CURLOPT_CAINFO, $_SERVER['DOCUMENT_ROOT']."/CA/ca.pem");
 	$response = curl_exec($tuCurl);
-	$respinfo = curl_getinfo($tuCurl);
-	$respcode = $respinfo['http_code'];
-	if ($response == FALSE || $respcode == 503 || $respcode == 400)
-	{
-		# http_response_code(500);
-		CError::LogStr("Request failed?");
-		CError::LogStr("Dump Vars: for uplink $Uplink " . print_r($UplinkURI, 1) . print_r($GLOBALS, 1));
+	$RespCode = curl_errno($tuCurl);
 
+	if(!$RespCode)
+	{
+		$respinfo = curl_getinfo($tuCurl);
+		curl_close($tuCurl); 
+
+		$allheaders = substr($response, 0, $respinfo['header_size']);
+		$respbody = substr($response, $respinfo['header_size']); 
+
+		switch($respinfo['http_code']){
+		case 200:
+			break;
+		case 302:
+			break;
+		default:
+			CError::LogStr("Notice: Uplink reported an error (" . $respinfo['http_code'] . ")");
+		}
+		CError::LogStr("Es wurden " . $respinfo['total_time'] . " Sekunden benötigt für einen Request an " . $respinfo['url']);
+	} else {
+
+		CError::LogStr("Request failed.");
+		CError::LogStr("Dump Vars: for uplink $Uplink " . print_r($UplinkURI, 1) . print_r($GLOBALS, 1));
 		#return;
 		#	if(function_exists('http_response_code'))
 		#		http_response_code(200);
@@ -77,11 +92,8 @@ function DoProxy()
 		$xml->addAttribute("offline", true);
 		$respxml = $xml;
 		header("Content-Type: text/xml");
-		return;
+		return curl_close($tuCurl);
 	}
-	$allheaders = substr($response, 0, $respinfo['header_size']);
-	$respbody = substr($response, $respinfo['header_size']); 
-	curl_close($tuCurl); 
 
 	$target_headers = explode("\r\n", trim($allheaders));
 	foreach($target_headers as $val){
@@ -94,32 +106,28 @@ function DoProxy()
 		$respxml = new mySXE($respbody);
 	} elseif(strstr($respbody, "Salted_")){
 		CError::LogStr("- OTN crypted file: $UplinkURI -");
-		echo($respbody);
-		exit();
+		SendPage($respbody);
 	} else {
 		CError::LogStr("- Response error: not a xml !!! gzip or html content? -" . bin2hex($respbody)); # gzinflate and co fails...
-		echo($respbody);
-		exit();
+		SendPage($respbody);
 	}
 }
 DoProxy();
-	header("Content-Type: " . $Headers['Content-Type']);
+header("Content-Type: " . $Headers['Content-Type']);
 #header("Transfer-Encoding: chunked", true);
 #if(isset($Headers['Set-Cookie'])){
 #		header("Set-Cookie: ". $Headers['Set-Cookie'], true);
 #}
 CError::LogStr("- response code: $respcode - " . substr($respxml->pPrint(), 0, 512));
-
-# just for fun, save indented pages.
-#if($_SERVER['REQUEST_METHOD'] == 'GET'){
-#	if(!file_exists($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI'])){
-#		# write file
-#		$LocalDir = dirname($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI']);
-#		exec("mkdir -p ".$LocalDir);
-#		CError::LogStr("- Save File: - " . $_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI']);
-#		$respxml->saveXML($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI']);
-#	} else {
-#		# make backup if changed and save new.
-#	}
-#}
+if($_SERVER['REQUEST_METHOD'] == 'GET'){
+	if(!file_exists($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI'])){
+		# write file
+		$LocalDir = dirname($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI']);
+		exec("mkdir -p ".$LocalDir);
+		CError::LogStr("- Save File: - " . $_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI']);
+		$respxml->saveXML($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI']);
+	} else {
+		# make backup if changed and save new.
+	}
+}
 ?>

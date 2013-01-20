@@ -1,5 +1,8 @@
 <?php
 require_once('SimpleMidleMan.inc');
 
+# SamsungApps-Widget should be present?
+$respxml->keepOneByAttrib("widget", "id", "111299001922");
+
 SendPage($respxml->asXML());
 ?>

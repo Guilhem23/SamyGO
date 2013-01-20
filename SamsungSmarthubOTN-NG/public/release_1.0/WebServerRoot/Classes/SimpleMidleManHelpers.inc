@@ -23,10 +23,10 @@ class CError {
 } // class CError
 
 class mySXE extends SimpleXMLElement {
-	Var $Filtered = NULL;
 	function getName(){
 		return dom_import_simplexml($this)->nodeName;
 	}
+
 	function getType(){
 		return dom_import_simplexml($this)->nodeType;
 	}
@@ -36,7 +36,7 @@ class mySXE extends SimpleXMLElement {
 			$arg .= $val . ' and @' . $attribute . '!=' ;
 		}
 		$arg = substr($arg, 0, -(strlen($attribute) + 8));
-		$tmp = $this->findm('//'.$nodename.'['.$arg.']');
+		$tmp = $this->findm("//$nodename"."[".$arg."]");
 		foreach ($tmp as $node) {
 			$node->remove();
 		}
@@ -51,7 +51,7 @@ class mySXE extends SimpleXMLElement {
 	}
 	function removeNodesByAttrib($nodename, $attribute, $values){
 		foreach($values as $val){
-			$this->findone('//'.$nodename.'[@'.$attribute.'='.$val.']')->remove();	
+			$this->findone("//$nodename"."[@".$attribute."=$val]")->remove();	
 		}
 		return $this;
 	}
@@ -63,9 +63,30 @@ class mySXE extends SimpleXMLElement {
 		$tmp = $this->xpath($xpath);
 		return isset($tmp[0]) ? $tmp[0] : null;
 	}
-	protected function remove() {
+	function remove() {
 		$dom = dom_import_simplexml($this);
 		return $dom->parentNode->removeChild($dom);
+	}
+	function Merge($Node, $onTop = false){
+		if(!$Node)
+			return;
+
+		$refNode = dom_import_simplexml($this);
+
+		foreach ($Node->children() as $Child)
+		{
+			$Element = dom_import_simplexml($Child);
+
+			if (!$refNode || !$Element)
+				return;
+
+			$merge = $refNode->ownerDocument->importNode($Element, true);
+			if($onTop)
+				$refNode->insertBefore($merge, $refNode->firstChild);
+			else
+				$refNode->appendChild($merge);
+		}
+		return $this;
 	}
 	function appendChild($name, $content) {
 		$dom = dom_import_simplexml($this);
@@ -246,27 +267,6 @@ function BrowserLang(){
 	return $slang;
 }
 
-function merge_simplexml($simplexml_to, $simplexml_from)
-{
-	if(!$simplexml_to || !$simplexml_from)
-		return;
-	//throw new Exception('no XML?');
-
-	$dom_tar = dom_import_simplexml($simplexml_to);
-
-	foreach ($simplexml_from->children() as $simplexml_child)
-	{
-		$dom_src = dom_import_simplexml($simplexml_child);
-
-		if (!$dom_tar || !$dom_src)
-			return;
-		// throw new Exception('no node?');
-
-		$merge = $dom_tar->ownerDocument->importNode($dom_src, true);
-		$dom_tar->appendChild($merge);
-	}
-} 
-
 function sxml_cdata($path, $string){
 	$dom = dom_import_simplexml($path);
 	$cdata = $dom->ownerDocument->createCDATASection($string);
@@ -298,4 +298,5 @@ parse_str(@$_SERVER['QUERY_STRING'], $QParts);
 $xmlstr = '<?xml version="1.0" encoding="UTF-8"?><rsp></rsp>';
 $xml = new mySXE($xmlstr);
 $xml->addAttribute("stat", "ok");
+$xml->addAttribute("cachedate", get_KoreanTimeforSeedKey(0));
 ?>

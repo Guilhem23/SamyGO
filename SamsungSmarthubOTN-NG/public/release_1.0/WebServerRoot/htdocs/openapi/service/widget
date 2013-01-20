@@ -3,18 +3,6 @@
 require_once('SimpleMidleMan.inc');
 include_once('WidgetHelper.inc');
 
-function uniq_xml($xml, $tmplate = 'rsp_list_uniq.xsl') {
-	$xslt = new XSLTProcessor();
-	$xmlDoc = new DOMDocument('1.0', 'UTF-8');
-	$xslDoc = new DOMDocument('1.0', 'UTF-8');
-	$xslDoc->loadXML(file_get_contents($tmplate, TRUE));
-	$xmlDoc->loadXML($xml->asXML());
-	$xslt->importStylesheet($xslDoc);
-	$domresu = $xslt->transformToDoc($xmlDoc);
-	$xmlresu = new SimpleXMLElement($domresu->saveXML());
-	return $xmlresu;
-}
-
 if($_SERVER['REQUEST_METHOD'] == "PUT"){ /* TODO: b-series submit full list, e-series per widget */
 	$UserDataXML = new SimpleXMLElement($gUserData); /* TODO: error check? */
 	if($WhoAmI == "mystorage" && file_exists($UserWidetList)){ /* e-series part */
@@ -82,12 +70,17 @@ if(strstr($_SERVER['HTTP_TOKEN'], "XX")){
 
 # e-series:
 #
-$KeepOriginalApps = array("10120000099", "11111000009", "20121000003", "10110001001");
+$KeepOriginalApps = array("10120000099", "11111000009", "20121000003", "10110001001", "111199000764");
 
 if($WhoAmI == "list"){
 	CError::LogStr("e-series in $WhoAmI, need manipulation/merge?");
-# TODO: merge in users allready installed widgets...
-	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
+# DONE: merge in users allready installed widgets...
+#	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
+#	$respxml->list->Merge($gUserData);
+# dom is nice, in one command...
+#	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($gUserData);
+# or over the top 
+	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($gUserData, true);
 } 
 elseif($WhoAmI == "gallery"){
 	if($QParts['featured'] == "signature"){
@@ -99,7 +92,7 @@ elseif($WhoAmI == "gallery"){
 		$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
 	} else {
 # TODO: merge in SamsGO widgets...
-		$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
+		$respxml->list->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
 	}
 # CError::LogStr(print_r($respxml->list->widget, 1));
 } else {

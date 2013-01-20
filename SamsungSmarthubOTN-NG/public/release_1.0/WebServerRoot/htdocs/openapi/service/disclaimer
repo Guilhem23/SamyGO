@@ -1,7 +1,9 @@
 <?php
 # full offline page...
 #require_once('SimpleMidleMan.inc');
+#SendPage($respxml->asXML());
 require_once('SimpleMidleManHelpers.inc');
+header("Content-Type: text/xml");
 
 $disclaimer = $xml->addChild(disclaimer);
 $disclaimer->addAttribute("id", $WhoAmI);
@@ -39,6 +41,5 @@ $item->addChild("version", "2.000");
 $content = $item->addChild("content");
 sxml_cdata($content, '<p style="text-align:center;">---</p>');
 
-#SendChunked($xml, true, true, false);
 SendPage($xml->asXML());
 ?>
