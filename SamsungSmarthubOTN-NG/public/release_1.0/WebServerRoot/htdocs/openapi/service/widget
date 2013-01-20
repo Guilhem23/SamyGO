@@ -8,9 +8,8 @@ if($_SERVER['REQUEST_METHOD'] == "PUT"){ /* TODO: b-series submit full list, e-s
 	if($WhoAmI == "mystorage" && file_exists($UserWidetList)){ /* e-series part */
 		$xml_user_wlist = new mySXE(file_get_contents($UserWidetList));
 		#sxml_append($xml_user_wlist, $UserDataXML->widget);
-		$xml_user_wlist->list->Merge($UserDataXML);
-		$xml_user_wlist->MakeUniq();
-		$gUserData = $xml_user_wlist->Uniq;
+		$xml_user_wlist->list->Merge($UserDataXML)->removeDups();
+		$gUserData = $xml_user_wlist->asXML();
 		CError::LogStr("Merged Result: ".$gUserData);
 	}
 	/* private hacked (in 2009): sync list betw. servers + make the list uniq. */
@@ -82,11 +81,9 @@ if($WhoAmI == "list"){
 #	$respxml->list->Merge($gUserData);
 # dom is nice, in one command...
 #	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($gUserData);
-# or over the top 
-	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($gUserData, true);
-# make it uniq, TODO: find fastest way to do it in ownerdocument without external stylesheet...
-	$respxml->MakeUniq();
-	SendPage($respxml->Uniq);
+# or over the top and make it uniq 
+	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($gUserData, true)->removeDups();
+	SendPage($respxml->asXML());
 } 
 elseif($WhoAmI == "gallery"){
 	if($QParts['featured'] == "signature"){
