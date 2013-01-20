@@ -1,0 +1,5 @@
+<?php
+require_once('SimpleMidleMan.inc');
+
+SendPage($respxml->asXML());
+?>

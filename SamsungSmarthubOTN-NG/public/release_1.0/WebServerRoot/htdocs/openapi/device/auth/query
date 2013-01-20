@@ -13,7 +13,7 @@ $respxml->rm->queryinfo->notice->noticelist[2][url] = 'https://infolink.pavv.co.
 #        $xml = new mySXE($xmlstr);
 #        $xml->addAttribute("stat", "ok");
 #        $session1 = $xml->addChild("session");
-#        $session1->addAttribute("id", $g_session_id);
+#        $session1->addAttribute("id", $gsession_id);
 #        $seedkey1 = $session1->addChild("seedkey", $seedkey);
 #        $session1->addChild("expired", get_KoreanTimeforSeedKey());
 #        $rm1 = $xml->addChild("rm");

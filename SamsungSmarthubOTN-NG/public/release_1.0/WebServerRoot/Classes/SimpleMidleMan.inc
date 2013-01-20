@@ -123,7 +123,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 	if(!file_exists($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI'])){
 		# write file
 		$LocalDir = dirname($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI']);
-		exec("mkdir -p ".$LocalDir);
+		mkdir($LocalDir, 0775, true);
 		CError::LogStr("- Save File: - " . $_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI']);
 		$respxml->saveXML($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI']);
 	} else {

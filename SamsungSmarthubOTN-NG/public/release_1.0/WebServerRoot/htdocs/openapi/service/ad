@@ -1,0 +1,29 @@
+<?php
+# advertising??? - openapi/service/ad/conf - need to move into ad dir? 
+require_once('SimpleMidleMan.inc');
+
+$list1 = $xml->addChild("list");
+$info1 = $list1->addChild("prefetch-info");
+$info1->addAttribute("poll", "1200");
+
+if(isset($QParts['timestamp'])){
+        $inventory1 = $list1->addChild("inventory");
+        /* Genoa_Yahoo */
+        $inventory1->addAttribute("display-url", 'http://stgadengine.internetat.tv/adbiz_cs_stg/CreativeSender.jsp?adurl=TV.AT.HOME11/PIA11@x01?%f&amp;%m');
+        /* Genoa */
+        //      $inventory1->addAttribute("display-url", 'http://adengine.internetat.tv/adbiz_cs/CreativeSender.jsp?adurl=TV.AT.HOME11/PIA11@x01,x02?%f&amp;%m');
+        /* Valencia */
+        //      $inventory1->addAttribute("display-url", 'http://adengine.internetat.tv/adbiz_cs/CreativeSender.jsp?adurl=TV.AT.HOME/PIA@x01,x02,x03,x04,x05');
+        /* BD-C7500_BARC */
+        //      $inventory1->addAttribute("display-url", 'http://adengine.internetat.tv/adbiz_cs/CreativeSender.jsp?adurl=BD.AT.HOME/PIA@x01,x02,x03');
+        // $inventory1->addAttribute("display-url", 'http://'.$_SERVER['SERVER_NAME'].'/adbiz_cs/CreativeSender.jsp?adurl=TV.AT.HOME11/PIA11@x01,x02?%f&amp;%m');
+        $inventory1->addAttribute("imp-policy", 'always');
+        $inventory1->addAttribute("request-interval", '45'); /* Valencia -> 90, BD-C7500_BARC -> 60 */
+        $inventory1->addAttribute("roll-interval", '15');
+        $inventory1->addAttribute("state-id", 'state_home_left_b');
+        $psition1 = $inventory1->addChild("position");
+}
+ 
+#SendPage($respxml->asXML());
+SendPage($xml->asXML());
+?>

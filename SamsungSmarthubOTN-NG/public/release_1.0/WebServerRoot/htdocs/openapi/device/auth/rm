@@ -1,0 +1,6 @@
+<?php
+# for remote service assistance?
+require_once('SimpleMidleMan.inc');
+
+SendPage($respxml->asXML());
+?>

@@ -1,0 +1,22 @@
+<?php
+require_once('SimpleMidleMan.inc');
+
+# <?xml version="1.0" encoding="UTF-8"?>
+# <rsp stat="ok">
+# <dictionary>
+# <entry name="CA_Operating" value="www.ospserver.net"/>
+# <entry name="CA_Developing" value="33.50.160.30"/>
+# <entry name="CA_Staging" value="210.118.57.17"/>
+# </dictionary>
+# </rsp>
+# <!--
+# # CAServerAddress?duid=CPCA3M6BJJVEO
+# # cds.pavv.co.kr -> 210.118.88.204
+# # cdsdev.pavv.co.kr
+# #  Address: 112.106.1.151
+# #
+# -->
+#
+
+SendPage($respxml->asXML());
+?>

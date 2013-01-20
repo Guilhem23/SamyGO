@@ -1,11 +1,5 @@
 <?php
-ini_set('date.timezone', 'Europe/Berlin');
-#ini_set('display_errors', 'Off');
-#ini_set('error_log', '/tmp/SGPHP.log');
-
-define('SERVER_NAME', 'SamyGO Deploy Server (Microsoft-IIS/19.3)');
-define('SG_EMU', 'INFOLINK');
-define('SG_EMU_VER', '3.0');
+require_once('SELP_Config.inc');
 
 class CError {
 	public static function LogStr($str)
@@ -30,7 +24,7 @@ class mySXE extends SimpleXMLElement{
 	function getType(){
 		return dom_import_simplexml($this)->nodeType;
 	}
-	function keepNodesByAttrib($nodename, $attribute, $values){
+	function keepNodesByAttrib($nodename = "widget", $attribute = "id", $values){
 		$arg = '@' . $attribute . '!=';
 		foreach($values as $val){
 			$arg .= $val . ' and @' . $attribute . '!=' ;
@@ -42,16 +36,23 @@ class mySXE extends SimpleXMLElement{
 		}
 		return $this;
 	}
-	function keepOneByAttrib($nodename, $attribute, $value){
+	function keepOneByAttrib($nodename = "widget", $attribute = "id", $value){
 		$tmp = $this->findm("//$nodename"."[@".$attribute."!=$value]");
 		foreach ($tmp as $node) {
 			$node->remove();
 		}
 		return $this;
 	}
-	function removeNodesByAttrib($nodename, $attribute, $values){
+	function removeNodesByAttrib($nodename = "widget", $attribute = "id", $values){
 		foreach($values as $val){
 			$this->findone("//$nodename"."[@".$attribute."=$val]")->remove();	
+		}
+		return $this;
+	}
+	function removeDups($nodename = "widget", $attribute = "id"){
+		$tmp = $this->findm("//$nodename"."[@".$attribute."=preceding-sibling::".$nodename."/@".$attribute."]");
+		foreach ($tmp as $node) {
+			$node->remove();
 		}
 		return $this;
 	}
@@ -86,32 +87,6 @@ class mySXE extends SimpleXMLElement{
 			else
 				$refNode->appendChild($merge);
 		}
-		return $this;
-	}
-	function MakeUniq($nodename = "widget", $attribute = "id"){
-		unset($this->Uniq);
-		$uni = '<?xml version="1.0"?>
-			<!-- Created by ZsoltTech.Com® -->
-			<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-			<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
-			<xsl:template match="node() | @*">
-			<xsl:copy>
-			<xsl:apply-templates select="node() | @*"/>
-			</xsl:copy>
-			</xsl:template>
-			<xsl:template match="//' . $nodename . '">
-			<xsl:if test="not(@' . $attribute . ' = preceding-sibling::' . $nodename . '/@' . $attribute . ')">
-			<xsl:copy-of select="."/>
-			</xsl:if>
-			</xsl:template>
-			</xsl:stylesheet>';
-		$dom = dom_import_simplexml($this);
-		$xslt = new XSLTProcessor();
-		$xslDoc = new DOMDocument('1.0', 'UTF-8');
-		$xslDoc->loadXML($uni);
-		$xmlDoc = $dom->ownerDocument;
-		$xslt->importStylesheet($xslDoc);
-		$this->Uniq = $xslt->transformToXML($xmlDoc);
 		return $this;
 	}
 	function appendChild($name, $content) {

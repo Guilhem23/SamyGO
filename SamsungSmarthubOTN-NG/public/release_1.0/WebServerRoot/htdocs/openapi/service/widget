@@ -4,11 +4,13 @@ require_once('SimpleMidleMan.inc');
 include_once('WidgetHelper.inc');
 
 if($_SERVER['REQUEST_METHOD'] == "PUT"){ /* TODO: b-series submit full list, e-series per widget */
-	$UserDataXML = new SimpleXMLElement($gUserData); /* TODO: error check? */
+	$UserDataXML = new mySXE($gUserData); /* TODO: error check? */
 	if($WhoAmI == "mystorage" && file_exists($UserWidetList)){ /* e-series part */
-		$xml_user_wlist = simplexml_load_file($UserWidetList);
-		sxml_append($xml_user_wlist, $UserDataXML->widget);
-		$gUserData = uniq_xml($xml_user_wlist, 'list_uniq.xsl')->asXML();
+		$xml_user_wlist = new mySXE(file_get_contents($UserWidetList));
+		#sxml_append($xml_user_wlist, $UserDataXML->widget);
+		$xml_user_wlist->list->Merge($UserDataXML);
+		$xml_user_wlist->MakeUniq();
+		$gUserData = $xml_user_wlist->Uniq;
 		CError::LogStr("Merged Result: ".$gUserData);
 	}
 	/* private hacked (in 2009): sync list betw. servers + make the list uniq. */
@@ -32,7 +34,8 @@ if(!file_exists($UserWidetList)){
 	$xmlstr = '<?xml version="1.0" encoding="UTF-8"?><list></list>';
 	$gUserData = new mySXE($xmlstr);
 } else {
-	$gUserData = simplexml_load_file($UserWidetList);
+	#$gUserData = simplexml_load_file($UserWidetList);
+	$gUserData = new mySXE(file_get_contents($UserWidetList));
 }
 CError::LogStr("Servers User WidgetList: ".$gUserData->asXML());
 
@@ -81,6 +84,9 @@ if($WhoAmI == "list"){
 #	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($gUserData);
 # or over the top 
 	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($gUserData, true);
+# make it uniq, TODO: find fastest way to do it in ownerdocument without external stylesheet...
+	$respxml->MakeUniq();
+	SendPage($respxml->Uniq);
 } 
 elseif($WhoAmI == "gallery"){
 	if($QParts['featured'] == "signature"){
