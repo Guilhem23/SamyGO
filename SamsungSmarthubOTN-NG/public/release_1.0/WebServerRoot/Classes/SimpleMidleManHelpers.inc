@@ -45,7 +45,10 @@ class mySXE extends SimpleXMLElement{
 	}
 	function removeNodesByAttrib($nodename = "widget", $attribute = "id", $values){
 		foreach($values as $val){
-			$this->findone("//$nodename"."[@".$attribute."=$val]")->remove();	
+			$tmp = $this->findm("//$nodename"."[@".$attribute."=$val]");	
+			foreach ($tmp as $node) {
+				$node->remove();
+			}
 		}
 		return $this;
 	}
@@ -56,6 +59,7 @@ class mySXE extends SimpleXMLElement{
 		}
 		return $this;
 	}
+	# nned both of find... ? 
 	protected function findm($xpath) {
 		$tmp = $this->xpath($xpath);
 		return ($tmp[0]) ? $tmp : null;
@@ -66,11 +70,12 @@ class mySXE extends SimpleXMLElement{
 	}
 	function remove() {
 		$dom = dom_import_simplexml($this);
-		return $dom->parentNode->removeChild($dom);
+		$Trashed = $dom->parentNode->removeChild($dom);
+		return $this;
 	}
 	function Merge($Node, $onTop = false){
 		if(!$Node)
-			return;
+			return $this;
 
 		$refNode = dom_import_simplexml($this);
 
@@ -79,7 +84,7 @@ class mySXE extends SimpleXMLElement{
 			$Element = dom_import_simplexml($Child);
 
 			if (!$refNode || !$Element)
-				return;
+				return $this;
 
 			$merge = $refNode->ownerDocument->importNode($Element, true);
 			if($onTop)
@@ -89,9 +94,22 @@ class mySXE extends SimpleXMLElement{
 		}
 		return $this;
 	}
+	function prependChild($name, $content)
+	{
+		$dom = dom_import_simplexml($this);
+		$leader = $dom->insertBefore(
+			$dom->ownerDocument->createElement($name, $content),
+			$dom->childNodes->item(2));
+			# $dom->previousSibling);
+			# $dom->nextSibling);
+			# $dom->firstChild);
+		return simplexml_import_dom($leader, get_class($this));
+	}
 	function appendChild($name, $content) {
 		$dom = dom_import_simplexml($this);
-		$dom->appendChild($dom->ownerDocument->createElement($name, $content));
+		$Node = $dom->appendChild(
+			$dom->ownerDocument->createElement($name, $content));
+		return simplexml_import_dom($Node, get_class($this));
 	}
 	function addCDChild($name, $string) {
 		$dom = dom_import_simplexml($this);
@@ -103,6 +121,13 @@ class mySXE extends SimpleXMLElement{
 		$dom = dom_import_simplexml($path);
 		$cdata = $dom->ownerDocument->createCDATASection($string);
 		return $dom->appendChild($cdata);
+	}	
+	function changeCData($string){
+		$this[0] = NULL;
+		$dom = dom_import_simplexml($this);
+		$cdata = $dom->ownerDocument->createCDATASection($string);
+		$dom->appendChild($cdata);
+		return $this;
 	}	
 	function insertCData($string){
 		$dom = dom_import_simplexml($this);
@@ -160,7 +185,7 @@ function nslookup($host){
 function SendPage($string){
 	print($string);
 	session_commit();
-	CError::LogStr("- ". __FUNCTION__ ." - " . substr($string, 0, 200));	
+	CError::LogStr("- ". __FUNCTION__ ." - " . substr($string, 0, 200));
 	exit();
 }
 
