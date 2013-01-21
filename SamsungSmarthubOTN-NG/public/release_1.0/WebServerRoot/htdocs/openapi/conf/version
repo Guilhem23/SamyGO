@@ -2,10 +2,9 @@
 # for OTN, info handling
 require_once('SimpleMidleMan.inc');
 
-$RSAPubKey = trim(file_get_contents('/home/Video-HD/Samsung/mykey.pem.secpub'));
+$RSAPubKey = trim(file_get_contents('mykey.pem.secpub', true));
 # change key if required, TODO: the check when.
-$respxml->ds_key = NULL;
-$respxml->addCData($respxml->ds_key, $RSAPubKey);
+$respxml->ds_key->changeCData($RSAPubKey);
 
 SendPage($respxml->asXML());
 ?>

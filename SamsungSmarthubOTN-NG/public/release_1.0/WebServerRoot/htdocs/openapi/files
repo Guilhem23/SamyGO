@@ -5,12 +5,9 @@ require_once('SimpleMidleMan.inc');
 # [Referer] => file://localhost/mtd_down/widgets/manager/400009002/index.html
 # - START -/openapi/files/channel/200903/1022/10062/agreement_AT.xml
 if(strstr($WhoAmI, "agreement")){
-	$respxml->service->contents = NULL;
-	$respxml->addCData($respxml->service->contents, "Dumb...");
-	$respxml->log->contents = NULL;
-	$respxml->addCData($respxml->log->contents, "Dumb...");
-	$respxml->disclaimer->contents = NULL;
-	$respxml->addCData($respxml->disclaimer->contents, "Dumb...");
+	$respxml->service->contents->changeCData("Dumb...");
+	$respxml->log->contents->changeCData("Dumb...");
+	$respxml->disclaimer->contents->changeCData("Dumb...");
 SendPage($respxml->asXML());
 }
 
@@ -23,13 +20,13 @@ if($QURLParts[3] == "201104" || $QURLParts[3] == "201202"){
 		}
 	}
 
-	$server = $respxml->addChild("server");
+	$server = $respxml->prependChild("server");
+	#$server = $respxml->addChild("server");
 	$server->addChild("name", "SamyGO");
 	$server->addCDChild("openapi", 'http://forum.samygo.tv/search.php?keywords=^^###^^');
 	$server->addChild("default", "yes");
 
-	$respxml->home->startpage = NULL;
-	$respxml->addCData($respxml->home->startpage, "http://forum.samygo.tv");
+	$respxml->home->startpage->changeCData("http://forum.samygo.tv");
 }
 
 SendPage($respxml->asXML());
