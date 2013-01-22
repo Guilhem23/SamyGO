@@ -21,7 +21,6 @@ if($QURLParts[3] == "201104" || $QURLParts[3] == "201202"){
 	}
 
 	$server = $respxml->prependChild("server");
-	#$server = $respxml->addChild("server");
 	$server->addChild("name", "SamyGO");
 	$server->addCDChild("openapi", 'http://forum.samygo.tv/search.php?keywords=^^###^^');
 	$server->addChild("default", "yes");
