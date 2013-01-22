@@ -2,6 +2,7 @@ https://www.google.com/search?q=apache+and+php+configuration
 
 add the Classes directory to php.ini (include_path = ".;c:\php\includes;E:\Apache2.2\Classes") or whatever you have it.
 enable in apache config Override for the .htaccess files (AllowOverride All) for the toplevel directory (<Directory "E:/Apache2.2/htdocs">).
+enable in apache config the mod_header (LoadModule headers_module modules/mod_headers.so).
 
 for IIS 7.5 and php 5.4 as fastcgi:
 http://php.net/manual/en/install.windows.iis7.php
@@ -14,3 +15,5 @@ and disable checkbox -> Invoke handler only if request is mapped to:
 in iis-manager add new site(s) for the proxied servers.
 
 announce your changes in samygo forum!
+
+TODO: document the class mySXE...
