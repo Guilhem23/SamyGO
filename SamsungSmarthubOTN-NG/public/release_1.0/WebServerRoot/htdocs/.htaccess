@@ -1,3 +1,4 @@
+AcceptPathInfo On
 ServerSignature Off
 ErrorDocument 403 /errors/errorpage.php?force=400
 ErrorDocument 404 /errors/errorpage.php
@@ -5,7 +6,13 @@ ErrorDocument 404 /errors/errorpage.php
 Header add MyHeader "Hello SamyGO, it took %D microseconds \
 for me to serve this request at %t %{Request_URI}e."
 
-<FilesMatch ".*.asp">
+# some widgets fetchers...
+<FilesMatch "^([0-9]+$)">
+ForceType application/x-httpd-php
+</FilesMatch>
+
+# for some other middlemans
+<FilesMatch ".*(\.asp|\.do|\.as|Servlet)">
 ForceType application/x-httpd-php
 </FilesMatch>
 

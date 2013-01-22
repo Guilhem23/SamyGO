@@ -3,41 +3,6 @@
 require_once('SimpleMidleMan.inc');
 include_once('WidgetHelper.inc');
 
-if($_SERVER['REQUEST_METHOD'] == "PUT"){ /* TODO: b-series submit full list, e-series per widget */
-	$UserDataXML = new mySXE($gUserData); /* TODO: error check? */
-	if($WhoAmI == "mystorage" && file_exists($UserWidetList)){ /* e-series part */
-		$xml_user_wlist = new mySXE(file_get_contents($UserWidetList));
-		#sxml_append($xml_user_wlist, $UserDataXML->widget);
-		$xml_user_wlist->list->Merge($UserDataXML)->removeDups();
-		$gUserData = $xml_user_wlist->asXML();
-		CError::LogStr("Merged Result: ".$gUserData);
-	}
-	/* private hacked (in 2009): sync list betw. servers + make the list uniq. */
-	$f = fopen($UserWidetList, "w+");
-	fwrite($f, $gUserData, strlen($gUserData));
-	fwrite($f, "\n", 1);
-	fclose($f);
-	header("HTTP/1.1 200 OK");
-	SendPage($xml->asXML());
-#SendPage($respxml->asXML()); /* b-series response with error if samsungserver don't know the widget */
-}
-if($_SERVER['REQUEST_METHOD'] == "DELETE"){ /* TODO: handle it in same case then PUT? */
-	header("HTTP/1.1 200 OK");
-	SendPage($xml->asXML());
-#SendPage($respxml->asXML()); /* hm, curl gave us valid response? */
-} // user widget synq requests
-
-
-# first visit or user made reset.
-if(!file_exists($UserWidetList)){
-	$xmlstr = '<?xml version="1.0" encoding="UTF-8"?><list></list>';
-	$gUserData = new mySXE($xmlstr);
-} else {
-	#$gUserData = simplexml_load_file($UserWidetList);
-	$gUserData = new mySXE(file_get_contents($UserWidetList));
-}
-CError::LogStr("Servers User WidgetList: ".$gUserData->asXML());
-
 if(isset($QParts['category']) === FALSE){
 #        $xml = uniq__xml($xml);
 #        // $xml = transform_to_xml($xml);
@@ -72,7 +37,6 @@ if(strstr($_SERVER['HTTP_TOKEN'], "XX")){
 
 # e-series:
 #
-$KeepOriginalApps = array("10120000099", "11111000009", "20121000003", "10110001001", "111199000764");
 
 if($WhoAmI == "list"){
 	CError::LogStr("e-series in $WhoAmI, need manipulation/merge?");
@@ -82,30 +46,60 @@ if($WhoAmI == "list"){
 # dom is nice, in one command...
 #	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($gUserData);
 # or over the top and make it uniq 
-	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($gUserData, true)->removeDups();
-	SendPage($respxml->asXML());
-} 
-elseif($WhoAmI == "gallery"){
-	if($QParts['featured'] == "signature"){
-# TODO: merge in SamsGO widgets...
+#	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($UserWList, true)->removeDups();
+#	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($UserWList, true);
+#	SendPage($respxml->asXML());
+# hm, whats if we not remove anything, but just change forced...
+	$respxml->list->Merge($UserWList, true)->removeDups();
+	CError::LogStr("e-series in $WhoAmI");
+} elseif($WhoAmI == "gallery"){
+	if($QParts['featured'] == "partners"){
 		$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
-	} 
-	elseif($QParts['featured'] == "partners"){
-# TODO: merge in SamsGO widgets...
+		CError::LogStr("e-series gallery on top in $WhoAmI");
+		$CustList = ImportCustomWidgets($CustomApps);
+		$respxml->list->Merge($CustList->list, true);
+	} elseif($QParts['featured'] == "signature"){
+# needs goupname key ? 
+#       <groupname key="CameraApp"/>
+#             <groupname key="Edutainment"/>
+#                   <groupname key="Explore3D"/>
+#                         <groupname key="FamilyStory"/>
+#                               <groupname key="MediaHub"/>
+#                                     <groupname key="SamsungApps"/>
+#                                           <groupname key="TVComm"/>
+#                                                 <groupname key="vTuner"/>
+#                                                       <groupname key="YourHealth"/>
 		$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
+		CError::LogStr("e-series gallery in middle bar in $WhoAmI");
+		$CustList = ImportCustomWidgets($CustomApps);
+		$respxml->list->Merge($CustList->list, true);
 	} else {
-# TODO: merge in SamsGO widgets...
 		$respxml->list->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
+		CError::LogStr("e-series gallery on bottom $WhoAmI");
+		$CustList = ImportCustomWidgets($CustomApps);
+		$respxml->list->Merge($CustList->list, true);
 	}
 # CError::LogStr(print_r($respxml->list->widget, 1));
+} elseif($WhoAmI == "samsungapps"){ /* ? list/samsungapps gallery/samsungapps ? */
+	CError::LogStr(" c,d,e series in $WhoAmI");
 } else {
 	CError::LogStr("noting to do for e-series in $WhoAmI");
-	SendPage($respxml->asXML());
+#	SendPage($respxml->asXML());
 }
 
 # f-series:
 # ModelID 13_FOXP ?
 #echo $doc->savexml();
+
+# if we inject custom widgets, samsung server respond is:
+# <rsp stat="fail"><err code="300" msg="Invalid Widget ID"/><desc/></rsp>
+# check on both arrays $ReplaceOriginalApps $CustomApps then we need to pass the download url to client
+# TODO: check for what model the version is requested...
+if (in_array($WhoAmI, $CustomApps)){
+	CError::LogStr("Send custom widget url for $WhoAmI");
+	$file = $_SERVER['DOCUMENT_ROOT'] . "/CustomWidgets/" . $WhoAmI . ".dl";
+    	$respxml = new mySXE(file_get_contents($file));
+}
 
 SendPage($respxml->asXML());
 ?>
