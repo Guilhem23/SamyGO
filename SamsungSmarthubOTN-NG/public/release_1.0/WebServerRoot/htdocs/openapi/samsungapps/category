@@ -1,5 +1,19 @@
 <?php
 require_once('SimpleMidleMan.inc');
+include_once('WidgetHelper.inc');
+
+# category for overwrite
+#      <categoryID>0000008931</categoryID> # there is queried then
+#      <categoryIconURI>http://tv.samsungapps.com/tvstore/category//2011/0602/0619/iconFile_20110602061956566.png</categoryIconURI>
+#      <categoryName>Education</categoryName>
+#      <categoryTitle>Bildung</categoryTitle> # this is visible in appstore and in widget widgetinformation screen
+
+        $myCategory = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><category><categoryID>0000008931</categoryID><categoryIconURI>http://forum.samygo.tv/styles/prosilver/imageset/site_logo.png></categoryIconURI><categoryName>Education</categoryName><categoryTitle>SamyGO</categoryTitle></category></list>";
+        $myCategory = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><category><categoryID>0000008931</categoryID><categoryIconURI>http://forum.samygo.tv/styles/prosilver/imageset/site_logo.png></categoryIconURI><categoryName>Sport</categoryName><categoryTitle>SamyGO</categoryTitle></category></list>";
+        $myCategory = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><category><categoryID>9999999999</categoryID><categoryIconURI>http://forum.samygo.tv/styles/prosilver/imageset/site_logo.png></categoryIconURI><categoryName>SamyGO</categoryName><categoryTitle>SamyGO</categoryTitle></category></list>";
+        $xml_inject = new mySXE($myCategory);
+        $respxml->list->category[6]->remove();
+	$respxml->list->Merge($xml_inject);
 
 SendPage($respxml->asXML());
 ?>
