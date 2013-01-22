@@ -3,10 +3,13 @@
 # TODO: check header Category = EMP/... too for different service.
 require_once('SimpleMidleMan.inc');
 
-list($tmpM, $tmpV) = explode(',', $_SERVER['HTTP_PARAM']);
-$respxml->rm->queryinfo->notice->noticelist[1][url] = 'http://'.$_SERVER['SERVER_NAME'].'/emp/emp/empinfo_'.$tmpM.'_'.$tmpV.'.xml';
-$respxml->rm->queryinfo->notice->noticelist[2][url] = 'https://infolink.pavv.co.kr/emp/emp/empinfo_'.$tmpM.'_'.$tmpV.'.xml';
 
+list($tmpM, $tmpV) = explode(',', $_SERVER['HTTP_PARAM']);
+$respxml->rm->queryinfo->notice->noticelist[1][url] = 'https://'.$_SERVER['SERVER_NAME'].'/emp/emp/empinfo_'.$tmpM.'_'.$tmpV.'.xml';
+$respxml->rm->queryinfo->notice->noticelist[2][url] = 'https://'.$_SERVER['SERVER_NAME'].'/emp/emp/empinfo_'.$tmpM.'_'.$tmpV.'.xml';
+
+
+/*
 ## e-series temporary...
 #        list($tmpM, $tmpV) = explode(',', $_SERVER['HTTP_PARAM']);
 #        $xmlstr = '<?xml version="1.0" encoding="UTF-8"?><rsp></rsp>';
@@ -29,6 +32,8 @@ $respxml->rm->queryinfo->notice->noticelist[2][url] = 'https://infolink.pavv.co.
 #        $rm1->addChild("retid", "81");
 #        #$rm1->addChild("retid");
 #SendPage($xml->asXML());
+*/
 
+CError::LogStr("queryscheiss $gOutData");
 SendPage($respxml->asXML());
 ?>

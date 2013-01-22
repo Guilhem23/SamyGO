@@ -1,5 +1,15 @@
 <?php
+# lists widgets in a category
 require_once('SimpleMidleMan.inc');
+include_once('WidgetHelper.inc');
+
+# openapi/samsungapps/product/list?categoryID=9999999999&lang=de&countryCode=AT&perPage=1000&page=1&sort=recommended
+
+        $CustList = ImportCustomWidgets($CustomApps);
+	$ConvertedCustList = ListForSA($CustList); 
+        $respxml->list->Merge($ConvertedCustList->list, true);
+	$respxml->list['lastpage'] = 1;
+	$respxml->list['total'] = count($respxml->list->children());
 
 SendPage($respxml->asXML());
 ?>

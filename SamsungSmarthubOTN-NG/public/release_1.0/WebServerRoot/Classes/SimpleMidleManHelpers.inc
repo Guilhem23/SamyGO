@@ -81,7 +81,6 @@ class mySXE extends SimpleXMLElement{
 	function Merge($Node, $onTop = false){
 		if(!$Node)
 			return $this;
-
 		$refNode = dom_import_simplexml($this);
 
 		foreach ($Node->children() as $Child)
@@ -97,7 +96,8 @@ class mySXE extends SimpleXMLElement{
 			else
 				$refNode->appendChild($merge);
 		}
-		return $this;
+		 return $this;
+	#	return simplexml_import_dom($refNode, get_class($this));
 	}
 	function replaceNode($Node){ /* http://php.net/manual/en/domnode.replacechild.php */
 		# ähhhhhh, simply delete and inser the new one?????
@@ -119,15 +119,24 @@ class mySXE extends SimpleXMLElement{
 		return simplexml_import_dom($Node, get_class($this));
 	}
 	function addCDChild($name, $string = NULL){
-		$dom = dom_import_simplexml($this);
-		$dom->appendChild($dom->ownerDocument->createElement($name));
+		/* ok 
+		$node = $this->addChild($name);
+		$dom = dom_import_simplexml($node);
 		$cdata = $dom->ownerDocument->createCDATASection($string);
-		return $dom->appendChild($cdata);
+		return $dom->appendChild($cdata); */
+		/* better return the new node */
+		$dom = dom_import_simplexml($this);
+		$Node = $dom->appendChild(
+			$dom->ownerDocument->createElement($name));
+		$Node->appendChild($Node->ownerDocument->createCDATASection($string));
+		return simplexml_import_dom($Node, get_class($this));
 	}
 	function addCData($path, $string = NULL){
 		$dom = dom_import_simplexml($path);
 		$cdata = $dom->ownerDocument->createCDATASection($string);
-		return $dom->appendChild($cdata);
+		#return $dom->appendChild($cdata);
+		$dom->appendChild($cdata);
+		return $this;
 	}	
 	function changeCData($string = NULL){
 		$this[0] = NULL;
@@ -139,7 +148,9 @@ class mySXE extends SimpleXMLElement{
 	function insertCData($string = NULL){
 		$dom = dom_import_simplexml($this);
 		$cdata = $dom->ownerDocument->createCDATASection($string);
-		return $dom->appendChild($cdata);
+		#return $dom->appendChild($cdata);
+		$dom->appendChild($cdata);
+		return $this;
 	}	
 	function saveXML($string = NULL){
 		$dom = new DOMDocument('1.0', 'UTF-8');
