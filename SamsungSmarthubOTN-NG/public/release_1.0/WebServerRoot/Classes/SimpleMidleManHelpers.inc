@@ -68,6 +68,11 @@ class mySXE extends SimpleXMLElement{
 		$tmp = $this->xpath($xpath);
 		return isset($tmp[0]) ? $tmp[0] : null;
 	}
+	function remove_i() {
+		$dom = dom_import_simplexml($this);
+		$Trashed = $dom->parentNode->removeChild($dom);
+		return simplexml_import_dom($Trash, get_class($this));
+	}
 	function remove() {
 		$dom = dom_import_simplexml($this);
 		$Trashed = $dom->parentNode->removeChild($dom);
@@ -94,8 +99,10 @@ class mySXE extends SimpleXMLElement{
 		}
 		return $this;
 	}
-	function prependChild($name, $content)
-	{
+	function replaceNode($Node){ /* http://php.net/manual/en/domnode.replacechild.php */
+		# ähhhhhh, simply delete and inser the new one?????
+	}
+	function prependChild($name, $content = NULL){
 		$dom = dom_import_simplexml($this);
 		$leader = $dom->insertBefore(
 			$dom->ownerDocument->createElement($name, $content),
@@ -105,31 +112,31 @@ class mySXE extends SimpleXMLElement{
 			# $dom->firstChild);
 		return simplexml_import_dom($leader, get_class($this));
 	}
-	function appendChild($name, $content) {
+	function appendChild($name, $content = NULL){
 		$dom = dom_import_simplexml($this);
 		$Node = $dom->appendChild(
 			$dom->ownerDocument->createElement($name, $content));
 		return simplexml_import_dom($Node, get_class($this));
 	}
-	function addCDChild($name, $string) {
+	function addCDChild($name, $string = NULL){
 		$dom = dom_import_simplexml($this);
 		$dom->appendChild($dom->ownerDocument->createElement($name));
 		$cdata = $dom->ownerDocument->createCDATASection($string);
 		return $dom->appendChild($cdata);
 	}
-	function addCData($path, $string){
+	function addCData($path, $string = NULL){
 		$dom = dom_import_simplexml($path);
 		$cdata = $dom->ownerDocument->createCDATASection($string);
 		return $dom->appendChild($cdata);
 	}	
-	function changeCData($string){
+	function changeCData($string = NULL){
 		$this[0] = NULL;
 		$dom = dom_import_simplexml($this);
 		$cdata = $dom->ownerDocument->createCDATASection($string);
 		$dom->appendChild($cdata);
 		return $this;
 	}	
-	function insertCData($string){
+	function insertCData($string = NULL){
 		$dom = dom_import_simplexml($this);
 		$cdata = $dom->ownerDocument->createCDATASection($string);
 		return $dom->appendChild($cdata);
@@ -174,7 +181,8 @@ function nslookup($host){
 		// on linux nslookup returns 2 diffrent line depending on
 		// ip or hostname given for nslookup
 		if (strpos($op[4], 'name = ') > 0){
-			return str_replace(" ", "", substr($op[4], strpos($op[4], 'name =') + 7, -1));
+			return gethostbyname($host);
+			#return str_replace(" ", "", substr($op[4], strpos($op[4], 'name =') + 7, -1));
 		} else {
 			#return str_replace(" ", "", substr($op[4], strpos($op[4], 'Name:') + 6));
 			return str_replace(" ", "", substr($op[5], strpos($op[5], 'Address:') + 8));
@@ -185,7 +193,7 @@ function nslookup($host){
 function SendPage($string){
 	print($string);
 	session_commit();
-	CError::LogStr("- ". __FUNCTION__ ." - " . substr($string, 0, 200));
+	CError::LogStr("- ############# FINAL ################### " . __FUNCTION__ . " - " . substr($string, 0, 1024));	
 	exit();
 }
 
@@ -321,6 +329,10 @@ $QURLParts = preg_split('/\//', $_SERVER['REQUEST_URI'], -1, PREG_SPLIT_NO_EMPTY
 $WhoAmI = basename($_SERVER['PHP_SELF'], ".php");
 $UserWidetList = $_SERVER['DOCUMENT_ROOT'] . "/UserWidgetInstall/" . $gUserName . ".xml";
 parse_str(@$_SERVER['QUERY_STRING'], $QParts);
+# for tvgateway:
+/* xml version="1.0" encoding="UTF-8"<result><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage></result> */
+# elsewhere: 
+/* xml version="1.0" encoding="UTF-8" <rsp></rsp> */
 $xmlstr = '<?xml version="1.0" encoding="UTF-8"?><rsp></rsp>';
 $xml = new mySXE($xmlstr);
 $xml->addAttribute("stat", "ok");

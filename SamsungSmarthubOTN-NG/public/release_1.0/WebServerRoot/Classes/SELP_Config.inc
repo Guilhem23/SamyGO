@@ -13,7 +13,6 @@ global  $gRegionNames, $gUpSiteHUBs, $gUpSiteHUB, $gMachineData, $gSecretKey, $g
 	$gcipher, $gpass_pref, $gpass_dgst, $gopenssl_pass, $gsession_id,
 	$gParam, $gCategory, $gStorageDir, $gLastRelease, $gFileServers, $IgnoreProxy, $ClientSend;
 
-
 $gRegionNames = array(
 	'--' => 'UN', /* 'Unknown' */
 	'AS' => 'Asia',
@@ -53,5 +52,4 @@ $gLangCodes = array(
 	'to', 'tr', 'ts', 'tt', 'tw', 'ty', 'ug', 'uk', 'ur', 'uz', 've', 'vi', 'vo', 'wa', 'cy', 'wo', 'fy', 'xh',
 	'yi', 'yo', 'za', 'zu', 'en-GB'
 );
-
 ?>
