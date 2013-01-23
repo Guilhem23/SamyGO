@@ -1,6 +1,6 @@
 <?PHP
-require_once('SimpleMidleMan.inc');
-# require_once('Helpers.inc');
+#require_once('SimpleMidleMan.inc');
+require_once('SimpleMidleManHelpers.inc');
 
 /* X10
  * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empAppAnalyzer_VER_1.19.zip
@@ -63,6 +63,7 @@ foreach ($emps[$pref] as $key => $val){
 	$file->AddAttribute("size", $file_info['size']);
 }
 
+header("Content-Type: text/xml");
 #SendChunked($xml, true, true);
 SendPage($xml->asXML());
 ?>
