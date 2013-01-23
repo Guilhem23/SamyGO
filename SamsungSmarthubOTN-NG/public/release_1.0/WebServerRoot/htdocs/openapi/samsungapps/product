@@ -5,11 +5,15 @@ include_once('WidgetHelper.inc');
 
 # openapi/samsungapps/product/list?categoryID=9999999999&lang=de&countryCode=AT&perPage=1000&page=1&sort=recommended
 
+if($QParts['categoryID'] == "0000008931"){
         $CustList = ImportCustomWidgets($CustomApps);
 	$ConvertedCustList = ListForSA($CustList); 
-        $respxml->list->Merge($ConvertedCustList->list, true);
-	$respxml->list['lastpage'] = 1;
+       # $respxml->list->Merge($ConvertedCustList->list, true);
+       unset($respxml->list[0]);
+        $respxml->Merge($ConvertedCustList, true);
+	$respxml->list['lastpage'] = "1";
 	$respxml->list['total'] = count($respxml->list->children());
+}
 
 SendPage($respxml->asXML());
 ?>

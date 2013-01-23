@@ -2,6 +2,8 @@
 # STATUS_ Work in progress.
 # overlay for SamsungApps icon and upper area in AppStore
 require_once('SimpleMidleMan.inc');
+include_once('WidgetHelper.inc');
+
 
 # SamsungApps-Widget should be present?
 $respxml->keepOneByAttrib("widget", "id", "111299001922");
@@ -11,7 +13,18 @@ $respxml->keepOneByAttrib("widget", "id", "111299001922");
 #$dumb = array("111299001922", "111299002398", "141299000071", "121299000633", "111299002371" ); # looks strange, but can scroll
 #$dumb = array("111299001922", "111299002398", "141299000071", "121299000633", "111299002371", "121299000063"); #ok, so we need min. 5 visible widgets here???
 
-$respxml->keepNodesByAttrib("widget", "id", $dumb);
+#$respxml->keepNodesByAttrib("widget", "id", $dumb);
+
+# $respxml->list->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
+#                CError::LogStr("e-series gallery on bottom $WhoAmI");
+#                $CustList = ImportCustomWidgets($CustomApps);
+#                $respxml->list->Merge($CustList->list, true);
+
+        $CustList = ImportCustomWidgets($CustomApps);
+        $ConvertedCustList = ListForSA($CustList);
+	$respxml->list->Merge($ConvertedCustList->list, true);
+	$respxml->list->Merge($ConvertedCustList->list, true);
+	$respxml->list->Merge($ConvertedCustList->list, true);
 
 SendPage($respxml->asXML());
 ?>

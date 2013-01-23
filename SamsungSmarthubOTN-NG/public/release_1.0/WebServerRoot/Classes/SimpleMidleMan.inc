@@ -22,6 +22,8 @@ function DoProxy()
 	$UplinkURI = ((isset($_SERVER['HTTPS'])) ? "https://" : "http://") . $Uplink .$_SERVER["REQUEST_URI"];
 	$ReqMethod = $_SERVER["REQUEST_METHOD"];
 	$CurlOutHeaders = array();
+	# TODO: for browsermaode, check user agent and load saved authinfo + add it to headers
+	# User-Agent... load from $saveHeader = $oDir . DIRECTORY_SEPARATOR . $gModelId . "_LastHeader.h";
 	foreach ($gInHeaders as $header => $value)
 	{
 		if ($header != "Authorization") # b-series fix for requests (drop Authorization)
@@ -84,11 +86,7 @@ function DoProxy()
 		$xml['hubsite'] = $Uplink;
 		$xml->addChild("list");
 		$gOutData = $xml->asXML();
-		flush();
-		header("HTTP/1.0 200 Ok");
-		$gOutHeaders = array();
-		$gOutHeaders['Content-Type'] = "text/xml";
-		$gOutHeaders['cache-control'] = "no-cache";
+		break;
 		}
 		CError::LogStr("Code " . print_r($respinfo, 1));
 		CError::LogStr("HTTP ($ReqMethod) $RespCode " . $respinfo['http_code'] . " Es wurden " . $respinfo['total_time'] . " Sekunden benötigt für einen Request an " . $respinfo['url']);
@@ -140,7 +138,7 @@ header("cache-control: " . $gOutHeaders['cache-control']);
 $oDir = dirname($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI']);
 $oFile = $_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI'];
 $oFile = $oDir . DIRECTORY_SEPARATOR . basename($oFile);
-$saveHeader = $oFile . "_LastHeader.h";
+$saveHeader = $oDir . DIRECTORY_SEPARATOR . $gModelId . "_LastHeader.h";
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
 	# TODO: filename translation
 	if(!file_exists($oFile)){

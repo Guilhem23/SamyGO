@@ -72,6 +72,7 @@ function ImportCustomWidgets($ids){
 # for now just quickndirty method...
 function WidgetToSA($from, $extras = NULL){
 	global $QParts;
+	$ContentsRoot = "http://" . $_SERVER['SERVER_NAME'] . "/CustomWidgets/MediaFiles/" . $from['id'] . DIRECTORY_SEPARATOR . $from['version'];
 
 	$xmlstr = '<rsp><list/></rsp>';
 	$res = new mySXE($xmlstr);
@@ -82,33 +83,35 @@ function WidgetToSA($from, $extras = NULL){
 	$widget->addChild("published", $from['published']);
 	$widget->addChild("updated", $from['updated']);
 	$size = $widget->addChild("size");
-	$size->addChild("compressed", $from->ompression['size']);
+	$size->addChild("compressed", $from->compression['size']);
 	$size->addChild("uncompressed", $from['size']);
 	$product = $widget->addChild("product");
-	$product->addChild("productCategoryId", $QParts['categoryID']); # dunno from where to get now... maybe simply from the request? categoryID=
-	$product->addCDChild("productCategoryName", "SamyGO");
+#	$product->addChild("productCategoryId", $QParts['categoryID']); # dunno from where to get now... maybe simply from the request? categoryID=
+	$product->addCDChild("productCategoryName", "SamyGO"); # dunno from where to get now... but shown on widget information screen
+	$product->addChild("productCategoryId", "0000008931"); # dunno from where to get now... maybe simply from the request? categoryID=
 	$product->addChild("productCode", "SamyGO"); # dunno from where to get now... normally numeric
 	$product->addChild("productPrice", "0");
 	$product->addCDChild("productTitle", $from->title);
 	$product->addChild("productUpdatedDate", $from['updated']);
 	$product->addCDChild("productVendor", $from->vendor);
-	$product->addCDChild("productListInURI", "http://tv.samsungapps.com/tvstore/contents/20100224205034/picasa_85.png");
-	$product->addCDChild("productListOutURI", "http://tv.samsungapps.com/tvstore/contents/20100224205034/picasa_95.png");
-	$product->addCDChild("productListInURIHD", "http://tv.samsungapps.com/tvstore/contents/");
-	$product->addCDChild("productListOutURIHD", "http://tv.samsungapps.com/tvstore/contents/");
-	$product->addCDChild("screenShot1080Img", "http://tv.samsungapps.com/tvstore/contents/");
-	$product->addCDChild("screenShot720LargeImg", "http://tv.samsungapps.com/tvstore/contents/");
-	$product->addCDChild("screenShot720Img", "http://tv.samsungapps.com/tvstore/contents/");
-	$product->addCDChild("screenShotImg", "http://tv.samsungapps.com/tvstore/contents/20100225005129/312x175album_list.jpg");
-	$product->addCDChild("productThumbnailInURI", "http://tv.samsungapps.com/tvstore/contents/20100224205034/picasa_106.png");
-	$product->addCDChild("productThumbnailOutURI", "http://tv.samsungapps.com/tvstore/contents/20100224205034/picasa_115.png");
-	$product->addCDChild("productThumbnailInURIHD", "http://tv.samsungapps.com/tvstore/contents/");
-	$product->addCDChild("productThumbnailOutURIHD", "http://tv.samsungapps.com/tvstore/contents/");
+	$product->addCDChild("productListInURI", "$ContentsRoot/picasa_85.png");
+	$product->addCDChild("productListOutURI", "$ContentsRoot/picasa_95.png");
+	$product->addCDChild("productListInURIHD", "$ContentsRoot/");
+	$product->addCDChild("productListOutURIHD", "$ContentsRoot/");
+	$product->addCDChild("screenShot1080Img", "$ContentsRoot/");
+	$product->addCDChild("screenShot720LargeImg", "$ContentsRoot/");
+	$product->addCDChild("screenShot720Img", "$ContentsRoot/");
+	$product->addCDChild("screenShotImg", "$ContentsRoot/312x175album_list.jpg");
+	$product->addCDChild("productThumbnailInURI", "$ContentsRoot/picasa_106.png");
+	$product->addCDChild("productThumbnailOutURI", "$ContentsRoot/picasa_115.png");
+	$product->addCDChild("productThumbnailInURIHD", "$ContentsRoot/");
+	$product->addCDChild("productThumbnailOutURIHD", "$ContentsRoot/");
 
 	return $res;
 }
 function WidgetToproductDetail($from, $extras = NULL){
 	global $QParts;
+	$ContentsRoot = "http://" . $_SERVER['SERVER_NAME'] . "/CustomWidgets/MediaFiles/" . $from['id'] . DIRECTORY_SEPARATOR . $from['version'];
 
 	$xmlstr = '<productDetail/>';
 	$res = new mySXE($xmlstr);
@@ -121,18 +124,19 @@ function WidgetToproductDetail($from, $extras = NULL){
 	$res->addCDChild("productNew", "N");
 	$res->addCDChild("productHot", "N");
 	$res->addCDChild("productEvent", "");
-	$res->addCDChild("productListInURI", "http://tv.samsungapps.com/tvstore/contents/111299002371/LIST_OFF_20121214065755748.png");
-	$res->addCDChild("productListOutURI", "http://tv.samsungapps.com/tvstore/contents/111299002371/LIST_ON_20121214065755748.png");
-	$res->addCDChild("productThumbnailInURI", "http://tv.samsungapps.com/tvstore/contents/111299002371/THUM_LIST_OFF_20121214065755748.png");
-	$res->addCDChild("productThumbnailOutURI", "http://tv.samsungapps.com/tvstore/contents/111299002371/THUM_LIST_ON_20121214065755748.png");
-	$res->addCDChild("productListInURIHD", "http://tv.samsungapps.com/tvstore/contents/111299002371/HD_LIST_OFF_20121214065755748.png");
-	$res->addCDChild("productListOutURIHD", "http://tv.samsungapps.com/tvstore/contents/111299002371/HD_LIST_ON_20121214065755748.png");
-	$res->addCDChild("productThumbnailInURIHD", "http://tv.samsungapps.com/tvstore/contents/111299002371/HD_THUM_LIST_OFF_20121214065755748.png");
-	$res->addCDChild("productThumbnailOutURIHD", "http://tv.samsungapps.com/tvstore/contents/111299002371/HD_THUM_LIST_ON_20121214065755748.png");
+	$res->addCDChild("productListInURI", "$ContentsRoot/LIST_OFF_20121214065755748.png");
+	$res->addCDChild("productListOutURI", "$ContentsRoot/LIST_ON_20121214065755748.png");
+	$res->addCDChild("productThumbnailInURI", "$ContentsRoot/THUM_LIST_OFF_20121214065755748.png");
+	$res->addCDChild("productThumbnailOutURI", "$ContentsRoot/THUM_LIST_ON_20121214065755748.png");
+	$res->addCDChild("productListInURIHD", "$ContentsRoot/HD_LIST_OFF_20121214065755748.png");
+	$res->addCDChild("productListOutURIHD", "$ContentsRoot/HD_LIST_ON_20121214065755748.png");
+	$res->addCDChild("productThumbnailInURIHD", "$ContentsRoot/HD_THUM_LIST_OFF_20121214065755748.png");
+	$res->addCDChild("productThumbnailOutURIHD", "$ContentsRoot/HD_THUM_LIST_ON_20121214065755748.png");
 	$res->addChild("productCode", $from['id']); # hm
 	$res->addCDChild("productTitle", $from->title);
+	#$res->addChild("productPrice", "10.0");
 	$res->addChild("productPrice", "0.0");
-	$res->addChild("productRated", "0");
+	$res->addChild("productRated", "99");
 	$res->addCDChild("productReatedURI", "");
 	$res->addCDChild("productURI", "");
 	$res->addChild("recommand");
@@ -142,35 +146,37 @@ function WidgetToproductDetail($from, $extras = NULL){
 	$res->addCDChild("productVendor", $from['id']);
 	$res->addChild("downloadcount", "0");
 	$res->addChild("trialWidgetId", "0");
-	$res->addCDChild("productCategoryId", "9999999999"); # hm
-	$res->addCDChild("productCategory", "SamyGO"); # hm
+#	$res->addCDChild("productCategoryId", "9999999999"); # hm
+#	$res->addCDChild("productCategory", "SamyGO"); # hm
+	$res->addCDChild("productCategoryId", "0000008931"); # hm
+	$res->addCDChild("productCategory", "0000008931"); # hm
 	$res->addCDChild("productDescription", $from->description);
 	$res->addCDChild("productLanguage", "en");
 	$res->addChild("productRealSize", $from['size']);
-	$res->addChild("productZipSize", $from->ompression['size']);
+	$res->addChild("productZipSize", $from->compression['size']);
 	$res->addChild("productRegisteredDate", $from->pubDate);
 	$res->addChild("trialFlag", "N");
 	$res->addChild("productDifficulty");
 	$res->addChild("freeTrialCheck");
 	$res->addCDChild("prevProductURI", "");
 	$res->addCDChild("nextProductURI", "");
-	$res->addCDChild("productDetailURI", "http://tv.samsungapps.com/tvstore/contents/");
-	$res->addCDChild("screenShotImg1", "http://tv.samsungapps.com/tvstore/contents/111299002371/SCREENSHOT_20121214065824343.jpg");
-	$res->addCDChild("screenShotImg2", "http://tv.samsungapps.com/tvstore/contents/111299002371/SCREENSHOT_20121214065824371.jpg");
-	$res->addCDChild("screenShotImg3", "http://tv.samsungapps.com/tvstore/contents/111299002371/SCREENSHOT_20121214065824401.jpg");
-	$res->addCDChild("screenShotImg4", "http://tv.samsungapps.com/tvstore/contents/111299002371/SCREENSHOT_20121214065824427.jpg");
-	$res->addCDChild("screenShot720Img1", "http://tv.samsungapps.com/tvstore/contents/111299002371/HD_SCREENSHOT_20121214065824343.jpg");
-	$res->addCDChild("screenShot720Img2", "http://tv.samsungapps.com/tvstore/contents/111299002371/HD_SCREENSHOT_20121214065824371.jpg");
-	$res->addCDChild("screenShot720Img3", "http://tv.samsungapps.com/tvstore/contents/111299002371/HD_SCREENSHOT_20121214065824401.jpg");
-	$res->addCDChild("screenShot720Img4", "http://tv.samsungapps.com/tvstore/contents/111299002371/HD_SCREENSHOT_20121214065824427.jpg");
-	$res->addCDChild("screenShot720LargeImg1", "http://tv.samsungapps.com/tvstore/contents/111299002371/HDL_SCREENSHOT_20121214065824343.jpg");
-	$res->addCDChild("screenShot720LargeImg2", "http://tv.samsungapps.com/tvstore/contents/111299002371/HDL_SCREENSHOT_20121214065824371.jpg");
-	$res->addCDChild("screenShot720LargeImg3", "http://tv.samsungapps.com/tvstore/contents/111299002371/HDL_SCREENSHOT_20121214065824401.jpg");
-	$res->addCDChild("screenShot720LargeImg4", "http://tv.samsungapps.com/tvstore/contents/111299002371/HDL_SCREENSHOT_20121214065824427.jpg");
-	$res->addCDChild("screenShot1080Img1", "http://tv.samsungapps.com/tvstore/contents/111299002371/FULL_HD_SCREENSHOT_20121214065824343.jpg");
-	$res->addCDChild("screenShot1080Img2", "http://tv.samsungapps.com/tvstore/contents/111299002371/FULL_HD_SCREENSHOT_20121214065824371.jpg");
-	$res->addCDChild("screenShot1080Img3", "http://tv.samsungapps.com/tvstore/contents/111299002371/FULL_HD_SCREENSHOT_20121214065824401.jpg");
-	$res->addCDChild("screenShot1080Img4", "http://tv.samsungapps.com/tvstore/contents/111299002371/FULL_HD_SCREENSHOT_20121214065824427.jpg");
+	$res->addCDChild("productDetailURI", "$ContentsRoot/");
+	$res->addCDChild("screenShotImg1", "$ContentsRoot/SCREENSHOT_20121214065824343.jpg");
+	$res->addCDChild("screenShotImg2", "$ContentsRoot/SCREENSHOT_20121214065824371.jpg");
+	$res->addCDChild("screenShotImg3", "$ContentsRoot/SCREENSHOT_20121214065824401.jpg");
+	$res->addCDChild("screenShotImg4", "$ContentsRoot/SCREENSHOT_20121214065824427.jpg");
+	$res->addCDChild("screenShot720Img1", "$ContentsRoot/HD_SCREENSHOT_20121214065824343.jpg");
+	$res->addCDChild("screenShot720Img2", "$ContentsRoot/HD_SCREENSHOT_20121214065824371.jpg");
+	$res->addCDChild("screenShot720Img3", "$ContentsRoot/HD_SCREENSHOT_20121214065824401.jpg");
+	$res->addCDChild("screenShot720Img4", "$ContentsRoot/HD_SCREENSHOT_20121214065824427.jpg");
+	$res->addCDChild("screenShot720LargeImg1", "$ContentsRoot/HDL_SCREENSHOT_20121214065824343.jpg");
+	$res->addCDChild("screenShot720LargeImg2", "$ContentsRoot/HDL_SCREENSHOT_20121214065824371.jpg");
+	$res->addCDChild("screenShot720LargeImg3", "$ContentsRoot/HDL_SCREENSHOT_20121214065824401.jpg");
+	$res->addCDChild("screenShot720LargeImg4", "$ContentsRoot/HDL_SCREENSHOT_20121214065824427.jpg");
+	$res->addCDChild("screenShot1080Img1", "$ContentsRoot/FULL_HD_SCREENSHOT_20121214065824343.jpg");
+	$res->addCDChild("screenShot1080Img2", "$ContentsRoot/FULL_HD_SCREENSHOT_20121214065824371.jpg");
+	$res->addCDChild("screenShot1080Img3", "$ContentsRoot/FULL_HD_SCREENSHOT_20121214065824401.jpg");
+	$res->addCDChild("screenShot1080Img4", "$ContentsRoot/FULL_HD_SCREENSHOT_20121214065824427.jpg");
 	$res->addChild("contentId", $from['id']); # hm
 	$res->addChild("lang", "ko");
 	$res->addChild("sptEmail", "");

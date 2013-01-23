@@ -11,6 +11,7 @@ include_once('WidgetHelper.inc');
         $myCategory = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><category><categoryID>0000008931</categoryID><categoryIconURI>http://forum.samygo.tv/styles/prosilver/imageset/site_logo.png></categoryIconURI><categoryName>Education</categoryName><categoryTitle>SamyGO</categoryTitle></category></list>";
         $myCategory = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><category><categoryID>0000008931</categoryID><categoryIconURI>http://forum.samygo.tv/styles/prosilver/imageset/site_logo.png></categoryIconURI><categoryName>Sport</categoryName><categoryTitle>SamyGO</categoryTitle></category></list>";
         $myCategory = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><category><categoryID>9999999999</categoryID><categoryIconURI>http://forum.samygo.tv/styles/prosilver/imageset/site_logo.png></categoryIconURI><categoryName>SamyGO</categoryName><categoryTitle>SamyGO</categoryTitle></category></list>";
+        $myCategory = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><category><categoryID>0000008931</categoryID><categoryIconURI>http://forum.samygo.tv/styles/prosilver/imageset/site_logo.png></categoryIconURI><categoryName>Education</categoryName><categoryTitle>SamyGO</categoryTitle></category></list>";
         $xml_inject = new mySXE($myCategory);
         $respxml->list->category[6]->remove();
 	$respxml->list->Merge($xml_inject);

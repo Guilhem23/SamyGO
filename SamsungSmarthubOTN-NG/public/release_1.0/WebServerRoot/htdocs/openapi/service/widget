@@ -50,8 +50,9 @@ if($WhoAmI == "list"){
 #	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($UserWList, true);
 #	SendPage($respxml->asXML());
 # hm, whats if we not remove anything, but just change forced...
-	$respxml->list->Merge($UserWList, true)->removeDups();
+#	$respxml->list->Merge($UserWList, true)->removeDups();
 	CError::LogStr("e-series in $WhoAmI");
+$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($UserWList, true);
 } elseif($WhoAmI == "gallery"){
 	if($QParts['featured'] == "partners"){
 		$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);

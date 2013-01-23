@@ -2,6 +2,7 @@
 require_once('SimpleMidleMan.inc');
 
 if(isset($respxml['offline'])){ /* just for fun, if failed... */
+$respxml['stat'] = "ok";
 $seedkey = hash("sha256", get_KoreanTime());
 $session1 = $xml->addChild("session");
 $session1->addAttribute("id", sprintf("%x", mt_rand()) );
