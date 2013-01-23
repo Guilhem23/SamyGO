@@ -11,13 +11,14 @@ require_once('SimpleMidleManHelpers.inc');
 
 function StringToHeader(){} # mabe...
 
-function DoProxy()
+function DoProxy($internalcall = false)
 {
 	global $Engine, $xml, $respxml, $WhoAmI, $gInHeaders, $gInData, $gOutHeaders, $gOutData, $gUserName;
 
 	CError::LogStr("- START for ". GeoInfoOTN() ." - $WhoAmI -" . $_SERVER["REQUEST_URI"]);
 
-	$gInHeaders = getallheaders();
+	if(!$internalcall)
+		$gInHeaders = getallheaders();
 	$Uplink = nslookup($gInHeaders['Host']); # add check here?
 	$UplinkURI = ((isset($_SERVER['HTTPS'])) ? "https://" : "http://") . $Uplink .$_SERVER["REQUEST_URI"];
 	$ReqMethod = $_SERVER["REQUEST_METHOD"];
@@ -38,7 +39,8 @@ function DoProxy()
 	}
 	CError::LogStr("- Clients header -" . print_r($gInHeaders, 1));
 	CError::LogStr("- Routed headers -" . print_r($CurlOutHeaders, 1));
-	$gInData = file_get_contents("php://input"); 
+	if(!$internalcall)
+		$gInData = file_get_contents("php://input"); 
 
 	$tuCurl = curl_init();
 	curl_setopt($tuCurl, CURLOPT_URL, $UplinkURI);

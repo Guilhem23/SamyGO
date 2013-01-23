@@ -12,6 +12,8 @@ if($QParts['categoryID'] == "0000008931"){
        unset($respxml->list[0]);
         $respxml->Merge($ConvertedCustList, true);
 	$respxml->list['lastpage'] = "1";
+	$respxml->list['rowcount'] = $QParts['perPage'];
+	$respxml->list['page'] = $QParts['page'];
 	$respxml->list['total'] = count($respxml->list->children());
 }
 

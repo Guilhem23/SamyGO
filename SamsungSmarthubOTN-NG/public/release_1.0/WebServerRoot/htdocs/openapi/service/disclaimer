@@ -7,8 +7,7 @@ header("Content-Type: text/xml");
 
 $disclaimer = $xml->addChild(disclaimer);
 $disclaimer->addAttribute("id", $WhoAmI);
-$title = $disclaimer->addChild("title");
-sxml_cdata($title, strftime("%Y") . "Worldwide");
+$disclaimer->addCDChild("title", strftime("%Y") . "Worldwide");
 $disclaimer->addChild("default", "no");
 $disclaimer->addChild("year", strftime("%Y"));
 $disclaimer->addChild("contenttype", "html");
@@ -18,28 +17,24 @@ $disclaimer->addChild("modifydate", "2013-01-15T13:07:57+0900");
 $item = $disclaimer->addChild("item");
 $item->addAttribute("id", "service");
 $item->addChild("version", "2.000");
-$content = $item->addChild("content");
-sxml_cdata($content, 'Made by SamyGO.<p style="text-align:center;">SamyGO ...</p><p><b>1.        ....</b></p>
+$item->addChild("content", 'Made by SamyGO.<p style="text-align:center;">SamyGO ...</p><p><b>1.        ....</b></p>
 
 <p>1.1. ... </p>');
 
 $item = $disclaimer->addChild("item");
 $item->addAttribute("id", "log");
 $item->addChild("version", "2.000");
-$content = $item->addChild("content");
-sxml_cdata($content, '<p style="text-align:center;">---</p>');
+$item->addCDChild("content", '<p style="text-align:center;">---</p>');
 
 $item = $disclaimer->addChild("item");
 $item->addAttribute("id", "voice_pp");
 $item->addChild("version", "2.000");
-$content = $item->addChild("content");
-sxml_cdata($content, '<p style="text-align:center;">---</p>');
+$content = $item->addChild("content", '<p style="text-align:center;">---</p>');
 
 $item = $disclaimer->addChild("item");
 $item->addAttribute("id", "nuance_pp");
 $item->addChild("version", "2.000");
-$content = $item->addChild("content");
-sxml_cdata($content, '<p style="text-align:center;">---</p>');
+$content = $item->addChild("content", '<p style="text-align:center;">---</p>');
 
 SendPage($xml->asXML());
 ?>

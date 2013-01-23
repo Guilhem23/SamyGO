@@ -15,6 +15,31 @@ class CError {
 		}
 	}
 } // class CError
+function myErrorHandler($fehlercode, $fehlertext, $fehlerdatei, $fehlerzeile)
+{
+	switch ($fehlercode) {
+	case E_USER_ERROR:
+		CError::LogStr("- Mein FEHLER Zeile $fehlerzeile in der Datei $fehlerdatei - [$fehlercode] $fehlertext.");
+		exit(1);
+		break;
+
+	case E_USER_WARNING:
+		CError::LogStr("- Meine WARNUNG - [$fehlercode] $fehlertext");
+		break;
+
+	case E_USER_NOTICE:
+		CError::LogStr("- Mein HINWEIS - [$fehlercode] $fehlertext");
+		break;
+
+	default:
+		//echo "Unbekannter Fehlertyp: [$fehlercode] $fehlertext<br />\n";
+		CError::LogStr("- Unbekannter Fehlertyp - Zeile: $fehlerzeile in der Datei $fehlerdatei - [$fehlercode] $fehlertext.");
+		break;
+	}
+
+	/* Damit die PHP-interne Fehlerbehandlung nicht ausgeführt wird */
+	return true;
+}
 
 class mySXE extends SimpleXMLElement{
 	function getName(){
@@ -25,9 +50,9 @@ class mySXE extends SimpleXMLElement{
 		return dom_import_simplexml($this)->nodeType;
 	}
 	function keepNodesByAttrib($nodename = "widget", $attribute = "id", $values){
-		$arg = '@' . $attribute . '!=';
+		$arg = "@" . $attribute . "!=";
 		foreach($values as $val){
-			$arg .= $val . ' and @' . $attribute . '!=' ;
+			$arg .= "'$val' and @" . $attribute . "!=" ;
 		}
 		$arg = substr($arg, 0, -(strlen($attribute) + 8));
 		$tmp = $this->findm("//$nodename"."[".$arg."]");
@@ -37,7 +62,7 @@ class mySXE extends SimpleXMLElement{
 		return $this;
 	}
 	function keepOneByAttrib($nodename = "widget", $attribute = "id", $value){
-		$tmp = $this->findm("//$nodename"."[@".$attribute."!=$value]");
+		$tmp = $this->findm("//$nodename"."[@".$attribute."!='$value']");
 		foreach ($tmp as $node) {
 			$node->remove();
 		}
@@ -45,7 +70,7 @@ class mySXE extends SimpleXMLElement{
 	}
 	function removeNodesByAttrib($nodename = "widget", $attribute = "id", $values){
 		foreach($values as $val){
-			$tmp = $this->findm("//$nodename"."[@".$attribute."=$val]");	
+			$tmp = $this->findm("//$nodename"."[@".$attribute."='$val']");
 			foreach ($tmp as $node) {
 				$node->remove();
 			}
@@ -78,7 +103,7 @@ class mySXE extends SimpleXMLElement{
 		$Trashed = $dom->parentNode->removeChild($dom);
 		return $this;
 	}
-	function Merge($Node, $onTop = false){
+	function Merge($Node, $onTop = false, $returntheoldnode = true){
 		if(!$Node)
 			return $this;
 		$refNode = dom_import_simplexml($this);
@@ -96,8 +121,10 @@ class mySXE extends SimpleXMLElement{
 			else
 				$refNode->appendChild($merge);
 		}
-		 return $this;
-	#	return simplexml_import_dom($refNode, get_class($this));
+		if($returntheoldnode)
+			return $this;
+		else
+			return simplexml_import_dom($refNode, get_class($this));
 	}
 	function replaceNode($Node){ /* http://php.net/manual/en/domnode.replacechild.php */
 		# ähhhhhh, simply delete and inser the new one?????
@@ -119,37 +146,29 @@ class mySXE extends SimpleXMLElement{
 		return simplexml_import_dom($Node, get_class($this));
 	}
 	function addCDChild($name, $string = NULL){
-		/* ok 
-		$node = $this->addChild($name);
-		$dom = dom_import_simplexml($node);
-		$cdata = $dom->ownerDocument->createCDATASection($string);
-		return $dom->appendChild($cdata); */
-		/* better return the new node */
 		$dom = dom_import_simplexml($this);
 		$Node = $dom->appendChild(
 			$dom->ownerDocument->createElement($name));
 		$Node->appendChild($Node->ownerDocument->createCDATASection($string));
 		return simplexml_import_dom($Node, get_class($this));
 	}
-	function addCData($path, $string = NULL){
-		$dom = dom_import_simplexml($path);
-		$cdata = $dom->ownerDocument->createCDATASection($string);
-		#return $dom->appendChild($cdata);
-		$dom->appendChild($cdata);
+	function addCData($string){
+		$dom = dom_import_simplexml($this);
+		$Node = $dom->appendChild(
+			$dom->ownerDocument->createCDATASection($string));
 		return $this;
 	}	
 	function changeCData($string = NULL){
 		$this[0] = NULL;
 		$dom = dom_import_simplexml($this);
-		$cdata = $dom->ownerDocument->createCDATASection($string);
-		$dom->appendChild($cdata);
+		$Node = $dom->appendChild(
+			$dom->ownerDocument->createCDATASection($string));
 		return $this;
 	}	
 	function insertCData($string = NULL){
 		$dom = dom_import_simplexml($this);
-		$cdata = $dom->ownerDocument->createCDATASection($string);
-		#return $dom->appendChild($cdata);
-		$dom->appendChild($cdata);
+		$Node = $dom->appendChild(
+			$dom->ownerDocument->createCDATASection($string));
 		return $this;
 	}	
 	function saveXML($string = NULL){
@@ -310,29 +329,6 @@ function BrowserLang(){
 	else
 		$slang = "de-DE";
 	return $slang;
-}
-
-function sxml_cdata($path, $string){
-	$dom = dom_import_simplexml($path);
-	$cdata = $dom->ownerDocument->createCDATASection($string);
-	$dom->appendChild($cdata);
-}
-function sxml_change($path, $string, $value = NULL){
-	foreach ($path as $child){
-		$child->$string = null;
-		unset($child->$string);
-		$child->addChild($string, $value);
-	}
-}
-function sxml_change_attr($path, $string, $value = NULL){
-	$path[$string] = null;
-	unset($path[$string]);
-	$path->addAttribute($string, $value);
-}
-function sxml_append(SimpleXMLElement $to, SimpleXMLElement $from) {     
-	$toDom = dom_import_simplexml($to);     
-	$fromDom = dom_import_simplexml($from);     
-	$toDom->appendChild($toDom->ownerDocument->importNode($fromDom, true)); 
 }
 
 $gUserName = preg_replace('/.*\+_(.*)\+.*/', '$1', $_SERVER['HTTP_TOKEN']);

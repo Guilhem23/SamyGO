@@ -2,6 +2,7 @@
 ini_set('date.timezone', 'Europe/Berlin');
 ini_set('display_errors', 'Off');
 #ini_set('error_log', '/tmp/SGPHP.log');
+session_save_path($_SERVER['DOCUMENT_ROOT'].'/tmp');
 
 define('SERVER_NAME', 'SamyGO Deploy Server (Microsoft-IIS/19.3)');
 define('SG_EMU', 'INFOLINK');
