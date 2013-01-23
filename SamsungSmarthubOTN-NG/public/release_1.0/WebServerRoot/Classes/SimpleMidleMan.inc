@@ -13,7 +13,7 @@ function StringToHeader(){} # mabe...
 
 function DoProxy()
 {
-	global $xml, $respxml, $WhoAmI, $gInHeaders, $gInData, $gOutHeaders, $gOutData, $gUserName;
+	global $Engine, $xml, $respxml, $WhoAmI, $gInHeaders, $gInData, $gOutHeaders, $gOutData, $gUserName;
 
 	CError::LogStr("- START for ". GeoInfoOTN() ." - $WhoAmI -" . $_SERVER["REQUEST_URI"]);
 
@@ -24,6 +24,13 @@ function DoProxy()
 	$CurlOutHeaders = array();
 	# TODO: for browsermaode, check user agent and load saved authinfo + add it to headers
 	# User-Agent... load from $saveHeader = $oDir . DIRECTORY_SEPARATOR . $gModelId . "_LastHeader.h";
+	if(!strstr($gInHeaders, "Maple")){
+		$tmp = unserialize(file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/$Engine/Auth.h"));
+		$gInHeaders['Token'] = $tmp['Token'];
+		$gInHeaders['CountryCode'] = $tmp['CountryCode'];
+		$gInHeaders['AppKey'] = $tmp['AppKey'];
+		$gInHeaders['duid'] = $tmp['duid'];
+	}
 	foreach ($gInHeaders as $header => $value)
 	{
 		if ($header != "Authorization") # b-series fix for requests (drop Authorization)
@@ -138,7 +145,7 @@ header("cache-control: " . $gOutHeaders['cache-control']);
 $oDir = dirname($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI']);
 $oFile = $_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI'];
 $oFile = $oDir . DIRECTORY_SEPARATOR . basename($oFile);
-$saveHeader = $oDir . DIRECTORY_SEPARATOR . $gModelId . "_LastHeader.h";
+$saveHeader = $_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/$Engine/Auth.h";
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
 	# TODO: filename translation
 	if(!file_exists($oFile)){
@@ -151,6 +158,13 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 		# make backup if changed and save new.
 	}
 }
-if($WhoAmI == "list")
-	file_put_contents($saveHeader, serialize($gInHeaders));
+if($WhoAmI == "list" || $WhoAmI == "seedkey"){
+	# store auth informations and token for offlin browsing.
+	$tmp = unserialize(file_get_contents($saveHeader));
+	if(is_array($tmp))
+		$data = array_merge($tmp, $gInHeaders);
+	else
+		$data = $gInHeaders;
+	file_put_contents($saveHeader, serialize($data));
+}
 ?>
