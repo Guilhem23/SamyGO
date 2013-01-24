@@ -340,7 +340,7 @@ function BrowserLang(){
 }
 
 $gUserName = preg_replace('/.*\+_(.*)\+.*/', '$1', $_SERVER['HTTP_TOKEN']);
-$gModelId = (isset($_SERVER['HTTP_MODELID'])) ? $_SERVER['HTTP_MODELID'] :  substr($gUserName, 0, -13);
+$gModelId = (isset($_SERVER['HTTP_MODELID'])) ? $_SERVER['HTTP_MODELID'] :  (isset($_SERVER['HTTP_CHIPSET'])) ? "12_" . $_SERVER['HTTP_CHIPSET'] . "_" . $_SERVER['HTTP_MACADDR'] : substr($gUserName, 0, -13);
 $QURLParts = preg_split('/\//', $_SERVER['REQUEST_URI'], -1, PREG_SPLIT_NO_EMPTY);
 $WhoAmI = basename($_SERVER['PHP_SELF'], ".php");
 $UserWidetList = $_SERVER['DOCUMENT_ROOT'] . "/UserWidgetInstall/" . $gUserName . ".xml";

@@ -19,6 +19,7 @@ function DoProxy($internalcall = false)
 
 	if(!$internalcall)
 		$gInHeaders = getallheaders();
+	CError::LogStr("- Clients header -" . print_r($gInHeaders, 1));
 	$Uplink = nslookup($gInHeaders['Host']); # add check here?
 	$UplinkURI = ((isset($_SERVER['HTTPS'])) ? "https://" : "http://") . $Uplink .$_SERVER["REQUEST_URI"];
 	$ReqMethod = $_SERVER["REQUEST_METHOD"];
@@ -44,7 +45,6 @@ function DoProxy($internalcall = false)
 		if ($header != "Authorization" || stristr($header, "duid")) # b-series fix for requests (drop Authorization)
 			array_push($CurlOutHeaders, $header . ": " . $value);
 	}
-	CError::LogStr("- Clients header -" . print_r($gInHeaders, 1));
 	CError::LogStr("- Routed headers -" . print_r($CurlOutHeaders, 1));
 	if(!$internalcall)
 		$gInData = file_get_contents("php://input"); 
