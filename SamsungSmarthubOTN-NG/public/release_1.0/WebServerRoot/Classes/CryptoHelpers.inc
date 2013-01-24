@@ -33,4 +33,26 @@ function n_decrypt_ssl($ciphertext, $passphrase, $method = "aes-128-cbc", $raw_o
 		CError::LogStr("Decrypt Engine: clean messages -> $msg");
 	return $cleartext;
 }
+function GetDataSig($data, $rsaprivkeyfile = 'file:///home/Video-HD/Samsung/mykey.pem')
+{
+	$rsakey = openssl_pkey_get_private($rsaprivkeyfile);
+	if (!$rsakey) return(false);
+
+	$sig = false;
+	if (!@openssl_sign($data, $sig, array($rsakey, ''))) return(false);
+	$sigHex = strToHex($sig);
+	return($sigHex);
+}
+function file_hash_otn($algo = "crc32", $filename){
+	$hash = hash_file($algo, $filename);
+	$array = unpack('N', pack('H*', $hash));
+	$u_hash = sprintf("%u", $array[1]);
+	return $u_hash;
+}
+function file_hash_ul($algo, $filename){
+	$hash = hash_file($algo, $filename);
+	$array = unpack('I', pack('H*', $hash));
+	$u_hash = sprintf("%u", $array[1]);
+	return $u_hash;
+}
 ?>
