@@ -16,4 +16,132 @@ in iis-manager add new site(s) for the proxied servers.
 
 announce your changes in samygo forum!
 
-TODO: document the class mySXE...
+TODO: document the class mySXE and the structure/design...
+
+SamsungSmarthubOTN-NG/public/release_1.0/WebServerRoot/
+|-- Classes
+|   |-- CryptoHelpers.inc
+|   |-- SELP_Config.inc
+|   |-- SimpleMidleMan.inc
+|   |-- SimpleMidleManHelpers.inc
+|   `-- WidgetHelper.inc
+|-- conf
+`-- htdocs
+    |-- CustomWidgets
+    |   `-- MediaFiles
+    |-- OfflinePages
+    |-- UserWidgetInstall
+    |-- emp
+    |   |-- emp
+    |   `-- empfiles
+    |-- errors
+    |   |-- custerr
+    |   |   `-- de-DE
+    |   |       |-- 401-1.htm
+    |   |       |-- 401-2.htm
+    |   |       |-- 401-3.htm
+    |   |       |-- 401-4.htm
+    |   |       |-- 401-5.htm
+    |   |       |-- 401.htm
+    |   |       |-- 403-1.htm
+    |   |       |-- 403-10.htm
+    |   |       |-- 403-11.htm
+    |   |       |-- 403-12.htm
+    |   |       |-- 403-13.htm
+    |   |       |-- 403-14.htm
+    |   |       |-- 403-15.htm
+    |   |       |-- 403-16.htm
+    |   |       |-- 403-17.htm
+    |   |       |-- 403-18.htm
+    |   |       |-- 403-19.htm
+    |   |       |-- 403-2.htm
+    |   |       |-- 403-3.htm
+    |   |       |-- 403-4.htm
+    |   |       |-- 403-5.htm
+    |   |       |-- 403-6.htm
+    |   |       |-- 403-7.htm
+    |   |       |-- 403-8.htm
+    |   |       |-- 403-9.htm
+    |   |       |-- 403.htm
+    |   |       |-- 404-1.htm
+    |   |       |-- 404-10.htm
+    |   |       |-- 404-11.htm
+    |   |       |-- 404-12.htm
+    |   |       |-- 404-13.htm
+    |   |       |-- 404-14.htm
+    |   |       |-- 404-15.htm
+    |   |       |-- 404-2.htm
+    |   |       |-- 404-3.htm
+    |   |       |-- 404-4.htm
+    |   |       |-- 404-5.htm
+    |   |       |-- 404-6.htm
+    |   |       |-- 404-7.htm
+    |   |       |-- 404-8.htm
+    |   |       |-- 404-9.htm
+    |   |       |-- 404.htm
+    |   |       |-- 405.htm
+    |   |       |-- 406.htm
+    |   |       |-- 412.htm
+    |   |       |-- 500-100.asp
+    |   |       |-- 500-13.htm
+    |   |       |-- 500-14.htm
+    |   |       |-- 500-15.htm
+    |   |       |-- 500-16.htm
+    |   |       |-- 500-17.htm
+    |   |       |-- 500-18.htm
+    |   |       |-- 500-19.htm
+    |   |       |-- 500.htm
+    |   |       |-- 501.htm
+    |   |       `-- 502.htm
+    |   `-- errorpage.php
+    |-- logs
+    |-- openapi
+    |   |-- conf
+    |   |   |-- application
+    |   |   |-- date
+    |   |   |-- log
+    |   |   |-- proxy
+    |   |   |-- reset
+    |   |   `-- version
+    |   |-- device
+    |   |   |-- auth
+    |   |   |   |-- query
+    |   |   |   |-- rm
+    |   |   |   `-- seedkey
+    |   |   |-- lookup
+    |   |   `-- model
+    |   |       `-- bind
+    |   |-- files
+    |   |-- log
+    |   |   |-- allsearch
+    |   |   |-- otn
+    |   |   |-- tv
+    |   |   `-- widget
+    |   |-- samsungapps
+    |   |   |-- category
+    |   |   |-- product
+    |   |   |-- topdownload
+    |   |   `-- whatsnew
+    |   |-- selif
+    |   |   `-- channel
+    |   |-- service
+    |   |   |-- ad
+    |   |   |-- channel
+    |   |   |-- dict
+    |   |   |-- disclaimer
+    |   |   |-- info
+    |   |   |-- mediahub
+    |   |   `-- widget
+    |   |-- tv
+    |   |-- update
+    |   |   `-- notice
+    |   |-- user
+    |   |   `-- auth
+    |   |       `-- tmppass
+    |   `-- xml
+    |       `-- yahoo
+    |           `-- CAServerAddress
+    `-- tvGateway
+        `-- service
+
+28 directories, 96 files
