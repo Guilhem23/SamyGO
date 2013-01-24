@@ -13,7 +13,7 @@ function StringToHeader(){} # mabe...
 
 function DoProxy($internalcall = false)
 {
-	global $Engine, $xml, $respxml, $WhoAmI, $gInHeaders, $gInData, $gOutHeaders, $gOutData, $gUserName;
+	global $Engine, $gModelId, $xml, $respxml, $WhoAmI, $gInHeaders, $gInData, $gOutHeaders, $gOutData, $gUserName;
 
 	CError::LogStr("- START for ". GeoInfoOTN() ." - $WhoAmI -" . $_SERVER["REQUEST_URI"]);
 
@@ -25,16 +25,23 @@ function DoProxy($internalcall = false)
 	$CurlOutHeaders = array();
 	# TODO: for browsermaode, check user agent and load saved authinfo + add it to headers
 	# User-Agent... load from $saveHeader = $oDir . DIRECTORY_SEPARATOR . $gModelId . "_LastHeader.h";
-	if(!strstr($gInHeaders, "Maple")){
-		$tmp = unserialize(file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/$Engine/Auth.h"));
-		$gInHeaders['Token'] = $tmp['Token'];
-		$gInHeaders['CountryCode'] = $tmp['CountryCode'];
-		$gInHeaders['AppKey'] = $tmp['AppKey'];
-		$gInHeaders['duid'] = $tmp['duid'];
+	if(empty($gModelId)){
+			$gModelId = "12_ECHOP";
+			$gModelId = "LEXXB650_EU";
+			$gInHeaders = unserialize(file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/$Engine/$gModelId-Auth.h"));
+			if(!is_array($gInHeaders)){
+				CError::LogStr("- ERROR: smthg. went wrong in SELP-land...");
+			}
+			$gUserName = $gInHeaders['ModelId'] . "_" . $gInHeaders['MACAddr'];
+			unset($gInHeaders['MACAddr']);
+			unset($gInHeaders['Firmcode']);
+			unset($gInHeaders['ModelId']);
+			unset($gInHeaders['Cookie']);
+			unset($gInHeaders['duid']); # the capitalized ist the corect one...
 	}
 	foreach ($gInHeaders as $header => $value)
 	{
-		if ($header != "Authorization") # b-series fix for requests (drop Authorization)
+		if ($header != "Authorization" || stristr($header, "duid")) # b-series fix for requests (drop Authorization)
 			array_push($CurlOutHeaders, $header . ": " . $value);
 	}
 	CError::LogStr("- Clients header -" . print_r($gInHeaders, 1));
@@ -138,7 +145,6 @@ function DoProxy($internalcall = false)
 DoProxy();
 
 header("Content-Type: " . $gOutHeaders['Content-Type']);
-header("cache-control: " . $gOutHeaders['cache-control']);
 #header("Transfer-Encoding: chunked", true);
 #if(isset($gOutHeaders['Set-Cookie'])){
 #		header("Set-Cookie: ". $gOutHeaders['Set-Cookie'], true);
@@ -147,7 +153,7 @@ header("cache-control: " . $gOutHeaders['cache-control']);
 $oDir = dirname($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI']);
 $oFile = $_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI'];
 $oFile = $oDir . DIRECTORY_SEPARATOR . basename($oFile);
-$saveHeader = $_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/$Engine/Auth.h";
+$saveHeader = $_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/$Engine/$gModelId-Auth.h";
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
 	# TODO: filename translation
 	if(!file_exists($oFile)){

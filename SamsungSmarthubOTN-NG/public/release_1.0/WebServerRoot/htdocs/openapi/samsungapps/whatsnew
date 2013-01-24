@@ -18,13 +18,13 @@ $respxml->keepOneByAttrib("widget", "id", "111299001922");
 # $respxml->list->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
 #                CError::LogStr("e-series gallery on bottom $WhoAmI");
 #                $CustList = ImportCustomWidgets($CustomApps);
-#                $respxml->list->Merge($CustList->list, true);
+#                $respxml->list->Merge($CustList->list);
 
         $CustList = ImportCustomWidgets($CustomApps);
         $ConvertedCustList = ListForSA($CustList);
-	$respxml->list->Merge($ConvertedCustList->list, true);
-	$respxml->list->Merge($ConvertedCustList->list, true);
-	$respxml->list->Merge($ConvertedCustList->list, true);
+	$respxml->list->Merge($ConvertedCustList->list);
+	$respxml->list->Merge($ConvertedCustList->list);
+	$respxml->list->Merge($ConvertedCustList->list);
 
 SendPage($respxml->asXML());
 ?>

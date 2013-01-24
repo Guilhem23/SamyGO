@@ -196,6 +196,12 @@ class mySXE extends SimpleXMLElement{
 
 		return $dom->saveXML($string);
 	}
+	function dumbPrint(){
+		$unwanted = array("\t", "\n", "\r", '"/');
+		$wanted = array('', '', '', '" /');
+		$res = str_replace($unwanted, $wanted, $this->asXML());
+		return $res;
+	}
 }
 
 function nslookup($host){
@@ -220,10 +226,12 @@ function nslookup($host){
 	}
 }
 
-function SendPage($string){
+function SendPage($string, $bytes = 512){
 	print($string);
 	session_commit();
-	CError::LogStr("- ############# FINAL ################### " . __FUNCTION__ . " - " . substr($string, 0, 1024));	
+	if(function_exists("headers_list"))
+		CError::LogStr("- FINAL HEADERS - " . __FUNCTION__ . " - " . print_r(headers_list(), 1));
+	CError::LogStr("- FINAL $bytes of OUTGOING DATA - " . __FUNCTION__ . " - " . substr($string, 0, $bytes));	
 	exit();
 }
 

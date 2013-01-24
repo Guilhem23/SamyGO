@@ -1,7 +1,7 @@
 <?php
 # some helpers for widget data manipulation/transormation used in different engines (Infolink/SmartHub/AppStore)
 
-$KeepOriginalApps = array("400009002", "10120000000", "10120000099");  /* never remove the engines manager sh2 appstore */
+$KeepOriginalApps = array("400009002", "10120000000", "10110000001", "10120000099");  /* never remove the engines manager sh1 sh2 appstore */
 $KeepOriginalApps[] = "11111000009"; /* Explore3D */
 $KeepOriginalApps[] = "20121000003"; /* empWebBrowser */
 $KeepOriginalApps[] = "10110001001"; /* empQs */
@@ -10,7 +10,7 @@ $KeepOriginalApps[] = "10110001001"; /* MBRWidget */
 
 $ReplaceOriginalApps = array("10120000000");  /* never remove the engines manager sh2 appstore */
 
-$CustomApps = array("SamyGO", "busybox", "ChannelInfo", "hack_widget", "B_hack_widget");
+$CustomApps = array("SamyGO", "busybox", "ChannelInfo", "hack_widget", "B_hack_widget", "SamyGOemp");
 $ForceSigned = array();
 $ForceUnsigned = array();
 $ForcePartners = array();
@@ -30,7 +30,7 @@ CError::LogStr("Servers User WidgetList: ".$UserWList->asXML());
 
 # users installed/uninstalled/list handling
 # TODO: POST handling for - /tvGateway/service -> -  Like to POST - 
-if($_SERVER['REQUEST_METHOD'] != "GET"){ /* TODO: b-series submit full list, can't remember for c,d needs check... */
+if($_SERVER['REQUEST_METHOD'] != "GET"){ /* b-series submit full list, can't remember for c,d needs check... */
 	$NewWidget = new mySXE($gInData);
 	$UserWList->Merge($NewWidget);
 
@@ -45,7 +45,8 @@ if($_SERVER['REQUEST_METHOD'] != "GET"){ /* TODO: b-series submit full list, can
 
 	$UserWList->removeDups();
 	CError::LogStr("Merged Result: ".$UserWList->asXML());
-	$UserWList->saveXML($UserWidetList);
+	if($WhoAmI != "downConfirm" && !is_empty($gUserName))
+		$UserWList->saveXML($UserWidetList);
 	header("HTTP/1.1 200 OK");
 	SendPage($xml->asXML());
 	#SendPage($respxml->asXML()); /* b-series response with error if samsungserver don't know the widget */
@@ -58,6 +59,7 @@ function ImportCustomWidgets($ids){
 	foreach($ids as $id){
 		$file = $_SERVER['DOCUMENT_ROOT'] . "/CustomWidgets/" . $id . ".xml";
 		if(file_exists($file)){
+			CError::LogStr("Found Widget description file $file");
 			$widget = new mySXE(file_get_contents($file));
 			$res->list->Merge($widget->list);
 		} else {
@@ -189,7 +191,7 @@ function ListForSA($from, $extras = NULL){
 
 	foreach($from->list->children() as $widget){
 		$tmp = WidgetToSA($widget, $extras);
-		$res->list->Merge($tmp->list, true);
+		$res->list->Merge($tmp->list);
 }
 return $res;
 }

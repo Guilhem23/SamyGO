@@ -8,9 +8,9 @@ include_once('WidgetHelper.inc');
 if($QParts['categoryID'] == "0000008931"){
         $CustList = ImportCustomWidgets($CustomApps);
 	$ConvertedCustList = ListForSA($CustList); 
-       # $respxml->list->Merge($ConvertedCustList->list, true);
+       # $respxml->list->Merge($ConvertedCustList->list);
        unset($respxml->list[0]);
-        $respxml->Merge($ConvertedCustList, true);
+        $respxml->Merge($ConvertedCustList);
 	$respxml->list['lastpage'] = "1";
 	$respxml->list['rowcount'] = $QParts['perPage'];
 	$respxml->list['page'] = $QParts['page'];

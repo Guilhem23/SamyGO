@@ -3,11 +3,9 @@
 # TODO: check header Category = EMP/... too for different service.
 require_once('SimpleMidleMan.inc');
 
-
 list($tmpM, $tmpV) = explode(',', $_SERVER['HTTP_PARAM']);
-$respxml->rm->queryinfo->notice->noticelist[1][url] = 'https://'.$_SERVER['SERVER_NAME'].'/emp/emp/empinfo_'.$tmpM.'_'.$tmpV.'.xml';
-$respxml->rm->queryinfo->notice->noticelist[2][url] = 'https://'.$_SERVER['SERVER_NAME'].'/emp/emp/empinfo_'.$tmpM.'_'.$tmpV.'.xml';
-
+$respxml->rm->queryinfo->notice->noticelist[0][url] = 'https://infolink.pavv.co.kr/emp/emp/empinfo_'.$tmpM.'_'.$tmpV.'.xml';
+$respxml->rm->queryinfo->notice->noticelist[1][url] = 'http:/tvstoregw.pavv.co.kr/emp/emp/empinfo_'.$tmpM.'_'.$tmpV.'.xml';
 
 /*
 ## e-series temporary...
@@ -34,6 +32,6 @@ $respxml->rm->queryinfo->notice->noticelist[2][url] = 'https://'.$_SERVER['SERVE
 #SendPage($xml->asXML());
 */
 
-CError::LogStr("queryscheiss $gOutData");
+CError::LogStr("$WhoAmI $gOutData");
 SendPage($respxml->asXML());
 ?>
