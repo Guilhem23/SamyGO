@@ -26,9 +26,9 @@ function DoProxy($internalcall = false)
 	$CurlOutHeaders = array();
 	# TODO: for browsermaode, check user agent and load saved authinfo + add it to headers
 	# User-Agent... load from $saveHeader = $oDir . DIRECTORY_SEPARATOR . $gModelId . "_LastHeader.h";
-	if(empty($gModelId)){
+	if(empty($gModelId) && !$internalcall){
 			$gModelId = "12_ECHOP";
-			$gModelId = "LEXXB650_EU";
+	#		$gModelId = "LEXXB650_EU";
 			$gInHeaders = unserialize(file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/$Engine/$gModelId-Auth.h"));
 			if(!is_array($gInHeaders)){
 				CError::LogStr("- ERROR: smthg. went wrong in SELP-land...");

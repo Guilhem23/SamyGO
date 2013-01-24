@@ -1,8 +1,8 @@
 <?php
 require_once('SimpleMidleMan.inc');
 
-# SamsungApps-Widget should be present?
-$respxml->keepOneByAttrib("widget", "id", "111299001922");
+# one widget must be present!!! (in this case Skype)
+#$respxml->keepOneByAttrib("widget", "id", "111199000250");
 
 SendPage($respxml->asXML());
 ?>

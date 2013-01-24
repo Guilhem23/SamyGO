@@ -85,20 +85,28 @@ class mySXE extends SimpleXMLElement{
 		return $this;
 	}
 	# nned both of find... ? 
-	protected function findm($xpath) {
+	protected function findm($xpath){
 		$tmp = $this->xpath($xpath);
 		return ($tmp[0]) ? $tmp : null;
 	}
-	protected function findone($xpath) {
+	protected function findone($xpath){
 		$tmp = $this->xpath($xpath);
 		return isset($tmp[0]) ? $tmp[0] : null;
 	}
-	function remove_i() {
-		$dom = dom_import_simplexml($this);
-		$Trashed = $dom->parentNode->removeChild($dom);
-		return simplexml_import_dom($Trash, get_class($this));
+	function ids($attribute = "id"){
+		$tmp = $this->xpath("//@" . $attribute);
+		foreach ($tmp as $Child) {
+			$resid[] = $Child[$attribute];
+		}
+		$res ='<?xml version="1.0" encoding="utf-8"?><widgetList><widgetIDs>';
+		$res .= implode(",", $resid);
+		$res .= '</widgetIDs></widgetList>';
+		CError::LogStr("Found: " . count($tmp));
+		CError::LogStr("Found: " . print_r($tmp, 1));
+		$res = new mySXE($res);
+		return $res;
 	}
-	function remove() {
+	function remove(){
 		$dom = dom_import_simplexml($this);
 		$Trashed = $dom->parentNode->removeChild($dom);
 		return $this;

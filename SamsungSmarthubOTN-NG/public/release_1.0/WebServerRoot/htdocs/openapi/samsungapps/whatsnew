@@ -4,16 +4,8 @@
 require_once('SimpleMidleMan.inc');
 include_once('WidgetHelper.inc');
 
-
-# SamsungApps-Widget should be present?
-$respxml->keepOneByAttrib("widget", "id", "111299001922");
-# as little xpath example ;-)
-#$dumb = array("111299001922", "111299002398"); # can't scroll!!!
-#$dumb = array("111299001922", "111299002398", "141299000071", "121299000633"); # can't scroll!!! just one icon visible...
-#$dumb = array("111299001922", "111299002398", "141299000071", "121299000633", "111299002371" ); # looks strange, but can scroll
-#$dumb = array("111299001922", "111299002398", "141299000071", "121299000633", "111299002371", "121299000063"); #ok, so we need min. 5 visible widgets here???
-
-#$respxml->keepNodesByAttrib("widget", "id", $dumb);
+# one widget must be present!!! (in this case Skype)
+#$respxml->keepOneByAttrib("widget", "id", "111199000250"); 
 
 # $respxml->list->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
 #                CError::LogStr("e-series gallery on bottom $WhoAmI");
@@ -22,9 +14,11 @@ $respxml->keepOneByAttrib("widget", "id", "111299001922");
 
         $CustList = ImportCustomWidgets($CustomApps);
         $ConvertedCustList = ListForSA($CustList);
-	$respxml->list->Merge($ConvertedCustList->list);
-	$respxml->list->Merge($ConvertedCustList->list);
-	$respxml->list->Merge($ConvertedCustList->list);
+	$respxml->list->Merge($ConvertedCustList->list, true); # to get scroll working we make multiple imports....
+#	$respxml->list->Merge($ConvertedCustList->list);
+#	$respxml->list->Merge($ConvertedCustList->list);
+#	$respxml->list->Merge($ConvertedCustList->list);
+#	$respxml->list->Merge($ConvertedCustList->list);
 
 SendPage($respxml->asXML());
 ?>

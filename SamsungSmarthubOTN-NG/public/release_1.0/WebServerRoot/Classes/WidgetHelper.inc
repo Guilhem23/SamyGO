@@ -11,6 +11,7 @@ $KeepOriginalApps[] = "10110001001"; /* MBRWidget */
 $ReplaceOriginalApps = array("10120000000");  /* never remove the engines manager sh2 appstore */
 
 $CustomApps = array("SamyGO", "busybox", "ChannelInfo", "hack_widget", "B_hack_widget", "SamyGOemp");
+$CustomApps = array("SamyGO");
 $ForceSigned = array();
 $ForceUnsigned = array();
 $ForcePartners = array();

@@ -73,9 +73,19 @@ if($WhoAmI == "list"){
 	} else {
 		CError::LogStr("e-series gallery on bottom $WhoAmI");
 # TODO: post widgetlist to tvgateway saveList
-#$tmp = $respxml;
+#$tmpd = $respxml;
+#$tmph = $gInHeaders;
+#$gInHeaders = array();
+#$gInHeaders['Host'] = "tvstoregw.pavv.co.kr";
+#$gInHeaders['Content-Type'] = "text/xml";
+#$_SERVER['REQUEST_METHOD'] = "POST";
+#$_SERVER['REQUEST_URI'] = "/tvGateway/service/AT/de/CPCGYQLKIJBFU/12_ECHOP/saveList";
+#$_SERVER['HTTPS'] = "on";
+#$gInData = $tmpd->list->ids()->asXML();
+#CError::LogStr("ID list from widgetlist " . $gInData);
 #DoProxy(true);
-#$respxml = $tmp;
+#CError::LogStr("UPLOAD Response " . $respxml->asXML());
+$respxml = $tmpd;
 #	$respxml->list->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
 		$respxml->list->removeNodesByAttrib("featured", "system",  array("preinstall", "forced", "partners"));
 		$CustList = ImportCustomWidgets($CustomApps);
