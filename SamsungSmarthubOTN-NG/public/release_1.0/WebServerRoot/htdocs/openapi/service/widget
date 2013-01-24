@@ -85,7 +85,7 @@ if($WhoAmI == "list"){
 #CError::LogStr("ID list from widgetlist " . $gInData);
 #DoProxy(true);
 #CError::LogStr("UPLOAD Response " . $respxml->asXML());
-$respxml = $tmpd;
+#$respxml = $tmpd;
 #	$respxml->list->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
 		$respxml->list->removeNodesByAttrib("featured", "system",  array("preinstall", "forced", "partners"));
 		$CustList = ImportCustomWidgets($CustomApps);
