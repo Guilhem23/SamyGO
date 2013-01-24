@@ -50,12 +50,10 @@ class mySXE extends SimpleXMLElement{
 		return dom_import_simplexml($this)->nodeType;
 	}
 	function keepNodesByAttrib($nodename = "widget", $attribute = "id", $values){
-		$arg = "@" . $attribute . "!=";
-		foreach($values as $val){
-			$arg .= "'$val' and @" . $attribute . "!=" ;
-		}
-		$arg = substr($arg, 0, -(strlen($attribute) + 8));
-		$tmp = $this->findm("//$nodename"."[".$arg."]");
+		if(!is_array($values))
+			$values = explode(" ", $values);
+
+		$tmp = $this->findm("//$nodename"."[@"."$attribute!='" .implode("' and @"."$attribute!='", $values) . "']");
 		foreach ($tmp as $node) {
 			$node->remove();
 		}
@@ -69,11 +67,12 @@ class mySXE extends SimpleXMLElement{
 		return $this;
 	}
 	function removeNodesByAttrib($nodename = "widget", $attribute = "id", $values){
-		foreach($values as $val){
-			$tmp = $this->findm("//$nodename"."[@".$attribute."='$val']");
-			foreach ($tmp as $node) {
-				$node->remove();
-			}
+		if(!is_array($values))
+			$values = explode(" ", $values);
+
+		$tmp = $this->findm("//$nodename"."[@"."$attribute='" .implode("' or @"."$attribute='", $values) . "']");
+		foreach ($tmp as $node) {
+			$node->remove();
 		}
 		return $this;
 	}
@@ -101,8 +100,6 @@ class mySXE extends SimpleXMLElement{
 		$res ='<?xml version="1.0" encoding="utf-8"?><widgetList><widgetIDs>';
 		$res .= implode(",", $resid);
 		$res .= '</widgetIDs></widgetList>';
-		CError::LogStr("Found: " . count($tmp));
-		CError::LogStr("Found: " . print_r($tmp, 1));
 		$res = new mySXE($res);
 		return $res;
 	}
@@ -214,6 +211,7 @@ class mySXE extends SimpleXMLElement{
 
 function nslookup($host){
 	// execute nslookup command
+			return gethostbyname($host);
 	exec('nslookup '.$host.'. 8.8.8.8', $op);
 
 	// php is running on windows machine
