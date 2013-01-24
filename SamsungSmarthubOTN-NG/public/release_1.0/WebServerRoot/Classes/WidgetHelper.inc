@@ -8,15 +8,15 @@ $KeepOriginalApps[] = "10110001001"; /* empQs */
 $KeepOriginalApps[] = "111199000764"; /* Camera */ 
 $KeepOriginalApps[] = "10110001001"; /* MBRWidget */ 
 
-$ReplaceOriginalApps = array("10120000000");  /* never remove the engines manager sh2 appstore */
+$ReplaceOriginalApps = array("10120000000");  /* TODO: replace samsung app with other version/widget */
 
 $CustomApps = array("SamyGO", "busybox", "ChannelInfo", "hack_widget", "B_hack_widget", "SamyGOemp");
-$CustomApps = array("SamyGO");
-$ForceSigned = array();
-$ForceUnsigned = array();
-$ForcePartners = array();
-$ForceNoPartner = array();
-$ForceInstall = array();
+$CustomApps = array("SamyGO", "SamyGOS");
+$ForceSigned = array();		#TODO: required?
+$ForceUnsigned = array();	#TODO: required?
+$ForcePartners = array();	#TODO: required?
+$ForceNoPartner = array();	#TODO: required?
+$ForceInstall = array();	#TODO: required?
 
 # load users widget list
 # first visit or user made reset.
