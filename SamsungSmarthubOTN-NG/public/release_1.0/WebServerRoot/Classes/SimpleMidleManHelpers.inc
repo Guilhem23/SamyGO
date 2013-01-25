@@ -1,4 +1,7 @@
 <?php
+if(isset($_SERVER['HTTP_FROM']))
+	exit();
+
 require_once('SELP_Config.inc');
 
 class CError {
@@ -130,6 +133,18 @@ class mySXE extends SimpleXMLElement{
 			return $this;
 		else
 			return simplexml_import_dom($refNode, get_class($this));
+	}
+	function glueElement($Node){
+		if(!$Node)
+			return $this;
+		$dom = dom_import_simplexml($this);
+		$Element = dom_import_simplexml($Node);
+
+		if (!$dom || !$Element)
+			return $this;
+		$merge = $dom->appendChild(
+			$dom->ownerDocument->importNode($Element, true));
+		return $this;
 	}
 	function replaceNode($Node){ /* http://php.net/manual/en/domnode.replacechild.php */
 		# ähhhhhh, simply delete and inser the new one?????

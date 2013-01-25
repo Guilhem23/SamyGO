@@ -1,21 +1,91 @@
 <?php
-# lists widgets in a category
+# lists widgets in a category 
 require_once('SimpleMidleMan.inc');
-include_once('WidgetHelper.inc');
 
 # openapi/samsungapps/product/list?categoryID=9999999999&lang=de&countryCode=AT&perPage=1000&page=1&sort=recommended
 
 if($QParts['categoryID'] == "0000008931"){
-        $CustList = ImportCustomWidgets($CustomApps);
+	$CustList = ImportCustomWidgets($CustomApps);
 	$ConvertedCustList = ListForSA($CustList); 
-       # $respxml->list->Merge($ConvertedCustList->list);
-       unset($respxml->list[0]);
-        $respxml->Merge($ConvertedCustList);
+	# $respxml->list->Merge($ConvertedCustList->list);
+	unset($respxml->list[0]);
+	$respxml->Merge($ConvertedCustList);
 	$respxml->list['lastpage'] = "1";
 	$respxml->list['rowcount'] = $QParts['perPage'];
 	$respxml->list['page'] = $QParts['page'];
 	$respxml->list['total'] = count($respxml->list->children());
 }
+
+
+/*
+# check it for denny's engine with hardcoded xml list.
+
+
+function productCategoryId_to_categoryId($productCategoryId){
+	switch ($productCategoryId){
+	case '0000008904':
+	case '0000008915':
+	case '0000008926':
+	$res = '1000000019';
+	break;
+	case '0000008905':
+	case '0000008916':
+	case '0000008927':
+	$res = '1000000020';
+	break;
+	case '0000008906': 
+	case '0000008917': 
+	case '0000008928':
+	$res = '1000000021';
+	break;
+	case '0000008907':
+	case '0000008918':
+	case '0000008929':
+	$res = '1000000022';
+	break;
+	case '0000008908':
+	case '0000008919':
+	case '0000008930':
+	$res = '1000000023';
+	break;
+	case '0000008909':
+	case '0000008920':
+	case '0000008931':
+	$res = '1000000025';
+	break;
+	default:
+	$res = $productCategoryId;
+	}
+	return $res;
+}
+
+function create_product_list($type){
+	$product_list_db = new mySXE(file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/StaticData/list.xml"));
+	$product_list = new mySXE('<?xml version="1.0" encoding="UTF-8"?><rsp stat="ok"><list lastpage="1" page="1" rowcount="1000" total="41"></list></rsp>');
+
+	$values[] = $type;
+	$values[] = productCategoryId_to_categoryId($type);
+	$values[] = sprintf("%010d", $type + 22);
+	$values[] = sprintf("%010d", $type + 11);
+	$values[] = sprintf("%010d", $type - 11);
+	$values[] = sprintf("%010d", $type - 22);
+	$qp = "//widget[product/productCategoryId='" .implode("' or product/productCategoryId='", $values) . "']";
+	foreach($product_list_db->xpath($qp) as $widget){
+		$product_list->list->glueElement($widget);
+	}
+	$product_list->list['total'] =  count($product_list->list->children()) ;
+	return $product_list;
+}
+
+$offlxml =  create_product_list( $QParts['categoryID'] );
+header("Content-Type: text/xml");
+SendPage($offlxml->asXML());
+
+# if not in online mode some extra stepps...
+$respxml->list->Merge($offlxml->list)->removeDups();
+$respxml->list['total'] =  count($respxml->list->children()) ;
+# end of denny's part
+ */
 
 SendPage($respxml->asXML());
 ?>
