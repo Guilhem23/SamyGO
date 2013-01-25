@@ -26,9 +26,11 @@ function DoProxy($internalcall = false)
 	$CurlOutHeaders = array();
 	# TODO: for browsermaode, check user agent and load saved authinfo + add it to headers
 	# User-Agent... load from $saveHeader = $oDir . DIRECTORY_SEPARATOR . $gModelId . "_LastHeader.h";
-	if(empty($gModelId) && !$internalcall){
+	if((empty($_SERVER['HTTP_DUID']) && empty($_SERVER['HTTP_TOKEN'])) || $internalcall){
+			$gModelId = "12_X10PLUS_2D";
 			$gModelId = "12_ECHOP";
 	#		$gModelId = "LEXXB650_EU";
+				CError::LogStr("- ######## ASUME BROWSERMODE (Browse as $gModelId) ######## -");
 			$gInHeaders = unserialize(file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/$Engine/$gModelId-Auth.h"));
 			if(!is_array($gInHeaders)){
 				CError::LogStr("- ERROR: smthg. went wrong in SELP-land...");
@@ -37,12 +39,11 @@ function DoProxy($internalcall = false)
 			unset($gInHeaders['MACAddr']);
 			unset($gInHeaders['Firmcode']);
 			unset($gInHeaders['ModelId']);
-			unset($gInHeaders['Cookie']);
-			unset($gInHeaders['duid']); # the capitalized ist the corect one...
+	#		unset($gInHeaders['Cookie']);
 	}
 	foreach ($gInHeaders as $header => $value)
 	{
-		if ($header != "Authorization" || stristr($header, "duid")) # b-series fix for requests (drop Authorization)
+		if (!strstr($header, "-") || $header != "Authorization" || stristr($header, "duid")) # b-series fix for requests (drop Authorization)
 			array_push($CurlOutHeaders, $header . ": " . $value);
 	}
 	CError::LogStr("- Routed headers -" . print_r($CurlOutHeaders, 1));
@@ -129,15 +130,18 @@ function DoProxy($internalcall = false)
 		$gOutHeaders['cache-control'] = "no-cache";
 	}
 
-	CError::LogStr("- Response Header (maybe selfmage!!!!!!!!!) - " . print_r($gOutHeaders, 1));
 
 	if(strstr($gOutData, "xml")){
 		$respxml = new mySXE($gOutData);
 	} elseif(strstr($gOutData, "Salted_")){
 		CError::LogStr("- OTN crypted file: $UplinkURI -");
+		$respxml = $xml;
+		$respxml->addCDChild("OtnData", $gOutData);
 #		SendPage($gOutData);
 	} else {
 		CError::LogStr("- Response error: not a xml !!! gzip or html content? -" . bin2hex($gOutData)); # gzinflate and co fails...
+		$respxml = $xml;
+		$respxml->addCDChild("OtnData", $gOutData);
 #		SendPage($gOutData);
 	}
 }
@@ -161,12 +165,12 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 		if(!file_exists($oDir . DIRECTORY_SEPARATOR ."."))
 			mkdir($oDir, 0775, true);
 		CError::LogStr("- Save File: -  $oFile ");
-		$respxml->saveXML($oFile);
+			$respxml->saveXML($oFile);
 	} else {
 		# make backup if changed and save new.
 	}
 }
-if($WhoAmI == "list" || $WhoAmI == "seedkey"){
+if($WhoAmI == "list" || $WhoAmI == "seedkey" || $WhoAmI == "bind" ){
 	# store auth informations and token for offlin browsing.
 	$tmp = unserialize(file_get_contents($saveHeader));
 	if(is_array($tmp))
