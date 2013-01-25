@@ -1,6 +1,7 @@
 <?php
 # lists widgets in a category 
 require_once('SimpleMidleMan.inc');
+include_once('WidgetHelper.inc');
 
 # openapi/samsungapps/product/list?categoryID=9999999999&lang=de&countryCode=AT&perPage=1000&page=1&sort=recommended
 
