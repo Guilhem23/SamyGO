@@ -2,6 +2,15 @@
 # b-series asking here around...
 # samsung server answere depends on ModelId and CountryCode
 require_once('SimpleMidleMan.inc');
+# offline page.
+#require_once('SimpleMidleManHelpers.inc');
+
+# e-series asks for the country list on sh region change >>189<<
+if($WhoAmI != "countries"){
+	$respxml = $xml;
+	$list = $respxml->addChild("list");
+	$application = $list->addChild("application");
+	$application['id'] = '1'; $application['name'] = 'INFOLINK3.0'; $application['url'] = 'http://infolink.pavv.com';
 
 # samsung engine
 # <application id="1" name="INFOLINK3.0" url="http://infolink.pavv.com"/>
@@ -15,6 +24,8 @@ require_once('SimpleMidleMan.inc');
 #$respxml->list->application['id'] = 3;
 #$respxml->list->application['name'] = "SUPERHUB";
 #$respxml->list->application['url'] = "http://infolink.samygo.tv";
- 
+
+	header("Content-Type: text/xml"); 
+}
 SendPage($respxml->asXML());
 ?>
