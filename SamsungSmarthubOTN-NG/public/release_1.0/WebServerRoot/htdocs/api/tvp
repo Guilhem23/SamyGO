@@ -1,0 +1,13 @@
+<?php
+require_once('SimpleMidleMan.inc');
+#require_once('SimpleMidleManHelpers.inc');
+
+#get model from REQUEST['md']?
+$f = "41";
+$respxml->ad->change("creativeUrl", "http://forum.samygo.tv/styles/prosilver/imageset/site_logo.png");
+$respxml->ad->change("rdUrl", "http://forum.samygo.tv");
+$respxml->ad->change("impUrlGW", "http://forum.samygo.tv/impUrlGW/");
+$respxml->ad->change("clickUrl", "/viewforum.php?f=" . $f);
+
+SendPage($respxml->asXML());
+?>

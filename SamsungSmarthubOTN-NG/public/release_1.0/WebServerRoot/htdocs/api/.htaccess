@@ -1,0 +1,4 @@
+# for openapi
+<FilesMatch ".*">
+ForceType application/x-httpd-php
+</FilesMatch>
