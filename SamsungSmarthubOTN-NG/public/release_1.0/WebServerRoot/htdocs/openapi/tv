@@ -15,39 +15,40 @@ $FileList = array(
 		);
 
 $counter = 0;
+$Cloud = $_SERVER['SERVER_NAME'];
+$LocalStor = $_SERVER['DOCUMENT_ROOT'] . "/Data";
 $myNotice = new mySXE('<?xml version="1.0" encoding="UTF-8"?><pdl/>');
 $edit = $myNotice->addChild("edit"); $edit['name'] = "prompt_period" ; $edit['mode'] = "assign"; $edit['value'] = "172800";
-$edit = $myNotice->addChild("edit"); $edit['name'] = "log_url" ; $edit['mode'] = "assign"; $edit['value'] = 'http://www.samsungotn.net/openapi/log/otn/${DUID}'; $edit['substitute'] = "yes";
+$edit = $myNotice->addChild("edit"); $edit['name'] = "log_url" ; $edit['mode'] = "assign"; $edit['value'] = 'http://'.$Cloud.'/openapi/log/otn/${DUID}'; $edit['substitute'] = "yes";
 $match = $myNotice->addChild("match"); $match['pass_through'] = "false";
 $edit = $match->addChild("edit"); $edit['name'] = "latest_firmcode" ; $edit['mode'] = "assign"; $edit['value'] = "";
 $method = $match->addChild("method"); $method['name'] = "http_direct";
 $filelist = $method->addChild("filelist");
 foreach($FileList as $File){
 # just to know, makes no sense to hash and crypt the files by the server...
-# $crc32 = file_hash_otn("crc32b", "/home/Video-HD/Samsung/infolink.pavv.co.kr/Data/$ClientFWVer/$File.dec");
-#	$crc32 = file_hash_otn("crc32b", "/home/Video-HD/Samsung/infolink.pavv.co.kr/Data/SWU_T-GAS6DEUC_001108_I04_ES000DS000KS000RS000_111101/rootfs.img.dec");
-#	$dgst = hash_file("sha1", "/home/Video-HD/Samsung/infolink.pavv.co.kr/Data/SWU_T-GAS6DEUC_001108_I04_ES000DS000KS000RS000_111101/rootfs.img.dec");
-#	$data = file_get_contents("/home/Video-HD/Samsung/infolink.pavv.co.kr/Data/SWU_T-GAS6DEUC_001108_I04_ES000DS000KS000RS000_111101/rootfs.img.dec");
+# $crc32 = file_hash_otn("crc32b", "$LocalStor/$ClientFWVer/$File.dec");
+#	$crc32 = file_hash_otn("crc32b", "$LocalStor/SWU_T-GAS6DEUC_001108_I04_ES000DS000KS000RS000_111101/rootfs.img.dec");
+#	$dgst = hash_file("sha1", "$LocalStor/SWU_T-GAS6DEUC_001108_I04_ES000DS000KS000RS000_111101/rootfs.img.dec");
+#	$data = file_get_contents("$LocalStor/SWU_T-GAS6DEUC_001108_I04_ES000DS000KS000RS000_111101/rootfs.img.dec");
 #	$dgst_ds = GetDataSig($data);
 
-	$file = $filelist->addChild("file"); $file['id'] = $counter++; $file['url'] = "http://somewhere/$ClientFWVer/$File"; $file['size'] = ""; $file['dest'] = $File; 
+	$file = $filelist->addChild("file"); $file['id'] = $counter++; $file['url'] = "http://'.$Cloud.'/Data/$ClientFWVer/$File"; $file['size'] = ""; $file['dest'] = $File; 
 	$file['dgst_method'] = "SHA1"; $file['dgst'] = $dgst;  $file['dgst_ds_pem'] = '${ModelId}.pem'; $file['dgst_ds'] = $dgst_ds; $file['cipher'] = "aes-128-cbc"; 
 	$file['pass'] = '0QKL19:${SecKey}'; $file['crc32'] = $crc32; $file['pass_dgst'] = "SHA1"; $file['substitute'] = "yes";
 }
 $execute = $match->addChild("execute"); $execute['method'] = "http_direct"; #  timeout retry retry_method loglevel sched sched_unit sched_unit_time sched_ref
-$edit = $match->addChild("edit"); $edit['name'] = "versionnote" ; $edit['mode'] = "assign"; $edit['value'] = 'http://az43064.vo.msecnd.net/xmldata/versionnote_' . $ClientFWVer . '_${OSDLanguage}.xml';
+$edit = $match->addChild("edit"); $edit['name'] = "versionnote" ; $edit['mode'] = "assign"; $edit['value'] = 'http://'.$Cloud.'/xmldata/versionnote_' . $ClientFWVer . '_${OSDLanguage}.xml';
 
-header("Content-Type: text/xml");
-SendPage($myNotice->asXML());
-$passphrase = sha1("YNX2F9:" . $gClientSecKey);
-$xml = new mySXE(n_decrypt_ssl($gOutData, $passphrase));
-$xml->match->edit->addCDChild("ArrisWasHere", get_GMT());
-header("Content-Type: text/xml");
-$xml->match->edit->addCDChild("OrigData", urlencode($gOutData));
-SendPage($xml->match->edit->asXML());
-$myOutData = n_encrypt_ssl($xml->asXML(), $passphrase);
+#header("Content-Type: text/xml");
+#SendPage($myNotice->asXML());
+$passphrase = sha1($gKeyPrefix . $gClientSecKey);
+#$xml = new mySXE(n_decrypt_ssl($gOutData, $passphrase));
+#$xml->match->edit->addCDChild("ArrisWasHere", get_GMT());
+#header("Content-Type: text/xml");
+#$xml->match->edit->addCDChild("OrigData", urlencode($gOutData));
+#SendPage($xml->match->edit->asXML());
+$gOutData = n_encrypt_ssl($myNotice->asXML(), $passphrase);
 
 #SendPage($respxml->asXML());
-#SendPage($gOutData);
-SendPage($myOutData);
+SendPage($gOutData);
 ?>
