@@ -1,114 +1,15 @@
 <?php
-# main SmartHub, don't touch it....
 require_once('SimpleMidleMan.inc');
 include_once('WidgetHelper.inc');
 
-if(isset($QParts['category']) === FALSE){
-#        $xml = uniq__xml($xml);
-#        // $xml = transform_to_xml($xml);
-	CError::LogStr("- TODO - xml make uniq?");
-}
-
-
-# b-series:
-#  - START -/openapi/service/widget/gallery?category=Manager
-# sample how to change version to 1.067, but need check if device is b-series
-if(strstr($gModelId, "XX")){
-		CError::LogStr("b-series detected $WhoAmI");
-	if($QParts['category'] == "Manager" || $WhoAmI == "400009002"){
-		$respxml->list->widget['version'] = '1.067'; /* ignore date and size, don't care */
-		SendPage($respxml->asXML());
-	}
-# and on dl-location request: /openapi/service/widget/400009002 
-# on dec. 2012 some new attributes added by samsung, don't care
-	if($WhoAmI == "400009002"){
-		$respxml->list->widget['url'] = 'http://d2s7bi153972zt.cloudfront.net/selif/widget/201106/400009002/1.067/widget/WidgetMgr-1.067.all.110622.zip';
-		SendPage($respxml->asXML());
-	}
-	if($WhoAmI == "gallery" || $WhoAmI == "list"){
-		$CustList = ImportCustomWidgets(array("B_hack_widget"));
-		$respxml->list->Merge($CustList->list);
-		SendPage($respxml->asXML());
-	}
-
-# in case we use our own xml file: 
-#if($QParts['category'] == "Manager" || $WhoAmI == "400009002"){
-#	$respxml = new SimpleXMLElement($xmlstr); 
-#}
-	if (in_array($WhoAmI, $CustomApps)){
-		CError::LogStr("Send custom widget url for $WhoAmI");
-		$file = $_SERVER['DOCUMENT_ROOT'] . "/CustomWidgets/" . $WhoAmI . ".dl";
-		$respxml = new mySXE(file_get_contents($file));
-	}
-	SendPage($respxml->asXML());
-}
-
-# c-series:
-#
-
-# d-series:
-#
-
-# e-series:
-#
-
-if($WhoAmI == "list"){
-	CError::LogStr("e-series in $WhoAmI, need manipulation/merge?");
-# DONE: merge in users allready installed widgets...
-# hm, whats if we not remove anything, but just change forced...
-#	$respxml->list->Merge($UserWList)->removeDups();
-	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($UserWList);
-} elseif($WhoAmI == "gallery"){
-	if($QParts['featured'] == "partners"){
-		CError::LogStr("e-series gallery on top in $WhoAmI");
-		$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
-		$CustList = ImportCustomWidgets($CustomApps);
-		$respxml->list->Merge($CustList->list);
-	} elseif($QParts['featured'] == "signature"){
-		CError::LogStr("e-series gallery in middle bar in $WhoAmI");
-		$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
-		$respxml->list->removeNodesByAttrib("featured", "system",  array("preinstall", "forced"));
-		$CustList = ImportCustomWidgets($CustomApps);
-		$respxml->list->Merge($CustList->list);
-	} else {
-		CError::LogStr("e-series gallery on bottom $WhoAmI");
-# TODO: post widgetlist to tvgateway saveList
-#$tmpd = $respxml;
-#$tmph = $gInHeaders;
-#$gInHeaders = array();
-#$gInHeaders['Host'] = "tvstoregw.pavv.co.kr";
-#$gInHeaders['Content-Type'] = "text/xml";
-#$_SERVER['REQUEST_METHOD'] = "POST";
-#$_SERVER['REQUEST_URI'] = "/tvGateway/service/AT/de/CPCGYQLKIJBFU/12_ECHOP/saveList";
-#$_SERVER['HTTPS'] = "on";
-#$gInData = $tmpd->list->ids()->asXML();
-#CError::LogStr("ID list from widgetlist " . $gInData);
-#DoProxy(true);
-#CError::LogStr("UPLOAD Response " . $respxml->asXML());
-#$respxml = $tmpd;
-#	$respxml->list->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
-		$respxml->list->removeNodesByAttrib("featured", "system",  array("preinstall", "forced", "partners"));
-		$CustList = ImportCustomWidgets($CustomApps);
-		$respxml->list->Merge($CustList->list);
-		$respxml['SamyGOCounter'] = count($respxml->list->children());
-	}
-# CError::LogStr(print_r($respxml->list->widget, 1));
-} elseif($WhoAmI == "samsungapps"){ /* ? list/samsungapps gallery/samsungapps ? */
-	CError::LogStr(" c,d,e series in $WhoAmI");
-} else {
-	CError::LogStr("noting to do for e-series in $WhoAmI");
-#	SendPage($respxml->asXML());
-}
-
-# f-series:
-# ModelID 13_FOXP ?
-#echo $doc->savexml();
+# for gallery and list handle (splitted out)
+include_once("$WhoAmI.inc");
 
 # if we inject custom widgets, samsung server respond is:
 # <rsp stat="fail"><err code="300" msg="Invalid Widget ID"/><desc/></rsp>
 # check on both arrays $ReplaceOriginalApps $CustomApps then we need to pass the download url to client
 # TODO: check for what model the version is requested... (gModelId)
-if (in_array($WhoAmI, $CustomApps)){
+if (in_array($WhoAmI, $CustomApps) || in_array($WhoAmI, $ReplaceOriginalApps)){
 	CError::LogStr("Send custom widget url for $WhoAmI");
 	$file = $_SERVER['DOCUMENT_ROOT'] . "/CustomWidgets/" . $WhoAmI . ".dl";
 	$respxml = new mySXE(file_get_contents($file));
