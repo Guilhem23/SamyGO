@@ -1,9 +1,11 @@
 <?php
 # for OTN, info handling
 require_once('SimpleMidleMan.inc');
+require_once('CryptoHelpers.inc');
 
 $RSAPubKey = trim(file_get_contents('mykey.pem.secpub', true));
 # change key if required, TODO: the check when.
+$respxml->noticeinfo['pass'] = $gKeyPrefix . '${SecKey}';
 $respxml->ds_key->changeCData($RSAPubKey);
 
 SendPage($respxml->asXML());
