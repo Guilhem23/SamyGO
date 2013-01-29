@@ -1,14 +1,140 @@
 <?php
 require_once('SimpleMidleMan.inc');
+include_once('WidgetHelper.inc');
 
 # e-series:
 # after widget instell, confirm.
 # - /tvGateway/service -> -  Like to POST -
 
-if($WhoAmI == "checkUrl"){
-	$respxml->currencyUnit = "€";
-	$respxml->directPurchaseAvailable = "Y";
+if($_SERVER['REQUEST_METHOD'] != "GET"){
+	SendPage($respxml->asXML());
 }
 
-SendPage($respxml->asXML());
-?>
+#if($WhoAmI == "checkUrl"){
+#	$respxml->currencyUnit = "€";
+#	$respxml->directPurchaseAvailable = "Y";
+#	$respxml->shopType = "COMMERCE";
+#	or:
+#	$respxml->shopType = "FREE";
+#}
+
+# d-series start:
+if($WhoAmI == ("new" || "new2")){
+	CError::LogStr("d-series request");
+}
+
+if($WhoAmI == "categoryList"){
+# same as in: openapi/samsungapps/category + cdata (thinks makes not difference...)
+	$myCategory = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><category><categoryID>0000008931</categoryID><categoryIconURI><![CDATA[http://forum.samygo.tv/styles/prosilver/imageset/site_logo.png]]></categoryIconURI><categoryName><![CDATA[Education]]></categoryName><categoryTitle><![CDATA[SamyGO]]></categoryTitle></category></list>";
+	$xml_inject = new mySXE($myCategory);
+	$respxml->categorys->category[6]->remove();
+	$respxml->categorys->Merge($xml_inject);
+
+	CError::LogStr("d-series request");
+}
+# d-series end:
+
+# https://tvstoregw.pavv.co.kr/tvGateway/service/AT/ko/CPCGYQLKIJBFU/12_ECHOP/detail/Recommended/G00010871491 -> valid
+# https://tvstoregw.pavv.co.kr/tvGateway/service/AT/ko/CPCGYQLKIJBFU/12_ECHOP/detail/Recommended/SamyGO -> if custom one <resultCode>500</resultCode>
+#if($QURLParts[6] == "detail"){
+	if(strstr($QURLParts[6], "detail")){
+		if (in_array($WhoAmI, $CustomApps)){
+			$CustList = ImportCustomWidgets(array($WhoAmI));
+			$respxml = WidgetToproductDetail($CustList->list->widget);
+# $respxml->list->Merge($ConvertedCustList->list, true);
+# $respxml->list['lastpage'] = 1;
+# $respxml->list['total'] = count($respxml->list->children());
+		}
+	}
+
+	$Guide = '<?xml version="1.0" encoding="UTF-8"?><guide version="1.1"><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage><contents><![CDATA[<table cellpadding="0" cellspacing="0" width="645">
+		<tbody>
+		<tr>
+		<td background="http://tv.samsungapps.com/tvstore/image/title_bg_2.png" height="37">
+		<div style="margin-left: 20px">
+		<font color="#ffffff">Samsung Apps</font></div>
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<p style="margin-left: 20px">
+		<font color="#333333">Samsung Apps is a store that allows downloading applications that can be used on Samsung TV/AV equipment. User can enjoy a variety of contents like video, music, photo, game, useful information etc. through offered applications in Samsung Apps. Various application will be offered hereafter through Samsung Apps.</font><br />
+		&nbsp;</p>
+		</td>
+		</tr>
+		<tr>
+		<td background="http://tv.samsungapps.com/tvstore/image/title_bg_2.png" height="37">
+		<div style="margin-left: 20px">
+		<font color="#ffffff">Category</font></div>
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<p style="margin-left: 20px">
+		<font color="#333333">Applications of following categories&nbsp;is offered through Samsung Apps</font></p>
+		<div style="margin-left: 30px">
+		<font color="#333333">&bull; What&#39;s New : User can easily find newly (latest) registered application.</font><br />
+		<font color="#333333">&bull; Video : Various services such as movies, TV shows, or short length videos are offered.</font><br />
+		<font color="#333333">&bull; Sports : Sports contents in the form of information/update, images, short length videos&nbsp;are offered.</font><br />
+		<font color="#333333">&bull; <font color="#333333">Lifestyle : User can experience life related services such as music, photo management, community services (like Facebook, Twitter), etc.</font></font><br />
+		<font color="#333333">&bull; Information : Various information services such as news, stocks, weather have been gathered in this category.</font><br />
+		<font color="#333333">&bull; Education : Education miscellaneous service are offered.</font><br />
+		&nbsp;</div>
+		</td>
+		</tr>
+		<tr>
+		<td background="http://tv.samsungapps.com/tvstore/image/title_bg_2.png" height="37">
+		<div style="margin-left: 20px">
+		<span style="color: #ffffff">My Page</span></div>
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<p style="margin-left: 20px">
+		<font color="#333333">My Page offers information about already installed applications on Samsung TV like detailed information, download contents etc. It also allows deleting the applications.</font><br />
+		&nbsp;</p>
+		</td>
+		</tr>
+		<tr>
+		<td background="http://tv.samsungapps.com/tvstore/image/title_bg_2.png" height="37">
+		<div style="margin-left: 20px">
+		<span style="color: #ffffff">Additional Function</span></div>
+		</td>
+		</tr>
+		<tr>
+		<td height="12">
+		<p align="center">
+		<img alt="" border="0" height="338" src="http://tv.samsungapps.com/tvstore/image/screen.jpg" width="600" /></p>
+		<p style="margin-left: 20px">
+		<font color="#333333"><img alt="" src="http://tv.samsungapps.com/tvstore/contents/a0.png" />&nbsp;: Using Direction key, user can sort the services listed in four criteria, mentioned on the top of the screen.</font><br />
+		<font color="#333333"><img alt="" src="http://tv.samsungapps.com/tvstore/contents/b0.png" />&nbsp; : Help bar at bottom displays usable keys on the screen like direction key, enter key, color key etc.</font></p>
+		</td>
+		</tr>
+		</tbody>
+		</table><p>&nbsp;</p>]]></contents><title>English USA</title></guide>';
+
+	$checkValidation = '<?xml version="1.0" encoding="UTF-8"?>
+		<buyCheck><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage><availablePoint>0.0</availablePoint><couponUse>N</couponUse><myProductSeq>1591382</myProductSeq><productPrice>0.0</productPrice><widgetId>'.substr($tmp->productCode, 1).'</widgetId></buyCheck>';
+
+	$Disclaimer = '<?xml version="1.0" encoding="UTF-8"?><disclaimer version="1.1">
+		<resultCode>200</resultCode>
+		<resultMessage><![CDATA[OK]]></resultMessage>
+		<contents><![CDATA[Access to blabla. <br />
+		SamyGO is not responsible for anything.]]></contents>
+		<title>Disclaimer</title>
+		</disclaimer>';
+
+	if($WhoAmI == "checkValidation"){
+		$respxml = new  mySXE($checkValidation);
+	}
+
+	if($WhoAmI == "disclaimer"){
+		$respxml = new  mySXE($Disclaimer);
+	}
+
+	if($WhoAmI == "guide"){
+		$respxml = new mySXE($Guide);
+	}
+
+	SendPage($respxml->asXML());
+	?>
