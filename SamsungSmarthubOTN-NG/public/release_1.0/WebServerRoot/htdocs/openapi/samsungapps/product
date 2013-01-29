@@ -2,7 +2,7 @@
 # lists widgets in a category 
 require_once('SimpleMidleMan.inc');
 include_once('WidgetHelper.inc');
-
+# /*
 # openapi/samsungapps/product/list?categoryID=9999999999&lang=de&countryCode=AT&perPage=1000&page=1&sort=recommended
 
 if($QParts['categoryID'] == "0000008931"){
@@ -16,7 +16,7 @@ if($QParts['categoryID'] == "0000008931"){
 	$respxml->list['page'] = $QParts['page'];
 	$respxml->list['total'] = count($respxml->list->children());
 }
-
+# */
 
 /*
 # check it for denny's engine with hardcoded xml list.
@@ -80,13 +80,13 @@ function create_product_list($type){
 
 $offlxml =  create_product_list( $QParts['categoryID'] );
 header("Content-Type: text/xml");
-SendPage($offlxml->asXML());
+#SendPage($offlxml->asXML());
 
 # if not in online mode some extra stepps...
 $respxml->list->Merge($offlxml->list)->removeDups();
 $respxml->list['total'] =  count($respxml->list->children()) ;
 # end of denny's part
- */
+*/
 
 SendPage($respxml->asXML());
 ?>

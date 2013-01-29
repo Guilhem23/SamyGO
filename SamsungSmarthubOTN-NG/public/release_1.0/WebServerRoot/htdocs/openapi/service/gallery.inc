@@ -1,29 +1,6 @@
 <?php
 # handles openapi/service/widget/gallery 
 
-$CustList = ImportCustomWidgets($CustomApps);
-if(isset($QParts['category']) === FALSE){
-	#        $xml = uniq__xml($xml);
-	#        // $xml = transform_to_xml($xml);
-	CError::LogStr("- TODO - xml make uniq?");
-}
-
-# b-series:
-#  - START -/openapi/service/widget/gallery?category=Manager
-# sample how to change version to 1.067, but need check if device is b-series
-if(strstr($gModelId, "XX")){
-	CError::LogStr("b-series detected $WhoAmI");
-	if($QParts['category'] == "Manager" || $WhoAmI == "400009002"){
-		$respxml->list->widget['version'] = '1.067'; /* ignore date and size, don't care */
-		SendPage($respxml->asXML());
-	}
-	# and on dl-location request: /openapi/service/widget/400009002 
-	# on dec. 2012 some new attributes added by samsung, don't care
-	$CustList = ImportCustomWidgets(array("B_hack_widget"));
-	$respxml->list->Merge($CustList->list);
-	SendPage($respxml->asXML());
-}
-
 # c-series:
 #
 
@@ -34,14 +11,19 @@ if(strstr($gModelId, "XX")){
 #
 
 if($QParts['featured'] == "partners"){
-	CError::LogStr("e-series gallery on top in $WhoAmI");
+	CError::LogStr("gallery on top in $WhoAmI");
 	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
 } elseif($QParts['featured'] == "signature"){
-	CError::LogStr("e-series gallery in middle bar in $WhoAmI");
+	CError::LogStr("gallery in middle bar in $WhoAmI");
 	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
 	$respxml->list->removeNodesByAttrib("featured", "system",  array("preinstall", "forced"));
+} elseif($QParts['category'] == "Manager"){
+	# maybe handle $ReplaceOriginalApps ? or later ....
+	# ?category=CP_YourVideo
+	# ?category=CP_Fitness 
+	# ?category=CP_KidsStory	
 } else {
-	CError::LogStr("e-series gallery on bottom $WhoAmI");
+	CError::LogStr("gallery on bottom $WhoAmI");
 	# TODO: post widgetlist to tvgateway saveList
 	#$tmpd = $respxml;
 	#$tmph = $gInHeaders;
@@ -63,7 +45,7 @@ if($QParts['featured'] == "partners"){
 # f-series:
 # ModelID 13_FOXP ?
 #echo $doc->savexml();
-$respxml->list->Merge($CustList->list);
+#$respxml->list->Merge($CustList->list);
+$respxml->list->Merge($CustList->list)->list->Merge($UserWList)->removeDups();
 $respxml['SamyGOCounter'] = count($respxml->list->children());
-SendPage($respxml->asXML());
 ?>

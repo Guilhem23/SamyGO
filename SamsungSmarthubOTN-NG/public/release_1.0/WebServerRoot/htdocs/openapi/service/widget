@@ -2,9 +2,6 @@
 require_once('SimpleMidleMan.inc');
 include_once('WidgetHelper.inc');
 
-# for gallery and list handle (splitted out)
-include_once("$WhoAmI.inc");
-
 # if we inject custom widgets, samsung server respond is:
 # <rsp stat="fail"><err code="300" msg="Invalid Widget ID"/><desc/></rsp>
 # check on both arrays $ReplaceOriginalApps $CustomApps then we need to pass the download url to client
@@ -13,6 +10,12 @@ if (in_array($WhoAmI, $CustomApps) || in_array($WhoAmI, $ReplaceOriginalApps)){
 	CError::LogStr("Send custom widget url for $WhoAmI");
 	$file = $_SERVER['DOCUMENT_ROOT'] . "/CustomWidgets/" . $WhoAmI . ".dl";
 	$respxml = new mySXE(file_get_contents($file));
+} else {
+# for gallery and list handle (splitted out)
+	if(file_exists("$WhoAmI.inc"))
+		include_once("$WhoAmI.inc");
+	else
+		CError::LogStr("Request Download data for $WhoAmI Widget");
 }
 
 SendPage($respxml->asXML());

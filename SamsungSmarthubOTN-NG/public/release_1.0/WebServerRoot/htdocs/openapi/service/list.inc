@@ -1,12 +1,5 @@
 <?php
-# handles openapi/service/widget/gallery
-
-	$CustList = ImportCustomWidgets($CustomApps);
-# b-series:
-if(strstr($gModelId, "XX")){ /* or if no timestamp is in the query*/ 
-	CError::LogStr("b-series detected $WhoAmI");
-	$CustList = ImportCustomWidgets(array("B_hack_widget"));
-}
+# handles openapi/service/widget/list
 
 # c-series:
 #
@@ -17,16 +10,18 @@ if(strstr($gModelId, "XX")){ /* or if no timestamp is in the query*/
 # e-series:
 #
 
-CError::LogStr("e-series in $WhoAmI, need manipulation/merge?");
+CError::LogStr("In $WhoAmI, need manipulation/merge?");
+#$respxml->list->removeNodesByAttrib("featured", "system",  array("preinstall", "forced", "partners"));
 # DONE: merge in users allready installed widgets...
 # hm, whats if we not remove anything, but just change forced...
 #	$respxml->list->Merge($UserWList)->removeDups();
-$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($UserWList);
-	$respxml->list->Merge($CustList->list)->removeDups();
+$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps)->list->Merge($CustList->list)->list->Merge($UserWList);
+#$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
+#$respxml->list->Merge($CustList->list)->removeDups();
+#$respxml->list->Merge($CustList->list);
 
 # f-series:
 # ModelID 13_FOXP ?
 #echo $doc->savexml();
 
-SendPage($respxml->asXML());
 ?>

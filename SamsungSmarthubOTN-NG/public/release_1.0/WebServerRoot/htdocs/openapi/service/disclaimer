@@ -24,17 +24,28 @@ $item->addChild("content", 'Made by SamyGO.<p style="text-align:center;">SamyGO 
 $item = $disclaimer->addChild("item");
 $item->addAttribute("id", "log");
 $item->addChild("version", "2.000");
-$item->addCDChild("content", '<p style="text-align:center;">---</p>');
+$item->addCDChild("content", '<p style="text-align:center;">--- log ---</p>');
 
 $item = $disclaimer->addChild("item");
 $item->addAttribute("id", "voice_pp");
 $item->addChild("version", "2.000");
-$content = $item->addChild("content", '<p style="text-align:center;">---</p>');
+$content = $item->addChild("content", '<p style="text-align:center;">--- voice_pp ---</p>');
 
 $item = $disclaimer->addChild("item");
 $item->addAttribute("id", "nuance_pp");
 $item->addChild("version", "2.000");
-$content = $item->addChild("content", '<p style="text-align:center;">---</p>');
+$content = $item->addChild("content", '<p style="text-align:center;">--- nuance_pp ---</p>');
+
+# for USA some extras, breaks other countries???
+#$item = $disclaimer->addChild("item");
+#$item->addAttribute("id", "acr");
+#$item->addChild("version", "2.000");
+#$content = $item->addChild("content", '<p style="text-align:center;">--- acr ---</p>');
+#
+#$item = $disclaimer->addChild("item");
+#$item->addAttribute("id", "acr_yahoo");
+#$item->addChild("version", "2.000");
+#$content = $item->addChild("content", '<p style="text-align:center;">--- acr_yahoo ---</p>');
 
 SendPage($xml->asXML());
 ?>

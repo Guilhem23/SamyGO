@@ -14,7 +14,10 @@ $user1 = $session1->addChild("user");
         $seedkey1 = $session1->addChild("seedkey", $seedkey);
         $session1->addChild("expired", get_KoreanTimeforSeedKeyGMT()); /* for otn dif. format: 2011-08-09T15:47:44Z */
 	
+} else {
+	session_id($respxml->session->seedkey);
 }
 
+session_start();
 SendPage($respxml->asXML());
 ?>
