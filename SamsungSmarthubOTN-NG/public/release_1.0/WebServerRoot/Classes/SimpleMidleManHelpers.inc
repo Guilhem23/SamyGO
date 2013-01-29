@@ -468,7 +468,6 @@ function InSane(){
 	}
 	return false;
 }
-
 $UserWidetList = $_SERVER['DOCUMENT_ROOT'] . "/UserWidgetInstall/" . $gUserName . ".xml";
 $QURLParts = preg_split('/\//', $_SERVER['REQUEST_URI'], -1, PREG_SPLIT_NO_EMPTY);
 parse_str(@$_SERVER['QUERY_STRING'], $QParts);
