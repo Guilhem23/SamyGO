@@ -2,8 +2,8 @@
 # for OTN. m_notice and notice handling
 global $gFirmcode, $gClientSecKey;
 
-#require_once('SimpleMidleMan.inc');
-require_once('SimpleMidleManHelpers.inc');
+require_once('SimpleMidleMan.inc');
+#require_once('SimpleMidleManHelpers.inc');
 require_once('CryptoHelpers.inc');
 
 $FileList = array(
@@ -32,7 +32,7 @@ foreach($FileList as $File){
 #	$data = file_get_contents("$LocalStor/SWU_T-GAS6DEUC_001108_I04_ES000DS000KS000RS000_111101/rootfs.img.dec");
 #	$dgst_ds = GetDataSig($data);
 
-	$file = $filelist->addChild("file"); $file['id'] = $counter++; $file['url'] = "http://'.$Cloud.'/Data/$ClientFWVer/$File"; $file['size'] = ""; $file['dest'] = $File; 
+	$file = $filelist->addChild("file"); $file['id'] = $counter++; $file['url'] = "http://$Cloud/Data/$ClientFWVer/$File"; $file['size'] = ""; $file['dest'] = $File; 
 	$file['dgst_method'] = "SHA1"; $file['dgst'] = $dgst;  $file['dgst_ds_pem'] = '${ModelId}.pem'; $file['dgst_ds'] = $dgst_ds; $file['cipher'] = "aes-128-cbc"; 
 	$file['pass'] = '0QKL19:${SecKey}'; $file['crc32'] = $crc32; $file['pass_dgst'] = "SHA1"; $file['substitute'] = "yes";
 }
