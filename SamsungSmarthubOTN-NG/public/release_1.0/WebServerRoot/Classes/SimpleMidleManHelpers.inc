@@ -469,113 +469,11 @@ function InSane(){
 	return false;
 }
 
-# setup GLOBALS:
-# EMP: rm
-#/openapi/device/auth/query -> - SERVER VARS on PRE Enter - Array
-#	[HTTP_DUID] => ZPCB3EXS33NPU
-#	[HTTP_MACADDR] => 1c5a3e29af93
-#	[HTTP_MODELID] => sometimes empty -> reject request!!!
-#	[HTTP_CATEGORY] => EMP
-#	[HTTP_PARAM] => X10P,0.970
-#	[HTTP_COUNTRYCODE] => US
-#	[HTTP_HOST] => www.samsungrm.net
-#	[HTTP_CONNECTION] => close
-# HUB:
-#/openapi/device/auth/seedkey -> - SERVER VARS on PRE Enter - Array
-#	[HTTPS] => on
-#	[HTTP_ACCEPT] => text/html, image/png, image/*, */*
-#	[HTTP_ACCEPT_LANGUAGE] => ko
-#	[HTTP_HOST] => infolink.pavv.co.kr
-#	[HTTP_USER_AGENT] => Mozilla/5.0 (Windows; U; en-US; rv:1.8.1.11; Gecko/20071129; Firefox/2.5.0) Maple 6.0.00067 Navi
-#	[HTTP_CONNECTION] => close
-#	[CONTENT_TYPE] => text/xml
-#	[HTTP_CACHE_CONTROL] => no-cache
-#	[HTTP_APPKEY] => 5cdfb2dc-8598-17af-b9a3-100000230005-3c290b4b-9c98-4974-890a-3b465274d549
-#	[HTTP_COUNTRYCODE] => CA
-#	[HTTP_MODELID] => X6_PDP
-#	[HTTP_MACADDR] => 606bbd91bd47
-#	[HTTP_FIRMCODE] => T-INFOLINK2011-1005
-#	[HTTP_DUID] => P7CFP7UY6ZBDG
-#/openapi/conf/date -> - SERVER VARS on PRE Enter - Array
-#	[HTTP_ACCEPT] => text/html, image/png, image/*, */*
-#	[HTTP_ACCEPT_LANGUAGE] => ko
-#	[HTTP_HOST] => infolink.pavv.co.kr
-#	[HTTP_TOKEN] => c46fcf10+_X6_PDP_606bbd91bd47+92da379848417e6c32e2b5c68815f67b356fbb68
-#	[HTTP_USER_AGENT] => Mozilla/5.0 (Windows; U; en-US; rv:1.8.1.11; Gecko/20071129; Firefox/2.5.0) Maple 6.0.00067 Navi
-#	[HTTP_COOKIE] => WMONID=4df3ef0a
-#	[HTTP_CONNECTION] => close
-#	[CONTENT_TYPE] => text/xml
-#	[HTTP_CACHE_CONTROL] => no-cache, no-cache
-#	[HTTP_APPKEY] => 5cdfb2dc-8598-17af-b9a3-100000230005-3c290b4b-9c98-4974-890a-3b465274d549
-#/openapi/service/channel/gallery
-#	[HTTP_ACCEPT] => text/html, image/png, image/*, */*
-#	[HTTP_ACCEPT_LANGUAGE] => ko
-#	[HTTP_HOST] => infolink.pavv.co.kr
-#	[HTTP_USER_AGENT] => Mozilla/5.0 (Windows; U; en-US; rv:1.8.1.11; Gecko/20071129; Firefox/2.5.0) Maple 6.0.00067 Navi
-#	[HTTP_CONNECTION] => close
-#	[CONTENT_TYPE] => text/xml
-#	[HTTP_CACHE_CONTROL] => no-cache, no-cache
-#	[HTTP_APPKEY] => e921ab54-3744-109f-bb40-100000230005-1989ecc0-ae89-445a-bbdb-6a6a647efec6
-#/openapi/conf/log -> /openapi/conf/log?service=widget&timestamp=1359096485874
-#	[HTTP_ACCEPT] => text/html, image/png, image/*, */*
-#	[HTTP_ACCEPT_LANGUAGE] => ko
-#	[HTTP_HOST] => infolink.pavv.co.kr
-#	[HTTP_TOKEN] => c46fcf10+_X6_PDP_606bbd91bd47+92da379848417e6c32e2b5c68815f67b356fbb68
-#	[HTTP_USER_AGENT] => Mozilla/5.0 (Windows; U; en-US; rv:1.8.1.11; Gecko/20071129; Firefox/2.5.0) Maple 6.0.00067 Navi
-#	[HTTP_COOKIE] => WMONID=c46fcf10
-#	[HTTP_CONNECTION] => close
-#	[CONTENT_TYPE] => text/xml
-#	[HTTP_CACHE_CONTROL] => no-cache, no-cache
-#	[HTTP_APPKEY] => 5cdfb2dc-8598-17af-b9a3-100000230005-3c290b4b-9c98-4974-890a-3b465274d549
-#/openapi/service/widget -> - SERVER VARS on PRE Enter - Array
-#	[HTTP_ACCEPT] => text/html, image/png, image/*, */*
-#	[HTTP_ACCEPT_LANGUAGE] => ko
-#	[HTTP_HOST] => infolink.pavv.co.kr
-#	[HTTP_TOKEN] => c46fcf10+_X6_PDP_606bbd91bd47+92da379848417e6c32e2b5c68815f67b356fbb68
-#	[HTTP_USER_AGENT] => Mozilla/5.0 (Windows; U; en-US; rv:1.8.1.11; Gecko/20071129; Firefox/2.5.0) Maple 6.0.00067 Navi
-#	[HTTP_COOKIE] => WMONID=c46fcf10
-#	[HTTP_CONNECTION] => close
-#	[CONTENT_TYPE] => text/xml
-#	[HTTP_CACHE_CONTROL] => no-cache, no-cache
-#	[HTTP_APPKEY] => 5cdfb2dc-8598-17af-b9a3-100000230005-3c290b4b-9c98-4974-890a-3b465274d549
-
-
-# OTN:
-#/openapi/device/auth/seedkey
-#	[HTTPS] => on
-#	[SSL_TLS_SNI] => www.samsungotn.net
-#	[HTTP_HOST] => www.samsungotn.net
-#	[HTTP_ACCEPT] => */*
-#	[HTTP_APPKEY] => ed29e9fe-4225-418c-88ee-2f1bc01e6a8e-2ad7f3ce-23c0-4cdb-afff-d1481531f1bb
-#	[HTTP_DUID] => H3CISIPCYNNGE
-#	[HTTP_MACADDR] => e47cf921af62
-#	[HTTP_FIRMCODE] => SWU_T-VAL6DEUC_001006_I04_ES000DS000KS000RS000_100422
-#	[HTTP_MODELID] => T-VAL6DEUC
-#	[HTTP_VERSION] => 1006.100422
-# d and e series +
-#		[HTTP_MODELNAME] => UE40D6500
-#/openapi/conf/version
-#	[HTTPS] => on
-#	[SSL_TLS_SNI] => www.samsungotn.net
-#	[HTTP_HOST] => www.samsungotn.net
-#	[HTTP_ACCEPT] => */*
-#	[HTTP_TOKEN] => 5041a148+_T-VAL6DEUC_5437490089cd+395e1c631a07c70ee717fd4b22d2cb1ffa456555
-#	[HTTP_APPKEY] => ed29e9fe-4225-418c-88ee-2f1bc01e6a8e-2ad7f3ce-23c0-4cdb-afff-d1481531f1bb
-#/openapi/tv -> /openapi/tv/<ModelId>/<ClientFWVersion>/m_notice
-#	[HTTP_HOST] => www.samsungotn.net
-#	[HTTP_ACCEPT] => */*
-#	[HTTP_DUID] => H3CISIPCYNNGE
-#/openapi/log/otn -> /openapi/log/otn/<DUID> 
-#	[HTTP_HOST] => www.samsungotn.net
-#	[HTTP_ACCEPT] => */*
-#	[CONTENT_TYPE] => application/x-www-form-urlencoded
-#	[CONTENT_LENGTH] => 158
-
 $UserWidetList = $_SERVER['DOCUMENT_ROOT'] . "/UserWidgetInstall/" . $gUserName . ".xml";
 $QURLParts = preg_split('/\//', $_SERVER['REQUEST_URI'], -1, PREG_SPLIT_NO_EMPTY);
 parse_str(@$_SERVER['QUERY_STRING'], $QParts);
 # $QURLParts[6]
-#  https://tvstoregw.pavv.co.kr/tvGateway/service/AT/ko/CPCGYQLKIJBFU/12_ECHOP/detail
+#  https://tvstoregw.pavv.co.kr/tvGateway/service/AT/ko/DUID/12_ECHOP/detail
 #  https://tvstoregw.pavv.co.kr/tvGateway/service/ 2/ 3/     4       /   5    /   6  
 # for tvgateway:
 /* xml version="1.0" encoding="UTF-8"<result><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage></result> */
