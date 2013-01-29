@@ -1,26 +1,26 @@
 <?php
-if(isset($_SERVER['HTTP_FROM']))
-	exit();
-
 require_once('SELP_Config.inc');
 
+#if((InSane()) != false)
+#	die("InSanecheck Failed...");
+InSane();
+
 class CError {
-	public static function LogStr($str)
-	{
+	public static function LogStr($str){
 		$Logfilename = $_SERVER['DOCUMENT_ROOT']."/logs/SGError-".$_SERVER['REMOTE_ADDR'].".log";
 		//$Logfilename = "/dev/null";
-		$f = fopen($Logfilename,"a");
-		if ($f)
-		{
+		$f = fopen($Logfilename, "a");
+		if($f){
 			$LogStr = date("d.m.Y H:i:s")." - ".$_SERVER['SCRIPT_NAME']." -> ".$str."\r\n";
 			fwrite($f,$LogStr);
 			fclose($f);
+		} else {
+			print($LogStr . PHP_EOL);
 		}
 	}
 } // class CError
-function myErrorHandler($fehlercode, $fehlertext, $fehlerdatei, $fehlerzeile)
-{
-	switch ($fehlercode) {
+function myErrorHandler($fehlercode, $fehlertext, $fehlerdatei, $fehlerzeile){
+	switch ($fehlercode){
 	case E_USER_ERROR:
 		CError::LogStr("- Mein FEHLER Zeile $fehlerzeile in der Datei $fehlerdatei - [$fehlercode] $fehlertext.");
 		exit(1);
@@ -74,6 +74,8 @@ class mySXE extends SimpleXMLElement{
 			$values = explode(" ", $values);
 
 		$tmp = $this->findm("//$nodename"."[@"."$attribute='" .implode("' or @"."$attribute='", $values) . "']");
+		if(!is_array($tmp))
+			return $this;
 		foreach ($tmp as $node) {
 			$node->remove();
 		}
@@ -81,6 +83,8 @@ class mySXE extends SimpleXMLElement{
 	}
 	function removeDups($nodename = "widget", $attribute = "id"){
 		$tmp = $this->findm("//$nodename"."[@".$attribute."=preceding-sibling::".$nodename."/@".$attribute."]");
+		if(!is_array($tmp))
+			return $this;
 		foreach ($tmp as $node) {
 			$node->remove();
 		}
@@ -149,6 +153,14 @@ class mySXE extends SimpleXMLElement{
 	function replaceNode($Node){ /* http://php.net/manual/en/domnode.replacechild.php */
 		# ähhhhhh, simply delete and inser the new one?????
 	}
+	function change($string, $value = NULL){
+		foreach ($this as $child){
+			$child->$string = null;
+			unset($child->$string);
+			$child->addChild($string, $value);
+		}
+		return $this;
+	}
 	function prependChild($name, $content = NULL){
 		$dom = dom_import_simplexml($this);
 		$leader = $dom->insertBefore(
@@ -178,6 +190,12 @@ class mySXE extends SimpleXMLElement{
 			$dom->ownerDocument->createCDATASection($string));
 		return $this;
 	}	
+	function changeChild($string, $value = NULL){
+		$this->$string = NULL;
+		unset($this->$string);
+		$res = $this->addChild($string, $value);
+		return $res;
+	}
 	function changeCData($string = NULL){
 		$this[0] = NULL;
 		$dom = dom_import_simplexml($this);
@@ -359,13 +377,206 @@ function BrowserLang(){
 		$slang = "de-DE";
 	return $slang;
 }
+function InSane(){
+	global $IgnoreProxy, $WhoAmI, $gUserName, $gModelId, $gModelName, $gFirmcode, $gDUID, $gToken;
 
-$gUserName = preg_replace('/.*\+_(.*)\+.*/', '$1', $_SERVER['HTTP_TOKEN']);
-$gModelId = (isset($_SERVER['HTTP_MODELID'])) ? $_SERVER['HTTP_MODELID'] :  (isset($_SERVER['HTTP_CHIPSET'])) ? "12_" . $_SERVER['HTTP_CHIPSET'] . "_" . $_SERVER['HTTP_MACADDR'] : substr($gUserName, 0, -13);
-$QURLParts = preg_split('/\//', $_SERVER['REQUEST_URI'], -1, PREG_SPLIT_NO_EMPTY);
-$WhoAmI = basename($_SERVER['PHP_SELF'], ".php");
+	$WhoAmI = basename($_SERVER['PHP_SELF'], ".php");
+	$gUserName = (isset($_SERVER['HTTP_TOKEN'])) ? preg_replace('/.*\+_(.*)\+.*/', '$1', $_SERVER['HTTP_TOKEN']) : $_SERVER['HTTP_MODELID'] . "_" . $_SERVER['HTTP_MACADDR'];
+	$gModelId = (isset($_SERVER['HTTP_MODELID'])) ? $_SERVER['HTTP_MODELID'] :  ((isset($_SERVER['HTTP_CHIPSET'])) ? "12_" . $_SERVER['HTTP_CHIPSET'] . "_" . $_SERVER['HTTP_MACADDR'] : substr($gUserName, 0, -13));
+	
+	if(isset($_SERVER['HTTP_TOKEN']))
+		$gToken = $_SERVER['HTTP_TOKEN'];
+
+	if($_SERVER['HTTP_HOST'] == "store"){
+		# /tvGateway/service/AT/de/CPCGYQLKIJBFU/12_ECHOP/downConfirm
+	}
+	return false;
+	session_start();
+	CError::LogStr("START Sanity COOKIE vars: " . print_r($_COOKIE, 1));
+	CError::LogStr("START Sanity SESSION vars: " . print_r($_SESSION, 1));
+	CError::LogStr("START Sanity check ($WhoAmI): " . print_r($_SERVER, 1));
+
+	#	if($IgnoreProxy)
+	#		return FALSE;
+
+	if($WhoAmI == "request"){
+	# request?id=2100000650_001&s=330x186&dt=03&did=CPCGYQLKIJBFU&pt=04&pv=T-INFOLINK2012-1013&nt=10&coc=at&lnc=deu&ts=1359380413300&tz=60&scr=1920x1080&dy=2012&md=12_ECHOP&mf=Samsung
+	return false;
+	}
+
+	if(isset($_SERVER['HTTP_MODELID']) && (empty($_SERVER['HTTP_MODELID']) || strstr($_SERVER['HTTP_MODELID'], " ") || strlen($_SERVER['HTTP_MODELID'] < 5)))
+		return true;
+
+	#/openapi/conf/application
+	#[DUID] => CPCA3M6BJJVEO
+	#[ModelID] => LEXXB650_EU
+	#[CountryCode] => AT
+	if($WhoAmI == "application"){
+		$gDUID = $_SERVER['HTTP_DUID'];
+		$gModelId = $_SERVER['HTTP_MODELID'];
+		$gUserName = $gModelId . "_112233445566";
+		return false;
+	}
+
+	if($WhoAmI == "countries"){
+		$gDUID = "AABBCCDDEE";
+		$gModelId = "12_ECHOP";
+		$gUserName = $gModelId . "_112233445566";
+		return false;
+	}
+
+	if($WhoAmI == ("date" || "version")){
+		$gUserName = preg_replace('/.*\+_(.*)\+.*/', '$1', $_SERVER['HTTP_TOKEN']);
+		return false;
+	}
+
+	if($WhoAmI == "query"){
+		$gDUID = $_SERVER['HTTP_DUID'];
+		$gModelId = $_SERVER['HTTP_MODELID'];
+		$gUserName = $gModelId . "_" . $_SERVER['HTTP_MACADDR'];
+		return false;
+	}
+
+	if(strstr($WhoAmI, "notice")){
+		$gDUID = $_SERVER['HTTP_DUID'];
+		# ModelId>/<ClientFWVersion
+		$tmp = preg_split('/\//', $_SERVER['REQUEST_URI'], -1, PREG_SPLIT_NO_EMPTY);
+		$ClientFWVer = $tmp[3];
+		#$ClientSecKey = $tmp[4];
+		$gModelId =  $tmp[2];
+		$gFirmcode = $tmp[3];
+		return false;
+	}
+
+	if($WhoAmI == "seedkey"){
+		$gDUID = $_SERVER['HTTP_DUID'];
+		$gFirmcode = $_SERVER['HTTP_FIRMCODE'];
+		$gModelId = $_SERVER['HTTP_MODELID'];
+		$gUserName = $gModelId . "_" . $_SERVER['HTTP_MACADDR'];
+		return false;
+	}
+
+
+	foreach ($_SERVER as $k => $v)
+	{
+		if (substr($k, 0, 5) == "HTTP_")
+		{
+			if(preg_match('/(VIA|FORWARD|PROXY|CLIENT|CUDA|COMING|FROM)/', $k)){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+# setup GLOBALS:
+# EMP: rm
+#/openapi/device/auth/query -> - SERVER VARS on PRE Enter - Array
+#	[HTTP_DUID] => ZPCB3EXS33NPU
+#	[HTTP_MACADDR] => 1c5a3e29af93
+#	[HTTP_MODELID] => sometimes empty -> reject request!!!
+#	[HTTP_CATEGORY] => EMP
+#	[HTTP_PARAM] => X10P,0.970
+#	[HTTP_COUNTRYCODE] => US
+#	[HTTP_HOST] => www.samsungrm.net
+#	[HTTP_CONNECTION] => close
+# HUB:
+#/openapi/device/auth/seedkey -> - SERVER VARS on PRE Enter - Array
+#	[HTTPS] => on
+#	[HTTP_ACCEPT] => text/html, image/png, image/*, */*
+#	[HTTP_ACCEPT_LANGUAGE] => ko
+#	[HTTP_HOST] => infolink.pavv.co.kr
+#	[HTTP_USER_AGENT] => Mozilla/5.0 (Windows; U; en-US; rv:1.8.1.11; Gecko/20071129; Firefox/2.5.0) Maple 6.0.00067 Navi
+#	[HTTP_CONNECTION] => close
+#	[CONTENT_TYPE] => text/xml
+#	[HTTP_CACHE_CONTROL] => no-cache
+#	[HTTP_APPKEY] => 5cdfb2dc-8598-17af-b9a3-100000230005-3c290b4b-9c98-4974-890a-3b465274d549
+#	[HTTP_COUNTRYCODE] => CA
+#	[HTTP_MODELID] => X6_PDP
+#	[HTTP_MACADDR] => 606bbd91bd47
+#	[HTTP_FIRMCODE] => T-INFOLINK2011-1005
+#	[HTTP_DUID] => P7CFP7UY6ZBDG
+#/openapi/conf/date -> - SERVER VARS on PRE Enter - Array
+#	[HTTP_ACCEPT] => text/html, image/png, image/*, */*
+#	[HTTP_ACCEPT_LANGUAGE] => ko
+#	[HTTP_HOST] => infolink.pavv.co.kr
+#	[HTTP_TOKEN] => c46fcf10+_X6_PDP_606bbd91bd47+92da379848417e6c32e2b5c68815f67b356fbb68
+#	[HTTP_USER_AGENT] => Mozilla/5.0 (Windows; U; en-US; rv:1.8.1.11; Gecko/20071129; Firefox/2.5.0) Maple 6.0.00067 Navi
+#	[HTTP_COOKIE] => WMONID=4df3ef0a
+#	[HTTP_CONNECTION] => close
+#	[CONTENT_TYPE] => text/xml
+#	[HTTP_CACHE_CONTROL] => no-cache, no-cache
+#	[HTTP_APPKEY] => 5cdfb2dc-8598-17af-b9a3-100000230005-3c290b4b-9c98-4974-890a-3b465274d549
+#/openapi/service/channel/gallery
+#	[HTTP_ACCEPT] => text/html, image/png, image/*, */*
+#	[HTTP_ACCEPT_LANGUAGE] => ko
+#	[HTTP_HOST] => infolink.pavv.co.kr
+#	[HTTP_USER_AGENT] => Mozilla/5.0 (Windows; U; en-US; rv:1.8.1.11; Gecko/20071129; Firefox/2.5.0) Maple 6.0.00067 Navi
+#	[HTTP_CONNECTION] => close
+#	[CONTENT_TYPE] => text/xml
+#	[HTTP_CACHE_CONTROL] => no-cache, no-cache
+#	[HTTP_APPKEY] => e921ab54-3744-109f-bb40-100000230005-1989ecc0-ae89-445a-bbdb-6a6a647efec6
+#/openapi/conf/log -> /openapi/conf/log?service=widget&timestamp=1359096485874
+#	[HTTP_ACCEPT] => text/html, image/png, image/*, */*
+#	[HTTP_ACCEPT_LANGUAGE] => ko
+#	[HTTP_HOST] => infolink.pavv.co.kr
+#	[HTTP_TOKEN] => c46fcf10+_X6_PDP_606bbd91bd47+92da379848417e6c32e2b5c68815f67b356fbb68
+#	[HTTP_USER_AGENT] => Mozilla/5.0 (Windows; U; en-US; rv:1.8.1.11; Gecko/20071129; Firefox/2.5.0) Maple 6.0.00067 Navi
+#	[HTTP_COOKIE] => WMONID=c46fcf10
+#	[HTTP_CONNECTION] => close
+#	[CONTENT_TYPE] => text/xml
+#	[HTTP_CACHE_CONTROL] => no-cache, no-cache
+#	[HTTP_APPKEY] => 5cdfb2dc-8598-17af-b9a3-100000230005-3c290b4b-9c98-4974-890a-3b465274d549
+#/openapi/service/widget -> - SERVER VARS on PRE Enter - Array
+#	[HTTP_ACCEPT] => text/html, image/png, image/*, */*
+#	[HTTP_ACCEPT_LANGUAGE] => ko
+#	[HTTP_HOST] => infolink.pavv.co.kr
+#	[HTTP_TOKEN] => c46fcf10+_X6_PDP_606bbd91bd47+92da379848417e6c32e2b5c68815f67b356fbb68
+#	[HTTP_USER_AGENT] => Mozilla/5.0 (Windows; U; en-US; rv:1.8.1.11; Gecko/20071129; Firefox/2.5.0) Maple 6.0.00067 Navi
+#	[HTTP_COOKIE] => WMONID=c46fcf10
+#	[HTTP_CONNECTION] => close
+#	[CONTENT_TYPE] => text/xml
+#	[HTTP_CACHE_CONTROL] => no-cache, no-cache
+#	[HTTP_APPKEY] => 5cdfb2dc-8598-17af-b9a3-100000230005-3c290b4b-9c98-4974-890a-3b465274d549
+
+
+# OTN:
+#/openapi/device/auth/seedkey
+#	[HTTPS] => on
+#	[SSL_TLS_SNI] => www.samsungotn.net
+#	[HTTP_HOST] => www.samsungotn.net
+#	[HTTP_ACCEPT] => */*
+#	[HTTP_APPKEY] => ed29e9fe-4225-418c-88ee-2f1bc01e6a8e-2ad7f3ce-23c0-4cdb-afff-d1481531f1bb
+#	[HTTP_DUID] => H3CISIPCYNNGE
+#	[HTTP_MACADDR] => e47cf921af62
+#	[HTTP_FIRMCODE] => SWU_T-VAL6DEUC_001006_I04_ES000DS000KS000RS000_100422
+#	[HTTP_MODELID] => T-VAL6DEUC
+#	[HTTP_VERSION] => 1006.100422
+# d and e series +
+#		[HTTP_MODELNAME] => UE40D6500
+#/openapi/conf/version
+#	[HTTPS] => on
+#	[SSL_TLS_SNI] => www.samsungotn.net
+#	[HTTP_HOST] => www.samsungotn.net
+#	[HTTP_ACCEPT] => */*
+#	[HTTP_TOKEN] => 5041a148+_T-VAL6DEUC_5437490089cd+395e1c631a07c70ee717fd4b22d2cb1ffa456555
+#	[HTTP_APPKEY] => ed29e9fe-4225-418c-88ee-2f1bc01e6a8e-2ad7f3ce-23c0-4cdb-afff-d1481531f1bb
+#/openapi/tv -> /openapi/tv/<ModelId>/<ClientFWVersion>/m_notice
+#	[HTTP_HOST] => www.samsungotn.net
+#	[HTTP_ACCEPT] => */*
+#	[HTTP_DUID] => H3CISIPCYNNGE
+#/openapi/log/otn -> /openapi/log/otn/<DUID> 
+#	[HTTP_HOST] => www.samsungotn.net
+#	[HTTP_ACCEPT] => */*
+#	[CONTENT_TYPE] => application/x-www-form-urlencoded
+#	[CONTENT_LENGTH] => 158
+
 $UserWidetList = $_SERVER['DOCUMENT_ROOT'] . "/UserWidgetInstall/" . $gUserName . ".xml";
+$QURLParts = preg_split('/\//', $_SERVER['REQUEST_URI'], -1, PREG_SPLIT_NO_EMPTY);
 parse_str(@$_SERVER['QUERY_STRING'], $QParts);
+# $QURLParts[6]
+#  https://tvstoregw.pavv.co.kr/tvGateway/service/AT/ko/CPCGYQLKIJBFU/12_ECHOP/detail
+#  https://tvstoregw.pavv.co.kr/tvGateway/service/ 2/ 3/     4       /   5    /   6  
 # for tvgateway:
 /* xml version="1.0" encoding="UTF-8"<result><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage></result> */
 # elsewhere: 

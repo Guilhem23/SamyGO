@@ -6,9 +6,10 @@ include_once('WidgetHelper.inc');
 # after widget instell, confirm.
 # - /tvGateway/service -> -  Like to POST -
 
-if($_SERVER['REQUEST_METHOD'] != "GET"){
-	SendPage($respxml->asXML());
-}
+# check if its buy request or widget installed notification!!!!!
+#if($_SERVER['REQUEST_METHOD'] != "GET"){
+#	SendPage($respxml->asXML());
+#}
 
 #if($WhoAmI == "checkUrl"){
 #	$respxml->currencyUnit = "€";
@@ -17,6 +18,26 @@ if($_SERVER['REQUEST_METHOD'] != "GET"){
 #	or:
 #	$respxml->shopType = "FREE";
 #}
+
+if($WhoAmI == "checkValidation"){
+	CError::LogStr("Oha, too much money in the pocket?");
+$respxml->changeChild("availablePoint", "300.0");
+}
+if($WhoAmI == "myEasyBuyInfo"){
+	CError::LogStr("Oha, too much money in the pocket?");
+}
+if($WhoAmI == "availablePoint"){
+	CError::LogStr("Oha, too much money in the pocket?");
+$respxml->changeChild("availablePoint", "300.0");
+}
+if($WhoAmI == "buying"){
+	CError::LogStr("Oha, too much money in the pocket?");
+$respxml->changeChild("resultCode", "200");
+$respxml->resultMessage->changeCData("OK");
+$respxml->changeChild("availablePoint", "290");
+$respxml->changeChild("widgetID", "SamyGO");
+$respxml->changeChild("totalCount", "1");
+}
 
 # d-series start:
 if($WhoAmI == ("new" || "new2")){

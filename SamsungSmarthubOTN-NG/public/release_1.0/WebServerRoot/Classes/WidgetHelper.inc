@@ -106,7 +106,7 @@ function WidgetToProduct($from, $extras = NULL){
 	$res->addChild("couponUse");
 	$res->addCDChild("productNew", "Y");
 	$res->addCDChild("productHot", "Y");
-#	$res->addCDChild("productEvent", "");
+	#	$res->addCDChild("productEvent", "");
 	$res->addCDChild("productListInURI", "$ContentsRoot/LIST_OFF_20121214065755748.png");
 	$res->addCDChild("productListOutURI", "$ContentsRoot/LIST_ON_20121214065755748.png");
 	$res->addCDChild("productThumbnailInURI", "$ContentsRoot/THUM_LIST_OFF_20121214065755748.png");
@@ -128,7 +128,7 @@ function WidgetToProduct($from, $extras = NULL){
 	$res->addChild("widgetID", $from['id']);
 	$res->addCDChild("productVendor", $from['id']);
 	$res->addChild("downloadcount", "0");
-#	$res->addChild("trialWidgetId", "0");
+	#	$res->addChild("trialWidgetId", "0");
 	$res->addCDChild("productCategoryId", "0000008931"); # hm
 	$res->addCDChild("productCategoryName", "SamyGO"); # hm or Education?
 	$res->addCDChild("categoryId", "1000000023"); # hm or or the 0000089..?
@@ -248,18 +248,19 @@ if(!file_exists($UserWidetList)){
 CError::LogStr("REQUEST_METHOD: ".$_SERVER['REQUEST_METHOD']);
 CError::LogStr("Servers User WidgetList: ".$UserWList->asXML());
 
-# users installed/uninstalled/list handling
-# TODO: POST handling for - /tvGateway/service -> -  Like to POST - 
-if($_SERVER['REQUEST_METHOD'] != "GET"){ /* b-series submit full list, can't remember for c,d needs check... */
-	$NewWidget = new mySXE($gInData);
-	$UserWList->Merge($NewWidget);
+if($WhoAmI != "checkValidation" && $WhoAmI != "availablePoint" && $WhoAmI != "myEasyBuyInfo" && $WhoAmI != "buying"){
+	# users installed/uninstalled/list handling
+	# TODO: POST handling for - /tvGateway/service -> -  Like to POST - 
+	if($_SERVER['REQUEST_METHOD'] != "GET"){ /* b-series submit full list, can't remember for c,d needs check... */
+		$NewWidget = new mySXE($gInData);
+		$UserWList->Merge($NewWidget);
 
-	if($WhoAmI == "mystorage"){ /* e-series part, one widget per request */
-		if($_SERVER['REQUEST_METHOD'] == "DELETE"){
-			$id = $NewWidget->widget['id'];
-			CError::LogStr("widget Delete request widget $id" . $UserWList->asXML());
-			$UserWList->removeNodesByAttrib("widget", "id", array($NewWidget->widget['id']));
-			CError::LogStr("widget Delete widget $id" . $UserWList->asXML());
+		if($WhoAmI == "mystorage"){ /* e-series part, one widget per request */
+			if($_SERVER['REQUEST_METHOD'] == "DELETE"){
+				$id = $NewWidget->widget['id'];
+				CError::LogStr("widget Delete request widget $id" . $UserWList->asXML());
+				$UserWList->removeNodesByAttrib("widget", "id", array($NewWidget->widget['id']));
+				CError::LogStr("widget Delete widget $id" . $UserWList->asXML());
 } // user widget synq requests
 }
 
@@ -271,5 +272,7 @@ header("HTTP/1.1 200 OK");
 SendPage($xml->asXML());
 #SendPage($respxml->asXML()); /* b-series response with error if samsungserver don't know the widget */
 }
-
+} else {
+	CError::LogStr("special handling...");
+}
 ?>
