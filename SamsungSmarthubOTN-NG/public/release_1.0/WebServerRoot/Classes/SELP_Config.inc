@@ -11,7 +11,7 @@ define('SG_EMU_VER', '3.0');
 global  $gRegionNames, $gUpSiteHUBs, $gUpSiteHUB, $gMachineData, $gSecretKey, $gAppKeys, $gAppKey,
 	$gModelId, $gModelName, $gFirmcode, $gDUID, $gToken, $gControlToken, $gMACAddr, $gversion,
 	$gCountryCodes, $gCountryCode, $gLangCodes, $gLangCode, $gIPAddr, $gUserId, $gUserName,
-	$gcipher, $gpass_pref, $gpass_dgst, $gopenssl_pass, $gsession_id,
+	$gcipher, $gpass_pref, $gpass_dgst, $gopenssl_pass, $gsession_id, $gKeyPrefix,
 	$gParam, $gCategory, $gStorageDir, $gLastRelease, $gFileServers, $IgnoreProxy, $ClientSend;
 
 $gRegionNames = array(
