@@ -2,10 +2,10 @@
 global $Engine, $QParts, $QURLParts, $xml, $respxml, $WhoAmI, $gInHeaders, $gInData, $gOutHeaders, $gOutData, $gUserName;
 $Engine = "SELP";
 
-if((!stristr($_SERVER['HTTP_HOST'], "pavv.co.kr") && !stristr($_SERVER['HTTP_HOST'], "samsung") && !stristr($_SERVER['HTTP_HOST'], "internetat.tv") && !stristr($_SERVER['HTTP_HOST'], "cloud")) && strstr($_SERVER["REQUEST_URI"], "openapi"))
+if(!stristr($_SERVER['HTTP_HOST'], "pavv.co.kr") && !stristr($_SERVER['HTTP_HOST'], "samsung") && !stristr($_SERVER['HTTP_HOST'], "internetat.tv") && !stristr($_SERVER['HTTP_HOST'], "cloud"))
 	die("made a bobo...");
 
-# TODO: drowsing mode on uplink, check user agent (curl/wget) and use stored authinfo or reauth...
+# TODO: browsing mode on uplink, check user agent (curl/wget) and use stored authinfo or reauth...
 
 require_once('SimpleMidleManHelpers.inc');
 
@@ -13,37 +13,38 @@ function StringToHeader(){} # mabe...
 
 function DoProxy($internalcall = false)
 {
-	global $Engine, $gModelId, $xml, $respxml, $WhoAmI, $gInHeaders, $gInData, $gOutHeaders, $gOutData, $gUserName;
+	global $Engine, $gModelId, $xml, $respxml, $WhoAmI, $gInHeaders, $gInData, $gOutHeaders, $gOutData, $gUserName, $gUpSiteHUB;
 
 	CError::LogStr("- START for ". GeoInfoOTN() ." - $WhoAmI -" . $_SERVER["REQUEST_URI"]);
 
 	if(!$internalcall)
 		$gInHeaders = getallheaders();
 	CError::LogStr("- Clients header -" . print_r($gInHeaders, 1));
-	$Uplink = nslookup($gInHeaders['Host']); # add check here?
-	$UplinkURI = ((isset($_SERVER['HTTPS'])) ? "https://" : "http://") . $Uplink .$_SERVER["REQUEST_URI"];
+	$gUpSiteHUB = nslookup($gInHeaders['Host']); # add check here?
+	$gUpSiteHUBURI = ((isset($_SERVER['HTTPS'])) ? "https://" : "http://") . $gUpSiteHUB .$_SERVER["REQUEST_URI"];
 	$ReqMethod = $_SERVER["REQUEST_METHOD"];
 	$CurlOutHeaders = array();
 	# TODO: for browsermaode, check user agent and load saved authinfo + add it to headers
 	# User-Agent... load from $saveHeader = $oDir . DIRECTORY_SEPARATOR . $gModelId . "_LastHeader.h";
-	if((empty($_SERVER['HTTP_DUID']) && empty($_SERVER['HTTP_TOKEN'])) || $internalcall){
-			$gModelId = "12_X10PLUS_2D";
-			$gModelId = "12_ECHOP";
-	#		$gModelId = "LEXXB650_EU";
-				CError::LogStr("- ######## ASUME BROWSERMODE (Browse as $gModelId) ######## -");
-			$gInHeaders = unserialize(file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/$Engine/$gModelId-Auth.h"));
-			if(!is_array($gInHeaders)){
-				CError::LogStr("- ERROR: smthg. went wrong in SELP-land...");
-			}
-			$gUserName = $gInHeaders['ModelId'] . "_" . $gInHeaders['MACAddr'];
-			unset($gInHeaders['MACAddr']);
-			unset($gInHeaders['Firmcode']);
-			unset($gInHeaders['ModelId']);
-	#		unset($gInHeaders['Cookie']);
-	}
+#	if(((empty($_SERVER['HTTP_DUID']) && empty($_SERVER['HTTP_TOKEN'])) && $WhoAmI != ("gallery" || "list")) || $internalcall){
+#			$gModelId = "12_X10PLUS_2D";
+#			$gModelId = "12_ECHOP";
+#	#		$gModelId = "LEXXB650_EU";
+#				CError::LogStr("- ######## ASUME BROWSERMODE (Browse as $gModelId) ######## -");
+#			$gInHeaders = unserialize(file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/$Engine/$gUpSiteHUB-$gModelId-Auth.h"));
+#			if(!is_array($gInHeaders)){
+#				CError::LogStr("- ERROR: smthg. went wrong in SELP-land...");
+#			}
+#			$gUserName = $gInHeaders['ModelId'] . "_" . $gInHeaders['MACAddr'];
+#			unset($gInHeaders['MACAddr']);
+#			unset($gInHeaders['Firmcode']);
+#			unset($gInHeaders['ModelId']);
+#	#		unset($gInHeaders['Cookie']);
+#	}
 	foreach ($gInHeaders as $header => $value)
 	{
-		if (!strstr($header, "-") || $header != "Authorization" || stristr($header, "duid")) # b-series fix for requests (drop Authorization)
+#		if (!strstr($header, "-") || $header != "Authorization" || stristr($header, "duid")) # b-series fix for requests (drop Authorization)
+		if (!strstr($header, "-") || $header != "Authorization") # b-series fix for requests (drop Authorization)
 			array_push($CurlOutHeaders, $header . ": " . $value);
 	}
 	CError::LogStr("- Routed headers -" . print_r($CurlOutHeaders, 1));
@@ -51,7 +52,7 @@ function DoProxy($internalcall = false)
 		$gInData = file_get_contents("php://input"); 
 
 	$tuCurl = curl_init();
-	curl_setopt($tuCurl, CURLOPT_URL, $UplinkURI);
+	curl_setopt($tuCurl, CURLOPT_URL, $gUpSiteHUBURI);
 	curl_setopt($tuCurl, CURLOPT_HEADER, true);
 	curl_setopt($tuCurl, CURLOPT_POST, false);
 	curl_setopt($tuCurl, CURLOPT_NOBODY, false);
@@ -100,7 +101,7 @@ function DoProxy($internalcall = false)
 		default:
 			CError::LogStr("Notice: Uplink reported an error (" . $respinfo['http_code'] . ")");
 		$xml->addAttribute("offline", true);
-		$xml['hubsite'] = $Uplink;
+		$xml['hubsite'] = $gUpSiteHUB;
 		$xml->addChild("list");
 		$gOutData = $xml->asXML();
 		break;
@@ -109,7 +110,7 @@ function DoProxy($internalcall = false)
 		CError::LogStr("HTTP ($ReqMethod) $RespCode " . $respinfo['http_code'] . " Es wurden " . $respinfo['total_time'] . " Sekunden benötigt für einen Request an " . $respinfo['url']);
 	} else {
 		CError::LogStr("Request failed. HTTP: (" . $respinfo['http_code'] . ")");
-#		CError::LogStr("Dump Vars: for uplink $Uplink " . print_r($UplinkURI, 1) . print_r($GLOBALS, 1));
+#		CError::LogStr("Dump Vars: for uplink $gUpSiteHUB " . print_r($gUpSiteHUBURI, 1) . print_r($GLOBALS, 1));
 		#return;
 		#	if(function_exists('http_response_code'))
 		#		http_response_code(200);
@@ -121,7 +122,7 @@ function DoProxy($internalcall = false)
 		#header("Location: /errors/errorpage.php?force=504");
 		#exit();
 		$xml->addAttribute("offline", true);
-		$xml['hubsite'] = $Uplink;
+		$xml['hubsite'] = $gUpSiteHUB;
 		$xml->addChild("list");
 		$gOutData = $xml->asXML();
 		header("HTTP/1.0 200 Ok");
@@ -134,7 +135,7 @@ function DoProxy($internalcall = false)
 	if(strstr($gOutData, "xml")){
 		$respxml = new mySXE($gOutData);
 	} elseif(strstr($gOutData, "Salted_")){
-		CError::LogStr("- OTN crypted file: $UplinkURI -");
+		CError::LogStr("- OTN crypted file: $gUpSiteHUBURI -");
 		$respxml = $xml;
 		$respxml->addCDChild("OtnData", $gOutData);
 #		SendPage($gOutData);
@@ -157,7 +158,7 @@ header("Content-Type: " . $gOutHeaders['Content-Type']);
 $oDir = dirname($_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI']);
 $oFile = $_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/" . $Engine . $_SERVER['REQUEST_URI'];
 $oFile = $oDir . DIRECTORY_SEPARATOR . basename($oFile);
-$saveHeader = $_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/$Engine/$gModelId-Auth.h";
+$saveHeader = $_SERVER['DOCUMENT_ROOT'] . "/OfflinePages/$Engine/$gUpSiteHUB-$gModelId-Auth.h";
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
 	# TODO: filename translation
 	if(!file_exists($oFile)){

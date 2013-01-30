@@ -9,5 +9,9 @@ $respxml->ad->change("rdUrl", "http://forum.samygo.tv");
 $respxml->ad->change("impUrlGW", "http://forum.samygo.tv/impUrlGW/");
 $respxml->ad->change("clickUrl", "/viewforum.php?f=" . $f);
 
+#$respxml->ad->change("rdUrl", "http://tvx.com");
+#$respxml->ad->change("impUrlGW", "http://forum.samygo.tv/impUrlGW/");
+#$respxml->ad->change("clickUrl", "/?confirm_dob=1" . $f);
+
 SendPage($respxml->asXML());
 ?>

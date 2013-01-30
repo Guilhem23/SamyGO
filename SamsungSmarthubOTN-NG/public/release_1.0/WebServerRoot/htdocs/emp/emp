@@ -1,32 +1,19 @@
 <?PHP
-#require_once('SimpleMidleMan.inc');
-require_once('SimpleMidleManHelpers.inc');
-
-/* X10
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empAppAnalyzer_VER_1.19.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empAuthSMG_VER_0.200.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empBrowserCommonPlugin_VER_1.81.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empCamera_VER_1.120513.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empDownload_VER_2.510.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empNaver_VER_1.007.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empNService_VER_0.53.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empPsaApp_VER_1.006.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empQs_VER_1.007.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empSignature_VER_1.000.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empSkype_VER_1.120601.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empSpotify_VER_0.215.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empT9_VER_2.302.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empTalk_VER_2.420.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empWebBrowser_VER_2.25.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empWebBrowserDRI_VER_2.25.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empWLibPlugin_VER_0.001.zip
- * http://empdownprd.samsungcloudsolution.net/emp/emp/X10P_0.970_empXT9_VER_2.700.zip
- */
+require_once('SimpleMidleMan.inc');
+#require_once('SimpleMidleManHelpers.inc');
 
 $tmp = preg_split('/_/', basename($QURLParts[2], ".xml"));
 
 $xmlstr = '<?xml version="1.0" encoding="UTF-8"?><emplist></emplist>';
 $xml = new mySXE($xmlstr);
+$emps['GANOAS'] = array( "empAuthSMG" => "0.006",
+		"empDownload" => "2.700",  
+		"empNaver" => "1.000", 
+		"empSignature" => "1.000",
+		"empT9" => "2.301", "empTalk" => "2.400",
+		"empXT9" => "4.102"
+	     );
+
 $emps['X10P'] = array(	"empAppAnalyzer" => "1.19", "empAuthSMG" => "0.200", "empBrowserCommonPlugin" => "1.81",
 		"empCamera" => "1.120513", "empDownload" => "2.510",  
 		"empNaver" => "1.007", "empNService" => "0.53", 
@@ -45,7 +32,9 @@ $emps['ECHOP'] = array(	"empAppAnalyzer" => "1.19", "empAuthSMG" => "0.200", "em
 		"empWLibPlugin" => "0.001", "empXT9" => "2.700"
 	     );
 
-$emps['FIRENZE'] = $emps['GENOAS'] = $emps['GENOAP'] = $emps['ECHOB'] = $emps['BROADCOM'] = $emps['X6'] = $emps['ECHOP'];
+$emps['FIRENZE'] = $emps['ECHOB'] = $emps['BROADCOM'] = $emps['ECHOP'];
+$emps['X6'] = $emps['X10P'];
+$emps['GENOAP'] = $emps['GENOAS'];
 
 $pref = $tmp[1];
 $emp_ver = $tmp[2];

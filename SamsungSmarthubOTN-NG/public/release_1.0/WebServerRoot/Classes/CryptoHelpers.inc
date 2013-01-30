@@ -20,7 +20,7 @@ function n_encrypt_ssl($cleartext, $passphrase, $salt = false, $method = "aes-12
 	$salt = ($salt === false) ? "SamyGOwn" : $salt;
 	list($key, $iv) = salted_key_and_iv(false, $passphrase, $salt);
 	$ciphertext = 'Salted__' . $salt . openssl_encrypt($cleartext, $method, $key, $raw_input, $iv);
-	CError::LogStr("Crypto Engine Request (".mt_rand()."): -> $cleartext");
+	CError::LogStr("Crypto Engine Request (".__FUNCTION__."): -> $cleartext");
 	while ($msg = openssl_error_string())
 		CError::LogStr("Crypto Engine: clean messages -> $msg");
 	return $ciphertext;
@@ -29,6 +29,7 @@ function n_decrypt_ssl($ciphertext, $passphrase, $method = "aes-128-cbc", $raw_o
 	$salt = substr($ciphertext, 8, 8);
 	list($key, $iv) = salted_key_and_iv(false, $passphrase, $salt);
 	$cleartext = openssl_decrypt(substr($ciphertext, 16), $method, $key, $raw_output, $iv);
+	CError::LogStr("Crypto Engine Request (".__FUNCTION__."): -> $cleartext");
 	while ($msg = openssl_error_string())
 		CError::LogStr("Decrypt Engine: clean messages -> $msg");
 	return $cleartext;
@@ -55,4 +56,6 @@ function file_hash_ul($algo, $filename){
 	$u_hash = sprintf("%u", $array[1]);
 	return $u_hash;
 }
+
+$gKeyPrefix = 'YNX2F9:';
 ?>

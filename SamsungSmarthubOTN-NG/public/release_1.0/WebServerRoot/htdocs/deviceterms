@@ -1,0 +1,7 @@
+<?php
+# it's a html page...
+require_once('SimpleMidleMan.inc');
+
+$respxml = "<p style='text-align:center;'>Samsung Service Terms and Conditions</p><p>BlaBlaBla...</p>";
+SendPage($respxml);
+?>

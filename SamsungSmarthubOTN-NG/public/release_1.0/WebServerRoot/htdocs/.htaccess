@@ -7,7 +7,7 @@ Header add MyHeader "Hello SamyGO, it took %D microseconds \
 for me to serve this request at %t %{Request_URI}e."
 
 # some widgets fetchers...
-<FilesMatch "^([0-9]+$)">
+<FilesMatch "^([0-9]+|deviceterms)$">
 ForceType application/x-httpd-php
 </FilesMatch>
 

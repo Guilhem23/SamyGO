@@ -6,6 +6,8 @@ include_once('WidgetHelper.inc');
 # after widget instell, confirm.
 # - /tvGateway/service -> -  Like to POST -
 
+# TODO: handle downConfirm here?????
+#
 # check if its buy request or widget installed notification!!!!!
 #if($_SERVER['REQUEST_METHOD'] != "GET"){
 #	SendPage($respxml->asXML());

@@ -470,12 +470,11 @@ function InSane(){
 	return false;
 }
 
-
 $UserWidetList = $_SERVER['DOCUMENT_ROOT'] . "/UserWidgetInstall/" . $gUserName . ".xml";
 $QURLParts = preg_split('/\//', $_SERVER['REQUEST_URI'], -1, PREG_SPLIT_NO_EMPTY);
 parse_str(@$_SERVER['QUERY_STRING'], $QParts);
 # $QURLParts[6]
-#  https://tvstoregw.pavv.co.kr/tvGateway/service/AT/ko/<DUID>/12_ECHOP/detail
+#  https://tvstoregw.pavv.co.kr/tvGateway/service/AT/ko/CPCGYQLKIJBFU/12_ECHOP/detail
 #  https://tvstoregw.pavv.co.kr/tvGateway/service/ 2/ 3/     4       /   5    /   6  
 # for tvgateway:
 /* xml version="1.0" encoding="UTF-8"<result><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage></result> */
