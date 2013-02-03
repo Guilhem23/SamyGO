@@ -4,16 +4,22 @@ require_once('SimpleMidleMan.inc');
 # b- series:
 # [Referer] => file://localhost/mtd_down/widgets/manager/400009002/index.html
 # - START -/openapi/files/channel/200903/1022/10062/agreement_AT.xml
-if(strstr($WhoAmI, "agreement")){
+if(isset($respxml->disclaimer)){
 	$respxml->service->contents->changeCData("Dumb...");
 	$respxml->log->contents->changeCData("Dumb...");
 	$respxml->disclaimer->contents->changeCData("Dumb...");
 SendPage($respxml->asXML());
 }
 
+if(isset($respxml->service)){
+	$respxml->service->contents->changeCData("Dumb...");
+	$respxml->log->contents->changeCData("Dumb...");
+SendPage($respxml->asXML());
+}
+
 # e-series:
 # BrowserConfig, but seems to be ignored???
-if($QURLParts[3] == "201104" || $QURLParts[3] == "201202"){ 
+if(isset($respxml->server)){ 
 	foreach($respxml->server as $server){
 		if($server->default == "yes"){
 			$respxml->server->default = "no";
@@ -37,4 +43,5 @@ SendPage($respxml->asXML());
 # /openapi/files/channel/201202/5271/14417/Austria.xml?timestamp=1358422464875
 # /openapi/files/channel/201203/4603/13584/2011_Austria.xml
 # /openapi/files/channel/201205/5158/14196/2012_Austria_voice(1).xml
+# /openapi/files/channel/201203/4641/13624/2011_UK_1.xml?
 ?>
