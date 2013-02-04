@@ -69,11 +69,11 @@ class mySXE extends SimpleXMLElement{
 		}
 		return $this;
 	}
-	function removeNodesByAttrib($nodename = "widget", $attribute = "id", $values){
+	function removeNodesByAttrib($nodename = "widget", $attribute = "id", $values, $killparent = false){
 		if(!is_array($values))
 			$values = explode(" ", $values);
 
-		$tmp = $this->findm("//$nodename"."[@"."$attribute='" .implode("' or @"."$attribute='", $values) . "']");
+		$tmp = $this->findm("//$nodename"."[@"."$attribute='" .implode("' or @"."$attribute='", $values) . "']" . (($killparent) ? "/.." : ""));
 		if(!is_array($tmp))
 			return $this;
 		foreach ($tmp as $node) {
@@ -249,6 +249,12 @@ function nslookup($host){
 
 	// php is running on windows machine
 	if (substr(php_uname(), 0, 7) == "Windows") {
+		# TODO: handle output like: Addresses:  2a00:1450:400d:803::1013
+        #  173.194.39.114
+        #  173.194.39.112
+        #  173.194.39.113
+        #  173.194.39.116
+        #  173.194.39.115
 		# return str_replace(" ", "", substr($op[3], 6)); ip -> name
 		return str_replace(" ", "", substr($op[4], 8)); # name -> ip
 	}
@@ -271,7 +277,8 @@ function SendPage($string, $bytes = 512){
 	session_commit();
 	if(function_exists("headers_list"))
 		CError::LogStr("- FINAL HEADERS - " . __FUNCTION__ . " - " . print_r(headers_list(), 1));
-	CError::LogStr("- FINAL $bytes of OUTGOING DATA - " . __FUNCTION__ . " - " . substr($string, 0, $bytes));	
+	#CError::LogStr("- FINAL $bytes of OUTGOING DATA - " . __FUNCTION__ . " - " . substr($string, 0, $bytes));	
+	CError::LogStr("- FINAL $bytes of OUTGOING DATA - " . __FUNCTION__ . " - " . $string);	
 	exit();
 }
 
@@ -383,14 +390,14 @@ function InSane(){
 
 	$WhoAmI = basename($_SERVER['PHP_SELF'], ".php");
 	$gUserName = (isset($_SERVER['HTTP_TOKEN'])) ? preg_replace('/.*\+_(.*)\+.*/', '$1', $_SERVER['HTTP_TOKEN']) : $_SERVER['HTTP_MODELID'] . "_" . $_SERVER['HTTP_MACADDR'];
-	$gModelId = (isset($_SERVER['HTTP_MODELID'])) ? $_SERVER['HTTP_MODELID'] :  ((isset($_SERVER['HTTP_CHIPSET'])) ? "12_" . $_SERVER['HTTP_CHIPSET'] . "_" . $_SERVER['HTTP_MACADDR'] : substr($gUserName, 0, -13));
+	$gModelId = (isset($_SERVER['HTTP_MODELID'])) ? $_SERVER['HTTP_MODELID'] :  substr($gUserName, 0, -13);
 	
 	if(isset($_SERVER['HTTP_TOKEN']))
 		$gToken = $_SERVER['HTTP_TOKEN'];
 
-	if($_SERVER['HTTP_HOST'] == "store"){
-		# /tvGateway/service/AT/de/CPCGYQLKIJBFU/12_ECHOP/downConfirm
-	}
+	if(isset($_SERVER['HTTP_DUID']))
+		$gDUID = $_SERVER['HTTP_DUID'];
+
 	return false;
 	session_start();
 	CError::LogStr("START Sanity COOKIE vars: " . print_r($_COOKIE, 1));
@@ -401,7 +408,7 @@ function InSane(){
 	#		return FALSE;
 
 	if($WhoAmI == "request"){
-	# request?id=2100000650_001&s=330x186&dt=03&did=CPCGYQLKIJBFU&pt=04&pv=T-INFOLINK2012-1013&nt=10&coc=at&lnc=deu&ts=1359380413300&tz=60&scr=1920x1080&dy=2012&md=12_ECHOP&mf=Samsung
+	# request?id=2100000650_001&s=330x186&dt=03&did=xxxxxxxxxxxxx&pt=04&pv=T-INFOLINK2012-1013&nt=10&coc=at&lnc=deu&ts=xxxxxxxxxxxxx&tz=60&scr=1920x1080&dy=2012&md=12_ECHOP&mf=Samsung
 	return false;
 	}
 
@@ -409,7 +416,7 @@ function InSane(){
 		return true;
 
 	#/openapi/conf/application
-	#[DUID] => CPCA3M6BJJVEO
+	#[DUID] => xxxxxxxxxxxxx
 	#[ModelID] => LEXXB650_EU
 	#[CountryCode] => AT
 	if($WhoAmI == "application"){
@@ -474,8 +481,23 @@ $UserWidetList = $_SERVER['DOCUMENT_ROOT'] . "/UserWidgetInstall/" . $gUserName 
 $QURLParts = preg_split('/\//', $_SERVER['REQUEST_URI'], -1, PREG_SPLIT_NO_EMPTY);
 parse_str(@$_SERVER['QUERY_STRING'], $QParts);
 # $QURLParts[6]
-#  https://tvstoregw.pavv.co.kr/tvGateway/service/AT/ko/CPCGYQLKIJBFU/12_ECHOP/detail
 #  https://tvstoregw.pavv.co.kr/tvGateway/service/ 2/ 3/     4       /   5    /   6  
+if(strstr($_SERVER['HTTP_HOST'], "tvstoregw")){
+	$gCountryCode = $QURLParts[2];
+	$gLangCode = $QURLParts[3];
+	$gDUID = $QURLParts[4];
+	$gModelId = $QURLParts[5];
+}
+if(strstr($_SERVER['HTTP_HOST'], "samsungotn")){
+	$gModelId = $QURLParts[2];
+	$ClientFWVer = $QURLParts[3];
+	if($QURLParts[1] == "log")
+		$gDUID = $QURLParts[3];
+}
+if(strstr($_SERVER['HTTP_HOST'], "samsungadhub")){
+	$gModelId = $QParts['md'];
+	$gDUID = $QParts['did'];
+}
 # for tvgateway:
 /* xml version="1.0" encoding="UTF-8"<result><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage></result> */
 # elsewhere: 
