@@ -2,6 +2,20 @@
 require_once('SimpleMidleMan.inc');
 include_once('WidgetHelper.inc');
 
+# d-series:
+# topDownload
+# saveList
+$saveList = '<?xml version="1.0" encoding="UTF-8"?><result><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage><totalCount>0</totalCount></result>';
+if($WhoAmI == "saveList"){
+	$respxml = new  mySXE($saveList);
+}
+
+#
+# ?
+# userLogin
+# myPoint
+# myMicroInfo
+#
 # e-series:
 # after widget instell, confirm.
 # - /tvGateway/service -> -  Like to POST -
@@ -52,7 +66,7 @@ if($WhoAmI == ("new" || "new2")){
 
 # same as in: openapi/samsungapps/category + cdata (thinks makes not difference...)
 if($WhoAmI == "categoryList"){
-	$myCategory = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><category><categoryID>0000008931</categoryID><categoryIconURI><![CDATA[http://forum.samygo.tv/styles/prosilver/imageset/site_logo.png]]></categoryIconURI><categoryName><![CDATA[Education]]></categoryName><categoryTitle><![CDATA[SamyGO]]></categoryTitle></category></list>";
+	$myCategory = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><category><categoryID>0000008931</categoryID><categoryIconURI><![CDATA[http://forum.samygo.tv/styles/prosilver/imageset/site_logo.png]]></categoryIconURI><categoryName><![CDATA[SamyGO]]></categoryName><categoryTitle><![CDATA[Education]]></categoryTitle></category></list>";
 	$xml_inject = new mySXE($myCategory);
 	$respxml->categorys->category[6]->remove();
 	$respxml->categorys->Merge($xml_inject);
@@ -61,8 +75,10 @@ if($WhoAmI == "categoryList"){
 }
 # d-series end:
 
-# https://tvstoregw.pavv.co.kr/tvGateway/service/AT/ko/CPCGYQLKIJBFU/12_ECHOP/detail/Recommended/G00010871491 -> valid
-# https://tvstoregw.pavv.co.kr/tvGateway/service/AT/ko/CPCGYQLKIJBFU/12_ECHOP/detail/Recommended/SamyGO -> if custom one <resultCode>500</resultCode>
+# https://tvstoregw.pavv.co.kr/tvGateway/service/AT/ko/DUID/12_ECHOP/detail/Recommended/G00010871491 -> valid
+# https://tvstoregw.pavv.co.kr/tvGateway/service/AT/ko/DUID/12_ECHOP/detail/Recommended/SamyGO -> if custom one <resultCode>500</resultCode>
+# d-series:
+# /tvGateway/service/GB/ro/DUID/FIRENZE_BD_DVB/detail/Recommended/G00010154407
 if(strstr($QURLParts[6], "detail")){ # hm in some logs it was detailWidget ?????
 	if (in_array($WhoAmI, $CustomApps)){
 		$CustList = ImportCustomWidgets(array($WhoAmI));
@@ -71,6 +87,17 @@ if(strstr($QURLParts[6], "detail")){ # hm in some logs it was detailWidget ?????
 # $respxml->list['lastpage'] = 1;
 # $respxml->list['total'] = count($respxml->list->children());
 	}
+}
+
+# d-series list widgets in category.
+#  /tvGateway/service/GB/ro/DUID/FIRENZE_BD_DVB/list/0000008926/Recommended/1000/1
+if($QURLParts[6] == "list" && $QURLParts[7] == "0000008931"){ 
+		$CustList = ImportCustomWidgets($CustomApps);
+		$ConvertedCustList = ListForGW($CustList);
+                unset($respxml->products[0]);
+		$respxml->products->Merge($ConvertedCustList);
+		$respxml->totalCount[0] =  count($respxml->products->children());
+		CError::LogStr("d-series request". print_r($QURLParts, 1));
 }
 
 $Guide = '<?xml version="1.0" encoding="UTF-8"?><guide version="1.1"><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage><contents><![CDATA[<table cellpadding="0" cellspacing="0" width="645">
@@ -139,9 +166,6 @@ $Guide = '<?xml version="1.0" encoding="UTF-8"?><guide version="1.1"><resultCode
 </tbody>
 </table><p>&nbsp;</p>]]></contents><title>English USA</title></guide>';
 
-$checkValidation = '<?xml version="1.0" encoding="UTF-8"?>
-<buyCheck><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage><availablePoint>0.0</availablePoint><couponUse>N</couponUse><myProductSeq>1591382</myProductSeq><productPrice>0.0</productPrice><widgetId>'.substr($tmp->productCode, 1).'</widgetId></buyCheck>';
-
 $Disclaimer = '<?xml version="1.0" encoding="UTF-8"?><disclaimer version="1.1">
 <resultCode>200</resultCode>
 <resultMessage><![CDATA[OK]]></resultMessage>
@@ -149,10 +173,6 @@ $Disclaimer = '<?xml version="1.0" encoding="UTF-8"?><disclaimer version="1.1">
 SamyGO is not responsible for anything.]]></contents>
 <title>Disclaimer</title>
 </disclaimer>';
-
-if($WhoAmI == "checkValidation"){
-	$respxml = new  mySXE($checkValidation);
-}
 
 if($WhoAmI == "disclaimer"){
 	$respxml = new  mySXE($Disclaimer);
