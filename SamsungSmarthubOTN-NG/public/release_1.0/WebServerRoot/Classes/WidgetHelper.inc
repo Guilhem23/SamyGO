@@ -1,7 +1,8 @@
 <?php
 # some helpers for widget data manipulation/transormation used in different engines (Infolink/SmartHub/AppStore)
 
-$KeepOriginalApps = array("400009002", "10120000000", "10110000001", "10120000099");  /* never remove the engines manager sh1 sh2 appstore */
+CError::LogStr(__FILE__ . " -> $gModelId -> $WhoAmI ################################################");
+$KeepOriginalApps = array("400009002", "10120000000", "10110000001", "10120000099", "10130000000");  /* never remove the engines manager sh1 sh2 appstore sh for f-series? */
 $KeepOriginalApps[] = "11111000009"; /* Explore3D */
 $KeepOriginalApps[] = "20121000003"; /* empWebBrowser */
 $KeepOriginalApps[] = "10110001001"; /* empQs */
@@ -19,17 +20,20 @@ $ForcePartners = array();	#TODO: required?
 $ForceNoPartner = array();	#TODO: required?
 $ForceInstall = array();	#TODO: required?
 
-if(strstr($_SERVER['HTTP_TOKEN'], "XX")){ /* b-series */
+#if(strstr($_SERVER['HTTP_TOKEN'], "XX")){ /* b-series */
+if(strstr($gModelId, "XX")){ /* b-series */
 	$CustomApps = array("B_hack_widget");
+$KeepOriginalApps[] = "100010002"; /* Picasa */ 
+$KeepOriginalApps[] = "200009004"; /* AccuWeather */ 
 }
 
-if(strstr($_SERVER['HTTP_TOKEN'], "VAL")){ /* c-series */
+if(strstr($gModelId, "VAL")){ /* c-series */
 	$CustomApps = array("hack_widget", "ChannelInfo");
 }
-if(strstr($_SERVER['HTTP_TOKEN'], "GA")){ /* d-series */
+if(strstr($gModelId, "GA")){ /* d-series */
 	$CustomApps = array("SamyGO", "busybox", "ChannelInfo");
 }
-if(strstr($_SERVER['HTTP_TOKEN'], "FIR")){ /* d,e-series bd-player */
+if(strstr($gModelId, "FIR")){ /* d,e-series bd-player */
 	$CustomApps = array("SamyGOE");
 }
 
@@ -131,7 +135,8 @@ function WidgetToProduct($from, $extras = NULL){
 	#	$res->addChild("trialWidgetId", "0");
 	$res->addCDChild("productCategoryId", "0000008931"); # hm
 	$res->addCDChild("productCategoryName", "SamyGO"); # hm or Education?
-	$res->addCDChild("categoryId", "1000000023"); # hm or or the 0000089..?
+#	$res->addCDChild("categoryId", "1000000023"); # hm or or the 0000089..?
+	$res->addCDChild("categoryId", "1000000025"); # hm for GB-ro???
 	$res->addCDChild("categoryName", "SamyGO"); # hm or Education?
 	$res->addCDChild("screenShotImg", "$ContentsRoot/SCREENSHOT_20121214065824343.jpg");
 	$res->addCDChild("screenShot720Img", "$ContentsRoot/HD_SCREENSHOT_20121214065824343.jpg");
@@ -181,7 +186,8 @@ function WidgetToproductDetail($from, $extras = NULL){
 	#	$res->addCDChild("productCategory", "SamyGO"); # hm
 	$res->addCDChild("productCategoryId", "0000008931"); # hm
 	$res->addCDChild("productCategory", "0000008931"); # hm
-	$res->addCDChild("productDescription", $from->description);
+#	$res->addCDChild("productDescription", $from->description);
+	$res->addCDChild("productDescription", $from->description . "<br /><div><B>Ask Developer</B> : <B>smarttv@samsung.com <mailto:smarttv@samsung.com> </B></div>"); # fancy style
 	$res->addCDChild("productLanguage", "en");
 	$res->addChild("productRealSize", $from['size']);
 	$res->addChild("productZipSize", $from->compression['size']);
@@ -237,41 +243,44 @@ function ListForGW($from, $extras = NULL){
 
 $CustList = ImportCustomWidgets($CustomApps);
 
-# load users widget list
-# first visit or user made reset.
-if(!file_exists($UserWidetList)){
-	$xmlstr = '<?xml version="1.0" encoding="UTF-8"?><list/>';
-	$UserWList = new mySXE($xmlstr);
-} else {
-	$UserWList = new mySXE(file_get_contents($UserWidetList));
-}
-CError::LogStr("REQUEST_METHOD: ".$_SERVER['REQUEST_METHOD']);
-CError::LogStr("Servers User WidgetList: ".$UserWList->asXML());
+# if($WhoAmI != "checkValidation" && $WhoAmI != "availablePoint" && $WhoAmI != "myEasyBuyInfo" && $WhoAmI != "buying" && $WhoAmI != "saveList")
+if(!strstr($_SERVER['HTTP_HOST'], "tvstoregw") && !strstr($_SERVER['HTTP_HOST'], "internetat")){
+	# load users widget list
+	# first visit or user made reset.
+	if(!file_exists($UserWidetList)){
+		$xmlstr = '<list/>';
+		$UserWList = new mySXE($xmlstr);
+	} else {
+		$UserWList = new mySXE(file_get_contents($UserWidetList));
+	}
+	CError::LogStr("REQUEST_METHOD: ".$_SERVER['REQUEST_METHOD']);
+	CError::LogStr("Servers User WidgetList: ".$UserWList->asXML());
 
-if($WhoAmI != "checkValidation" && $WhoAmI != "availablePoint" && $WhoAmI != "myEasyBuyInfo" && $WhoAmI != "buying"){
 	# users installed/uninstalled/list handling
 	# TODO: POST handling for - /tvGateway/service -> -  Like to POST - 
-	if($_SERVER['REQUEST_METHOD'] != "GET"){ /* b-series submit full list, can't remember for c,d needs check... */
+	if($_SERVER['REQUEST_METHOD'] != "GET"){ 
+		#b-series submit full list, can't remember for c,d needs check...
 		$NewWidget = new mySXE($gInData);
 		$UserWList->Merge($NewWidget);
 
-		if($WhoAmI == "mystorage"){ /* e-series part, one widget per request */
+		if($WhoAmI == "mystorage"){ 
+			#e-series part, one widget per request 
 			if($_SERVER['REQUEST_METHOD'] == "DELETE"){
 				$id = $NewWidget->widget['id'];
 				CError::LogStr("widget Delete request widget $id" . $UserWList->asXML());
 				$UserWList->removeNodesByAttrib("widget", "id", array($NewWidget->widget['id']));
 				CError::LogStr("widget Delete widget $id" . $UserWList->asXML());
-} // user widget synq requests
-}
+			} 
+		}
 
-$UserWList->removeDups();
-CError::LogStr("Merged Result: ".$UserWList->asXML());
-if($WhoAmI != "downConfirm" && !empty($gUserName))
-	$UserWList->saveXML($UserWidetList);
-header("HTTP/1.1 200 OK");
-SendPage($xml->asXML());
-#SendPage($respxml->asXML()); /* b-series response with error if samsungserver don't know the widget */
-}
+		$UserWList->removeDups();
+		CError::LogStr("Merged Result: ".$UserWList->asXML());
+		if($WhoAmI != "downConfirm" && !empty($gUserName))
+			$UserWList->saveXML($UserWidetList);
+		header("HTTP/1.1 200 OK");
+		SendPage($xml->asXML());
+		#SendPage($respxml->asXML()); /* b-series response with error if samsungserver don't know the widget */
+	}
 } else {
 	CError::LogStr("special handling...");
 }
