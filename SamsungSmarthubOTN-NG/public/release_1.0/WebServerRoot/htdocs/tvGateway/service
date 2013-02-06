@@ -35,12 +35,62 @@ if($WhoAmI == "saveList"){
 #	$respxml->shopType = "FREE";
 #}
 
+# hm some "old" code...
+#$checkValidation = 'xml version="1.0" encoding="UTF-8"
+#<buyCheck><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage><availablePoint>0.0</availablePoint><couponUse>N</couponUse><myProductSeq>1591382</myProductSeq><productPrice>0.0</productPrice><widgetId>'.substr($tmp->productCode, 1).'</widgetId></buyCheck>';
+#if($WhoAmI == "checkValidation"){
+#	$respxml = new  mySXE($checkValidation);
+#}
+if($WhoAmI == "userLogin"){
+	CError::LogStr("aha...");
+# <result>
+#   <resultCode>200</resultCode>
+#     <resultMessage><![CDATA[OK]]></resultMessage>
+#       <totalCount>0</totalCount>
+#       </result>
+}
+if($WhoAmI == "myPoint"){
+	CError::LogStr("aha...");
+# <pointInfo>
+#   <resultCode>200</resultCode>
+#     <resultMessage><![CDATA[OK]]></resultMessage>
+#       <availablePoint>0.0</availablePoint>
+#         <totalPoint>0.0</totalPoint>
+#           <usePoint>0.0</usePoint>
+#             <totalCount>0</totalCount>
+#             </pointInfo>
+$respxml->changeChild("availablePoint", "300.0");
+}
 if($WhoAmI == "checkValidation"){
 	CError::LogStr("Oha, too much money in the pocket?");
 $respxml->changeChild("availablePoint", "300.0");
 }
+# https://213.71.30.185/tvGateway/service/US/de/DUID/MODID/mywidgetList/1000/1
+if($QURLParts[6] == "myCouponAllList"){
+		CError::LogStr("shop personal request". print_r($QURLParts, 1));
+}
+if($QURLParts[6] == "mywidgetList"){
+		CError::LogStr("shop personal request". print_r($QURLParts, 1));
+}
 if($WhoAmI == "myEasyBuyInfo"){
 	CError::LogStr("Oha, too much money in the pocket?");
+#<myEasyBuyInfo>
+#  <resultCode>311</resultCode>
+#    <resultMessage><![CDATA[Token value does not exist]]></resultMessage>
+#      <autoChargeUnitAmount>0.0</autoChargeUnitAmount>
+#        <totalCount>0</totalCount>
+#        </myEasyBuyInfo>
+}
+if($WhoAmI == "appCashChargeUnitList"){
+	CError::LogStr("Oha, no money in the pocket?");
+#    <appCashChargeUnits>
+#          <amount>20.0</amount>
+#                <countryCode>US</countryCode>
+#                      <currencyUnit>$</currencyUnit>
+#                            <seq>4</seq>
+#                                </appCashChargeUnits>
+#                                  </listChargeUnit>
+#                                  </appCashChargeUnitList>
 }
 if($WhoAmI == "availablePoint"){
 	CError::LogStr("Oha, too much money in the pocket?");
@@ -51,7 +101,7 @@ if($WhoAmI == "buying"){
 $respxml->changeChild("resultCode", "200");
 $respxml->resultMessage->changeCData("OK");
 $respxml->changeChild("availablePoint", "290");
-$respxml->changeChild("widgetID", "SamyGO");
+#$respxml->changeChild("widgetID", "SamyGO"); # hm, use stored data...
 $respxml->changeChild("totalCount", "1");
 }
 
@@ -91,7 +141,7 @@ if(strstr($QURLParts[6], "detail")){ # hm in some logs it was detailWidget ?????
 
 # d-series list widgets in category.
 #  /tvGateway/service/GB/ro/DUID/FIRENZE_BD_DVB/list/0000008926/Recommended/1000/1
-if($QURLParts[6] == "list" && $QURLParts[7] == "0000008931"){ 
+if($QURLParts[6] == "list" && $QURLParts[7] == "0000008931"){
 		$CustList = ImportCustomWidgets($CustomApps);
 		$ConvertedCustList = ListForGW($CustList);
                 unset($respxml->products[0]);
@@ -182,5 +232,6 @@ if($WhoAmI == "guide"){
 	$respxml = new mySXE($Guide);
 }
 
-SendPage($respxml->asXML());
+# SendPage($respxml->asXML());
+SendPage($respxml->pPrint());
 ?>
