@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pdl>
+    <edit name="prompt_period" mode="assign" value="172800" />
+    <edit name="log_url" mode="assign" value="http://www.samsungotn.net/openapi/log/otn/${DUID}" substitute="yes" />
+    <match pass_through="false">
+        <edit name="latest_firmcode" mode="assign" value="SWU_B-FIRURDEUC_001004_I03_ES000KS000RS000_110607" />
+        <method name="http_direct">
+            <filelist>
+                <file id="1318" url="http://az43064.vo.msecnd.net/firmware/tv/76/SWU_B-FIRURDEUC_001004_I03_ES000KS000RS000_110607/exe.img" size="84103344" dest="exe.img" dgst_method="SHA1" dgst="e37e34eb26099acc4ed00c07110a0e58418f88e0" dgst_ds_pem="${ModelId}.pem" dgst_ds="46d56bfd0587bc4e2f9f75b70057a469689d065a07b5cd5b64aed4968a57589f81ee028512a253f909316f9c1230783f5462d1d2642d6b7bda9c8addfc4509d11c259fd9cd2f067bae2591d96f72a2911126bb61e006fd37e0186a385d3d3154f9ff9a228028422426f05c8d49dea2fd2d5cd01c9599bf02c68818448caadbae" cipher="aes-128-cbc" pass="GNK5WA:${SecKey}" crc32="2327980980" pass_dgst="SHA1" substitute="yes" />
+                <file id="1319" url="http://az43064.vo.msecnd.net/firmware/tv/76/SWU_B-FIRURDEUC_001004_I03_ES000KS000RS000_110607/Image" size="3540800" dest="Image" dgst_method="SHA1" dgst="75fab9f7760a55328728be9219f7e3a301ba8fc7" dgst_ds_pem="${ModelId}.pem" dgst_ds="6b81c8edb8acdffb36905c9b33dccef33d9e518fb451865878fbae7d2bb321fcd9e362c53f9b2f9c2bd9c38806779f7711b9199032e2c5d2b4c60dceff727c7276eeaab7016d79125f84882ff2119a2532cd9591f0e86efed7cb915836d6d0fefceb15b6edfe5c73e9ec66b00c3fea8c5049831d9a3d0d8609aff2e86a07dba1" cipher="aes-128-cbc" pass="X0T8XM:${SecKey}" crc32="3926585315" pass_dgst="SHA1" substitute="yes" />
+                <file id="1320" url="http://az43064.vo.msecnd.net/firmware/tv/76/SWU_B-FIRURDEUC_001004_I03_ES000KS000RS000_110607/rootfs.img" size="4714800" dest="rootfs.img" dgst_method="SHA1" dgst="524a0a1e1f2243166dd917cfaffae497001ead6a" dgst_ds_pem="${ModelId}.pem" dgst_ds="6a598b1170fc68ef0883131d9f8fa2e786051e7fafecf948ecc1645546296d01c6631ec7cc9b4c9506f162ae69362fb4f4ac0c375a0065eb69d745e472d7d5fa9685ba22bdca36e7830991479178c8b4e0631d4293601194ac3758f05fb017cf7e01f08e366832c8c0a4cf481d5038d40d4bb7b1c2d80dce1ed8dc876ce2d5b1" cipher="aes-128-cbc" pass="ZMQLLZ:${SecKey}" crc32="312669756" pass_dgst="SHA1" substitute="yes" />
+            </filelist>
+        </method>
+        <execute method="http_direct" timeout="259200" retry="100" retry_method="backoff" loglevel="0" sched="absolute" sched_unit="120781" sched_unit_time="1" sched_ref="1900-01-01T00:00:00+00:00" sched_mod="0" />
+        <edit name="versionnote" mode="assign" value="http://az43064.vo.msecnd.net/xmldata/versionnote_SWU_B-FIRURDEUC_001004_I03_ES000KS000RS000_110607_${OSDLanguage}.xml"/>
+    </match>
+</pdl>
