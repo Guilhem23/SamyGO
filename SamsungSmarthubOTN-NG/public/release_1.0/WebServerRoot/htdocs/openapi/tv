@@ -6,6 +6,8 @@ require_once('SimpleMidleMan.inc');
 #require_once('SimpleMidleManHelpers.inc');
 require_once('CryptoHelpers.inc');
 
+CError::LogStr("Firmware request $WhoAmI for $gModelId, update from $ClientFWVer -> $gFirmcode");
+
 $FileList = array(
 		"appdata.img", "appext.img", "exe.img", "Loader.bin", "Image", "rootfs.img", "uImage", "sLoader.bin", "vmlinuz", "loader", "vloader",
 		"chip.img", "cmm.img", "emanual.img",

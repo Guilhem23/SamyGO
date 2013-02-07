@@ -229,14 +229,20 @@ class mySXE extends SimpleXMLElement{
 		$dom->preserveWhiteSpace = false;
 		$dom->formatOutput = true;
 
-		$domnode = $dom->importNode($domnode, true);
-		$dom->appendChild($domnode);
+		$dom->appendChild(
+			$dom->importNode($domnode, true));
 
 		return $dom->saveXML($string);
 	}
 	function dumbPrint(){
-		$unwanted = array("\t", "\n", "\r", '"/');
-		$wanted = array('', '', '', '" /');
+		$unwanted = array("        ", "\n\r", "\t", "\n", "\r", '"/');
+		$wanted = array('', '', '', '', '', '" /');
+		$res = str_replace($unwanted, $wanted, $this->asXML());
+		return $res;
+	}
+	function dumberPrint(){
+		$unwanted = array("        ", '<![CDATA[', ']]>', "\n\r", "\t", "\n", "\r", '  ');
+		$wanted = array('', '', '', '', '', '', '', '');
 		$res = str_replace($unwanted, $wanted, $this->asXML());
 		return $res;
 	}
@@ -273,12 +279,12 @@ function nslookup($host){
 }
 
 function SendPage($string, $bytes = 512){
-	print($string);
-	session_commit();
 	if(function_exists("headers_list"))
 		CError::LogStr("- FINAL HEADERS - " . __FUNCTION__ . " - " . print_r(headers_list(), 1));
 	#CError::LogStr("- FINAL $bytes of OUTGOING DATA - " . __FUNCTION__ . " - " . substr($string, 0, $bytes));	
 	CError::LogStr("- FINAL $bytes of OUTGOING DATA - " . __FUNCTION__ . " - " . $string);	
+	print($string);
+	session_commit();
 	exit();
 }
 
@@ -333,14 +339,6 @@ function HexToStr($hex)
 	{
 		$string .= chr(hexdec($hex[$i].$hex[$i+1]));
 	}
-	return $string;
-}
-
-function toWurstl($str)
-{
-	$unwanted = array("\t", "\n", "\r", '"/');
-	$wanted = array('', '', '', '" /');
-	$string = str_replace($unwanted, $wanted, $str);
 	return $string;
 }
 
@@ -481,6 +479,7 @@ $UserWidetList = $_SERVER['DOCUMENT_ROOT'] . "/UserWidgetInstall/" . $gUserName 
 $QURLParts = preg_split('/\//', $_SERVER['REQUEST_URI'], -1, PREG_SPLIT_NO_EMPTY);
 parse_str(@$_SERVER['QUERY_STRING'], $QParts);
 # $QURLParts[6]
+#  https://tvstoregw.pavv.co.kr/tvGateway/service/AT/ko/xxxxxxxxxxxxx/12_ECHOP/detail
 #  https://tvstoregw.pavv.co.kr/tvGateway/service/ 2/ 3/     4       /   5    /   6  
 if(strstr($_SERVER['HTTP_HOST'], "tvstoregw")){
 	$gCountryCode = $QURLParts[2];
@@ -497,6 +496,12 @@ if(strstr($_SERVER['HTTP_HOST'], "samsungotn")){
 if(strstr($_SERVER['HTTP_HOST'], "samsungadhub")){
 	$gModelId = $QParts['md'];
 	$gDUID = $QParts['did'];
+}
+if(strstr($_SERVER['HTTP_HOST'], "infolink")){
+	if($QURLParts[1] == "log"){
+		$gUserId = $_POST['U'];
+		$gDUID = $QURLParts[3];
+	}
 }
 # for tvgateway:
 /* xml version="1.0" encoding="UTF-8"<result><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage></result> */
