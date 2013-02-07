@@ -2,6 +2,17 @@
 require_once('SimpleMidleMan.inc');
 include_once('WidgetHelper.inc');
 
+# override for shop mode normally just commerce for korea and usa.
+# <rsp stat="ok">
+#   <billing>
+#       <currencyUnit>$</currencyUnit>
+#       <card>Y</card>
+#       <shopType>COMMERCE</shopType>
+#   </billing>
+#   <list>
+$respxml->billing->currencyUnit = "€";
+$respxml->billing->shopType = "COMMERCE";
+
 # category for overwrite
 #      <categoryID>0000008931</categoryID> # there is queried then
 #      <categoryIconURI>http://tv.samsungapps.com/tvstore/category//2011/0602/0619/iconFile_20110602061956566.png</categoryIconURI>
