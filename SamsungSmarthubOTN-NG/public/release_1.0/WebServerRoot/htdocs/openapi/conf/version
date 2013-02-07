@@ -3,6 +3,10 @@
 require_once('SimpleMidleMan.inc');
 require_once('CryptoHelpers.inc');
 
+$respxml->geoinfo['given_ip'] = $_SERVER['HTTP_IPADDR'];
+$respxml->geoinfo['real_ip'] = $_SERVER['REMOTE_ADDR'];
+$respxml->geoinfo['region_code'] = GeoInfoOTN();
+
 $RSAPubKey = trim(file_get_contents('mykey.pem.secpub', true));
 # change key if required, TODO: the check when.
 $respxml->noticeinfo['pass'] = $gKeyPrefix . '${SecKey}';
