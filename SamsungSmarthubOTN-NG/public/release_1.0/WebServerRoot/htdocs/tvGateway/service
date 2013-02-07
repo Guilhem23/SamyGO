@@ -38,9 +38,7 @@ if($WhoAmI == "saveList"){
 # hm some "old" code...
 #$checkValidation = 'xml version="1.0" encoding="UTF-8"
 #<buyCheck><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage><availablePoint>0.0</availablePoint><couponUse>N</couponUse><myProductSeq>1591382</myProductSeq><productPrice>0.0</productPrice><widgetId>'.substr($tmp->productCode, 1).'</widgetId></buyCheck>';
-#if($WhoAmI == "checkValidation"){
-#	$respxml = new  mySXE($checkValidation);
-#}
+
 if($WhoAmI == "userLogin"){
 	CError::LogStr("aha...");
 # <result>
@@ -63,14 +61,48 @@ $respxml->changeChild("availablePoint", "300.0");
 }
 if($WhoAmI == "checkValidation"){
 	CError::LogStr("Oha, too much money in the pocket?");
+# if user navigate to "myWidgets":
+# post: <buyInfoCheck><userID>af</userID><userPW>1</userPW><productCode>SamyGO</productCode></buyInfoCheck>
+$tmp = new mySXE($gInData);
+$respxml->changeChild("resultCode", "200");
+$respxml->resultMessage->changeCData("OK");
+$respxml->changeChild("widgetId", $tmp->productCode);
+# <buyCheck>
+#   <resultCode>309</resultCode>
+#   <resultMessage><![CDATA[Not exist Product Id]]></resultMessage>
+#   <couponUse>N</couponUse>
+#   <myProductSeq>4330123</myProductSeq>
+#   <productPrice>0.0</productPrice>
+#   <availablePoint>300.0</availablePoint>
+#   <totalCount>0</totalCount>
+# </buyCheck>
 $respxml->changeChild("availablePoint", "300.0");
 }
-# https://213.71.30.185/tvGateway/service/US/de/DUID/MODID/mywidgetList/1000/1
 if($QURLParts[6] == "myCouponAllList"){
 		CError::LogStr("shop personal request". print_r($QURLParts, 1));
 }
+# https://213.71.30.185/tvGateway/service/US/de/DUID/MODID/mywidgetList/1000/1
 if($QURLParts[6] == "mywidgetList"){
-		CError::LogStr("shop personal request". print_r($QURLParts, 1));
+	CError::LogStr("shop personal request". print_r($QURLParts, 1));
+# <myWidgetList>
+#   <resultCode>200</resultCode>
+#   <resultMessage><![CDATA[OK]]></resultMessage>
+#   <myWidgets/>
+#   <page>1</page>
+#   <totalCount>0</totalCount>
+#   <totalPageCount>0</totalPageCount>
+#  </myWidgetList>
+	$CustList = ImportCustomWidgets($CustomApps);
+	$ConvertedCustList = ListForGW($CustList);
+	foreach($ConvertedCustList->product as $widget){ #appstore/API/StoreMgr.js callbackmywidgetlist
+		$widget->addchild("orderID", "123456");
+		$widget->productPrice = "10.0";
+		$tmp = $respxml->myWidgets->addChild("myWidget");
+		$tmp->Merge($widget);
+	}
+#        $respxml->myWidgets->Merge($ConvertedCustList);
+	$respxml->totalCount[0] =  count($respxml->myWidgets->children());
+	CError::LogStr("bought widgets list");
 }
 if($WhoAmI == "myEasyBuyInfo"){
 	CError::LogStr("Oha, too much money in the pocket?");
@@ -98,10 +130,12 @@ $respxml->changeChild("availablePoint", "300.0");
 }
 if($WhoAmI == "buying"){
 	CError::LogStr("Oha, too much money in the pocket?");
+$tmp = new mySXE($gInData);
 $respxml->changeChild("resultCode", "200");
 $respxml->resultMessage->changeCData("OK");
 $respxml->changeChild("availablePoint", "290");
 #$respxml->changeChild("widgetID", "SamyGO"); # hm, use stored data...
+$respxml->changeChild("widgetID", $tmp->productCode);
 $respxml->changeChild("totalCount", "1");
 }
 
@@ -225,7 +259,7 @@ SamyGO is not responsible for anything.]]></contents>
 </disclaimer>';
 
 if($WhoAmI == "disclaimer"){
-	$respxml = new  mySXE($Disclaimer);
+	$respxml = new mySXE($Disclaimer);
 }
 
 if($WhoAmI == "guide"){
