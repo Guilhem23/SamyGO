@@ -73,6 +73,7 @@ class mySXE extends SimpleXMLElement{
 		if(!is_array($values))
 			$values = explode(" ", $values);
 
+		#$tmp = $this->findm("//$nodename"."[@"."$attribute='" .implode("' or @"."$attribute='", $values) . "']" . ($killparent) ? "/.." : "");
 		$tmp = $this->findm("//$nodename"."[@"."$attribute='" .implode("' or @"."$attribute='", $values) . "']" . (($killparent) ? "/.." : ""));
 		if(!is_array($tmp))
 			return $this;
@@ -109,6 +110,13 @@ class mySXE extends SimpleXMLElement{
 		$res .= '</widgetIDs></widgetList>';
 		$res = new mySXE($res);
 		return $res;
+	}
+	function idsAsArray($attribute = "id"){
+		$tmp = $this->xpath("//@" . $attribute);
+		foreach ($tmp as $Child) {
+			$resid[] = $Child[$attribute];
+		}
+		return $resid;
 	}
 	function remove(){
 		$dom = dom_import_simplexml($this);
@@ -387,14 +395,20 @@ function InSane(){
 	global $IgnoreProxy, $WhoAmI, $gUserName, $gModelId, $gModelName, $gFirmcode, $gDUID, $gToken;
 
 	$WhoAmI = basename($_SERVER['PHP_SELF'], ".php");
-	$gUserName = (isset($_SERVER['HTTP_TOKEN'])) ? preg_replace('/.*\+_(.*)\+.*/', '$1', $_SERVER['HTTP_TOKEN']) : $_SERVER['HTTP_MODELID'] . "_" . $_SERVER['HTTP_MACADDR'];
-	$gModelId = (isset($_SERVER['HTTP_MODELID'])) ? $_SERVER['HTTP_MODELID'] :  substr($gUserName, 0, -13);
-	
-	if(isset($_SERVER['HTTP_TOKEN']))
-		$gToken = $_SERVER['HTTP_TOKEN'];
 
 	if(isset($_SERVER['HTTP_DUID']))
 		$gDUID = $_SERVER['HTTP_DUID'];
+
+	if(isset($_SERVER['HTTP_TOKEN'])){
+		$gToken = $_SERVER['HTTP_TOKEN'];
+		$gUserName =  preg_replace('/.*\+_(.*)\+.*/', '$1', $gToken);
+	}
+
+	if(isset($_SERVER['HTTP_MODELID']) && isset($_SERVER['HTTP_MACADDR'])){
+		$gUserName = $_SERVER['HTTP_MODELID'] . "_" . $_SERVER['HTTP_MACADDR'];
+	}
+
+	$gModelId = (isset($_SERVER['HTTP_MODELID'])) ? $_SERVER['HTTP_MODELID'] :  substr($gUserName, 0, -13);
 
 	return false;
 	session_start();
@@ -475,7 +489,6 @@ function InSane(){
 	return false;
 }
 
-$UserWidetList = $_SERVER['DOCUMENT_ROOT'] . "/UserWidgetInstall/" . $gUserName . ".xml";
 $QURLParts = preg_split('/\//', $_SERVER['REQUEST_URI'], -1, PREG_SPLIT_NO_EMPTY);
 parse_str(@$_SERVER['QUERY_STRING'], $QParts);
 # $QURLParts[6]
@@ -503,12 +516,16 @@ if(strstr($_SERVER['HTTP_HOST'], "infolink")){
 		$gDUID = $QURLParts[3];
 	}
 }
+$gUserName = (!empty($gUserName)) ? $gUserName : $gDUID;
+$UserWidgetList = $_SERVER['DOCUMENT_ROOT'] . "/UserWidgetInstall/$gUserName.xml";
+		CError::LogStr("- SOMEWARS - " . __FUNCTION__ . " - $UserWidgetList ");
 # for tvgateway:
 /* xml version="1.0" encoding="UTF-8"<result><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage></result> */
 # elsewhere: 
 /* xml version="1.0" encoding="UTF-8" <rsp></rsp> */
 $xmlstr = '<?xml version="1.0" encoding="UTF-8"?><rsp></rsp>';
+$xmlstr = '<rsp/>';
 $xml = new mySXE($xmlstr);
 $xml->addAttribute("stat", "ok");
-$xml->addAttribute("cachedate", get_KoreanTimeforSeedKey(0));
+# $xml->addAttribute("cachedate", get_KoreanTimeforSeedKey(0));
 ?>
