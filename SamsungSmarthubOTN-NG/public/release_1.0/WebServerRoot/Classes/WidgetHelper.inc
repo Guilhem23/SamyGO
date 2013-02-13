@@ -243,45 +243,57 @@ function ListForGW($from, $extras = NULL){
 
 $CustList = ImportCustomWidgets($CustomApps);
 
-# if($WhoAmI != "checkValidation" && $WhoAmI != "availablePoint" && $WhoAmI != "myEasyBuyInfo" && $WhoAmI != "buying" && $WhoAmI != "saveList")
-if(!strstr($_SERVER['HTTP_HOST'], "tvstoregw") && !strstr($_SERVER['HTTP_HOST'], "internetat")){
+#if(!strstr($_SERVER['HTTP_HOST'], "tvstoregw") && !strstr($_SERVER['HTTP_HOST'], "internetat")){
 	# load users widget list
 	# first visit or user made reset.
-	if(!file_exists($UserWidetList)){
+	if(!file_exists($UserWidgetList)){
 		$xmlstr = '<list/>';
 		$UserWList = new mySXE($xmlstr);
 	} else {
-		$UserWList = new mySXE(file_get_contents($UserWidetList));
+		$UserWList = new mySXE(file_get_contents($UserWidgetList));
 	}
 	CError::LogStr("REQUEST_METHOD: ".$_SERVER['REQUEST_METHOD']);
 	CError::LogStr("Servers User WidgetList: ".$UserWList->asXML());
+	$UserWidgetListAsArray = $UserWList->idsAsArray();
 
 	# users installed/uninstalled/list handling
 	# TODO: POST handling for - /tvGateway/service -> -  Like to POST - 
 	if($_SERVER['REQUEST_METHOD'] != "GET"){ 
-		#b-series submit full list, can't remember for c,d needs check...
+		#b-series submit full list, can't remember for c,d needs check... add PUT handle? (e-series PUT to mystorage just one widget id PUT on list same as for b-series, full list)
 		$NewWidget = new mySXE($gInData);
-		$UserWList->Merge($NewWidget);
+		$UserWList->Merge($NewWidget)->removeDups();
 
-		if($WhoAmI == "mystorage"){ 
-			#e-series part, one widget per request 
-			if($_SERVER['REQUEST_METHOD'] == "DELETE"){
-				$id = $NewWidget->widget['id'];
-				CError::LogStr("widget Delete request widget $id" . $UserWList->asXML());
-				$UserWList->removeNodesByAttrib("widget", "id", array($NewWidget->widget['id']));
-				CError::LogStr("widget Delete widget $id" . $UserWList->asXML());
-			} 
+		if($_SERVER['REQUEST_METHOD'] == "PUT"){
+			$UserWList->removeNodesByAttrib("widget", "id",  $CustomApps);
+			$UserWList->saveXML($UserWidgetList);
+			SendPage($xml->asXML());
+		} elseif($_SERVER['REQUEST_METHOD'] == "POST"){
+			$UserWList->saveXML($UserWidgetList.".$WhoAmI-POST");
+		} else { #DELETE
+			$id = $NewWidget->widget['id'];
+			$UserWList->removeNodesByAttrib("widget", "id", array($NewWidget->widget['id']));
+			$UserWList->saveXML($UserWidgetList);
+			CError::LogStr("widget Delete request widget $id" . $UserWList->asXML());
 		}
-
-		$UserWList->removeDups();
-		CError::LogStr("Merged Result: ".$UserWList->asXML());
-		if($WhoAmI != "downConfirm" && !empty($gUserName))
-			$UserWList->saveXML($UserWidetList);
-		header("HTTP/1.1 200 OK");
-		SendPage($xml->asXML());
-		#SendPage($respxml->asXML()); /* b-series response with error if samsungserver don't know the widget */
+#		if($WhoAmI == "mystorage"){ 
+#			#e-series part, one widget per request 
+#			if($_SERVER['REQUEST_METHOD'] == "DELETE"){
+#				$id = $NewWidget->widget['id'];
+#				CError::LogStr("widget Delete request widget $id" . $UserWList->asXML());
+#				$UserWList->removeNodesByAttrib("widget", "id", array($NewWidget->widget['id']));
+#				CError::LogStr("widget Delete widget $id" . $UserWList->asXML());
+#			} 
+#		}
+#
+#		$UserWList->removeDups();
+#		CError::LogStr("Merged Result: ".$UserWList->asXML());
+#		if($WhoAmI != "downConfirm" && !empty($gUserName))
+#			$UserWList->saveXML($UserWidgetList);
+#		header("HTTP/1.1 200 OK");
+#		SendPage($xml->asXML());
+#		#SendPage($respxml->asXML()); /* b-series response with error if samsungserver don't know the widget */
 	}
-} else {
-	CError::LogStr("special handling...");
-}
+#} else {
+#	CError::LogStr("special handling...");
+#}
 ?>
