@@ -7,7 +7,7 @@ include_once('WidgetHelper.inc');
 # saveList
 $saveList = '<?xml version="1.0" encoding="UTF-8"?><result><resultCode>200</resultCode><resultMessage><![CDATA[OK]]></resultMessage><totalCount>0</totalCount></result>';
 if($WhoAmI == "saveList"){
-	$respxml = new  mySXE($saveList);
+	$respxml = new mySXE($saveList);
 }
 
 #
@@ -21,6 +21,9 @@ if($WhoAmI == "saveList"){
 # - /tvGateway/service -> -  Like to POST -
 
 # TODO: handle downConfirm here?????
+if($WhoAmI == "downConfirm"){
+	CError::LogStr("widget install confirmation?");
+}
 #
 # check if its buy request or widget installed notification!!!!!
 #if($_SERVER['REQUEST_METHOD'] != "GET"){

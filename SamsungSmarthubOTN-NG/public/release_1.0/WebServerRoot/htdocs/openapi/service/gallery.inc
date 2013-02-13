@@ -23,14 +23,21 @@ if($QParts['featured'] == "partners"){
 	# ?category=CP_YourVideo
 	# ?category=CP_Fitness 
 	# ?category=CP_KidsStory
+} elseif(strstr($QParts['category'], "CP_")){
+	CError::LogStr("subcategory request $WhoAmI " . $QParts['category']);
+	$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);	
+	# maybe handle $ReplaceOriginalApps ? or later ....
+	# ?category=CP_YourVideo
+	# ?category=CP_Fitness 
+	# ?category=CP_KidsStory
 } elseif(strstr($gModelId, "XX")){ # b-series
 	#$respxml->keepNodesByAttrib("widget", "id", $KeepOriginalApps);
 	$respxml->list->removeNodesByAttrib("featured", "system",  array("preinstall", "forced", "default"));
 	$respxml->list->Merge($CustList->list);
 } else {
 	CError::LogStr("gallery bottom $WhoAmI");
-	$respxml->list->removeNodesByAttrib("featured", "system",  array("preinstall", "forced", "partners"));
-	$respxml->list->Merge($CustList->list);
+	$respxml->list->removeNodesByAttrib("featured", "system",  array("preinstall", "forced", "partners", "default"));
+	$respxml->list->Merge($CustList->list)->list->Merge($UserWList)->removeDups();
 	#	$respxml->list->removeNodesByAttrib("featured", "system",  array("preinstall", "forced", "default"));
 	# TODO: post widgetlist to tvgateway saveList
 	#$tmpd = $respxml;

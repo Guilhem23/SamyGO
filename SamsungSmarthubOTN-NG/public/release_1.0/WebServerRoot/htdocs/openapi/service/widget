@@ -2,6 +2,11 @@
 require_once('SimpleMidleMan.inc');
 include_once('WidgetHelper.inc');
 
+#if(strstr($gModelId, "XX")){ # b-series
+#        $respxml->list->removeNodesByAttrib("featured", "system",  array("preinstall", "forced"));
+#       $respxml->list->Merge($CustList->list);
+#SendPage($respxml->asXML());
+#       }
 # if we inject custom widgets, samsung server respond is:
 # <rsp stat="fail"><err code="300" msg="Invalid Widget ID"/><desc/></rsp>
 # check on both arrays $ReplaceOriginalApps $CustomApps then we need to pass the download url to client
@@ -18,5 +23,12 @@ if (in_array($WhoAmI, $CustomApps) || in_array($WhoAmI, $ReplaceOriginalApps)){
 		CError::LogStr("Request Download data for $WhoAmI Widget");
 }
 
-SendPage($respxml->asXML());
+#SendPage($respxml->asXML());
+#header("Content-Type: text/xml", true);
+#flush();
+#usleep(pow(2,18));
+#header("Transfer-Encoding: chunked", true);
+#SendPage($respxml->dumberPrint());
+#SendPage($respxml->pPrint());
+SendPage($respxml->dumberPrint());
 ?>
