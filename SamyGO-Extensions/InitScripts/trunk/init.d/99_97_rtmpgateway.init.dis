@@ -1,0 +1,51 @@
+#!/bin/sh
+#
+# © Copyright 1996-2010, ZsoltTech.Com
+#       by Ser Lev Arris <arris@ZsoltTech.Com>
+#
+#       donated for the SamyGo Project
+#       http://samygo.sourceforge.net/
+#
+# 		description: rtmp flash streaming gateway
+#       Version: SamyGO svn $Id$
+
+. /dtv/SGO.env
+
+DAEMON=rtmpgw
+PIDFILE=$TMPDIR/$DAEMON.pid
+
+RETVAL=0
+
+case $1 in 
+	start)
+	[ -e $PIDFILE ] && echo "$DAEMON already running" && exit 0
+	echo -n $"Starting $DAEMON: "
+	$DAEMON -g 1935 >/dev/null 2>/dev/null &
+	RETVAL=$?
+	if [ $RETVAL -eq 0 ]; then
+		echo $! > $PIDFILE
+	fi	
+	[ $RETVAL -eq 0 ] && echo "success $DAEMON startup" || echo "failure $DAEMON startup" 
+	echo $!
+
+	;;
+	stop)
+	echo -n $"Shutting down $DAEMON: "
+	killall -9 $DAEMON
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && rm -f $PIDFILE
+	;;
+	restart)
+	$0 stop
+	$0 start
+	;;
+	status)
+	pidof $DAEMON
+	RETVAL=$?
+	;;
+	*)
+	echo "Usage: $0 {start|stop|status}" 1>&2
+	exit 0
+	;;
+esac
