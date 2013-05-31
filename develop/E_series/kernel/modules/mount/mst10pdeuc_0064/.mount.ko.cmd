@@ -1,1 +1,0 @@
-cmd_/project/kernel_modules/mount/mst10pdeuc_0064/mount.ko := arm-v7a8v2r2-linux-gnueabi-ld -EL -r  -T /project/user_firmware_T-MST10/VDLinux_2.6.35.11/linux-2.6.35.11/scripts/module-common.lds --build-id -o /project/kernel_modules/mount/mst10pdeuc_0064/mount.ko /project/kernel_modules/mount/mst10pdeuc_0064/mount.o /project/kernel_modules/mount/mst10pdeuc_0064/mount.mod.o

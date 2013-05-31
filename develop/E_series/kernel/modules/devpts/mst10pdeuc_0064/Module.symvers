@@ -1,5 +1,0 @@
-0x00000000	devpts_pty_new	/project/kernel_modules/devpts/mst10pdeuc_0064/devpts	EXPORT_SYMBOL
-0x00000000	devpts_get_tty	/project/kernel_modules/devpts/mst10pdeuc_0064/devpts	EXPORT_SYMBOL
-0x00000000	devpts_kill_index	/project/kernel_modules/devpts/mst10pdeuc_0064/devpts	EXPORT_SYMBOL
-0x00000000	devpts_new_index	/project/kernel_modules/devpts/mst10pdeuc_0064/devpts	EXPORT_SYMBOL
-0x00000000	devpts_pty_kill	/project/kernel_modules/devpts/mst10pdeuc_0064/devpts	EXPORT_SYMBOL_GPL
