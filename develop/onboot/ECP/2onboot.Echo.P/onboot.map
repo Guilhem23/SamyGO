@@ -1,0 +1,810 @@
+Archive member included because of file (symbol)
+
+/opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_udivsi3.o)
+                              ./echo/timer.o (__aeabi_uidiv)
+/opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_dvmd_lnx.o)
+                              /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_udivsi3.o) (__aeabi_idiv0)
+
+Allocating common symbols
+Common symbol       size              file
+
+console_buffer      0x100             cmdline.o
+hist_list           0x50              cmdline.o
+hist_lines          0x1400            cmdline.o
+got_rhsc            0x4               ./echo/usb_ohci.o
+usb_started         0x1               ./echo/usb.o
+gtd                 0xa040            ./echo/usb_ohci.o
+___strtok           0x4               ./lib_generic/string.o
+HCI_CFG_REG         0x1               ./echo/echo_hci.o
+ohci_dev            0x190             ./echo/usb_ohci.o
+load_addr           0x4               cmdline.o
+high_capacity       0x4               MMC_BM_NBL2_Common.o
+devgone             0x4               ./echo/usb_ohci.o
+ptd                 0x4               ./echo/usb_ohci.o
+start_block         0x4               ./lib_generic/download.o
+phcca               0x4               ./echo/usb_ohci.o
+_RunImage           0x4               MMC_BM_NBL2_Common.o
+urb_priv            0x794             ./echo/usb_ohci.o
+HCI_8051_REG        0x2               ./echo/echo_hci.o
+ghcca               0x100             ./echo/usb_ohci.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x00000000                . = ALIGN (0x4)
+
+.text           0x47c00000     0x94dc
+ onboot.o(.text)
+ .text          0x47c00000      0x100 onboot.o
+                0x47c00000                _start
+                0x47c00040                _end_vect
+                0x47c00044                _armboot_start
+                0x47c00048                _bss_start
+                0x47c0004c                _bss_end
+ ./echo/init_sdp_mmc_core.o(.text)
+ .text          0x47c00100      0x704 ./echo/init_sdp_mmc_core.o
+                0x47c00100                mmc_desc_init
+                0x47c0018c                sdp_mmc_init_controller
+                0x47c0025c                mmc_plat_loop
+                0x47c00260                mmc_poll_cmd_done
+                0x47c002a0                _mmc_wait_on_data_state_mc_busy
+                0x47c002c0                _mmc_wait_on_busy
+                0x47c002e8                _mmc_wait_for_intr
+                0x47c00310                _mmc_wait_for_dto
+                0x47c00338                _mmc_get_err
+                0x47c003c4                mmc_response_status
+                0x47c003c8                mmc_send_cmd_wait
+                0x47c00454                sdp_mmc_set_clk
+                0x47c004fc                sdp_mmc_go_idle_state
+                0x47c0051c                sdp_mmc_sd_send_if_cond
+                0x47c0053c                sdp_mmc_send_op_cond
+                0x47c00570                sdp_mmc_all_send_cid
+                0x47c00590                sdp_mmc_send_relative_addr
+                0x47c005b0                sdp_mmc_send_csd
+                0x47c005d0                sdp_mmc_select_card
+                0x47c0061c                sdp_mmc_send_ext_csd
+                0x47c0065c                sdp_mmc_switch_ext_csd
+                0x47c0066c                sdp_mmc_switch
+                0x47c00690                sdp_mmc_set_block_length
+                0x47c006d0                sdp_mmc_read_write
+                0x47c007a0                sdp_mmc_RW
+ ./echo/init_sdp_mmc.o(.text)
+ .text          0x47c00804      0x1c8 ./echo/init_sdp_mmc.o
+                0x47c00804                sdp_mmc_init
+                0x47c009c8                __sdp_mmc
+                0x47c009c8                sdp_mmc
+ ./echo/lowlevel_init.o(.text)
+ *fill*         0x47c009cc      0x234 00
+ .text          0x47c00c00     0x1400 ./echo/lowlevel_init.o
+                0x47c00c00                lowlevel_init
+ *(.text)
+ .text          0x47c02000        0x4 ./echo/reset.o
+                0x47c02000                reset_cpu
+ .text          0x47c02004      0x1c4 ./echo/timer.o
+                0x47c02018                set_timer
+                0x47c02028                get_delay_time
+                0x47c02038                reset_timer_masked
+                0x47c02058                reset_timer
+                0x47c0205c                get_timer_masked
+                0x47c020b8                __udelay
+                0x47c020dc                get_timer
+                0x47c020f8                get_ticks
+                0x47c0210c                get_tbclk
+                0x47c02114                udelay
+                0x47c0213c                timer_init
+ .text          0x47c021c8      0x464 ./echo/serial.o
+                0x47c021c8                serial_putc
+                0x47c021f8                serial_tstc
+                0x47c02218                serial_getc
+                0x47c02244                serial_getc_check
+                0x47c02280                serial_puts
+                0x47c022a8                micom_getc
+                0x47c022d4                micom_putc
+                0x47c022f8                micom_get
+                0x47c02324                PRINTF
+                0x47c02430                putc
+                0x47c02434                puts
+                0x47c02438                tstc
+                0x47c0243c                mdm_readline
+                0x47c02488                mdm_readarray
+                0x47c024b4                micom_cmd
+                0x47c02550                serial_setbrg_micom
+                0x47c025b0                serial_setbrg
+                0x47c02618                serial_init
+ .text          0x47c0262c       0x80 ./echo/speed.o
+                0x47c0262c                raise
+                0x47c02630                get_clock_arm
+                0x47c0263c                get_clock_bus
+                0x47c02680                get_clock_apb
+                0x47c02690                print_cpuinfo
+ .text          0x47c026ac      0x20c ./echo/sp_setup.o
+                0x47c026ac                setup_start_tag
+                0x47c026d8                setup_commandline_tag
+                0x47c02784                setup_end_tag
+                0x47c02794                memcpy1
+                0x47c02840                memset1
+ .text          0x47c028b8       0xa0 ./echo/echo_hci.o
+                0x47c028b8                sdp_hci_tx_init
+ .text          0x47c02958       0xb0 ./echo/sdp_peri.o
+                0x47c029e8                sdp_peri_init
+ .text          0x47c02a08      0x588 ./echo/sdp_i2c.o
+                0x47c02a08                send_start_packet
+                0x47c02a88                send_stop_packet
+                0x47c02aec                check_port_ack
+                0x47c02b0c                i2c_init
+                0x47c02bc8                wait_interrupt
+                0x47c02c14                i2c_write
+                0x47c02d8c                i2c_read
+ .text          0x47c02f90     0x16c8 ./echo/usb_ohci.o
+                0x47c0305c                rh_check_port_status
+                0x47c030b0                submit_int_msg
+                0x47c031c8                usb_lowlevel_init
+                0x47c03348                usb_lowlevel_stop
+                0x47c034a0                sohci_submit_job
+                0x47c03a64                submit_common_msg
+                0x47c0408c                submit_bulk_msg
+                0x47c040a4                submit_control_msg
+ .text          0x47c04658     0x16ec ./echo/usb.o
+                0x47c04658                usb_disable_asynch
+                0x47c04670                usb_maxpacket
+                0x47c0468c                usb_get_dev_index
+                0x47c046b8                usb_hub_reset
+                0x47c046cc                usb_hub_allocate
+                0x47c04710                usb_alloc_new_device
+                0x47c047b8                usb_set_maxpacket
+                0x47c048b0                usb_parse_config
+                0x47c04a98                usb_submit_int_msg
+                0x47c04a9c                usb_stop
+                0x47c04acc                wait_ms
+                0x47c04af0                usb_bulk_msg
+                0x47c04b54                usb_control_msg
+                0x47c04c5c                usb_get_port_status
+                0x47c04cb0                usb_get_hub_status
+                0x47c04d00                usb_set_port_feature
+                0x47c04d54                usb_clear_port_feature
+                0x47c04da8                usb_clear_hub_feature
+                0x47c04df8                usb_get_hub_descriptor
+                0x47c04e50                usb_get_string
+                0x47c04f70                usb_string
+                0x47c050a0                usb_get_class_descriptor
+                0x47c05100                usb_get_report
+                0x47c05160                usb_set_idle
+                0x47c051bc                usb_set_protocol
+                0x47c05210                usb_set_configuration
+                0x47c05288                usb_set_interface
+                0x47c0533c                usb_set_address
+                0x47c05398                usb_get_descriptor
+                0x47c053f4                usb_get_configuration_no
+                0x47c054c8                usb_clear_halt
+                0x47c055b8                usb_hub_port_connect_change
+                0x47c05700                usb_hub_configure
+                0x47c0593c                usb_hub_probe
+                0x47c05998                usb_new_device
+                0x47c05c60                usb_scan_devices
+                0x47c05cc0                usb_init
+ .text          0x47c05d44      0xa84 MMC_BM_NBL2_Common.o
+                0x47c05d44                atoi
+                0x47c05d7c                getPartFlag
+                0x47c05d9c                exec_memory
+                0x47c05ddc                get_uImage_size
+                0x47c05e34                _ShadowOS
+                0x47c05fb4                fast_logo
+                0x47c060e4                FastLogo
+                0x47c060ec                default_env
+                0x47c061c8                setup_sdp_memtag
+                0x47c0637c                markKernel
+                0x47c063b4                boot_kernel
+                0x47c06420                Main
+ .text          0x47c067c8     0x17f4 cmdline.o
+                0x47c067c8                get_load_adress
+                0x47c067d8                set_load_adress
+                0x47c067e8                env_get_addr
+                0x47c067f4                env_get_char_spec
+                0x47c06878                getenv
+                0x47c068f4                env_init
+                0x47c0691c                restenv
+                0x47c06958                backenv
+                0x47c06994                saveenv
+                0x47c069b0                printf
+                0x47c069ec                abortboot
+                0x47c06a6c                help_setup
+                0x47c06b20                _do_setenv
+                0x47c06d30                setenv
+                0x47c06ea8                readline
+                0x47c074f8                reg_setup
+                0x47c0764c                micom_setup
+                0x47c07708                env_setup
+                0x47c07c64                command_line
+                0x47c07f00                bootcommand_setup
+ .text          0x47c07fbc      0x524 ./lib_generic/string.o
+                0x47c07fbc                strcpy
+                0x47c07fd8                strncpy
+                0x47c08000                strcat
+                0x47c08030                strncat
+                0x47c0808c                strcmp
+                0x47c080bc                strncmp
+                0x47c08104                strchr
+                0x47c08130                strlen
+                0x47c08150                strrchr
+                0x47c08188                strnlen
+                0x47c081b0                strspn
+                0x47c081f4                strpbrk
+                0x47c0822c                strtok
+                0x47c082a8                strsep
+                0x47c082dc                strswab
+                0x47c08324                memset
+                0x47c08344                bcopy
+                0x47c0836c                memcpy
+                0x47c08390                memmove
+                0x47c083ec                memcmp
+                0x47c08424                memscan
+                0x47c08454                strstr
+                0x47c084b4                memchr
+ .text          0x47c084e0      0x750 ./lib_generic/vsprintf.o
+                0x47c084e0                simple_strtoul
+                0x47c0858c                simple_strtol
+                0x47c0882c                vsprintf
+                0x47c08c0c                sprintf
+ .text          0x47c08c30        0x0 ./lib_generic/ctype.o
+ .text          0x47c08c30        0x0 ./lib_generic/utils.o
+ .text          0x47c08c30      0x488 ./lib_generic/download.o
+                0x47c08c30                Delay
+                0x47c08c34                atox
+                0x47c08ca0                ccitt_crc
+                0x47c08cec                byte_to_short
+                0x47c08cfc                byte_to_int
+                0x47c08d1c                dump_hex
+                0x47c08d64                req_block
+                0x47c08dc0                receive_data
+                0x47c08fbc                check_host
+ .text          0x47c090b8      0x208 ./lib_generic/hexstr.o
+                0x47c090d4                PrintHex
+                0x47c090d8                STR2BIN
+                0x47c09154                rotate
+                0x47c091b8                STR2FBIN
+                0x47c09248                BIN2STR
+ .text          0x47c092c0      0x20c /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_udivsi3.o)
+                0x47c092c0                __udivsi3
+                0x47c092c0                __aeabi_uidiv
+                0x47c094ac                __aeabi_uidivmod
+ .text          0x47c094cc       0x10 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_dvmd_lnx.o)
+                0x47c094cc                __aeabi_ldiv0
+                0x47c094cc                __aeabi_idiv0
+
+.glue_7         0x47c094dc        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x47c094dc        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x47c094dc        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x47c094dc        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+                0x47c094dc                . = ALIGN (0x4)
+
+.rodata         0x47c094dc      0x244
+ *(.rodata)
+ .rodata        0x47c094dc       0x40 ./echo/usb_ohci.o
+ .rodata        0x47c0951c      0x204 MMC_BM_NBL2_Common.o
+
+.rodata.str1.1  0x47c09720     0x14c7
+ .rodata.str1.1
+                0x47c09720      0x2ae ./echo/usb_ohci.o
+ .rodata.str1.1
+                0x47c099ce      0x4f7 ./echo/usb.o
+ .rodata.str1.1
+                0x47c09ec5      0x458 MMC_BM_NBL2_Common.o
+                                0x45a (size before relaxing)
+ .rodata.str1.1
+                0x47c0a31d      0x803 cmdline.o
+                                0x91f (size before relaxing)
+ .rodata.str1.1
+                0x47c0ab20       0x51 ./lib_generic/vsprintf.o
+ .rodata.str1.1
+                0x47c0ab71       0x71 ./lib_generic/download.o
+                                 0x73 (size before relaxing)
+ .rodata.str1.1
+                0x47c0abe2        0x5 ./lib_generic/hexstr.o
+                                  0xc (size before relaxing)
+                0x47c0abe8                . = ALIGN (0x4)
+
+.data           0x47c0abe8     0x3bac
+ *(.data)
+ .data          0x47c0abe8        0x0 onboot.o
+ .data          0x47c0abe8        0x0 ./echo/init_sdp_mmc_core.o
+ .data          0x47c0abe8        0x0 ./echo/init_sdp_mmc.o
+ .data          0x47c0abe8        0x0 ./echo/lowlevel_init.o
+ .data          0x47c0abe8        0x0 ./echo/reset.o
+ .data          0x47c0abe8        0x0 ./echo/timer.o
+ .data          0x47c0abe8        0x0 ./echo/serial.o
+ .data          0x47c0abe8        0x0 ./echo/speed.o
+ .data          0x47c0abe8        0x0 ./echo/sp_setup.o
+ .data          0x47c0abe8     0x3a3c ./echo/echo_hci.o
+                0x47c0abe8                u16NormalTV
+ .data          0x47c0e624        0x0 ./echo/sdp_peri.o
+ .data          0x47c0e624        0x0 ./echo/sdp_i2c.o
+ .data          0x47c0e624       0x50 ./echo/usb_ohci.o
+ .data          0x47c0e674        0x0 ./echo/usb.o
+ .data          0x47c0e674       0x18 MMC_BM_NBL2_Common.o
+                0x47c0e674                kernel_cmdline_ext0
+                0x47c0e678                kernel_cmdline_ext1
+                0x47c0e67c                kernel_cmdline_rfs0
+                0x47c0e680                kernel_cmdline_rfs1
+                0x47c0e684                kernel_cmdline_sda1
+                0x47c0e688                kernel_cmdline_nfs
+ .data          0x47c0e68c        0x8 cmdline.o
+                0x47c0e68c                env_get_char
+ .data          0x47c0e694        0x0 ./lib_generic/string.o
+ .data          0x47c0e694        0x0 ./lib_generic/vsprintf.o
+ .data          0x47c0e694      0x100 ./lib_generic/ctype.o
+                0x47c0e694                _ctype
+ .data          0x47c0e794        0x0 ./lib_generic/utils.o
+ .data          0x47c0e794        0x0 ./lib_generic/download.o
+ .data          0x47c0e794        0x0 ./lib_generic/hexstr.o
+ .data          0x47c0e794        0x0 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_udivsi3.o)
+ .data          0x47c0e794        0x0 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_dvmd_lnx.o)
+                0x47c0e794                . = ALIGN (0x4)
+
+.got
+ *(.got)
+                0x47c0e794                oneboot_prg_end = .
+                0x47c0e794                . = ALIGN (0x4)
+                0x47c0e794                __bss_start = .
+
+.bss            0x47c0e800    0x19f68
+ *(.bss)
+ .bss           0x47c0e800        0x0 onboot.o
+ .bss           0x47c0e800        0x0 ./echo/init_sdp_mmc_core.o
+ .bss           0x47c0e800        0x0 ./echo/init_sdp_mmc.o
+ .bss           0x47c0e800        0x0 ./echo/lowlevel_init.o
+ .bss           0x47c0e800        0x0 ./echo/reset.o
+ .bss           0x47c0e800        0x8 ./echo/timer.o
+ .bss           0x47c0e808        0x0 ./echo/serial.o
+ .bss           0x47c0e808        0x0 ./echo/speed.o
+ .bss           0x47c0e808        0x0 ./echo/sp_setup.o
+ .bss           0x47c0e808        0x0 ./echo/echo_hci.o
+ .bss           0x47c0e808        0x8 ./echo/sdp_peri.o
+ .bss           0x47c0e810        0x0 ./echo/sdp_i2c.o
+ .bss           0x47c0e810       0xd0 ./echo/usb_ohci.o
+                0x47c0e8dc                urb_finished
+ .bss           0x47c0e8e0     0xd998 ./echo/usb.o
+ .bss           0x47c1c278        0x4 MMC_BM_NBL2_Common.o
+                0x47c1c278                mmc
+ .bss           0x47c1c27c       0x10 cmdline.o
+                0x47c1c288                hist_num
+ .bss           0x47c1c28c        0x0 ./lib_generic/string.o
+ .bss           0x47c1c28c        0x0 ./lib_generic/vsprintf.o
+ .bss           0x47c1c28c        0x0 ./lib_generic/ctype.o
+ .bss           0x47c1c28c        0x0 ./lib_generic/utils.o
+ .bss           0x47c1c28c      0x400 ./lib_generic/download.o
+ .bss           0x47c1c68c        0x0 ./lib_generic/hexstr.o
+ .bss           0x47c1c68c        0x0 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_udivsi3.o)
+ .bss           0x47c1c68c        0x0 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_dvmd_lnx.o)
+ *(COMMON)
+ COMMON         0x47c1c68c        0x4 ./echo/echo_hci.o
+                0x47c1c68c                HCI_CFG_REG
+                0x47c1c68e                HCI_8051_REG
+ *fill*         0x47c1c690       0x70 00
+ COMMON         0x47c1c700     0xab00 ./echo/usb_ohci.o
+                0x47c1c700                got_rhsc
+                0x47c1c720                gtd
+                0x47c26760                ohci_dev
+                0x47c268f0                devgone
+                0x47c268f4                ptd
+                0x47c268f8                phcca
+                0x47c268fc                urb_priv
+                0x47c27100                ghcca
+ COMMON         0x47c27200        0x1 ./echo/usb.o
+                0x47c27200                usb_started
+ *fill*         0x47c27201        0x3 00
+ COMMON         0x47c27204        0x8 MMC_BM_NBL2_Common.o
+                0x47c27204                high_capacity
+                0x47c27208                _RunImage
+ COMMON         0x47c2720c     0x1554 cmdline.o
+                0x47c2720c                console_buffer
+                0x47c2730c                hist_list
+                0x47c2735c                hist_lines
+                0x47c2875c                load_addr
+ COMMON         0x47c28760        0x4 ./lib_generic/string.o
+                0x47c28760                ___strtok
+ COMMON         0x47c28764        0x4 ./lib_generic/download.o
+                0x47c28764                start_block
+                0x47c28768                _end = .
+Address of section .text set to 0x47c00000
+LOAD onboot.o
+LOAD ./echo/lowlevel_init.o
+LOAD ./echo/reset.o
+LOAD ./echo/timer.o
+LOAD ./echo/serial.o
+LOAD ./echo/speed.o
+LOAD ./echo/sp_setup.o
+LOAD ./echo/echo_hci.o
+LOAD ./echo/sdp_peri.o
+LOAD ./echo/sdp_i2c.o
+LOAD ./echo/usb_ohci.o
+LOAD ./echo/usb.o
+LOAD ./echo/init_sdp_mmc_core.o
+LOAD ./echo/init_sdp_mmc.o
+LOAD MMC_BM_NBL2_Common.o
+LOAD cmdline.o
+LOAD ./lib_generic/string.o
+LOAD ./lib_generic/vsprintf.o
+LOAD ./lib_generic/ctype.o
+LOAD ./lib_generic/utils.o
+LOAD ./lib_generic/download.o
+LOAD ./lib_generic/hexstr.o
+START GROUP
+LOAD /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a
+END GROUP
+OUTPUT(onboot elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x2f
+ .ARM.attributes
+                0x00000000       0x21 onboot.o
+ .ARM.attributes
+                0x00000021       0x33 ./echo/init_sdp_mmc_core.o
+ .ARM.attributes
+                0x00000054       0x33 ./echo/init_sdp_mmc.o
+ .ARM.attributes
+                0x00000087       0x21 ./echo/lowlevel_init.o
+ .ARM.attributes
+                0x000000a8       0x21 ./echo/reset.o
+ .ARM.attributes
+                0x000000c9       0x33 ./echo/timer.o
+ .ARM.attributes
+                0x000000fc       0x33 ./echo/serial.o
+ .ARM.attributes
+                0x0000012f       0x33 ./echo/speed.o
+ .ARM.attributes
+                0x00000162       0x33 ./echo/sp_setup.o
+ .ARM.attributes
+                0x00000195       0x33 ./echo/echo_hci.o
+ .ARM.attributes
+                0x000001c8       0x33 ./echo/sdp_peri.o
+ .ARM.attributes
+                0x000001fb       0x33 ./echo/sdp_i2c.o
+ .ARM.attributes
+                0x0000022e       0x33 ./echo/usb_ohci.o
+ .ARM.attributes
+                0x00000261       0x33 ./echo/usb.o
+ .ARM.attributes
+                0x00000294       0x33 MMC_BM_NBL2_Common.o
+ .ARM.attributes
+                0x000002c7       0x33 cmdline.o
+ .ARM.attributes
+                0x000002fa       0x33 ./lib_generic/string.o
+ .ARM.attributes
+                0x0000032d       0x33 ./lib_generic/vsprintf.o
+ .ARM.attributes
+                0x00000360       0x33 ./lib_generic/ctype.o
+ .ARM.attributes
+                0x00000393       0x33 ./lib_generic/utils.o
+ .ARM.attributes
+                0x000003c6       0x33 ./lib_generic/download.o
+ .ARM.attributes
+                0x000003f9       0x33 ./lib_generic/hexstr.o
+ .ARM.attributes
+                0x0000042c       0x23 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_udivsi3.o)
+ .ARM.attributes
+                0x0000044f       0x23 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_dvmd_lnx.o)
+
+.comment        0x00000000      0x3dc
+ .comment       0x00000000       0x34 ./echo/init_sdp_mmc_core.o
+ .comment       0x00000034       0x34 ./echo/init_sdp_mmc.o
+ .comment       0x00000068       0x34 ./echo/timer.o
+ .comment       0x0000009c       0x34 ./echo/serial.o
+ .comment       0x000000d0       0x34 ./echo/speed.o
+ .comment       0x00000104       0x34 ./echo/sp_setup.o
+ .comment       0x00000138       0x34 ./echo/echo_hci.o
+ .comment       0x0000016c       0x34 ./echo/sdp_peri.o
+ .comment       0x000001a0       0x34 ./echo/sdp_i2c.o
+ .comment       0x000001d4       0x34 ./echo/usb_ohci.o
+ .comment       0x00000208       0x34 ./echo/usb.o
+ .comment       0x0000023c       0x34 MMC_BM_NBL2_Common.o
+ .comment       0x00000270       0x34 cmdline.o
+ .comment       0x000002a4       0x34 ./lib_generic/string.o
+ .comment       0x000002d8       0x34 ./lib_generic/vsprintf.o
+ .comment       0x0000030c       0x34 ./lib_generic/ctype.o
+ .comment       0x00000340       0x34 ./lib_generic/utils.o
+ .comment       0x00000374       0x34 ./lib_generic/download.o
+ .comment       0x000003a8       0x34 ./lib_generic/hexstr.o
+
+.note.GNU-stack
+                0x00000000        0x0
+ .note.GNU-stack
+                0x00000000        0x0 ./echo/init_sdp_mmc_core.o
+ .note.GNU-stack
+                0x00000000        0x0 ./echo/init_sdp_mmc.o
+ .note.GNU-stack
+                0x00000000        0x0 ./echo/timer.o
+ .note.GNU-stack
+                0x00000000        0x0 ./echo/serial.o
+ .note.GNU-stack
+                0x00000000        0x0 ./echo/speed.o
+ .note.GNU-stack
+                0x00000000        0x0 ./echo/sp_setup.o
+ .note.GNU-stack
+                0x00000000        0x0 ./echo/echo_hci.o
+ .note.GNU-stack
+                0x00000000        0x0 ./echo/sdp_peri.o
+ .note.GNU-stack
+                0x00000000        0x0 ./echo/sdp_i2c.o
+ .note.GNU-stack
+                0x00000000        0x0 ./echo/usb_ohci.o
+ .note.GNU-stack
+                0x00000000        0x0 ./echo/usb.o
+ .note.GNU-stack
+                0x00000000        0x0 MMC_BM_NBL2_Common.o
+ .note.GNU-stack
+                0x00000000        0x0 cmdline.o
+ .note.GNU-stack
+                0x00000000        0x0 ./lib_generic/string.o
+ .note.GNU-stack
+                0x00000000        0x0 ./lib_generic/vsprintf.o
+ .note.GNU-stack
+                0x00000000        0x0 ./lib_generic/ctype.o
+ .note.GNU-stack
+                0x00000000        0x0 ./lib_generic/utils.o
+ .note.GNU-stack
+                0x00000000        0x0 ./lib_generic/download.o
+ .note.GNU-stack
+                0x00000000        0x0 ./lib_generic/hexstr.o
+ .note.GNU-stack
+                0x00000000        0x0 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_udivsi3.o)
+ .note.GNU-stack
+                0x00000000        0x0 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_dvmd_lnx.o)
+
+.debug_line     0x00000000     0x1fe1
+ .debug_line    0x00000000       0x73 onboot.o
+ .debug_line    0x00000073      0x192 ./echo/init_sdp_mmc_core.o
+ .debug_line    0x00000205       0x96 ./echo/init_sdp_mmc.o
+ .debug_line    0x0000029b      0x431 ./echo/lowlevel_init.o
+ .debug_line    0x000006cc       0x3c ./echo/reset.o
+ .debug_line    0x00000708       0xb1 ./echo/timer.o
+ .debug_line    0x000007b9       0xeb ./echo/serial.o
+ .debug_line    0x000008a4       0x57 ./echo/speed.o
+ .debug_line    0x000008fb       0xb5 ./echo/sp_setup.o
+ .debug_line    0x000009b0       0x78 ./echo/echo_hci.o
+ .debug_line    0x00000a28       0x5e ./echo/sdp_peri.o
+ .debug_line    0x00000a86      0x11a ./echo/sdp_i2c.o
+ .debug_line    0x00000ba0      0x41f ./echo/usb_ohci.o
+ .debug_line    0x00000fbf      0x3ca ./echo/usb.o
+ .debug_line    0x00001389      0x1eb MMC_BM_NBL2_Common.o
+ .debug_line    0x00001574      0x34b cmdline.o
+ .debug_line    0x000018bf      0x15f ./lib_generic/string.o
+ .debug_line    0x00001a1e      0x1af ./lib_generic/vsprintf.o
+ .debug_line    0x00001bcd       0x34 ./lib_generic/ctype.o
+ .debug_line    0x00001c01       0x34 ./lib_generic/utils.o
+ .debug_line    0x00001c35      0x11b ./lib_generic/download.o
+ .debug_line    0x00001d50       0xbe ./lib_generic/hexstr.o
+ .debug_line    0x00001e0e       0xf8 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_udivsi3.o)
+ .debug_line    0x00001f06       0xdb /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_dvmd_lnx.o)
+
+.debug_info     0x00000000     0x7e1e
+ .debug_info    0x00000000       0x5c onboot.o
+ .debug_info    0x0000005c      0x864 ./echo/init_sdp_mmc_core.o
+ .debug_info    0x000008c0      0x154 ./echo/init_sdp_mmc.o
+ .debug_info    0x00000a14       0x68 ./echo/lowlevel_init.o
+ .debug_info    0x00000a7c       0x60 ./echo/reset.o
+ .debug_info    0x00000adc      0x26b ./echo/timer.o
+ .debug_info    0x00000d47      0x497 ./echo/serial.o
+ .debug_info    0x000011de      0x16a ./echo/speed.o
+ .debug_info    0x00001348      0x368 ./echo/sp_setup.o
+ .debug_info    0x000016b0      0x106 ./echo/echo_hci.o
+ .debug_info    0x000017b6      0x1a6 ./echo/sdp_peri.o
+ .debug_info    0x0000195c      0x348 ./echo/sdp_i2c.o
+ .debug_info    0x00001ca4     0x1f4d ./echo/usb_ohci.o
+ .debug_info    0x00003bf1     0x169f ./echo/usb.o
+ .debug_info    0x00005290      0x91e MMC_BM_NBL2_Common.o
+ .debug_info    0x00005bae      0xc17 cmdline.o
+ .debug_info    0x000067c5      0x839 ./lib_generic/string.o
+ .debug_info    0x00006ffe      0x408 ./lib_generic/vsprintf.o
+ .debug_info    0x00007406       0x52 ./lib_generic/ctype.o
+ .debug_info    0x00007458       0x45 ./lib_generic/utils.o
+ .debug_info    0x0000749d      0x3b0 ./lib_generic/download.o
+ .debug_info    0x0000784d      0x29b ./lib_generic/hexstr.o
+ .debug_info    0x00007ae8      0x19b /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_udivsi3.o)
+ .debug_info    0x00007c83      0x19b /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_dvmd_lnx.o)
+
+.debug_abbrev   0x00000000     0x2035
+ .debug_abbrev  0x00000000       0x14 onboot.o
+ .debug_abbrev  0x00000014      0x21b ./echo/init_sdp_mmc_core.o
+ .debug_abbrev  0x0000022f       0xe1 ./echo/init_sdp_mmc.o
+ .debug_abbrev  0x00000310       0x14 ./echo/lowlevel_init.o
+ .debug_abbrev  0x00000324       0x14 ./echo/reset.o
+ .debug_abbrev  0x00000338      0x160 ./echo/timer.o
+ .debug_abbrev  0x00000498      0x20c ./echo/serial.o
+ .debug_abbrev  0x000006a4      0x109 ./echo/speed.o
+ .debug_abbrev  0x000007ad      0x191 ./echo/sp_setup.o
+ .debug_abbrev  0x0000093e       0x90 ./echo/echo_hci.o
+ .debug_abbrev  0x000009ce       0xc9 ./echo/sdp_peri.o
+ .debug_abbrev  0x00000a97      0x16c ./echo/sdp_i2c.o
+ .debug_abbrev  0x00000c03      0x3c0 ./echo/usb_ohci.o
+ .debug_abbrev  0x00000fc3      0x360 ./echo/usb.o
+ .debug_abbrev  0x00001323      0x2e8 MMC_BM_NBL2_Common.o
+ .debug_abbrev  0x0000160b      0x329 cmdline.o
+ .debug_abbrev  0x00001934      0x1f4 ./lib_generic/string.o
+ .debug_abbrev  0x00001b28      0x1e7 ./lib_generic/vsprintf.o
+ .debug_abbrev  0x00001d0f       0x4b ./lib_generic/ctype.o
+ .debug_abbrev  0x00001d5a       0x3e ./lib_generic/utils.o
+ .debug_abbrev  0x00001d98      0x183 ./lib_generic/download.o
+ .debug_abbrev  0x00001f1b       0xf2 ./lib_generic/hexstr.o
+ .debug_abbrev  0x0000200d       0x14 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_udivsi3.o)
+ .debug_abbrev  0x00002021       0x14 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_dvmd_lnx.o)
+
+.debug_aranges  0x00000000      0x2c0
+ .debug_aranges
+                0x00000000       0x20 onboot.o
+ .debug_aranges
+                0x00000020       0x20 ./echo/init_sdp_mmc_core.o
+ .debug_aranges
+                0x00000040       0x20 ./echo/init_sdp_mmc.o
+ .debug_aranges
+                0x00000060       0x20 ./echo/lowlevel_init.o
+ .debug_aranges
+                0x00000080       0x20 ./echo/reset.o
+ .debug_aranges
+                0x000000a0       0x20 ./echo/timer.o
+ .debug_aranges
+                0x000000c0       0x20 ./echo/serial.o
+ .debug_aranges
+                0x000000e0       0x20 ./echo/speed.o
+ .debug_aranges
+                0x00000100       0x20 ./echo/sp_setup.o
+ .debug_aranges
+                0x00000120       0x20 ./echo/echo_hci.o
+ .debug_aranges
+                0x00000140       0x20 ./echo/sdp_peri.o
+ .debug_aranges
+                0x00000160       0x20 ./echo/sdp_i2c.o
+ .debug_aranges
+                0x00000180       0x20 ./echo/usb_ohci.o
+ .debug_aranges
+                0x000001a0       0x20 ./echo/usb.o
+ .debug_aranges
+                0x000001c0       0x20 MMC_BM_NBL2_Common.o
+ .debug_aranges
+                0x000001e0       0x20 cmdline.o
+ .debug_aranges
+                0x00000200       0x20 ./lib_generic/string.o
+ .debug_aranges
+                0x00000220       0x20 ./lib_generic/vsprintf.o
+ .debug_aranges
+                0x00000240       0x20 ./lib_generic/download.o
+ .debug_aranges
+                0x00000260       0x20 ./lib_generic/hexstr.o
+ .debug_aranges
+                0x00000280       0x20 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_udivsi3.o)
+ .debug_aranges
+                0x000002a0       0x20 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_dvmd_lnx.o)
+
+.debug_loc      0x00000000     0x5510
+ .debug_loc     0x00000000      0x5ac ./echo/init_sdp_mmc_core.o
+ .debug_loc     0x000005ac       0x3e ./echo/init_sdp_mmc.o
+ .debug_loc     0x000005ea      0x1bd ./echo/timer.o
+ .debug_loc     0x000007a7      0x3e6 ./echo/serial.o
+ .debug_loc     0x00000b8d       0x73 ./echo/speed.o
+ .debug_loc     0x00000c00      0x2d8 ./echo/sp_setup.o
+ .debug_loc     0x00000ed8       0x3f ./echo/sdp_peri.o
+ .debug_loc     0x00000f17      0x3cc ./echo/sdp_i2c.o
+ .debug_loc     0x000012e3      0xd9c ./echo/usb_ohci.o
+ .debug_loc     0x0000207f     0x12cb ./echo/usb.o
+ .debug_loc     0x0000334a      0x4d2 MMC_BM_NBL2_Common.o
+ .debug_loc     0x0000381c      0xd6d cmdline.o
+ .debug_loc     0x00004589      0x554 ./lib_generic/string.o
+ .debug_loc     0x00004add      0x64c ./lib_generic/vsprintf.o
+ .debug_loc     0x00005129      0x1b8 ./lib_generic/download.o
+ .debug_loc     0x000052e1      0x22f ./lib_generic/hexstr.o
+
+.debug_pubnames
+                0x00000000     0x1043
+ .debug_pubnames
+                0x00000000      0x260 ./echo/init_sdp_mmc_core.o
+ .debug_pubnames
+                0x00000260       0x31 ./echo/init_sdp_mmc.o
+ .debug_pubnames
+                0x00000291       0xc0 ./echo/timer.o
+ .debug_pubnames
+                0x00000351      0x125 ./echo/serial.o
+ .debug_pubnames
+                0x00000476       0x64 ./echo/speed.o
+ .debug_pubnames
+                0x000004da       0x6a ./echo/sp_setup.o
+ .debug_pubnames
+                0x00000544       0x57 ./echo/echo_hci.o
+ .debug_pubnames
+                0x0000059b       0x24 ./echo/sdp_peri.o
+ .debug_pubnames
+                0x000005bf       0x8b ./echo/sdp_i2c.o
+ .debug_pubnames
+                0x0000064a      0x128 ./echo/usb_ohci.o
+ .debug_pubnames
+                0x00000772      0x339 ./echo/usb.o
+ .debug_pubnames
+                0x00000aab      0x17c MMC_BM_NBL2_Common.o
+ .debug_pubnames
+                0x00000c27      0x19b cmdline.o
+ .debug_pubnames
+                0x00000dc2      0x125 ./lib_generic/string.o
+ .debug_pubnames
+                0x00000ee7       0x50 ./lib_generic/vsprintf.o
+ .debug_pubnames
+                0x00000f37       0x1d ./lib_generic/ctype.o
+ .debug_pubnames
+                0x00000f54       0xa0 ./lib_generic/download.o
+ .debug_pubnames
+                0x00000ff4       0x4f ./lib_generic/hexstr.o
+
+.debug_str      0x00000000     0x1f69
+ .debug_str     0x00000000      0x421 ./echo/init_sdp_mmc_core.o
+                                0x47f (size before relaxing)
+ .debug_str     0x00000421       0x7b ./echo/init_sdp_mmc.o
+                                0x138 (size before relaxing)
+ .debug_str     0x0000049c       0xcb ./echo/timer.o
+                                0x18d (size before relaxing)
+ .debug_str     0x00000567      0x142 ./echo/serial.o
+                                0x207 (size before relaxing)
+ .debug_str     0x000006a9       0x8c ./echo/speed.o
+                                 0xe7 (size before relaxing)
+ .debug_str     0x00000735       0xce ./echo/sp_setup.o
+                                0x196 (size before relaxing)
+ .debug_str     0x00000803       0x68 ./echo/echo_hci.o
+                                0x11e (size before relaxing)
+ .debug_str     0x0000086b       0x87 ./echo/sdp_peri.o
+                                0x144 (size before relaxing)
+ .debug_str     0x000008f2       0xb0 ./echo/sdp_i2c.o
+                                0x122 (size before relaxing)
+ .debug_str     0x000009a2      0x8b1 ./echo/usb_ohci.o
+                                0xa46 (size before relaxing)
+ .debug_str     0x00001253      0x4c5 ./echo/usb.o
+                                0x9b2 (size before relaxing)
+ .debug_str     0x00001718      0x37d MMC_BM_NBL2_Common.o
+                                0x4c0 (size before relaxing)
+ .debug_str     0x00001a95      0x271 cmdline.o
+                                0x383 (size before relaxing)
+ .debug_str     0x00001d06       0xe1 ./lib_generic/string.o
+                                0x1d3 (size before relaxing)
+ .debug_str     0x00001de7       0x84 ./lib_generic/vsprintf.o
+                                0x1b1 (size before relaxing)
+ .debug_str     0x00001e6b       0x14 ./lib_generic/ctype.o
+                                 0x5f (size before relaxing)
+ .debug_str     0x00001e7f       0x14 ./lib_generic/utils.o
+                                 0x5f (size before relaxing)
+ .debug_str     0x00001e93       0x98 ./lib_generic/download.o
+                                0x132 (size before relaxing)
+ .debug_str     0x00001f2b       0x3e ./lib_generic/hexstr.o
+                                0x10e (size before relaxing)
+
+.debug_frame    0x00000000     0x1630
+ .debug_frame   0x00000000      0x23c ./echo/init_sdp_mmc_core.o
+ .debug_frame   0x0000023c       0x38 ./echo/init_sdp_mmc.o
+ .debug_frame   0x00000274      0x114 ./echo/timer.o
+ .debug_frame   0x00000388      0x1ac ./echo/serial.o
+ .debug_frame   0x00000534       0x7c ./echo/speed.o
+ .debug_frame   0x000005b0       0x7c ./echo/sp_setup.o
+ .debug_frame   0x0000062c       0x20 ./echo/echo_hci.o
+ .debug_frame   0x0000064c       0x48 ./echo/sdp_peri.o
+ .debug_frame   0x00000694       0xe0 ./echo/sdp_i2c.o
+ .debug_frame   0x00000774      0x1a0 ./echo/usb_ohci.o
+ .debug_frame   0x00000914      0x4a8 ./echo/usb.o
+ .debug_frame   0x00000dbc      0x180 MMC_BM_NBL2_Common.o
+ .debug_frame   0x00000f3c      0x294 cmdline.o
+ .debug_frame   0x000011d0      0x1e8 ./lib_generic/string.o
+ .debug_frame   0x000013b8       0xc8 ./lib_generic/vsprintf.o
+ .debug_frame   0x00001480       0xe4 ./lib_generic/download.o
+ .debug_frame   0x00001564       0xac ./lib_generic/hexstr.o
+ .debug_frame   0x00001610       0x20 /opt/VDLinux-armv7a8v2r2/bin/../lib/gcc/arm-v7a8v2r2-linux-gnueabi/4.4.1/libgcc.a(_udivsi3.o)
+
+.debug_ranges   0x00000000      0x548
+ .debug_ranges  0x00000000       0x30 ./echo/speed.o
+ .debug_ranges  0x00000030      0x440 ./echo/usb_ohci.o
+ .debug_ranges  0x00000470       0x78 ./echo/usb.o
+ .debug_ranges  0x000004e8       0x48 cmdline.o
+ .debug_ranges  0x00000530       0x18 ./lib_generic/vsprintf.o

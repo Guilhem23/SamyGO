@@ -1,0 +1,425 @@
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           ARM
+  Version:                           0x1
+  Entry point address:               0x47000000
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          95732 (bytes into file)
+  Flags:                             0x5000002, has entry point, Version5 EABI
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         2
+  Size of section headers:           40 (bytes)
+  Number of section headers:         20
+  Section header string table index: 17
+
+Section Headers:
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] .text             PROGBITS        47000000 008000 003938 00  AX  0   0 1024
+  [ 2] .rodata           PROGBITS        47003938 00b938 000204 00   A  0   0  4
+  [ 3] .rodata.str1.1    PROGBITS        47003b3c 00bb3c 000556 01 AMS  0   0  1
+  [ 4] .data             PROGBITS        47004094 00c094 003a54 00  WA  0   0  4
+  [ 5] .bss              NOBITS          47007ae8 00fae8 000020 00  WA  0   0  4
+  [ 6] .ARM.attributes   ARM_ATTRIBUTES  00000000 00fae8 00002f 00      0   0  1
+  [ 7] .comment          PROGBITS        00000000 00fb17 000208 00      0   0  1
+  [ 8] .debug_line       PROGBITS        00000000 00fd1f 000f2d 00      0   0  1
+  [ 9] .debug_info       PROGBITS        00000000 010c4c 0026bb 00      0   0  1
+  [10] .debug_abbrev     PROGBITS        00000000 013307 000ed5 00      0   0  1
+  [11] .debug_aranges    PROGBITS        00000000 0141e0 0001e0 00      0   0  8
+  [12] .debug_loc        PROGBITS        00000000 0143c0 0014d7 00      0   0  1
+  [13] .debug_pubnames   PROGBITS        00000000 015897 00071e 00      0   0  1
+  [14] .debug_str        PROGBITS        00000000 015fb5 000cec 01  MS  0   0  1
+  [15] .debug_frame      PROGBITS        00000000 016ca4 000804 00      0   0  4
+  [16] .debug_ranges     PROGBITS        00000000 0174a8 000078 00      0   0  1
+  [17] .shstrtab         STRTAB          00000000 017520 0000d2 00      0   0  1
+  [18] .symtab           SYMTAB          00000000 017914 001530 10     19 236  4
+  [19] .strtab           STRTAB          00000000 018e44 000976 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings)
+  I (info), L (link order), G (group), x (unknown)
+  O (extra OS processing required) o (OS specific), p (processor specific)
+
+There are no section groups in this file.
+
+Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  LOAD           0x008000 0x47000000 0x47000000 0x07ae8 0x07b08 RWE 0x8000
+  GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RWE 0x4
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     .text .rodata .rodata.str1.1 .data .bss 
+   01     
+
+There is no dynamic section in this file.
+
+There are no relocations in this file.
+
+There are no unwind sections in this file.
+
+Symbol table '.symtab' contains 339 entries:
+   Num:    Value  Size Type    Bind   Vis      Ndx Name
+     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 47000000     0 SECTION LOCAL  DEFAULT    1 
+     2: 47003938     0 SECTION LOCAL  DEFAULT    2 
+     3: 47003b3c     0 SECTION LOCAL  DEFAULT    3 
+     4: 47004094     0 SECTION LOCAL  DEFAULT    4 
+     5: 47007ae8     0 SECTION LOCAL  DEFAULT    5 
+     6: 00000000     0 SECTION LOCAL  DEFAULT    6 
+     7: 00000000     0 SECTION LOCAL  DEFAULT    7 
+     8: 00000000     0 SECTION LOCAL  DEFAULT    8 
+     9: 00000000     0 SECTION LOCAL  DEFAULT    9 
+    10: 00000000     0 SECTION LOCAL  DEFAULT   10 
+    11: 00000000     0 SECTION LOCAL  DEFAULT   11 
+    12: 00000000     0 SECTION LOCAL  DEFAULT   12 
+    13: 00000000     0 SECTION LOCAL  DEFAULT   13 
+    14: 00000000     0 SECTION LOCAL  DEFAULT   14 
+    15: 00000000     0 SECTION LOCAL  DEFAULT   15 
+    16: 00000000     0 SECTION LOCAL  DEFAULT   16 
+    17: 47000050     0 NOTYPE  LOCAL  DEFAULT    1 reset
+    18: 47000000     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    19: 47000024     0 NOTYPE  LOCAL  DEFAULT    1 _software_interrupt
+    20: 47000028     0 NOTYPE  LOCAL  DEFAULT    1 _prefetch_abort
+    21: 4700002c     0 NOTYPE  LOCAL  DEFAULT    1 _data_abort
+    22: 47000030     0 NOTYPE  LOCAL  DEFAULT    1 _not_used
+    23: 47000034     0 NOTYPE  LOCAL  DEFAULT    1 _irq
+    24: 47000038     0 NOTYPE  LOCAL  DEFAULT    1 _fiq
+    25: 47000020     0 NOTYPE  LOCAL  DEFAULT    1 secure_boot_status_value
+    26: 47000020     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    27: 47000160     0 NOTYPE  LOCAL  DEFAULT    1 software_interrupt
+    28: 47000160     0 NOTYPE  LOCAL  DEFAULT    1 prefetch_abort
+    29: 47000160     0 NOTYPE  LOCAL  DEFAULT    1 data_abort
+    30: 47000160     0 NOTYPE  LOCAL  DEFAULT    1 not_used
+    31: 47000160     0 NOTYPE  LOCAL  DEFAULT    1 irq
+    32: 47000160     0 NOTYPE  LOCAL  DEFAULT    1 fiq
+    33: 4700003c     0 NOTYPE  LOCAL  DEFAULT    1 _pad
+    34: 47000040     0 NOTYPE  LOCAL  DEFAULT    1 _TEXT_BASE
+    35: 47000050     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    36: 4700010c     0 NOTYPE  LOCAL  DEFAULT    1 cpu_init_crit
+    37: 47000064     0 NOTYPE  LOCAL  DEFAULT    1 stack_setup
+    38: 47000078     0 NOTYPE  LOCAL  DEFAULT    1 clear_bss
+    39: 47000084     0 NOTYPE  LOCAL  DEFAULT    1 clbss_l
+    40: 47000098     0 NOTYPE  LOCAL  DEFAULT    1 secure_boot_auth_whole_mm
+    41: 470000fc     0 NOTYPE  LOCAL  DEFAULT    1 end_secure_boot
+    42: 470000f0     0 NOTYPE  LOCAL  DEFAULT    1 check_auth_whole
+    43: 47000108     0 NOTYPE  LOCAL  DEFAULT    1 _Main
+    44: 47000108     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    45: 4700010c     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    46: 47000160     0 NOTYPE  LOCAL  DEFAULT    1 undefined_instruction
+    47: 47000160     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    48: 0000000c     0 NOTYPE  LOCAL  DEFAULT   11 $d
+    49: 47000164     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    50: 00000000     0 FILE    LOCAL  DEFAULT  ABS init_sdp_mmc_core.c
+    51: 47000180     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    52: 470002cc     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    53: 470002dc     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    54: 47000570     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    55: 4700057c     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    56: 47000598     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    57: 4700059c     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    58: 470005b8     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    59: 470005bc     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    60: 470005e8     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    61: 470005f0     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    62: 4700060c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    63: 47000610     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    64: 4700062c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    65: 47000630     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    66: 4700064c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    67: 47000650     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    68: 47000698     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    69: 4700069c     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    70: 470006d4     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    71: 470006dc     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    72: 4700070c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    73: 47000710     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    74: 47000748     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    75: 47000750     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    76: 47000814     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    77: 47000820     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    78: 47000880     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    79: 00000010     0 NOTYPE  LOCAL  DEFAULT   15 $d
+    80: 00000000     0 FILE    LOCAL  DEFAULT  ABS init_sdp_mmc.c
+    81: 47000884     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    82: 47000a3c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    83: 47000a44     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    84: 0000024c     0 NOTYPE  LOCAL  DEFAULT   15 $d
+    85: 47000c00     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    86: 47000d88     0 NOTYPE  LOCAL  DEFAULT    1 Locking_PLL1
+    87: 47000f54     0 NOTYPE  LOCAL  DEFAULT    1 secure_boot_auth1
+    88: 47000f90     0 NOTYPE  LOCAL  DEFAULT    1 secure_boot_auth1_bypass
+    89: 470013c0     0 NOTYPE  LOCAL  DEFAULT    1 ddr_a_setup
+    90: 47000f98     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    91: 47001030     0 NOTYPE  LOCAL  DEFAULT    1 sw_training
+    92: 47001030     0 NOTYPE  LOCAL  DEFAULT    1 $a
+    93: 4700128c     0 NOTYPE  LOCAL  DEFAULT    1 slice_num
+    94: 47001294     0 NOTYPE  LOCAL  DEFAULT    1 left_right_index
+    95: 47001290     0 NOTYPE  LOCAL  DEFAULT    1 wr_index
+    96: 47001298     0 NOTYPE  LOCAL  DEFAULT    1 lcdl_base
+    97: 4700129c     0 NOTYPE  LOCAL  DEFAULT    1 ddr_base
+    98: 470012c0     0 NOTYPE  LOCAL  DEFAULT    1 save_value
+    99: 470012a0     0 NOTYPE  LOCAL  DEFAULT    1 loop_state
+   100: 470012ac     0 NOTYPE  LOCAL  DEFAULT    1 loop_index
+   101: 470012a4     0 NOTYPE  LOCAL  DEFAULT    1 wdq_ref
+   102: 470012a8     0 NOTYPE  LOCAL  DEFAULT    1 rdqs_ref
+   103: 470012b4     0 NOTYPE  LOCAL  DEFAULT    1 left_value
+   104: 470012b8     0 NOTYPE  LOCAL  DEFAULT    1 right_value
+   105: 47001280     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   106: 470012b0     0 NOTYPE  LOCAL  DEFAULT    1 lcdl_value
+   107: 470012bc     0 NOTYPE  LOCAL  DEFAULT    1 center_value
+   108: 470012c4     0 NOTYPE  LOCAL  DEFAULT    1 set_acparam
+   109: 470012c4     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   110: 470013b0     0 NOTYPE  LOCAL  DEFAULT    1 wait_cmd
+   111: 47001690     0 NOTYPE  LOCAL  DEFAULT    1 ddr_b_setup
+   112: 47001e60     0 NOTYPE  LOCAL  DEFAULT    1 v7_inv_dcache_all
+   113: 47001ee0     0 NOTYPE  LOCAL  DEFAULT    1 finished1
+   114: 47001e78     0 NOTYPE  LOCAL  DEFAULT    1 loop11
+   115: 47001ed4     0 NOTYPE  LOCAL  DEFAULT    1 skip1
+   116: 47001eb4     0 NOTYPE  LOCAL  DEFAULT    1 loop12
+   117: 47001eb8     0 NOTYPE  LOCAL  DEFAULT    1 loop13
+   118: 47001ef8     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   119: 47002000     0 NOTYPE  LOCAL  DEFAULT    1 sdp_mmc_8Kbytes_In_Card
+   120: 0000006c     0 NOTYPE  LOCAL  DEFAULT   11 $d
+   121: 47002000     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   122: 0000008c     0 NOTYPE  LOCAL  DEFAULT   11 $d
+   123: 00000000     0 FILE    LOCAL  DEFAULT  ABS timer.c
+   124: 47002004     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   125: 47002004    20 FUNC    LOCAL  DEFAULT    1 READ_TIMER
+   126: 47002014     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   127: 47002018     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   128: 47002024     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   129: 47002028     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   130: 47002054     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   131: 47002058     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   132: 470020b4     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   133: 470020b8     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   134: 47002194     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   135: 47007ae8     0 NOTYPE  LOCAL  DEFAULT    5 $d
+   136: 47007ae8     4 OBJECT  LOCAL  DEFAULT    5 timestamp
+   137: 47007aec     4 OBJECT  LOCAL  DEFAULT    5 lastdec
+   138: 00000284     0 NOTYPE  LOCAL  DEFAULT   15 $d
+   139: 00000000     0 FILE    LOCAL  DEFAULT  ABS serial.c
+   140: 470021a0     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   141: 470021c8     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   142: 470021d0     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   143: 470021ec     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   144: 470021f0     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   145: 47002214     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   146: 4700221c     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   147: 47002250     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   148: 47002258     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   149: 470022a4     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   150: 470022ac     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   151: 470022c8     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   152: 470022d0     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   153: 470023d8     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   154: 470023dc     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   155: 470024d4     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   156: 470024d8     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   157: 4700253c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   158: 47002540     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   159: 00000380     0 NOTYPE  LOCAL  DEFAULT   15 $d
+   160: 00000000     0 FILE    LOCAL  DEFAULT  ABS speed.c
+   161: 47002554     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   162: 47002560     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   163: 47002564     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   164: 470025a0     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   165: 470025a8     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   166: 000004a4     0 NOTYPE  LOCAL  DEFAULT   15 $d
+   167: 00000000     0 FILE    LOCAL  DEFAULT  ABS sp_setup.c
+   168: 470025d4     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   169: 470025fc     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   170: 47002600     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   171: 470026a8     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   172: 470026ac     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   173: 00000520     0 NOTYPE  LOCAL  DEFAULT   15 $d
+   174: 00000000     0 FILE    LOCAL  DEFAULT  ABS echo_hci.c
+   175: 470027e0     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   176: 47002870     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   177: 47004094     0 NOTYPE  LOCAL  DEFAULT    4 $d
+   178: 0000059c     0 NOTYPE  LOCAL  DEFAULT   15 $d
+   179: 00000000     0 FILE    LOCAL  DEFAULT  ABS sdp_peri.c
+   180: 47002880     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   181: 47002880   144 FUNC    LOCAL  DEFAULT    1 uart_init
+   182: 4700290c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   183: 47002910     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   184: 47002928     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   185: 47007af0     0 NOTYPE  LOCAL  DEFAULT    5 $d
+   186: 47007af0     4 OBJECT  LOCAL  DEFAULT    5 uart
+   187: 47007af4     4 OBJECT  LOCAL  DEFAULT    5 micom_uart
+   188: 000005bc     0 NOTYPE  LOCAL  DEFAULT   15 $d
+   189: 00000000     0 FILE    LOCAL  DEFAULT  ABS sdp_i2c.c
+   190: 47002930     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   191: 470029a8     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   192: 470029b0     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   193: 47002a0c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   194: 47002a14     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   195: 47002a30     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   196: 47002a34     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   197: 47002ae8     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   198: 47002af0     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   199: 47002b38     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   200: 47002b3c     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   201: 47002cac     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   202: 47002cb4     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   203: 47002eb0     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   204: 00000604     0 NOTYPE  LOCAL  DEFAULT   15 $d
+   205: 00000000     0 FILE    LOCAL  DEFAULT  ABS MMC_BM_NBL2_Common.c
+   206: 47002eb8     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   207: 47002fec     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   208: 47002ff4     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   209: 4700314c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   210: 47003168     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   211: 47003168    56 FUNC    LOCAL  DEFAULT    1 _SelectBootMode
+   212: 4700319c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   213: 470031a0     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   214: 470032b8     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   215: 470032c4     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   216: 470032c4    72 FUNC    LOCAL  DEFAULT    1 markKernel_ext3
+   217: 47003304     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   218: 4700330c     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   219: 4700330c    72 FUNC    LOCAL  DEFAULT    1 markKernelCMD
+   220: 4700334c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   221: 47003354     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   222: 470036a4     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   223: 47003938     0 NOTYPE  LOCAL  DEFAULT    2 $d
+   224: 47003938    44 OBJECT  LOCAL  DEFAULT    2 pu32ParmaInitialize_FullB
+   225: 47007ad0     0 NOTYPE  LOCAL  DEFAULT    4 $d
+   226: 47007af8     0 NOTYPE  LOCAL  DEFAULT    5 $d
+   227: 000006e4     0 NOTYPE  LOCAL  DEFAULT   15 $d
+   228: 4700371c     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   229: 4700371c     0 NOTYPE  LOCAL  DEFAULT    1 .udivsi3_nodiv0
+   230: 00000000     0 NOTYPE  LOCAL  DEFAULT  ABS shift
+   231: 000007f4     0 NOTYPE  LOCAL  DEFAULT   15 $d
+   232: 000001ac     0 NOTYPE  LOCAL  DEFAULT   11 $d
+   233: 47003928     0 NOTYPE  LOCAL  DEFAULT    1 $a
+   234: 000001cc     0 NOTYPE  LOCAL  DEFAULT   11 $d
+   235: 47003b3c     0 NOTYPE  LOCAL  DEFAULT    3 $d
+   236: 470025d4    44 FUNC    GLOBAL DEFAULT    1 setup_start_tag
+   237: 47007ad4     4 OBJECT  GLOBAL DEFAULT    4 kernel_cmdline_ext1
+   238: 470029b0   100 FUNC    GLOBAL DEFAULT    1 send_stop_packet
+   239: 47002a14    32 FUNC    GLOBAL DEFAULT    1 check_port_ack
+   240: 470020b8    36 FUNC    GLOBAL DEFAULT    1 __udelay
+   241: 4700221c    60 FUNC    GLOBAL DEFAULT    1 serial_getc_check
+   242: 470023dc   156 FUNC    GLOBAL DEFAULT    1 micom_cmd
+   243: 47000040     0 NOTYPE  GLOBAL DEFAULT    1 _end_vect
+   244: 47000650    76 FUNC    GLOBAL DEFAULT    1 sdp_mmc_select_card
+   245: 47002018    16 FUNC    GLOBAL DEFAULT    1 set_timer
+   246: 47002930   128 FUNC    GLOBAL DEFAULT    1 send_start_packet
+   247: 47000884   448 FUNC    GLOBAL DEFAULT    1 sdp_mmc_init
+   248: 47002b3c   376 FUNC    GLOBAL DEFAULT    1 i2c_write
+   249: 47000a44     4 FUNC    GLOBAL DEFAULT    1 __sdp_mmc
+   250: 47002058     4 FUNC    GLOBAL DEFAULT    1 reset_timer
+   251: 470022d0   268 FUNC    GLOBAL DEFAULT    1 PRINTF
+   252: 47003354   968 FUNC    GLOBAL DEFAULT    1 Main
+   253: 47000610    32 FUNC    GLOBAL DEFAULT    1 sdp_mmc_send_relative_add
+   254: 47007ae8     0 NOTYPE  GLOBAL DEFAULT  ABS oneboot_prg_end
+   255: 470026bc   172 FUNC    GLOBAL DEFAULT    1 memcpy
+   256: 47000448   140 FUNC    GLOBAL DEFAULT    1 mmc_send_cmd_wait
+   257: 47007afc     1 OBJECT  GLOBAL DEFAULT    5 HCI_CFG_REG
+   258: 4700371c   492 FUNC    GLOBAL HIDDEN    1 __udivsi3
+   259: 47002280    44 FUNC    GLOBAL DEFAULT    1 micom_getc
+   260: 4700057c    32 FUNC    GLOBAL DEFAULT    1 sdp_mmc_go_idle_state
+   261: 47000048     0 NOTYPE  GLOBAL DEFAULT    1 _bss_start
+   262: 470027e0   160 FUNC    GLOBAL DEFAULT    1 sdp_hci_tx_init
+   263: 47002af0    76 FUNC    GLOBAL DEFAULT    1 wait_interrupt
+   264: 470003b8   140 FUNC    GLOBAL DEFAULT    1 _mmc_get_err
+   265: 470024d8   104 FUNC    GLOBAL DEFAULT    1 serial_setbrg
+   266: 4700210c     8 FUNC    GLOBAL DEFAULT    1 get_tbclk
+   267: 47000320    32 FUNC    GLOBAL DEFAULT    1 _mmc_wait_on_data_state_m
+   268: 470020dc    28 FUNC    GLOBAL DEFAULT    1 get_timer
+   269: 4700004c     0 NOTYPE  GLOBAL DEFAULT    1 _bss_end
+   270: 47002038    32 FUNC    GLOBAL DEFAULT    1 reset_timer_masked
+   271: 47000044     0 NOTYPE  GLOBAL DEFAULT    1 _armboot_start
+   272: 47004094 14908 OBJECT  GLOBAL DEFAULT    4 u16NormalTV
+   273: 47000820   100 FUNC    GLOBAL DEFAULT    1 sdp_mmc_RW
+   274: 470005f0    32 FUNC    GLOBAL DEFAULT    1 sdp_mmc_all_send_cid
+   275: 47002114   140 FUNC    GLOBAL DEFAULT    1 timer_init
+   276: 470025a8    16 FUNC    GLOBAL DEFAULT    1 get_clock_apb
+   277: 47007b00     4 OBJECT  GLOBAL DEFAULT    5 high_capacity
+   278: 470021d0    32 FUNC    GLOBAL DEFAULT    1 serial_tstc
+   279: 47000630    32 FUNC    GLOBAL DEFAULT    1 sdp_mmc_send_csd
+   280: 47002ff4     8 FUNC    GLOBAL DEFAULT    1 FastLogo
+   281: 4700205c    92 FUNC    GLOBAL DEFAULT    1 get_timer_masked
+   282: 47000000     0 NOTYPE  GLOBAL DEFAULT    1 _start
+   283: 470021a0    48 FUNC    GLOBAL DEFAULT    1 serial_putc
+   284: 4700059c    32 FUNC    GLOBAL DEFAULT    1 sdp_mmc_sd_send_if_cond
+   285: 47000c00     0 NOTYPE  GLOBAL DEFAULT    1 lowlevel_init
+   286: 4700069c    64 FUNC    GLOBAL DEFAULT    1 sdp_mmc_send_ext_csd
+   287: 470031a0   292 FUNC    GLOBAL DEFAULT    1 setup_sdp_memtag
+   288: 47002000     0 NOTYPE  GLOBAL DEFAULT    1 reset_cpu
+   289: 47002ffc    88 FUNC    GLOBAL DEFAULT    1 get_uImage_size
+   290: 47003928    16 FUNC    WEAK   HIDDEN    1 __aeabi_ldiv0
+   291: 4700020c   208 FUNC    GLOBAL DEFAULT    1 sdp_mmc_init_controller
+   292: 47007ad8     4 OBJECT  GLOBAL DEFAULT    4 kernel_cmdline_rfs0
+   293: 47007ae8     0 NOTYPE  GLOBAL DEFAULT  ABS __bss_start
+   294: 47002768   120 FUNC    GLOBAL DEFAULT    1 memset
+   295: 47002cb4   516 FUNC    GLOBAL DEFAULT    1 i2c_read
+   296: 47000444     4 FUNC    GLOBAL DEFAULT    1 mmc_response_status
+   297: 47000180   140 FUNC    GLOBAL DEFAULT    1 mmc_desc_init
+   298: 470002e0    64 FUNC    GLOBAL DEFAULT    1 mmc_poll_cmd_done
+   299: 470006dc    16 FUNC    GLOBAL DEFAULT    1 sdp_mmc_switch_ext_csd
+   300: 4700371c     0 FUNC    GLOBAL HIDDEN    1 __aeabi_uidiv
+   301: 47002564    68 FUNC    GLOBAL DEFAULT    1 get_clock_bus
+   302: 47002600   172 FUNC    GLOBAL DEFAULT    1 setup_commandline_tag
+   303: 47002540    20 FUNC    GLOBAL DEFAULT    1 serial_init
+   304: 470022ac    36 FUNC    GLOBAL DEFAULT    1 micom_putc
+   305: 47002478    96 FUNC    GLOBAL DEFAULT    1 serial_setbrg_micom
+   306: 470002dc     4 FUNC    GLOBAL DEFAULT    1 mmc_plat_loop
+   307: 47002ef0   260 FUNC    GLOBAL DEFAULT    1 fast_logo
+   308: 47007adc     4 OBJECT  GLOBAL DEFAULT    4 kernel_cmdline_rfs1
+   309: 47000710    64 FUNC    GLOBAL DEFAULT    1 sdp_mmc_set_block_length
+   310: 47007ae0     4 OBJECT  GLOBAL DEFAULT    4 kernel_cmdline_sda1
+   311: 47002258    40 FUNC    GLOBAL DEFAULT    1 serial_puts
+   312: 47000390    40 FUNC    GLOBAL DEFAULT    1 _mmc_wait_for_dto
+   313: 470020f8    20 FUNC    GLOBAL DEFAULT    1 get_ticks
+   314: 47002a34   188 FUNC    GLOBAL DEFAULT    1 i2c_init
+   315: 47002910    32 FUNC    GLOBAL DEFAULT    1 sdp_peri_init
+   316: 47007b04     4 OBJECT  GLOBAL DEFAULT    5 _RunImage
+   317: 47000a44     4 FUNC    WEAK   DEFAULT    1 sdp_mmc
+   318: 47000750   208 FUNC    GLOBAL DEFAULT    1 sdp_mmc_read_write
+   319: 47002558    12 FUNC    GLOBAL DEFAULT    1 get_clock_arm
+   320: 47003908    32 FUNC    GLOBAL HIDDEN    1 __aeabi_uidivmod
+   321: 470026ac    16 FUNC    GLOBAL DEFAULT    1 setup_end_tag
+   322: 47007b08     0 NOTYPE  GLOBAL DEFAULT  ABS _end
+   323: 470005bc    52 FUNC    GLOBAL DEFAULT    1 sdp_mmc_send_op_cond
+   324: 47007af8     4 OBJECT  GLOBAL DEFAULT    5 mmc
+   325: 47007afe     2 OBJECT  GLOBAL DEFAULT    5 HCI_8051_REG
+   326: 470021f0    44 FUNC    GLOBAL DEFAULT    1 serial_getc
+   327: 47003054   276 FUNC    GLOBAL DEFAULT    1 _ShadowOS
+   328: 47002028    16 FUNC    GLOBAL DEFAULT    1 get_delay_time
+   329: 470006ec    36 FUNC    GLOBAL DEFAULT    1 sdp_mmc_switch
+   330: 47000340    40 FUNC    GLOBAL DEFAULT    1 _mmc_wait_on_busy
+   331: 47002eb8    56 FUNC    GLOBAL DEFAULT    1 atoi
+   332: 47003928    16 FUNC    WEAK   HIDDEN    1 __aeabi_idiv0
+   333: 47007ae4     4 OBJECT  GLOBAL DEFAULT    4 kernel_cmdline_nfs
+   334: 47007ad0     4 OBJECT  GLOBAL DEFAULT    4 kernel_cmdline_ext0
+   335: 470004d4   168 FUNC    GLOBAL DEFAULT    1 sdp_mmc_set_clk
+   336: 470025b8    28 FUNC    GLOBAL DEFAULT    1 print_cpuinfo
+   337: 47000368    40 FUNC    GLOBAL DEFAULT    1 _mmc_wait_for_intr
+   338: 47002554     4 FUNC    GLOBAL DEFAULT    1 raise
+
+No version information found in this file.
+Attribute Section: aeabi
+File Attributes
+  Tag_CPU_name: "7-A"
+  Tag_CPU_arch: v7
+  Tag_CPU_arch_profile: Application
+  Tag_ARM_ISA_use: Yes
+  Tag_THUMB_ISA_use: Thumb-2
+  Tag_VFP_arch: VFPv3
+  Tag_ABI_PCS_wchar_t: 2
+  Tag_ABI_FP_denormal: Needed
+  Tag_ABI_FP_exceptions: Needed
+  Tag_ABI_FP_number_model: IEEE 754
+  Tag_ABI_align8_needed: Yes
+  Tag_ABI_enum_size: small
+  Tag_ABI_HardFP_use: SP and DP
+  Tag_DIV_use: Not allowed
