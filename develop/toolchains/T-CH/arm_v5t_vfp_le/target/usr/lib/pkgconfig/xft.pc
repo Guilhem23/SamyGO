@@ -1,0 +1,11 @@
+prefix=/usr/X11R6
+exec_prefix=/usr/X11R6/bin
+libdir=/usr/lib
+includedir=/usr/X11R6/include
+
+Name: Xft
+Description: X FreeType library
+Version: 2.1.2.2
+Requires: xrender fontconfig freetype2
+Libs: -L${libdir} -lXft -lX11
+Cflags: -I${includedir}

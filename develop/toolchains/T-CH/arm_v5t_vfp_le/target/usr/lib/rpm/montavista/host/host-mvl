@@ -1,0 +1,34 @@
+%_mvl_install_prefix	%{_mvl_edition_path}
+%_mvl_base_prefix	%{_mvl_install_prefix}
+
+%_mvl_config_dir	%{_mvl_base_prefix}/config
+
+%_mvl_devkit_dir	%{_mvl_base_prefix}/devkit
+%_mvl_lsp_dir		%{_mvl_devkit_dir}/lsp
+%_mvl_kernel_dir	%{_mvl_devkit_dir}/kernel
+
+# Macros for using and constructing the host directory
+
+%_mvl_host_dir		%{_mvl_base_prefix}
+%_mvl_host_bin_dir	%{_mvl_host_dir}/bin
+%_mvl_host_sbin_dir	%{_mvl_host_dir}/bin
+%_mvl_host_sysconf_dir	%{_mvl_host_dir}/etc
+%_mvl_host_data_dir	%{_mvl_host_dir}/share
+%_mvl_host_lib_dir	%{_mvl_host_dir}/lib
+%_mvl_host_include_dir	%{_mvl_host_dir}/include
+%_mvl_host_sharedstate_dir	%{_mvl_host_dir}/share
+%_mvl_host_man_dir	%{_mvl_host_dir}/man
+%_mvl_host_info_dir	%{_mvl_host_dir}/info
+%_mvl_host_doc_dir	%{_mvl_host_dir}/doc
+
+# The following are defined, but should not be used!
+%_mvl_host_localstate_dir	%{_mvl_host_dir}/var
+%_mvl_host_libexec_dir	%{_mvl_host_dir}/libexec
+
+# Make sure that the pkg_suffix is null when doing a
+# source rpm build w/o --target=
+%_mvl_pkg_suffix        %{nil}
+
+# Disable package %files checking!
+%_unpackaged_files_terminate_build      0
+%_missing_doc_files_terminate_build     0

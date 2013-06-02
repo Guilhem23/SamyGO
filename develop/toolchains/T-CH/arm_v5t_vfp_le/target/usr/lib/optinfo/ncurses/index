@@ -1,0 +1,1386 @@
+
+O access.o
+D _nc_access
+D _nc_basename
+D _nc_pathlast
+D _nc_rootname
+U __errno_location@@GLIBC_2.4
+U access@@GLIBC_2.4
+U strcpy@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+U strrchr@@GLIBC_2.4
+
+O add_tries.o
+D _nc_add_to_try
+U calloc@@GLIBC_2.4
+U free@@GLIBC_2.4
+
+O alloc_entry.o
+I alloc_ttype.o
+I comp_error.o
+D _nc_copy_entry
+D _nc_init_entry
+D _nc_merge_entry
+D _nc_save_str
+D _nc_wrap_entry
+U calloc@@GLIBC_2.4
+U free@@GLIBC_2.4
+U malloc@@GLIBC_2.4
+U memcpy@@GLIBC_2.4
+U strcpy@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+
+O alloc_ttype.o
+I doalloc.o
+D _nc_align_termtype
+D _nc_copy_termtype
+U free@@GLIBC_2.4
+U malloc@@GLIBC_2.4
+U memcpy@@GLIBC_2.4
+U strcmp@@GLIBC_2.4
+
+O captoinfo.o
+I comp_error.o
+I unctrl.o
+D _nc_captoinfo
+D _nc_infotocap
+U __ctype_b_loc@@GLIBC_2.4
+U malloc@@GLIBC_2.4
+U realloc@@GLIBC_2.4
+U sprintf@@GLIBC_2.4
+U sscanf@@GLIBC_2.4
+U strchr@@GLIBC_2.4
+U strcpy@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+U strncmp@@GLIBC_2.4
+
+O codes.o
+D boolcodes
+D numcodes
+D strcodes
+
+O comp_captab.o
+D _nc_cap_hash_table
+D _nc_capalias_table
+D _nc_get_hash_table
+D _nc_get_table
+D _nc_info_hash_table
+D _nc_infoalias_table
+
+O comp_error.o
+D _nc_curr_col
+D _nc_curr_line
+D _nc_err_abort
+D _nc_get_type
+D _nc_set_source
+D _nc_set_type
+D _nc_suppress_warnings
+D _nc_syserr_abort
+D _nc_warning
+U exit@@GLIBC_2.4
+U fprintf@@GLIBC_2.4
+U fputc@@GLIBC_2.4
+U malloc@@GLIBC_2.4
+U stderr@@GLIBC_2.4
+U strcpy@@GLIBC_2.4
+U strncat@@GLIBC_2.4
+U vfprintf@@GLIBC_2.4
+
+O comp_expand.o
+I doalloc.o
+D _nc_tic_expand
+U __ctype_b_loc@@GLIBC_2.4
+U __strtol_internal@@GLIBC_2.4
+U sprintf@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+
+O comp_hash.o
+D _nc_find_entry
+D _nc_find_type_entry
+U strcmp@@GLIBC_2.4
+
+O comp_parse.o
+I alloc_entry.o
+I alloc_ttype.o
+I comp_error.o
+I name_match.o
+I parse_entry.o
+I read_entry.o
+I comp_scan.o
+D _nc_check_termtype
+D _nc_entry_match
+D _nc_free_entries
+D _nc_head
+D _nc_read_entry_source
+D _nc_resolve_uses
+D _nc_tail
+U _IO_putc@@GLIBC_2.4
+U __ctype_b_loc@@GLIBC_2.4
+U fprintf@@GLIBC_2.4
+U free@@GLIBC_2.4
+U malloc@@GLIBC_2.4
+U memcmp@@GLIBC_2.4
+U memcpy@@GLIBC_2.4
+U memset@@GLIBC_2.4
+U stderr@@GLIBC_2.4
+U strchr@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+U strncpy@@GLIBC_2.4
+
+O comp_scan.o
+I comp_error.o
+I doalloc.o
+I lib_trace.o
+I unctrl.o
+D _nc_comment_end
+D _nc_comment_start
+D _nc_curr_file_pos
+D _nc_curr_token
+D _nc_disable_period
+D _nc_get_token
+D _nc_panic_mode
+D _nc_push_token
+D _nc_reset_input
+D _nc_start_line
+D _nc_syntax
+D _nc_trans_string
+U __ctype_b_loc@@GLIBC_2.4
+U __strtol_internal@@GLIBC_2.4
+U feof@@GLIBC_2.4
+U fgets@@GLIBC_2.4
+U free@@GLIBC_2.4
+U ftell@@GLIBC_2.4
+U malloc@@GLIBC_2.4
+U memcpy@@GLIBC_2.4
+U strchr@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+
+O define_key.o
+I lib_data.o
+I add_tries.o
+I tries.o
+I lib_options.o
+I key_defined.o
+D define_key
+
+O doalloc.o
+D _nc_doalloc
+U __errno_location@@GLIBC_2.4
+U free@@GLIBC_2.4
+U malloc@@GLIBC_2.4
+U realloc@@GLIBC_2.4
+
+O expanded.o
+D _nc_expanded
+
+O fallback.o
+D _nc_fallback
+
+O free_ttype.o
+D _nc_free_termtype
+D _nc_user_definable
+D use_extended_names
+U free@@GLIBC_2.4
+
+O getenv_num.o
+D _nc_getenv_num
+U __strtol_internal@@GLIBC_2.4
+U getenv@@GLIBC_2.4
+
+O hardscroll.o
+I lib_data.o
+I doalloc.o
+I hashmap.o
+I tty_update.o
+D _nc_oldnums
+D _nc_scroll_optimize
+
+O hashmap.o
+I lib_data.o
+I hardscroll.o
+I lib_cur_term.o
+D _nc_hash_map
+D _nc_make_oldhash
+D _nc_scroll_oldhash
+U calloc@@GLIBC_2.4
+U free@@GLIBC_2.4
+U malloc@@GLIBC_2.4
+U memmove@@GLIBC_2.4
+U memset@@GLIBC_2.4
+
+O home_terminfo.o
+I comp_error.o
+D _nc_home_terminfo
+U getenv@@GLIBC_2.4
+U malloc@@GLIBC_2.4
+U sprintf@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+
+O init_keytry.o
+I lib_data.o
+I add_tries.o
+I lib_cur_term.o
+D _nc_init_keytry
+D _nc_tinfo_fkeys
+
+O key_defined.o
+I lib_data.o
+D key_defined
+
+O keybound.o
+I lib_data.o
+I tries.o
+D keybound
+
+O keyok.o
+I lib_data.o
+I add_tries.o
+I tries.o
+D keyok
+U free@@GLIBC_2.4
+
+O lib_acs.o
+I lib_data.o
+I lib_setup.o
+I lib_cur_term.o
+I lib_tputs.o
+D _nc_init_acs
+D acs_map
+U strlen@@GLIBC_2.4
+
+O lib_addch.o
+I lib_setup.o
+I lib_window.o
+I unctrl.o
+I lib_clreol.o
+I lib_scroll.o
+D _nc_render
+D _nc_waddch_nosync
+D waddch
+D wechochar
+U __ctype_b_loc@@GLIBC_2.4
+
+O lib_addstr.o
+I lib_window.o
+I lib_addch.o
+D waddchnstr
+D waddnstr
+U memcpy@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+
+O lib_baudrate.o
+I lib_cur_term.o
+I lib_tputs.o
+D _nc_baudrate
+D _nc_ospeed
+D baudrate
+U cfgetospeed@@GLIBC_2.4
+
+O lib_beep.o
+I lib_tputs.o
+I lib_cur_term.o
+D beep
+
+O lib_bkgd.o
+I lib_addch.o
+I lib_window.o
+I lib_touch.o
+D wbkgd
+D wbkgdset
+
+O lib_box.o
+I lib_addch.o
+I lib_window.o
+I lib_acs.o
+D wborder
+
+O lib_chgat.o
+D wchgat
+
+O lib_clear.o
+I lib_erase.o
+D wclear
+
+O lib_clearok.o
+D clearok
+
+O lib_clrbot.o
+I lib_window.o
+D wclrtobot
+
+O lib_clreol.o
+I lib_window.o
+D wclrtoeol
+
+O lib_color.o
+I lib_data.o
+I hashmap.o
+I lib_tputs.o
+I lib_cur_term.o
+I lib_tparm.o
+D COLORS
+D COLOR_PAIRS
+D _nc_do_color
+D _nc_reset_colors
+D can_change_color
+D color_content
+D has_colors
+D init_color
+D init_pair
+D pair_content
+D start_color
+U calloc@@GLIBC_2.4
+U free@@GLIBC_2.4
+
+O lib_colorset.o
+I lib_color.o
+D wcolor_set
+
+O lib_cur_term.o
+I lib_tputs.o
+I free_ttype.o
+I lib_baudrate.o
+D cur_term
+D del_curterm
+D set_curterm
+U free@@GLIBC_2.4
+
+O lib_data.o
+D SP
+D _nc_screen_chain
+D curscr
+D newscr
+D stdscr
+
+O lib_delch.o
+I lib_window.o
+D wdelch
+
+O lib_delwin.o
+I lib_data.o
+I lib_newwin.o
+I lib_touch.o
+D delwin
+
+O lib_dft_fgbg.o
+I lib_data.o
+I lib_cur_term.o
+I lib_color.o
+I lib_ti.o
+D assume_default_colors
+D use_default_colors
+
+O lib_echo.o
+I lib_data.o
+D echo
+D noecho
+
+O lib_endwin.o
+I lib_data.o
+I lib_mvcur.o
+I tty_update.o
+I lib_ttyflags.o
+D endwin
+
+O lib_erase.o
+I lib_window.o
+D werase
+
+O lib_flash.o
+I lib_tputs.o
+I lib_cur_term.o
+D flash
+
+O lib_freeall.o
+D _nc_freeall
+
+O lib_gen.o
+I lib_data.o
+I lib_printw.o
+I lib_scanw.o
+I lib_addch.o
+I lib_addstr.o
+I lib_wattroff.o
+I lib_wattron.o
+I lib_bkgd.o
+I lib_box.o
+I lib_chgat.o
+I lib_clear.o
+I lib_clrbot.o
+I lib_clreol.o
+I lib_colorset.o
+I lib_delch.o
+I lib_erase.o
+I lib_getch.o
+I lib_getstr.o
+I lib_hline.o
+I lib_winch.o
+I lib_inchstr.o
+I lib_instr.o
+I lib_insch.o
+I lib_insdel.o
+I lib_mouse.o
+I lib_move.o
+I lib_redrawln.o
+I lib_refresh.o
+I lib_scroll.o
+I lib_scrreg.o
+I lib_options.o
+I lib_touch.o
+I lib_vline.o
+D COLOR_PAIR
+D PAIR_NUMBER
+D addch
+D addchnstr
+D addchstr
+D addnstr
+D addstr
+D attr_get
+D attr_off
+D attr_on
+D attr_set
+D attroff
+D attron
+D attrset
+D bkgd
+D bkgdset
+D border
+D box
+D chgat
+D clear
+D clrtobot
+D clrtoeol
+D color_set
+D delch
+D deleteln
+D echochar
+D erase
+D getbkgd
+D getch
+D getnstr
+D getstr
+D hline
+D inch
+D inchnstr
+D inchstr
+D innstr
+D insch
+D insdelln
+D insertln
+D insnstr
+D insstr
+D instr
+D mouse_trafo
+D move
+D mvaddch
+D mvaddchnstr
+D mvaddchstr
+D mvaddnstr
+D mvaddstr
+D mvchgat
+D mvdelch
+D mvgetch
+D mvgetnstr
+D mvgetstr
+D mvhline
+D mvinch
+D mvinchnstr
+D mvinchstr
+D mvinnstr
+D mvinsch
+D mvinsnstr
+D mvinsstr
+D mvinstr
+D mvvline
+D mvwaddch
+D mvwaddchnstr
+D mvwaddchstr
+D mvwaddnstr
+D mvwaddstr
+D mvwchgat
+D mvwdelch
+D mvwgetch
+D mvwgetnstr
+D mvwgetstr
+D mvwhline
+D mvwinch
+D mvwinchnstr
+D mvwinchstr
+D mvwinnstr
+D mvwinsch
+D mvwinsnstr
+D mvwinsstr
+D mvwinstr
+D mvwvline
+D redrawwin
+D refresh
+D scrl
+D scroll
+D setscrreg
+D standend
+D standout
+D timeout
+D touchline
+D touchwin
+D untouchwin
+D vline
+D vw_printw
+D vw_scanw
+D waddchstr
+D waddstr
+D wattr_get
+D wattr_set
+D wattroff
+D wattron
+D wattrset
+D wdeleteln
+D wgetstr
+D winchstr
+D winsertln
+D winsstr
+D winstr
+D wstandend
+D wstandout
+
+O lib_getch.o
+I lib_data.o
+I lib_options.o
+I lib_twait.o
+I lib_setup.o
+I lib_touch.o
+I lib_ungetch.o
+I lib_addch.o
+I lib_getstr.o
+I lib_refresh.o
+D ESCDELAY
+D _nc_wgetch
+D wgetch
+U memset@@GLIBC_2.4
+U read@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+
+O lib_getstr.o
+I lib_data.o
+I lib_ttyflags.o
+I lib_beep.o
+I lib_raw.o
+I lib_kernel.o
+I lib_touch.o
+I lib_nl.o
+I lib_echo.o
+I lib_addch.o
+I lib_addstr.o
+I lib_getch.o
+I lib_move.o
+I lib_refresh.o
+D wgetnstr
+
+O lib_has_cap.o
+I lib_cur_term.o
+D has_ic
+D has_il
+
+O lib_hline.o
+I lib_addch.o
+I lib_window.o
+I lib_acs.o
+D whline
+
+O lib_immedok.o
+D immedok
+
+O lib_inchstr.o
+D winchnstr
+
+O lib_initscr.o
+I lib_getch.o
+I getenv_num.o
+I lib_ttyflags.o
+I lib_newterm.o
+I lib_data.o
+D initscr
+U exit@@GLIBC_2.4
+U fprintf@@GLIBC_2.4
+U getenv@@GLIBC_2.4
+U stderr@@GLIBC_2.4
+U stdin@@GLIBC_2.4
+U stdout@@GLIBC_2.4
+
+O lib_insch.o
+I lib_setup.o
+I lib_addch.o
+I lib_window.o
+D _nc_insert_ch
+D winsch
+D winsnstr
+U __ctype_b_loc@@GLIBC_2.4
+
+O lib_insdel.o
+I lib_scroll.o
+I lib_window.o
+D winsdelln
+
+O lib_instr.o
+D winnstr
+
+O lib_isendwin.o
+I lib_data.o
+D isendwin
+
+O lib_kernel.o
+I lib_data.o
+I lib_cur_term.o
+D erasechar
+D flushinp
+D killchar
+U tcflush@@GLIBC_2.4
+
+O lib_keyname.o
+D _nc_key_names
+D keyname
+U __strdup@@GLIBC_2.4
+U calloc@@GLIBC_2.4
+U memcpy@@GLIBC_2.4
+U sprintf@@GLIBC_2.4
+
+O lib_leaveok.o
+D leaveok
+
+O lib_longname.o
+I lib_setup.o
+D longname
+U strlen@@GLIBC_2.4
+
+O lib_mouse.o
+I lib_data.o
+I add_tries.o
+I lib_tputs.o
+I lib_cur_term.o
+I keyok.o
+I lib_ti.o
+I lib_tparm.o
+I lib_ungetch.o
+D _nc_has_mouse
+D getmouse
+D mouseinterval
+D mousemask
+D ungetmouse
+D wenclose
+D wmouse_trafo
+U read@@GLIBC_2.4
+U strcmp@@GLIBC_2.4
+U strstr@@GLIBC_2.4
+
+O lib_move.o
+D wmove
+
+O lib_mvcur.o
+I lib_data.o
+I lib_tputs.o
+I strings.o
+I lib_cur_term.o
+I lib_options.o
+I lib_tparm.o
+I lib_vidattr.o
+D _nc_msec_cost
+D _nc_mvcur_init
+D _nc_mvcur_resume
+D _nc_mvcur_wrap
+D mvcur
+U __ctype_b_loc@@GLIBC_2.4
+U fileno@@GLIBC_2.4
+U isatty@@GLIBC_2.4
+U strchr@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+U strstr@@GLIBC_2.4
+
+O lib_mvwin.o
+I lib_data.o
+I lib_overlay.o
+I lib_delwin.o
+I lib_window.o
+I lib_bkgd.o
+I lib_erase.o
+I lib_touch.o
+D mvwin
+
+O lib_napms.o
+D napms
+U __errno_location@@GLIBC_2.4
+U nanosleep@@GLIBC_2.4
+
+O lib_newterm.o
+I lib_setup.o
+I lib_data.o
+I lib_mvcur.o
+I lib_set_term.o
+I tty_update.o
+I lib_ttyflags.o
+I lib_tstp.o
+I lib_slk.o
+I lib_baudrate.o
+I lib_raw.o
+I lib_cur_term.o
+I lib_options.o
+D filter
+D newterm
+U fileno@@GLIBC_2.4
+U strcmp@@GLIBC_2.4
+
+O lib_newwin.o
+I lib_data.o
+D _nc_freewin
+D _nc_makenew
+D derwin
+D newwin
+D subwin
+U calloc@@GLIBC_2.4
+U free@@GLIBC_2.4
+
+O lib_nl.o
+I lib_data.o
+D nl
+D nonl
+
+O lib_options.o
+I lib_data.o
+I lib_tputs.o
+I init_keytry.o
+I lib_raw.o
+I lib_cur_term.o
+I lib_has_cap.o
+D _nc_keypad
+D curs_set
+D halfdelay
+D has_key
+D idcok
+D idlok
+D keypad
+D meta
+D nodelay
+D notimeout
+D typeahead
+D wtimeout
+
+O lib_overlay.o
+I lib_touch.o
+D copywin
+D overlay
+D overwrite
+
+O lib_pad.o
+I lib_data.o
+I lib_newwin.o
+I tty_update.o
+I lib_addch.o
+D newpad
+D pechochar
+D pnoutrefresh
+D prefresh
+D subpad
+U calloc@@GLIBC_2.4
+
+O lib_print.o
+I lib_cur_term.o
+I lib_tparm.o
+D mcprint
+U __errno_location@@GLIBC_2.4
+U free@@GLIBC_2.4
+U malloc@@GLIBC_2.4
+U memcpy@@GLIBC_2.4
+U sleep@@GLIBC_2.4
+U strcpy@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+U write@@GLIBC_2.4
+
+O lib_printw.o
+I safe_sprintf.o
+I lib_data.o
+I lib_addstr.o
+I lib_move.o
+D mvprintw
+D mvwprintw
+D printw
+D vwprintw
+D wprintw
+
+O lib_raw.o
+I lib_data.o
+I lib_ttyflags.o
+I lib_cur_term.o
+D cbreak
+D intrflush
+D nocbreak
+D noqiflush
+D noraw
+D qiflush
+D raw
+
+O lib_redrawln.o
+I hashmap.o
+I lib_data.o
+I lib_touch.o
+D wredrawln
+U memset@@GLIBC_2.4
+
+O lib_refresh.o
+I lib_data.o
+I tty_update.o
+I lib_window.o
+D wnoutrefresh
+D wrefresh
+
+O lib_restart.o
+I lib_data.o
+I lib_setup.o
+I lib_raw.o
+I lib_echo.o
+I lib_nl.o
+I lib_ttyflags.o
+D restartterm
+
+O lib_scanw.o
+I lib_data.o
+I lib_getstr.o
+I lib_move.o
+D mvscanw
+D mvwscanw
+D scanw
+D vwscanw
+D wscanw
+U vsscanf@@GLIBC_2.4
+
+O lib_screen.o
+I lib_data.o
+I access.o
+I lib_cur_term.o
+I lib_delwin.o
+I lib_window.o
+I lib_pad.o
+I lib_newwin.o
+I lib_touch.o
+D getwin
+D putwin
+D scr_dump
+D scr_init
+D scr_restore
+D scr_set
+U clearerr@@GLIBC_2.4
+U fclose@@GLIBC_2.4
+U ferror@@GLIBC_2.4
+U fopen@@GLIBC_2.4
+U fread@@GLIBC_2.4
+U fwrite@@GLIBC_2.4
+
+O lib_scroll.o
+I lib_window.o
+I lib_touch.o
+D _nc_scroll_window
+D wscrl
+U memcpy@@GLIBC_2.4
+
+O lib_scrollok.o
+D scrollok
+
+O lib_scrreg.o
+D wsetscrreg
+
+O lib_set_term.o
+I lib_color.o
+I lib_setup.o
+I lib_data.o
+I lib_newwin.o
+I lib_acs.o
+I setbuf.o
+I lib_cur_term.o
+I lib_ttyflags.o
+I resizeterm.o
+I lib_vidattr.o
+D _nc_ripoffline
+D _nc_setupscreen
+D delscreen
+D ripoffline
+D set_term
+U __errno_location@@GLIBC_2.4
+U calloc@@GLIBC_2.4
+U fflush@@GLIBC_2.4
+U free@@GLIBC_2.4
+U getenv@@GLIBC_2.4
+U memcpy@@GLIBC_2.4
+U sscanf@@GLIBC_2.4
+
+O lib_setup.o
+I lib_data.o
+I fallback.o
+I getenv_num.o
+I name_match.o
+I read_entry.o
+I lib_baudrate.o
+I lib_cur_term.o
+I lib_ttyflags.o
+D COLS
+D LINES
+D TABSIZE
+D _nc_get_locale
+D _nc_locale_breaks_acs
+D _nc_unicode_locale
+D _nc_update_screensize
+D setupterm
+D ttytype
+D use_env
+U __errno_location@@GLIBC_2.4
+U __strdup@@GLIBC_2.4
+U calloc@@GLIBC_2.4
+U exit@@GLIBC_2.4
+U fprintf@@GLIBC_2.4
+U fwrite@@GLIBC_2.4
+U getenv@@GLIBC_2.4
+U ioctl@@GLIBC_2.4
+U isatty@@GLIBC_2.4
+U stderr@@GLIBC_2.4
+U strchr@@GLIBC_2.4
+U strcmp@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+U strncpy@@GLIBC_2.4
+U strstr@@GLIBC_2.4
+
+O lib_slk.o
+I lib_data.o
+I doalloc.o
+I lib_cur_term.o
+I lib_printw.o
+I lib_slkrefr.o
+I lib_hline.o
+I lib_move.o
+D _nc_slk_format
+D _nc_slk_initialize
+D slk_restore
+U calloc@@GLIBC_2.4
+U free@@GLIBC_2.4
+U memset@@GLIBC_2.4
+
+O lib_slkatr_set.o
+I lib_color.o
+I lib_data.o
+D slk_attr_set
+
+O lib_slkatrof.o
+I lib_data.o
+D slk_attroff
+
+O lib_slkatron.o
+I lib_data.o
+D slk_attron
+
+O lib_slkatrset.o
+I lib_data.o
+D slk_attrset
+
+O lib_slkattr.o
+I lib_data.o
+D slk_attr
+
+O lib_slkclear.o
+I lib_data.o
+I lib_erase.o
+I lib_refresh.o
+D slk_clear
+
+O lib_slkcolor.o
+I lib_color.o
+I lib_data.o
+D slk_color
+
+O lib_slkinit.o
+I lib_slk.o
+D slk_init
+
+O lib_slklab.o
+I lib_data.o
+D slk_label
+
+O lib_slkrefr.o
+I lib_data.o
+I lib_cur_term.o
+I lib_tputs.o
+I lib_tparm.o
+I lib_addstr.o
+I lib_move.o
+I lib_refresh.o
+D slk_noutrefresh
+D slk_refresh
+
+O lib_slkset.o
+I lib_data.o
+D slk_set
+U __ctype_b_loc@@GLIBC_2.4
+U memcpy@@GLIBC_2.4
+U memset@@GLIBC_2.4
+U strncpy@@GLIBC_2.4
+
+O lib_slktouch.o
+I lib_data.o
+D slk_touch
+
+O lib_termcap.o
+I lib_tputs.o
+I lib_baudrate.o
+I codes.o
+I lib_cur_term.o
+I lib_setup.o
+I lib_tparm.o
+D BC
+D UP
+D tgetent
+D tgetflag
+D tgetnum
+D tgetstr
+U __ctype_b_loc@@GLIBC_2.4
+U __strdup@@GLIBC_2.4
+U __strtol_internal@@GLIBC_2.4
+U free@@GLIBC_2.4
+U strchr@@GLIBC_2.4
+U strcmp@@GLIBC_2.4
+U strcpy@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+U strncmp@@GLIBC_2.4
+
+O lib_termname.o
+I lib_cur_term.o
+D termname
+
+O lib_tgoto.o
+I lib_tparm.o
+D tgoto
+
+O lib_ti.o
+I names.o
+I lib_cur_term.o
+D tigetflag
+D tigetnum
+D tigetstr
+U strcmp@@GLIBC_2.4
+
+O lib_touch.o
+D is_linetouched
+D is_wintouched
+D wtouchln
+
+O lib_tparm.o
+I doalloc.o
+I comp_error.o
+D _nc_tparm_analyze
+D _nc_tparm_err
+D tparm
+U __ctype_b_loc@@GLIBC_2.4
+U sprintf@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+
+O lib_tputs.o
+I lib_data.o
+I lib_baudrate.o
+I lib_cur_term.o
+I lib_napms.o
+D PC
+D _nc_flush
+D _nc_nulls_sent
+D _nc_outch
+D delay_output
+D ospeed
+D putp
+D tputs
+U _IO_putc@@GLIBC_2.4
+U __ctype_b_loc@@GLIBC_2.4
+U fflush@@GLIBC_2.4
+U fileno@@GLIBC_2.4
+U stdout@@GLIBC_2.4
+U strchr@@GLIBC_2.4
+U write@@GLIBC_2.4
+
+O lib_trace.o
+D _nc_tracing
+
+O lib_tstp.o
+I lib_data.o
+I lib_tputs.o
+I lib_ttyflags.o
+I tty_update.o
+I lib_endwin.o
+I lib_kernel.o
+I lib_set_term.o
+D _nc_signal_handler
+U exit@@GLIBC_2.4
+U fileno@@GLIBC_2.4
+U getpgrp@@GLIBC_2.4
+U getpid@@GLIBC_2.4
+U isatty@@GLIBC_2.4
+U kill@@GLIBC_2.4
+U memset@@GLIBC_2.4
+U sigaction@@GLIBC_2.4
+U sigaddset@@GLIBC_2.4
+U sigemptyset@@GLIBC_2.4
+U sigismember@@GLIBC_2.4
+U sigprocmask@@GLIBC_2.4
+U tcgetpgrp@@GLIBC_2.4
+
+O lib_ttyflags.o
+I lib_data.o
+I lib_tputs.o
+I lib_options.o
+I setbuf.o
+I lib_cur_term.o
+D _nc_get_tty_mode
+D _nc_set_tty_mode
+D def_prog_mode
+D def_shell_mode
+D reset_prog_mode
+D reset_shell_mode
+D resetty
+D savetty
+U __errno_location@@GLIBC_2.4
+U memset@@GLIBC_2.4
+U tcgetattr@@GLIBC_2.4
+U tcsetattr@@GLIBC_2.4
+
+O lib_twait.o
+I lib_data.o
+I lib_napms.o
+D _nc_timed_wait
+U gettimeofday@@GLIBC_2.4
+U select@@GLIBC_2.4
+
+O lib_ungetch.o
+I lib_data.o
+D ungetch
+
+O lib_vidattr.o
+I lib_data.o
+I lib_color.o
+I lib_tputs.o
+I lib_cur_term.o
+I lib_tparm.o
+D termattrs
+D vidattr
+D vidputs
+
+O lib_vline.o
+I lib_addch.o
+I lib_window.o
+I lib_acs.o
+D wvline
+
+O lib_wattroff.o
+D wattr_off
+
+O lib_wattron.o
+D wattr_on
+
+O lib_winch.o
+D winch
+
+O lib_window.o
+I lib_pad.o
+I lib_newwin.o
+I lib_move.o
+I lib_refresh.o
+D _nc_synchook
+D dupwin
+D mvderwin
+D syncok
+D wcursyncup
+D wsyncdown
+D wsyncup
+U memcpy@@GLIBC_2.4
+
+O memmove.o
+D _nc_memmove
+
+O name_match.o
+D _nc_first_name
+D _nc_name_match
+U malloc@@GLIBC_2.4
+
+O names.o
+D boolfnames
+D boolnames
+D numfnames
+D numnames
+D strfnames
+D strnames
+
+O nc_panel.o
+I lib_data.o
+D _nc_panelhook
+
+O parse_entry.o
+I comp_captab.o
+I captoinfo.o
+I comp_scan.o
+I comp_error.o
+I doalloc.o
+I comp_hash.o
+I name_match.o
+I alloc_entry.o
+I strings.o
+I lib_trace.o
+I free_ttype.o
+I visbuf.o
+I names.o
+D _nc_capcmp
+D _nc_parse_entry
+U __ctype_b_loc@@GLIBC_2.4
+U sprintf@@GLIBC_2.4
+U strchr@@GLIBC_2.4
+U strcmp@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+U strncmp@@GLIBC_2.4
+
+O read_entry.o
+I access.o
+I doalloc.o
+I free_ttype.o
+I home_terminfo.o
+D _nc_keep_tic_dir
+D _nc_read_entry
+D _nc_read_file_entry
+D _nc_tic_dir
+U __strdup@@GLIBC_2.4
+U calloc@@GLIBC_2.4
+U close@@GLIBC_2.4
+U free@@GLIBC_2.4
+U getenv@@GLIBC_2.4
+U lseek@@GLIBC_2.4
+U malloc@@GLIBC_2.4
+U memset@@GLIBC_2.4
+U open@@GLIBC_2.4
+U read@@GLIBC_2.4
+U sprintf@@GLIBC_2.4
+U strcpy@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+
+O read_termcap.o
+D _nc_read_termcap
+
+O resizeterm.o
+I lib_setup.o
+I lib_data.o
+I lib_clearok.o
+I lib_cur_term.o
+I lib_ungetch.o
+I wresize.o
+D is_term_resized
+D resize_term
+D resizeterm
+U free@@GLIBC_2.4
+
+O safe_sprintf.o
+I lib_data.o
+I doalloc.o
+D _nc_printf_string
+U free@@GLIBC_2.4
+U vsnprintf@@GLIBC_2.4
+
+O setbuf.o
+I lib_setup.o
+I lib_data.o
+D _nc_set_buffer
+U fflush@@GLIBC_2.4
+U getenv@@GLIBC_2.4
+U malloc@@GLIBC_2.4
+U setvbuf@@GLIBC_2.4
+
+O strings.o
+D _nc_safe_strcat
+D _nc_safe_strcpy
+D _nc_str_copy
+D _nc_str_init
+D _nc_str_null
+U strcpy@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+
+O tries.o
+D _nc_expand_try
+D _nc_remove_key
+D _nc_remove_string
+U calloc@@GLIBC_2.4
+U free@@GLIBC_2.4
+
+O tty_update.o
+I lib_color.o
+I lib_data.o
+I lib_tputs.o
+I lib_mvcur.o
+I hashmap.o
+I hardscroll.o
+I lib_scroll.o
+I lib_tstp.o
+I lib_setup.o
+I lib_cur_term.o
+I lib_has_cap.o
+I lib_ttyflags.o
+I lib_tparm.o
+I lib_vidattr.o
+D _nc_screen_init
+D _nc_screen_resume
+D _nc_screen_wrap
+D _nc_scrolln
+D doupdate
+U _IO_putc@@GLIBC_2.4
+U memcpy@@GLIBC_2.4
+U select@@GLIBC_2.4
+
+O unctrl.o
+D unctrl
+
+O varargs.o
+D _nc_varargs
+
+O version.o
+D curses_version
+
+O visbuf.o
+I doalloc.o
+D _nc_visbuf
+D _nc_visbuf2
+D _nc_visbufn
+U __ctype_b_loc@@GLIBC_2.4
+U sprintf@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+
+O vsscanf.o
+D _nc_vsscanf
+
+O wresize.o
+I lib_data.o
+D wresize
+U calloc@@GLIBC_2.4
+U free@@GLIBC_2.4
+U malloc@@GLIBC_2.4
+
+O write_entry.o
+I access.o
+I comp_error.o
+I home_terminfo.o
+I read_entry.o
+I free_ttype.o
+D _nc_set_writedir
+D _nc_tic_written
+D _nc_write_entry
+U __errno_location@@GLIBC_2.4
+U __strdup@@GLIBC_2.4
+U __xstat@@GLIBC_2.4
+U chdir@@GLIBC_2.4
+U fclose@@GLIBC_2.4
+U fopen@@GLIBC_2.4
+U fwrite@@GLIBC_2.4
+U getcwd@@GLIBC_2.4
+U getenv@@GLIBC_2.4
+U link@@GLIBC_2.4
+U mkdir@@GLIBC_2.4
+U perror@@GLIBC_2.4
+U remove@@GLIBC_2.4
+U sprintf@@GLIBC_2.4
+U strchr@@GLIBC_2.4
+U strcmp@@GLIBC_2.4
+U strcpy@@GLIBC_2.4
+U strlen@@GLIBC_2.4

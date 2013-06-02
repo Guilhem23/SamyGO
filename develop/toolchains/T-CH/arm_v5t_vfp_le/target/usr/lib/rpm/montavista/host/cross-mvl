@@ -1,0 +1,17 @@
+# Macros for setting up the cross directory structure
+
+#%_mvl_cross_dir is defined in the target
+%_mvl_cross_bin_dir	%{_mvl_cross_dir}/bin
+%_mvl_cross_sbin_dir	%{_mvl_cross_dir}/sbin
+%_mvl_cross_sysconf_dir	%{_mvl_cross_dir}/etc
+%_mvl_cross_data_dir	%{_mvl_cross_dir}/share
+%_mvl_cross_include_dir	%{_mvl_cross_dir}/include
+%_mvl_cross_targetconf_dir	%{_mvl_cross_dir}/%{_mvl_target_toolconfig}
+%_mvl_cross_lib_dir	%{_mvl_cross_dir}/lib
+%_mvl_cross_libexec_dir	%{_mvl_cross_dir}/libexec
+%_mvl_cross_localstate_dir	%{_mvl_cross_dir}/var
+%_mvl_cross_sharedstate_dir	%{_mvl_cross_dir}/share
+%_mvl_cross_man_dir	%{_mvl_cross_dir}/man
+%_mvl_cross_info_dir	%{_mvl_cross_dir}/info
+%_mvl_cross_doc_dir	%{_mvl_cross_dir}/doc
+%_mvl_cross_target_dir	%{_mvl_cross_dir}/target

@@ -1,0 +1,19 @@
+%_mvl_target_arch	arm_v5t_le
+%_mvl_target_cpu	arm
+%_mvl_target_kernel_arch %{_mvl_target_cpu}
+%_mvl_target_config	armv5tl-montavista-linux-gnueabi
+%_mvl_target_toolconfig	armv5tl-montavista-linux-gnueabi
+%_mvl_target_toolprefix	%{_mvl_target_arch}-
+%_mvl_target_name	v5t_le
+%_mvl_target_summary	ARMV5T (ARM Version 5T Little Endian)
+
+%_mvl_target_cpu_type	arm
+%_mvl_target_cpu_id	arm10tdmi
+%_mvl_target_fpu	no
+%_mvl_target_endian	little
+
+%_mvl_cross_dir         %{_mvl_devkit_dir}/arm/v5t_le
+%_mvl_target_lib        lib
+%_mvl_pkg_suffix	%{nil}
+%_mvl_target_cflags	%{nil}
+%_mvl_target_gcc_config	--with-interwork --with-arch=armv5t --with-tune=arm10tdmi

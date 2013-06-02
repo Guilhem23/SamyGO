@@ -1,0 +1,22 @@
+%_mvl_target_prefix		/usr
+%_mvl_target_exec_prefix	/usr
+%_mvl_target_bin_dir		%{_mvl_target_exec_prefix}/bin
+%_mvl_target_sbin_dir		%{_mvl_target_exec_prefix}/sbin
+%_mvl_target_libexec_dir	%{_mvl_target_exec_prefix}/libexec
+%_mvl_target_data_dir		%{_mvl_target_prefix}/share
+%_mvl_target_sysconf_dir	/etc
+%_mvl_target_sharedstate_dir	%{_mvl_target_prefix}/share
+%_mvl_target_localstate_dir	/var
+#%_mvl_target_lib is defined in the target
+%_mvl_target_lib_dir		%{_mvl_target_exec_prefix}/%{_mvl_target_lib}
+%_mvl_target_include_dir	%{_mvl_target_prefix}/include
+%_mvl_target_kinclude_dir	%{_mvl_target_prefix}/src/linux/include
+%_mvl_target_oldinclude_dir	%{_mvl_target_include_dir}
+%_mvl_target_info_dir		%{_mvl_target_prefix}/share/info
+%_mvl_target_man_dir		%{_mvl_target_prefix}/share/man
+%_mvl_target_doc_dir		%{_mvl_target_prefix}/share/doc
+
+# Whatever may be done to _mvl_target_prefix or _mvl_target_lib, PML
+# files should still go in /usr/lib/pml.
+%_mvl_target_pmldir		/usr/lib/pml
+

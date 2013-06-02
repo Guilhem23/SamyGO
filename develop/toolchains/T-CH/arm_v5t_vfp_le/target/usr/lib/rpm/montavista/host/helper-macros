@@ -1,0 +1,289 @@
+# Helper macros for building:
+
+# Deal with libtool drain bramage
+
+%demangle_libtool \
+find %{buildroot}%{_mvl_cross_target_dir} -name '*.la' -print | xargs %{_mvl_host_bin_dir}/demangle_libtool.sh
+
+# Setup environment host/cross package builds
+%host_setup \
+PATH="%{_mvl_cross_bin_dir}:%{_mvl_host_bin_dir}:%{_mvl_common_bin_dir}:$PATH" ; export PATH ; \
+CONFIG_SHELL="%{_buildshell}" ; export CONFIG_SHELL ; \
+CROSS_COMPILE_PREFIX=%{_mvl_cross_target_dir} ; export CROSS_COMPILE_PREFIX
+
+# Configure config for host software builds
+%host_configure \
+CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
+CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
+FFLAGS="${FFLAGS:-%optflags}" ; export FFLAGS ; \
+%{?__libtoolize:[ -f configure.in ] && %{__libtoolize} --copy --force} ; \
+../configure --host=%{_mvl_host_config} \\\
+	--build=%{_mvl_host_config} \\\
+        --prefix=%{_mvl_host_dir} \\\
+        --exec-prefix=%{_mvl_host_dir} \\\
+        --bindir=%{_mvl_host_bin_dir} \\\
+        --sbindir=%{_mvl_host_sbin_dir} \\\
+        --sysconfdir=%{_mvl_host_sysconf_dir} \\\
+        --datadir=%{_mvl_host_data_dir} \\\
+        --includedir=%{_mvl_host_include_dir} \\\
+        --libdir=%{_mvl_host_lib_dir} \\\
+        --libexecdir=%{_mvl_host_libexec_dir} \\\
+        --localstatedir=%{_mvl_host_localstate_dir} \\\
+        --sharedstatedir=%{_mvl_host_sharedstate_dir} \\\
+        --mandir=%{_mvl_host_man_dir} \\\
+        --infodir=%{_mvl_host_info_dir}
+
+# Configure for cross compiling tool builds
+%cross_tool_configure \
+CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
+CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
+FFLAGS="${FFLAGS:-%optflags}" ; export FFLAGS ; \
+%{?__libtoolize:[ -f configure.in ] && %{__libtoolize} --copy --force} ; \
+../configure --host=%{_mvl_host_config} \\\
+	--build=%{_mvl_host_config} \\\
+	--target=%{_mvl_target_toolconfig} \\\
+        --prefix=%{_mvl_cross_dir} \\\
+        --exec-prefix=%{_mvl_cross_dir} \\\
+        --bindir=%{_mvl_cross_bin_dir} \\\
+        --sbindir=%{_mvl_cross_sbin_dir} \\\
+        --sysconfdir=%{_mvl_cross_sysconf_dir} \\\
+        --datadir=%{_mvl_cross_data_dir} \\\
+        --includedir=%{_mvl_cross_include_dir} \\\
+        --libdir=%{_mvl_cross_lib_dir} \\\
+        --libexecdir=%{_mvl_cross_libexec_dir} \\\
+        --localstatedir=%{_mvl_cross_localstate_dir} \\\
+        --sharedstatedir=%{_mvl_cross_sharedstate_dir} \\\
+        --mandir=%{_mvl_cross_man_dir} \\\
+        --infodir=%{_mvl_cross_info_dir}
+
+# Configure for cross compiling application builds
+%cross_configure \
+CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
+CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
+FFLAGS="${FFLAGS:-%optflags}" ; export FFLAGS ; \
+%{?__libtoolize:[ -f configure.in ] && %{__libtoolize} --copy --force} ; \
+../configure --host=%{_mvl_host_config} \\\
+	--build=%{_mvl_host_config} \\\
+	--target=%{_mvl_target_config} \\\
+        --prefix=%{_mvl_cross_dir} \\\
+        --exec-prefix=%{_mvl_cross_dir} \\\
+        --bindir=%{_mvl_cross_bin_dir} \\\
+        --sbindir=%{_mvl_cross_sbin_dir} \\\
+        --sysconfdir=%{_mvl_cross_sysconf_dir} \\\
+        --datadir=%{_mvl_cross_data_dir} \\\
+        --includedir=%{_mvl_cross_include_dir} \\\
+        --libdir=%{_mvl_cross_lib_dir} \\\
+        --libexecdir=%{_mvl_cross_libexec_dir} \\\
+        --localstatedir=%{_mvl_cross_localstate_dir} \\\
+        --sharedstatedir=%{_mvl_cross_sharedstate_dir} \\\
+        --mandir=%{_mvl_cross_man_dir} \\\
+        --infodir=%{_mvl_cross_info_dir}
+
+%_objdir       objdir
+
+# Check if --target= was passed in!
+%target_check \
+%if "%{_mvl_target_config}" == "%%%{_mvl_target_config}" \
+echo "Please specify a target!" \
+false \
+%endif
+
+%_mvl_target_gcc	%{_mvl_target_toolprefix}gcc%{?_mvl_target_cflags: %{_mvl_target_cflags}}
+%_mvl_target_cpp	%{_mvl_target_toolprefix}cpp%{?_mvl_target_cflags: %{_mvl_target_cflags}}
+%_mvl_target_gxx	%{_mvl_target_toolprefix}g++%{?_mvl_target_cflags: %{_mvl_target_cflags}}
+
+# Setup environment target package builds
+%target_setup \
+PATH="%{_mvl_cross_bin_dir}:%{_mvl_host_bin_dir}:%{_mvl_common_bin_dir}:$PATH" ; export PATH ; \
+CONFIG_SHELL="%{_buildshell}" ; export CONFIG_SHELL ; \
+CC="%{_mvl_target_gcc}" ; export CC ; \
+AS="%{_mvl_target_toolprefix}as" ; export AS ; \
+LD="%{_mvl_target_toolprefix}ld" ; export LD ; \
+AR="%{_mvl_target_toolprefix}ar" ; export AR ; \
+RANLIB="%{_mvl_target_toolprefix}ranlib" ; export RANLIB ; \
+CPP="%{_mvl_target_cpp}" ; export CPP ; \
+CXX="%{_mvl_target_gxx}" ; export CXX ; \
+NM="%{_mvl_target_toolprefix}nm" ; export NM ; \
+STRIP="true" ; export STRIP ; \
+CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
+CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
+FFLAGS="${FFLAGS:-%optflags}" ; export FFLAGS ; \
+LDFLAGS="" ; export LDFLAGS ; \
+CROSS_COMPILE_PREFIX=%{_mvl_cross_target_dir}; export CROSS_COMPILE_PREFIX; \
+true
+
+# Setup environment for target packages that require current kernel headers
+%target_ksetup \
+CC="%{_mvl_target_gcc} -I%{_mvl_cross_target_dir}/%{_mvl_target_kinclude_dir}" ; export CC ; \
+CPP="%{_mvl_target_cpp} -I%{_mvl_cross_target_dir}/%{_mvl_target_kinclude_dir}" ; export CPP ; \
+CXX="%{_mvl_target_gxx} -I%{_mvl_cross_target_dir}/%{_mvl_target_kinclude_dir}" ; export CXX ; \
+CFLAGS="${CFLAGS:-%optflags} -I%{_mvl_cross_target_dir}/%{_mvl_target_kinclude_dir}" ; export CFLAGS ; \
+CXXFLAGS="${CXXFLAGS:-%optflags} -I%{_mvl_cross_target_dir}/%{_mvl_target_kinclude_dir}" ; export CXXFLAGS ; \
+
+
+# Set autoconf variables based on macro tests
+%target_acplatvars \
+eval $(%{_mvl_runtime_path}/PlatformTest/PlatformTest.py --cc="%{_mvl_target_gcc}" --objdump=%{_mvl_target_toolprefix}objdump --testfile=%{_mvl_runtime_path}/PlatformTest/tests.c)
+
+# Configure for target tool builds
+%target_tool_configure \
+[ ! -f %{_objdir} ] && mkdir -p %{_objdir} ; \
+cd %{_objdir} && ../configure \\\
+	--host=%{_mvl_target_toolconfig} \\\
+	--build=%{_mvl_host_config} \\\
+        --prefix=%{_mvl_target_prefix} \\\
+        --exec-prefix=%{_mvl_target_exec_prefix} \\\
+        --bindir=%{_mvl_target_bin_dir} \\\
+        --sbindir=%{_mvl_target_sbin_dir} \\\
+        --sysconfdir=%{_mvl_target_sysconf_dir} \\\
+        --datadir=%{_mvl_target_data_dir} \\\
+        --includedir=%{_mvl_target_include_dir} \\\
+        --libdir=%{_mvl_target_lib_dir} \\\
+        --libexecdir=%{_mvl_target_libexec_dir} \\\
+        --localstatedir=%{_mvl_target_localstate_dir} \\\
+        --sharedstatedir=%{_mvl_target_sharedstate_dir} \\\
+        --mandir=%{_mvl_target_man_dir} \\\
+        --infodir=%{_mvl_target_info_dir}
+
+# Configure for target package builds
+%target_configure \
+[ ! -f %{_objdir} ] && mkdir -p %{_objdir} ; \
+cd %{_objdir} && ../configure \\\
+	--host=%{_mvl_target_config} \\\
+	--build=%{_mvl_host_config} \\\
+        --prefix=%{_mvl_target_prefix} \\\
+        --exec-prefix=%{_mvl_target_exec_prefix} \\\
+        --bindir=%{_mvl_target_bin_dir} \\\
+        --sbindir=%{_mvl_target_sbin_dir} \\\
+        --sysconfdir=%{_mvl_target_sysconf_dir} \\\
+        --datadir=%{_mvl_target_data_dir} \\\
+        --includedir=%{_mvl_target_include_dir} \\\
+        --libdir=%{_mvl_target_lib_dir} \\\
+        --libexecdir=%{_mvl_target_libexec_dir} \\\
+        --localstatedir=%{_mvl_target_localstate_dir} \\\
+        --sharedstatedir=%{_mvl_target_sharedstate_dir} \\\
+        --mandir=%{_mvl_target_man_dir} \\\
+        --infodir=%{_mvl_target_info_dir}
+
+
+# Standard Make
+%make make
+
+# Distributed Make
+%dmake make -j 1
+
+
+# Make install for host software builds
+%host_makeinstall \
+   make \\\
+        prefix=%{?buildroot:%{buildroot}}%{_mvl_host_dir} \\\
+        exec_prefix=%{?buildroot:%{buildroot}}%{_mvl_host_dir} \\\
+        bindir=%{?buildroot:%{buildroot}}%{_mvl_host_bin_dir} \\\
+        sbindir=%{?buildroot:%{buildroot}}%{_mvl_host_sbin_dir} \\\
+        sysconfdir=%{?buildroot:%{buildroot}}%{_mvl_host_sysconf_dir} \\\
+        datadir=%{?buildroot:%{buildroot}}%{_mvl_host_data_dir} \\\
+        includedir=%{?buildroot:%{buildroot}}%{_mvl_host_include_dir} \\\
+        libdir=%{?buildroot:%{buildroot}}%{_mvl_host_lib_dir} \\\
+        libexecdir=%{?buildroot:%{buildroot}}%{_mvl_host_libexec_dir} \\\
+        localstatedir=%{?buildroot:%{buildroot}}%{_mvl_host_localstate_dir} \\\
+        sharedstatedir=%{?buildroot:%{buildroot}}%{_mvl_host_sharedstate_dir} \\\
+        mandir=%{?buildroot:%{buildroot}}%{_mvl_host_man_dir} \\\
+        infodir=%{?buildroot:%{buildroot}}%{_mvl_host_info_dir} \\\
+   install
+
+# Make install for cross compiling software builds
+%cross_makeinstall \
+   make \\\
+        prefix=%{?buildroot:%{buildroot}}%{_mvl_cross_dir} \\\
+        exec_prefix=%{?buildroot:%{buildroot}}%{_mvl_cross_dir} \\\
+        bindir=%{?buildroot:%{buildroot}}%{_mvl_cross_bin_dir} \\\
+        sbindir=%{?buildroot:%{buildroot}}%{_mvl_cross_sbin_dir} \\\
+        sysconfdir=%{?buildroot:%{buildroot}}%{_mvl_cross_sysconf_dir} \\\
+        datadir=%{?buildroot:%{buildroot}}%{_mvl_cross_data_dir} \\\
+        includedir=%{?buildroot:%{buildroot}}%{_mvl_cross_include_dir} \\\
+        libdir=%{?buildroot:%{buildroot}}%{_mvl_cross_lib_dir} \\\
+        libexecdir=%{?buildroot:%{buildroot}}%{_mvl_cross_libexec_dir} \\\
+        localstatedir=%{?buildroot:%{buildroot}}%{_mvl_cross_localstate_dir} \\\
+        sharedstatedir=%{?buildroot:%{buildroot}}%{_mvl_cross_sharedstate_dir} \\\
+        mandir=%{?buildroot:%{buildroot}}%{_mvl_cross_man_dir} \\\
+        infodir=%{?buildroot:%{buildroot}}%{_mvl_cross_info_dir} \\\
+   install
+
+# Target Make Install scripts
+%target_makeinstall \
+   cd %{_objdir} && make \\\
+        prefix=%{?buildroot:%{buildroot}}%{_mvl_cross_target_dir}%{_mvl_target_prefix} \\\
+        exec_prefix=%{?buildroot:%{buildroot}}%{_mvl_cross_target_dir}%{_mvl_target_exec_prefix} \\\
+        bindir=%{?buildroot:%{buildroot}}%{_mvl_cross_target_dir}%{_mvl_target_bin_dir} \\\
+        sbindir=%{?buildroot:%{buildroot}}%{_mvl_cross_target_dir}%{_mvl_target_sbin_dir} \\\
+        sysconfdir=%{?buildroot:%{buildroot}}%{_mvl_cross_target_dir}%{_mvl_target_sysconf_dir} \\\
+        datadir=%{?buildroot:%{buildroot}}%{_mvl_cross_target_dir}%{_mvl_target_data_dir} \\\
+        includedir=%{?buildroot:%{buildroot}}%{_mvl_cross_target_dir}%{_mvl_target_include_dir} \\\
+        libdir=%{?buildroot:%{buildroot}}%{_mvl_cross_target_dir}%{_mvl_target_lib_dir} \\\
+        libexecdir=%{?buildroot:%{buildroot}}%{_mvl_cross_target_dir}%{_mvl_target_libexec_dir} \\\
+        localstatedir=%{?buildroot:%{buildroot}}%{_mvl_cross_target_dir}%{_mvl_target_localstate_dir} \\\
+        sharedstatedir=%{?buildroot:%{buildroot}}%{_mvl_cross_target_dir}%{_mvl_target_sharedstate_dir} \\\
+        mandir=%{?buildroot:%{buildroot}}%{_mvl_cross_target_dir}%{_mvl_target_man_dir} \\\
+        infodir=%{?buildroot:%{buildroot}}%{_mvl_cross_target_dir}%{_mvl_target_info_dir} \\\
+   install
+
+# Some post/pre install/remove script helpers
+# This one sets up the PATH so we can run host and cross tools
+# ...and of course it will work for a self-hosted install!
+%target_script_prefix_setup \
+    if [ "%{prefix}" = "%{_mvl_cross_target_dir}" ] ; then		\\\
+	if [ "${RPM_INSTALL_PREFIX}" = "%{prefix}" ] ; then		\\\
+	    COMMON=%{_mvl_common_bin_dir} ;				\\\
+	    HOST=%{_mvl_host_bin_dir} ;					\\\
+	    CROSS=%{_mvl_cross_bin_dir} ;				\\\
+	elif [ "${RPM_INSTALL_PREFIX}" = "/" -o -z "${RPM_INSTALL_PREFIX}" ] ; \\\
+	then								\\\
+	    COMMON=/usr/sbin ;						\\\
+	    HOST=/usr/sbin ;						\\\
+	    CROSS=/usr/sbin ;						\\\
+	else								\\\
+	    _mvl_common_bin_dir=%{_mvl_common_bin_dir} ;		\\\
+	    _mvl_host_bin_dir=%{_mvl_host_bin_dir} ;			\\\
+	    _mvl_cross_bin_dir=%{_mvl_cross_bin_dir} ;			\\\
+	    _mvl_cross_target_dir=%{_mvl_cross_target_dir} ;		\\\
+	    _mvl_cross_suffix=${_mvl_cross_target_dir#%{_mvl_install_prefix}} ; \\\
+	    COMMON=${RPM_INSTALL_PREFIX%${_mvl_cross_suffix}}${_mvl_common_bin_dir#%{_mvl_install_prefix}} ; \\\
+	    HOST=${RPM_INSTALL_PREFIX%${_mvl_cross_suffix}}${_mvl_host_bin_dir#%{_mvl_install_prefix}} ; \\\
+	    CROSS=${RPM_INSTALL_PREFIX%${_mvl_cross_suffix}}${_mvl_cross_bin_dir#%{_mvl_install_prefix}} ; \\\
+	fi ;								\\\
+	PATH=$CROSS:$HOST:$COMMON:$PATH ;				\\\
+    else								\\\
+	echo "target_script_prefix_setup: don't know how to relocate %{prefix}" ; \\\
+	exit 254 ;							\\\
+    fi ;								\\\
+    export PATH
+
+#New Macros for building Pcmcia Card Services..
+
+%pcmcia_sources \
+	rm -rf pcmcia-cs; \\\
+	tar -C %{_mvl_kernel_dir} -cf - pcmcia-cs | tar xf - ;
+
+%pcmcia_build \
+KERNELDIR=`pwd`; \\\
+pushd ../pcmcia-cs; \\\
+./Configure \\\
+--noprompt \\\
+--kernel=$KERNELDIR \\\
+--target=%{buildroot}%{_mvl_cross_target_dir} \\\
+--arch=%{_mvl_target_cpu} \\\
+--cc=%{_mvl_cross_bin_dir}/%{_mvl_target_toolprefix}gcc \\\
+--ld=%{_mvl_cross_bin_dir}/%{_mvl_target_toolprefix}ld \\\
+--trust \\\
+--nocardbus \\\
+--nopnp \\\
+--apm \\\
+--sysv \\\
+--rcdir=/etc; \\\
+make all; \\\
+popd
+
+%pcmcia_install \
+pushd ../pcmcia-cs; \\\
+make install;  \\\
+popd

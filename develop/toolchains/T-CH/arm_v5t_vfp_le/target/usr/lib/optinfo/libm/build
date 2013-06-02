@@ -1,0 +1,51 @@
+#!/bin/sh
+
+#
+#  Usage:  build <archdir> <archprefix> <dest> <strip> <object>...
+#
+
+# Base of architecture-dependent directory
+ARCHDIR=$1
+
+# Prefix of architecture-dependent tools
+ARCHPREFIX=$2
+
+# Pathname of library file to generate
+DEST=$3
+
+# "strip" or "nostrip"
+STRIP=$4
+
+shift 4
+
+DYNLINKER=
+for dynlinker in ld.so.1 ld-linux.so.2 ld-linux.so.3 ld64.so.1 ld-linux-x86-64.so.2 ; do
+    if [ -r ${ARCHDIR}/target/lib/$dynlinker ] ; then
+	DYNLINKER="/lib/$dynlinker"
+	break
+    fi
+done
+
+if [ ! "$DYNLINKER" ] ; then
+    echo "Error: dynamic linker not found; cannot build glibc" >&2
+    exit 1
+fi
+
+if [ -r numa-note.o ] ; then
+    NUMA_NOTE="numa-note.o"
+fi
+    
+TOOLPREFIX=${ARCHDIR}/bin/${ARCHPREFIX}
+
+${TOOLPREFIX}gcc  -shared -static-libgcc -Wl,-O1 -Wl,-z,defs \
+    -Wl,-dynamic-linker=${DYNLINKER} \
+    -Wl,--version-script=libm.map -Wl,-soname=libm.so.6 \
+    -Wl,-z,combreloc -Wl,-z,relro \
+    -o ${DEST} \
+    -T libm.so.lds \
+    abi-note.o ${NUMA_NOTE} $* interp.o \
+    ${ARCHDIR}/target${DYNLINKER} \
+    ${ARCHDIR}/target/lib/libc.so.6 libc_nonshared.a
+if [ "$STRIP" = "strip" ] ; then
+    ${TOOLPREFIX}strip -R .note -R .comment ${DEST}
+fi

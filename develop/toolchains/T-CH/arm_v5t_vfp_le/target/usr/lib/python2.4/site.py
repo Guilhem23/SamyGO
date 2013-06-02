@@ -1,0 +1,1 @@
+../../../etc/python2.4/site.py

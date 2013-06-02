@@ -1,0 +1,25 @@
+# The %%get translated away.. but this makes it easy for now!
+
+%_mvl_product_root		MontaVista Linux
+%_mvl_edition_short		pro
+%_mvl_edition_short_dotted	pro
+%_mvl_edition_long		MontaVista Linux Professional Edition
+%_mvl_edition_variant		Professional Edition
+%_mvl_edition_version		5.0.0	
+%_mvl_eclipse_root		com.mvista.eclipse
+%_mvl_edition_root		%{_mvl_eclipse_root}.enabler.edition.%{_mvl_edition_short_dotted}
+%_mvl_edition_versioned_root 	%{_mvl_edition_root}_%{_mvl_edition_version}
+%_mvl_arch_root 			%{_mvl_eclipse_root}.enabler.arch.%{_mvl_edition_short_dotted}.%{_mvl_target_arch}
+%_mvl_arch_versioned_root 	%{_mvl_arch_root}_%{_mvl_edition_version}
+
+# ADK Specific Variants
+
+%_mvl_adk_edition_short		pro_adk
+%_mvl_adk_edition_short_dotted	pro.adk
+%_mvl_adk_edition_long		MontaVista Linux Professional Edition ADK
+%_mvl_adk_edition_variant	Professional Edition ADK
+%_mvl_adk_edition_root		%{_mvl_eclipse_root}.enabler.edition.%{_mvl_adk_edition_short_dotted}
+%_mvl_adk_edition_versioned_root %{_mvl_adk_edition_root}_%{_mvl_edition_version}
+%_mvl_adk_arch_root 		%{_mvl_eclipse_root}.enabler.arch.%{_mvl_adk_edition_short_dotted}.%{_mvl_target_arch}
+%_mvl_adk_arch_versioned_root 	%{_mvl_adk_arch_root}_%{_mvl_edition_version}
+

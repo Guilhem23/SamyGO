@@ -1,0 +1,25 @@
+# Common packages are relocated independent of editions.  They may
+# use a different relocation prefix.
+#
+# Common packages are currently all "host" packages and use a "host"
+# directory structure.  Segregated now for future expansion.
+
+# We have to do it this way, because install_prefix moves around w/
+# the edition path.  This ensures _mvl_common_prefix will always end
+# in "/common"
+%_mvl_common_prefix		%( epfx=`basename "%{_mvl_install_prefix}"` ; echo "%{_mvl_install_prefix}" | sed "s,/${epfx}/*$,/common," )
+
+%_mvl_common_dir		%{_mvl_common_prefix}
+%_mvl_common_bin_dir		%{_mvl_common_dir}/bin
+%_mvl_common_sbin_dir		%{_mvl_common_dir}/bin
+%_mvl_common_sysconf_dir	%{_mvl_common_dir}/etc
+%_mvl_common_data_dir		%{_mvl_common_dir}/share
+%_mvl_common_lib_dir		%{_mvl_common_dir}/lib
+%_mvl_common_libexec_dir	%{_mvl_common_dir}/libexec
+%_mvl_common_include_dir	%{_mvl_common_dir}/include
+%_mvl_common_localstate_dir	%{_mvl_common_dir}/var
+%_mvl_common_sharedstate_dir	%{_mvl_common_dir}/share
+%_mvl_common_man_dir		%{_mvl_common_dir}/man
+%_mvl_common_info_dir		%{_mvl_common_dir}/info
+%_mvl_common_doc_dir		%{_mvl_common_dir}/doc
+#_mvl_common_<package>_dir	%{_mvl_common_dir}/<package>

@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include
+
+Name: xmlsec1-openssl
+Version: 1.2.9
+Description: XML Security Library implements XML Signature and XML Encryption standards
+Requires: libxml-2.0 >= 2.6.12 libxslt >= 1.0.20 
+Cflags: -DXMLSEC_CRYPTO=\\\"openssl\\\"  -D__XMLSEC_FUNCTION__=__FUNCTION__ -DXMLSEC_NO_XSLT=1 -DXMLSEC_NO_XKMS=1 -I/usr/include/xmlsec1     -DXMLSEC_OPENSSL_098=1 -DXMLSEC_CRYPTO_OPENSSL=1
+Libs: -L/usr/lib -lxmlsec1-openssl -lxmlsec1  -ldl  -lssl -lcrypto  

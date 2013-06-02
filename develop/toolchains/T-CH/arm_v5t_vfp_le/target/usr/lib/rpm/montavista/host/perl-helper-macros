@@ -1,0 +1,34 @@
+# Junk to compile perl stuff.  This is ugly.
+%_mvl_perlver			5.8.4
+
+# Hard coded to /usr/lib as perl on _ALL_ systems is 32-bit!
+# See bug 12647
+%_mvl_perl_lib_dir  		%{_mvl_target_lib_dir}/perl/%{_mvl_perlver}
+
+%_mvl_perl_cross_lib_dir  	%{_mvl_cross_target_dir}%{_mvl_perl_lib_dir}
+
+%_mvl_perl_gen_opts 		CC="$CC" LD="$CC" CCFLAGS="%{_mvl_perlcflags}" \\\
+				PERL_LIB=%{_mvl_perl_cross_lib_dir} \\\
+				PERL_ARCHLIB=%{_mvl_perl_cross_lib_dir} \\\
+				INSTALLSITEARCH=%{_mvl_perl_cross_lib_dir} \\\
+				INSTALLSITELIB=%{_mvl_perl_cross_lib_dir} \\\
+				PREFIX=%{_mvl_perl_cross_lib_dir} \\\
+				INSTALLSITEMAN1DIR=%{_mvl_cross_target_dir}%{_mvl_target_man_dir}/man1 \\\
+				INSTALLSITEMAN3DIR=%{_mvl_cross_target_dir}%{_mvl_target_man_dir}/man3 \\\
+				INSTALLSITEBIN=%{_mvl_cross_target_dir}/%{_mvl_target_bin_dir} \\\
+				INSTALLBIN=%{_mvl_cross_target_dir}/%{_mvl_target_bin_dir} \\\
+				INSTALLVENDORBIN=%{_mvl_cross_target_dir}/%{_mvl_target_bin_dir} \\\
+				INSTALLSCRIPT=%{_mvl_cross_target_dir}/%{_mvl_target_bin_dir}
+
+%_mvl_perl_make_opts 		%{_mvl_perl_gen_opts} PERL_INC=%{_mvl_perl_cross_lib_dir}/CORE
+
+%_mvl_perl_config 		perl Makefile.PL %{_mvl_perl_gen_opts}
+
+%_mvl_perlcflags 		-fno-strict-aliasing -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -I%{_mvl_cross_include_dir}/gdbm
+
+%_mvl_perl_make 		make CC="$CC" LD="$CC" CCFLAGS="%{_mvl_perlcflags}" %{_mvl_perl_make_opts}
+
+# The rm is there because the standard perl stuff creates perlpod doc
+# info, which is not used by us.
+%_mvl_perl_makeinstall 		%{_mvl_perl_make} install DESTDIR=%{buildroot}; \
+				rm -rf %{buildroot}/%{_mvl_perl_cross_lib_dir}/lib

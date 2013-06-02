@@ -1,0 +1,12 @@
+# This file includes macros specific to help us build Debian
+# packages in the MontaVista environment
+
+%_mvl_apply_dpatch		[ -r debian/patches/00list ] && \\\
+				echo "Applying debian patches..." ; \\\
+				for each_patch in `cat debian/patches/00list | grep -v "^#"` ; do \\\
+				  if [ -r debian/patches/$each_patch.dpatch ]; then \\\
+				    echo "dpatch ($each_patch.dpatch):" ; \\\
+				    patch -p1 -s < debian/patches/$each_patch.dpatch ; \\\
+				  fi ; \\\
+				done ; \\\
+				echo "Done applying debian patches."

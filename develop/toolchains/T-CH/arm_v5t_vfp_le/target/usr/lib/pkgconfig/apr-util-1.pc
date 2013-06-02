@@ -1,0 +1,13 @@
+prefix=/
+exec_prefix=/
+libdir=/usr/lib
+APRUTIL_MAJOR_VERSION=1
+includedir=//include/apache
+
+Name: APR Utils
+Description: Companion library for APR
+Version: 1.2.7
+# assume that apr-util requires libapr of same major version
+Requires: apr-1
+Libs: -L${libdir} -laprutil-${APRUTIL_MAJOR_VERSION} -lgdbm -lpq -lsqlite3 /home/build/BUILD/httpd-2.2.3/srclib/apr-util/xml/expat/lib/libexpat.la
+Cflags: -I${includedir}

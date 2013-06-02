@@ -1,0 +1,6 @@
+%_mvl_host_arch    %{_mvl_target_arch}
+%_mvl_host_cpu     %{_mvl_target_cpu}
+%_mvl_host_os      linux-gnu
+%_mvl_host_config  %{_mvl_target_config}
+%_mvl_exe_ext      %{nil}
+%_mvl_host_endian  %{_mvl_target_endian}

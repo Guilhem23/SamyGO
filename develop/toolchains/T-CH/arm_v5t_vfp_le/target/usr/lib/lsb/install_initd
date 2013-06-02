@@ -1,0 +1,59 @@
+#! /bin/sh
+#
+# Copyright 2006 MontaVista Software, Inc.
+# Written by Mark Hatle
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+# LSB Requires no options and
+# Return 1 on error
+# Return 0 on success
+
+if [ $# -ne 1 ]; then
+  echo "Name" >&2
+  echo "install_initd -- activate an init script" >&2
+  echo
+  echo "Synopsis" >&2
+  echo "/usr/lib/lsb/install_initd initd_file" >&2
+  echo
+  echo "The initd_file will be linked to /etc/init.d, if necessary." >&2
+  echo
+  exit 1
+fi
+
+fbase=`dirname $1`
+fbase=`(cd $fbase ; pwd)`
+fname=`basename $1`
+
+# We need to copy in the initscript to /etc/init.d
+if [ "$fname" != "$1" -a "$fbase" != "/etc/init.d" ]; then
+  if [ ! -r $fbase/$fname ]; then
+    echo "Error: Unable to read $fbase/$fname." >&2
+    exit 1
+  fi
+  # Link it in from wherever the original location is.
+  ln -s $fbase/$fname /etc/init.d/$fname
+  if [ $? -ne 0 ]; then
+    echo "Error: Unable to install $fbase/$fname in to /etc/init.d/$fname" >&2
+    exit 1
+  fi
+fi
+
+initdconfig --add $fname
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+exit 0

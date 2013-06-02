@@ -1,0 +1,53 @@
+#! /bin/sh
+#
+# Copyright 2006 MontaVista Software, Inc.
+# Written by Mark Hatle
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+# LSB Requires no options and
+# Return 1 on error
+# Return 0 on success
+
+if [ $# -ne 1 ]; then
+  echo "Name" >&2
+  echo "remove_initd -- remove an init script" >&2
+  echo
+  echo "Synopsis" >&2
+  echo "/usr/lib/lsb/remove_initd initd_file" >&2
+  echo
+  echo "The initd_file if previously linked will be removed from /etc/init.d." >&2
+  echo
+  exit 1
+fi
+
+fname=`basename $1`
+
+# Disable the initscript
+initdconfig --del $fname
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+# If the initscript is a symlink, we need to remove it.
+# We have to assume we generated it, as no symlinks are
+# created by the core system in /etc/init.d
+if [ -h "/etc/init.d/$fname" ]; then
+  rm -f "/etc/init.d/$fname"
+  # Don't check the return code, if we couldn't
+  # delete it, it's still been disabled..
+fi
+
+exit 0

@@ -1,0 +1,11 @@
+prefix=/
+exec_prefix=/
+libdir=/usr/lib
+APR_MAJOR_VERSION=1
+includedir=//include/apache
+
+Name: APR
+Description: The Apache Portable Runtime library
+Version: 1.2.7
+Libs: -L${libdir} -lapr-${APR_MAJOR_VERSION} -luuid -lrt -lcrypt  -ldl
+Cflags: -DLINUX=2 -D_REENTRANT -D_GNU_SOURCE  -I${includedir}

@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=/usr
+libdir=/lib
+includedir=/usr/include
+
+Name: ss
+Description: Subsystem command parsing library
+Version: 1.40
+Requires: com_err
+Cflags: -I${includedir} 
+Libs: -L${libdir} -lss -ldl

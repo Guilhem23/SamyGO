@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include
+
+Name: Pango Xft
+Description: Xft font support for Pango
+Version: 1.10.1
+Requires: pango pangoft2
+Libs: -L${libdir} -lpangoxft-1.0 -lXft -lXrender -lX11 -lXext -lfontconfig -lfreetype -lz  
+Cflags: -I${includedir}/pango-1.0 -I/usr/X11R6/include -I/usr/include/freetype2  

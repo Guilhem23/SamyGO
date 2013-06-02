@@ -1,0 +1,13 @@
+prefix=/usr
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include
+system_bus_default_address=unix:path=/var/run/dbus/system_bus_socket
+sysconfdir=/etc
+
+Name: dbus
+Description: Free desktop message bus
+Version: 0.60
+Libs: -L${libdir} -ldbus-1
+Cflags: -I${includedir}/dbus-1.0 -I${libdir}/dbus-1.0/include
+

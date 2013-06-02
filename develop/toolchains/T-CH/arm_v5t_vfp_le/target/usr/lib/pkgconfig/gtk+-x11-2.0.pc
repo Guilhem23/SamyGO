@@ -1,0 +1,15 @@
+prefix=/usr
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include
+target=x11
+
+gtk_binary_version=2.4.0
+gtk_host=armv5tl-montavista-linux-gnueabi
+
+Name: GTK+
+Description: GIMP Tool Kit (${target} target)
+Version: 2.8.6
+Requires: gdk-${target}-2.0 atk cairo
+Libs: -L${libdir} -lgtk-${target}-2.0 
+Cflags: -I${includedir}/gtk-2.0 

@@ -1,0 +1,21 @@
+# Compatability macros
+
+%_hhl_target_arch	%{_mvl_target_arch}
+%_hhl_target_cpu	%{_mvl_target_cpu}
+%_hhl_target_config	%{_mvl_target_config}
+%_hhl_target_toolconfig	%{_mvl_target_toolconfig}
+%_hhl_target_toolprefix	%{_mvl_target_toolprefix}
+%_hhl_target_name	%{_mvl_target_name}
+%_hhl_target_summary	%{_mvl_target_summary}
+
+%_hhl_target_cpu_type	%{_mvl_target_cpu_type}
+%_hhl_target_cpu_id	%{_mvl_target_cpu_id}
+%_hhl_target_fpu	%{_mvl_target_fpu}
+%_hhl_target_endian	%{_mvl_target_endian}
+
+%_hhl_cross_dir		%{_mvl_cross_dir}
+%_hhl_target_lib	%{_mvl_target_lib}
+%_hhl_pkg_suffix        %{_mvl_pkg_suffix}
+
+# Any options that should always be passed to GCC / G++.
+%_hhl_target_cflags	%{_mvl_target_cflags}

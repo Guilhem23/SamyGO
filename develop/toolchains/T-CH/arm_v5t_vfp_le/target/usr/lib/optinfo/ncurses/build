@@ -1,0 +1,27 @@
+#!/bin/sh
+
+#
+#  Usage:  build <archdir> <archprefix> <dest> <strip> <object>...
+#
+
+# Base of architecture-dependent directory
+ARCHDIR=$1
+
+# Prefix of architecture-dependent tools
+ARCHPREFIX=$2
+
+# Pathname of library file to generate
+DEST=$3
+
+# "strip" or "nostrip"
+STRIP=$4
+
+shift 4
+
+TOOLPREFIX=${ARCHDIR}/bin/${ARCHPREFIX}
+
+${TOOLPREFIX}gcc  -shared -o ${DEST} -Wl,-soname,libncurses.so.5,-lc $*
+
+if [ "$STRIP" = "strip" ] ; then
+    ${TOOLPREFIX}strip -R .note -R .comment ${DEST}
+fi

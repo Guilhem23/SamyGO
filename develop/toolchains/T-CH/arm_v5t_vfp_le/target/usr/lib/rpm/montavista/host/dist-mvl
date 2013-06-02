@@ -1,0 +1,6 @@
+%distribution	MontaVista Linux
+
+%_vendor	montavista
+
+%_mvl_build_id		custom
+
