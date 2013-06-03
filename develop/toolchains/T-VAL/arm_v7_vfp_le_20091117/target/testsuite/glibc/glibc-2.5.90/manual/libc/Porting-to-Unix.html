@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+<title>Porting to Unix - The GNU C Library</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU C Library">
+<meta name="generator" content="makeinfo 4.7">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Porting.html#Porting" title="Porting">
+<link rel="prev" href="Hierarchy-Conventions.html#Hierarchy-Conventions" title="Hierarchy Conventions">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc { font-variant:small-caps }
+  span.roman { font-family: serif; font-weight: normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<p>
+<a name="Porting-to-Unix"></a>Previous:&nbsp;<a rel="previous" accesskey="p" href="Hierarchy-Conventions.html#Hierarchy-Conventions">Hierarchy Conventions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Porting.html#Porting">Porting</a>
+<hr><br>
+</div>
+
+<h4 class="appendixsubsec">D.2.2 Porting the GNU C Library to Unix Systems</h4>
+
+<p>Most Unix systems are fundamentally very similar.  There are variations
+between different machines, and variations in what facilities are
+provided by the kernel.  But the interface to the operating system
+facilities is, for the most part, pretty uniform and simple.
+
+   <p>The code for Unix systems is in the directory <span class="file">unix</span>, at the top
+level of the <span class="file">sysdeps</span> hierarchy.  This directory contains
+subdirectories (and subdirectory trees) for various Unix variants.
+
+   <p>The functions which are system calls in most Unix systems are
+implemented in assembly code, which is generated automatically from
+specifications in files named <span class="file">syscalls.list</span>.  There are several
+such files, one in <span class="file">sysdeps/unix</span> and others in its subdirectories. 
+Some special system calls are implemented in files that are named with a
+suffix of <span class="samp">.S</span>; for example, <span class="file">_exit.S</span>.  Files ending in
+<span class="samp">.S</span> are run through the C preprocessor before being fed to the
+assembler.
+
+   <p>These files all use a set of macros that should be defined in
+<span class="file">sysdep.h</span>.  The <span class="file">sysdep.h</span> file in <span class="file">sysdeps/unix</span>
+partially defines them; a <span class="file">sysdep.h</span> file in another directory must
+finish defining them for the particular machine and operating system
+variant.  See <span class="file">sysdeps/unix/sysdep.h</span> and the machine-specific
+<span class="file">sysdep.h</span> implementations to see what these macros are and what
+they should do.
+
+   <p>The system-specific makefile for the <span class="file">unix</span> directory
+(<span class="file">sysdeps/unix/Makefile</span>) gives rules to generate several files
+from the Unix system you are building the library on (which is assumed
+to be the target system you are building the library <em>for</em>).  All
+the generated files are put in the directory where the object files are
+kept; they should not affect the source tree itself.  The files
+generated are <span class="file">ioctls.h</span>, <span class="file">errnos.h</span>, <span class="file">sys/param.h</span>, and
+<span class="file">errlist.c</span> (for the <span class="file">stdio</span> section of the library).
+
+   </body></html>
+

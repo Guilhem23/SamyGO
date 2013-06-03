@@ -1,0 +1,151 @@
+<html lang="en">
+<head>
+<title>String Input Conversions - The GNU C Library</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU C Library">
+<meta name="generator" content="makeinfo 4.7">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Formatted-Input.html#Formatted-Input" title="Formatted Input">
+<link rel="prev" href="Numeric-Input-Conversions.html#Numeric-Input-Conversions" title="Numeric Input Conversions">
+<link rel="next" href="Dynamic-String-Input.html#Dynamic-String-Input" title="Dynamic String Input">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc { font-variant:small-caps }
+  span.roman { font-family: serif; font-weight: normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<p>
+<a name="String-Input-Conversions"></a>Next:&nbsp;<a rel="next" accesskey="n" href="Dynamic-String-Input.html#Dynamic-String-Input">Dynamic String Input</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Numeric-Input-Conversions.html#Numeric-Input-Conversions">Numeric Input Conversions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Formatted-Input.html#Formatted-Input">Formatted Input</a>
+<hr><br>
+</div>
+
+<h4 class="subsection">12.14.5 String Input Conversions</h4>
+
+<p>This section describes the <code>scanf</code> input conversions for reading
+string and character values: <span class="samp">%s</span>, <span class="samp">%S</span>, <span class="samp">%[</span>, <span class="samp">%c</span>,
+and <span class="samp">%C</span>.
+
+   <p>You have two options for how to receive the input from these
+conversions:
+
+     <ul>
+<li>Provide a buffer to store it in.  This is the default.  You should
+provide an argument of type <code>char *</code> or <code>wchar_t *</code> (the
+latter of the <span class="samp">l</span> modifier is present).
+
+     <p><strong>Warning:</strong> To make a robust program, you must make sure that the
+input (plus its terminating null) cannot possibly exceed the size of the
+buffer you provide.  In general, the only way to do this is to specify a
+maximum field width one less than the buffer size.  <strong>If you
+provide the buffer, always specify a maximum field width to prevent
+overflow.</strong>
+
+     <li>Ask <code>scanf</code> to allocate a big enough buffer, by specifying the
+<span class="samp">a</span> flag character.  This is a GNU extension.  You should provide
+an argument of type <code>char **</code> for the buffer address to be stored
+in.  See <a href="Dynamic-String-Input.html#Dynamic-String-Input">Dynamic String Input</a>. 
+</ul>
+
+   <p>The <span class="samp">%c</span> conversion is the simplest: it matches a fixed number of
+characters, always.  The maximum field width says how many characters to
+read; if you don't specify the maximum, the default is 1.  This
+conversion doesn't append a null character to the end of the text it
+reads.  It also does not skip over initial whitespace characters.  It
+reads precisely the next <var>n</var> characters, and fails if it cannot get
+that many.  Since there is always a maximum field width with <span class="samp">%c</span>
+(whether specified, or 1 by default), you can always prevent overflow by
+making the buffer long enough. 
+<!-- Is character == byte here???  -drepper -->
+
+   <p>If the format is <span class="samp">%lc</span> or <span class="samp">%C</span> the function stores wide
+characters which are converted using the conversion determined at the
+time the stream was opened from the external byte stream.  The number of
+bytes read from the medium is limited by <code>MB_CUR_LEN * </code><var>n</var> but
+at most <var>n</var> wide character get stored in the output string.
+
+   <p>The <span class="samp">%s</span> conversion matches a string of non-whitespace characters. 
+It skips and discards initial whitespace, but stops when it encounters
+more whitespace after having read something.  It stores a null character
+at the end of the text that it reads.
+
+   <p>For example, reading the input:
+
+<pre class="smallexample">      hello, world
+</pre>
+   <p class="noindent">with the conversion <span class="samp">%10c</span> produces <code>" hello, wo"</code>, but
+reading the same input with the conversion <span class="samp">%10s</span> produces
+<code>"hello,"</code>.
+
+   <p><strong>Warning:</strong> If you do not specify a field width for <span class="samp">%s</span>,
+then the number of characters read is limited only by where the next
+whitespace character appears.  This almost certainly means that invalid
+input can make your program crash&mdash;which is a bug.
+
+   <p>The <span class="samp">%ls</span> and <span class="samp">%S</span> format are handled just like <span class="samp">%s</span>
+except that the external byte sequence is converted using the conversion
+associated with the stream to wide characters with their own encoding. 
+A width or precision specified with the format do not directly determine
+how many bytes are read from the stream since they measure wide
+characters.  But an upper limit can be computed by multiplying the value
+of the width or precision by <code>MB_CUR_MAX</code>.
+
+   <p>To read in characters that belong to an arbitrary set of your choice,
+use the <span class="samp">%[</span> conversion.  You specify the set between the <span class="samp">[</span>
+character and a following <span class="samp">]</span> character, using the same syntax used
+in regular expressions.  As special cases:
+
+     <ul>
+<li>A literal <span class="samp">]</span> character can be specified as the first character
+of the set.
+
+     <li>An embedded <span class="samp">-</span> character (that is, one that is not the first or
+last character of the set) is used to specify a range of characters.
+
+     <li>If a caret character <span class="samp">^</span> immediately follows the initial <span class="samp">[</span>,
+then the set of allowed input characters is the everything <em>except</em>
+the characters listed. 
+</ul>
+
+   <p>The <span class="samp">%[</span> conversion does not skip over initial whitespace
+characters.
+
+   <p>Here are some examples of <span class="samp">%[</span> conversions and what they mean:
+
+     <dl>
+<dt><span class="samp">%25[1234567890]</span><dd>Matches a string of up to 25 digits.
+
+     <br><dt><span class="samp">%25[][]</span><dd>Matches a string of up to 25 square brackets.
+
+     <br><dt><span class="samp">%25[^ \f\n\r\t\v]</span><dd>Matches a string up to 25 characters long that doesn't contain any of
+the standard whitespace characters.  This is slightly different from
+<span class="samp">%s</span>, because if the input begins with a whitespace character,
+<span class="samp">%[</span> reports a matching failure while <span class="samp">%s</span> simply discards the
+initial whitespace.
+
+     <br><dt><span class="samp">%25[a-z]</span><dd>Matches up to 25 lowercase characters. 
+</dl>
+
+   <p>As for <span class="samp">%c</span> and <span class="samp">%s</span> the <span class="samp">%[</span> format is also modified to
+produce wide characters if the <span class="samp">l</span> modifier is present.  All what
+is said about <span class="samp">%ls</span> above is true for <span class="samp">%l[</span>.
+
+   <p>One more reminder: the <span class="samp">%s</span> and <span class="samp">%[</span> conversions are
+<strong>dangerous</strong> if you don't specify a maximum width or use the
+<span class="samp">a</span> flag, because input too long would overflow whatever buffer you
+have provided for it.  No matter how long your buffer is, a user could
+supply input that is longer.  A well-written program reports invalid
+input with a comprehensible error message, not with a crash.
+
+   </body></html>
+

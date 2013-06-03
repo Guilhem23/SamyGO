@@ -1,0 +1,45 @@
+#!/usr/bin/env expect
+
+# gdbserver running over ssh.
+
+load_generic_config            "gdbserver"
+set_board_info rsh_prog        /usr/bin/ssh
+set_board_info rcp_prog        /usr/bin/scp
+set_board_info hostname        $TARGETIP
+set_board_info username        $REMOTEUSER
+set_board_info shell_prompt    "arm_v7_vfp_le-target:> "
+
+process_multilib_options "";
+
+set_board_info assembler  "arm_v7_vfp_le-as";
+set_board_info linker  "arm_v7_vfp_le-ld";
+set_board_info compiler  "arm_v7_vfp_le-gcc";
+set_board_info c++compiler  "arm_v7_vfp_le-g++";
+
+set_board_info protocol standard
+set_board_info gdb_server_prog /usr/bin/gdbserver
+
+# We will be using the standard GDB remote protocol
+set_board_info gdb_protocol "remote"
+
+# Name of the computer whose socket will be used, if required.
+set_board_info sockethost "$TARGETIP:"
+
+# Use techniques appropriate to a stub
+set_board_info use_gdb_stub 1;
+
+# This gdbserver can only run a process once per session.
+set_board_info gdb,do_reload_on_run 1;
+
+# There's no support for argument-passing (yet).
+set_board_info noargs 1
+
+# Can't do input (or output) in the current gdbserver.
+set_board_info gdb,noinferiorio 1
+
+# Can't do hardware watchpoints, in general
+set_board_info gdb,no_hardware_watchpoints 1;
+
+global board_info
+set board_info($TARGETIP,rsh_prog) /usr/bin/ssh
+set board_info($TARGETIP,rcp_prog) /usr/bin/scp

@@ -1,0 +1,21 @@
+#!/usr/bin/env expect
+set myboard armv7fl-montavista-linux-gnueabi
+set target_list [list armv7fl-montavista-linux-gnueabi]
+set target_alias    arm_v7_vfp_le
+set CC             $target_alias-gcc
+set CXX            $target_alias-g++
+set GCC_UNDER_TEST $CC
+set GXX_UNDER_TEST $CXX
+set cxxfilt        $target_alias-c++filt
+set LD             $target_alias-ld
+set AR             $target_alias-ar
+set AS             $target_alias-as
+set NM             $target_alias-nm
+set OBJCOPY        $target_alias-objcopy
+set OBJDUMP        $target_alias-objdump
+set READELF        $target_alias-readelf
+set STRIP          $target_alias-strip
+set HOSTCC	   gcc
+set HOSTCFLAGS     ""
+set libiconv       ""
+set builddir       [pwd]

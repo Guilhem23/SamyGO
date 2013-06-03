@@ -1,0 +1,1508 @@
+
+R abi-note.o
+
+R interp.o
+
+O branred.os
+
+O cabs.os
+I w_hypot.os
+W cabs@@GLIBC_2.4
+W cabsl@@GLIBC_2.4
+
+O cabsf.os
+I w_hypotf.os
+W cabsf@@GLIBC_2.4
+
+O carg.os
+I w_atan2.os
+W carg@@GLIBC_2.4
+W cargl@@GLIBC_2.4
+
+O cargf.os
+I w_atan2f.os
+W cargf@@GLIBC_2.4
+
+O cimag.os
+W cimag@@GLIBC_2.4
+W cimagl@@GLIBC_2.4
+
+O cimagf.os
+W cimagf@@GLIBC_2.4
+
+O conj.os
+W conj@@GLIBC_2.4
+W conjl@@GLIBC_2.4
+
+O conjf.os
+W conjf@@GLIBC_2.4
+
+O creal.os
+W creal@@GLIBC_2.4
+W creall@@GLIBC_2.4
+
+O crealf.os
+W crealf@@GLIBC_2.4
+
+O doasin.os
+
+O dosincos.os
+
+O e_acos.os
+
+O e_acosf.os
+I e_sqrtf.os
+
+O e_acosh.os
+I e_log.os
+I e_sqrt.os
+I s_log1p.os
+I w_sqrt.os
+
+O e_acoshf.os
+I e_logf.os
+I e_sqrtf.os
+I s_log1pf.os
+I w_sqrtf.os
+
+O e_asin.os
+I sincos32.os
+I doasin.os
+I dosincos.os
+
+O e_asinf.os
+I e_sqrtf.os
+
+O e_atan2.os
+I mpa.os
+I mpatan2.os
+
+O e_atan2f.os
+I s_atanf.os
+
+O e_atanh.os
+I s_log1p.os
+
+O e_atanhf.os
+I s_log1pf.os
+
+O e_cosh.os
+I s_expm1.os
+I e_exp.os
+
+O e_coshf.os
+I s_expm1f.os
+I e_expf.os
+
+O e_exp.os
+I slowexp.os
+
+O e_exp10.os
+I e_exp.os
+
+O e_exp10f.os
+I e_expf.os
+
+O e_exp2.os
+I m_isinf.os
+I feholdexcpt.os
+I fesetenv.os
+I fesetround.os
+
+O e_exp2f.os
+I m_isinff.os
+I feholdexcpt.os
+I fesetenv.os
+I fesetround.os
+
+O e_expf.os
+I m_isinff.os
+I feholdexcpt.os
+I fesetenv.os
+I fesetround.os
+I t_exp.os
+
+O e_fmod.os
+
+O e_fmodf.os
+
+O e_gamma_r.os
+I e_exp.os
+I e_lgamma_r.os
+I s_rint.os
+
+O e_gammaf_r.os
+I e_expf.os
+I e_lgammaf_r.os
+I s_rintf.os
+
+O e_hypot.os
+I e_sqrt.os
+
+O e_hypotf.os
+I e_sqrtf.os
+
+O e_j0.os
+I s_sin.os
+I e_log.os
+I e_sqrt.os
+I s_sincos.os
+
+O e_j0f.os
+I s_cosf.os
+I e_logf.os
+I e_sqrtf.os
+I s_sincosf.os
+
+O e_j1.os
+I s_sin.os
+I e_log.os
+I e_sqrt.os
+I s_sincos.os
+
+O e_j1f.os
+I s_cosf.os
+I e_logf.os
+I e_sqrtf.os
+I s_sincosf.os
+
+O e_jn.os
+I e_j0.os
+I e_j1.os
+I e_log.os
+I e_sqrt.os
+I s_sincos.os
+
+O e_jnf.os
+I e_j0f.os
+I e_j1f.os
+I e_logf.os
+
+O e_lgamma_r.os
+I s_sin.os
+I s_floor.os
+I e_log.os
+
+O e_lgammaf_r.os
+I s_floorf.os
+I e_logf.os
+I k_cosf.os
+I k_sinf.os
+
+O e_log.os
+I mpa.os
+I mplog.os
+
+O e_log10.os
+I e_log.os
+
+O e_log10f.os
+I e_logf.os
+
+O e_log2.os
+
+O e_log2f.os
+
+O e_logf.os
+
+O e_pow.os
+I e_exp.os
+I slowpow.os
+
+O e_powf.os
+I m_isinff.os
+I e_sqrtf.os
+I m_scalbnf.os
+
+O e_rem_pio2.os
+I k_rem_pio2.os
+
+O e_rem_pio2f.os
+I k_rem_pio2f.os
+
+O e_remainder.os
+
+O e_remainderf.os
+I e_fmodf.os
+
+O e_scalb.os
+I m_finite.os
+I m_isnan.os
+I fraiseexcpt.os
+I s_nan.os
+I s_rint.os
+I m_scalbn.os
+
+O e_scalbf.os
+I m_finitef.os
+I m_isnanf.os
+I fraiseexcpt.os
+I s_nanf.os
+I s_rintf.os
+I m_scalbnf.os
+
+O e_sinh.os
+I s_expm1.os
+I e_exp.os
+
+O e_sinhf.os
+I s_expm1f.os
+I e_expf.os
+
+O e_sqrt.os
+
+O e_sqrtf.os
+
+O fclrexcpt.os
+D feclearexcept@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O fedisblxcpt.os
+D fedisableexcept@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O feenablxcpt.os
+D feenableexcept@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O fegetenv.os
+D fegetenv@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O fegetexcept.os
+D fegetexcept@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O fegetround.os
+D fegetround@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O feholdexcpt.os
+D feholdexcept@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O fesetenv.os
+D fesetenv@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O fesetround.os
+D fesetround@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O feupdateenv.os
+I fraiseexcpt.os
+I fesetenv.os
+D feupdateenv@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O fgetexcptflg.os
+D fegetexceptflag@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O fraiseexcpt.os
+D feraiseexcept@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O fsetexcptflg.os
+D fesetexceptflag@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O ftestexcept.os
+D fetestexcept@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O halfulp.os
+I e_sqrt.os
+
+O k_cos.os
+
+O k_cosf.os
+
+O k_rem_pio2.os
+I s_floor.os
+I m_scalbn.os
+
+O k_rem_pio2f.os
+I s_floorf.os
+I m_scalbnf.os
+
+O k_sin.os
+
+O k_sinf.os
+
+O k_standard.os
+I s_lib_version.os
+I s_rint.os
+I s_matherr.os
+U __assert_fail@@GLIBC_2.4
+U __errno_location@@GLIBC_2.4
+U fputs@@GLIBC_2.4
+U fwrite@@GLIBC_2.4
+U stderr@@GLIBC_2.4
+
+O k_tan.os
+
+O k_tanf.os
+
+O m_copysign.os
+W copysign@@GLIBC_2.4
+W copysignl@@GLIBC_2.4
+
+O m_copysignf.os
+W copysignf@@GLIBC_2.4
+
+O m_finite.os
+D __finite@@GLIBC_2.4
+D __finitel@@GLIBC_2.4
+W finite@@GLIBC_2.4
+W finitel@@GLIBC_2.4
+
+O m_finitef.os
+D __finitef@@GLIBC_2.4
+W finitef@@GLIBC_2.4
+
+O m_frexp.os
+W frexp@@GLIBC_2.4
+W frexpl@@GLIBC_2.4
+
+O m_frexpf.os
+W frexpf@@GLIBC_2.4
+
+O m_isinf.os
+
+O m_isinff.os
+
+O m_isnan.os
+
+O m_isnanf.os
+
+O m_ldexp.os
+I m_finite.os
+I m_scalbn.os
+W ldexp@@GLIBC_2.4
+W ldexpl@@GLIBC_2.4
+U __errno_location@@GLIBC_2.4
+
+O m_ldexpf.os
+I m_finitef.os
+I m_scalbnf.os
+W ldexpf@@GLIBC_2.4
+U __errno_location@@GLIBC_2.4
+
+O m_modf.os
+W modf@@GLIBC_2.4
+W modfl@@GLIBC_2.4
+
+O m_modff.os
+W modff@@GLIBC_2.4
+
+O m_scalbn.os
+W scalbn@@GLIBC_2.4
+W scalbnl@@GLIBC_2.4
+
+O m_scalbnf.os
+W scalbnf@@GLIBC_2.4
+
+O m_signbit.os
+D __signbit@@GLIBC_2.4
+
+O m_signbitf.os
+D __signbitf@@GLIBC_2.4
+
+O mpa.os
+
+O mpatan.os
+I mpa.os
+I mpsqrt.os
+U memset@@GLIBC_2.4
+
+O mpatan2.os
+I mpa.os
+I mpatan.os
+I mpsqrt.os
+U memset@@GLIBC_2.4
+
+O mpexp.os
+I mpa.os
+U memset@@GLIBC_2.4
+
+O mplog.os
+I mpa.os
+I mpexp.os
+U memset@@GLIBC_2.4
+
+O mpsqrt.os
+I mpa.os
+U memset@@GLIBC_2.4
+
+O mptan.os
+I sincos32.os
+I mpa.os
+
+O s_asinh.os
+I e_log.os
+I e_sqrt.os
+I s_log1p.os
+W asinh@@GLIBC_2.4
+W asinhl@@GLIBC_2.4
+
+O s_asinhf.os
+I e_logf.os
+I e_sqrtf.os
+I s_log1pf.os
+W asinhf@@GLIBC_2.4
+
+O s_atan.os
+I mpa.os
+I mpatan.os
+D atan@@GLIBC_2.4
+W atanl@@GLIBC_2.4
+
+O s_atanf.os
+W atanf@@GLIBC_2.4
+
+O s_cacos.os
+I s_casin.os
+W cacos@@GLIBC_2.4
+W cacosl@@GLIBC_2.4
+
+O s_cacosf.os
+I s_casinf.os
+W cacosf@@GLIBC_2.4
+
+O s_cacosh.os
+I s_fpclassify.os
+I s_clog.os
+I m_copysign.os
+I s_csqrt.os
+I s_nan.os
+I m_signbit.os
+W cacosh@@GLIBC_2.4
+W cacoshl@@GLIBC_2.4
+
+O s_cacoshf.os
+I s_fpclassifyf.os
+I s_clogf.os
+I s_csqrtf.os
+I s_nanf.os
+I m_signbitf.os
+W cacoshf@@GLIBC_2.4
+
+O s_casin.os
+I m_isinf.os
+I m_isnan.os
+I s_casinh.os
+I m_copysign.os
+I s_nan.os
+W casin@@GLIBC_2.4
+W casinl@@GLIBC_2.4
+
+O s_casinf.os
+I m_isinff.os
+I m_isnanf.os
+I s_casinhf.os
+I m_copysignf.os
+I s_nanf.os
+W casinf@@GLIBC_2.4
+
+O s_casinh.os
+I s_fpclassify.os
+I s_clog.os
+I m_copysign.os
+I s_csqrt.os
+I s_nan.os
+W casinh@@GLIBC_2.4
+W casinhl@@GLIBC_2.4
+
+O s_casinhf.os
+I s_fpclassifyf.os
+I s_clogf.os
+I m_copysignf.os
+I s_csqrtf.os
+I s_nanf.os
+W casinhf@@GLIBC_2.4
+
+O s_catan.os
+I s_fpclassify.os
+I e_atan2.os
+I e_log.os
+I s_nan.os
+W catan@@GLIBC_2.4
+W catanl@@GLIBC_2.4
+
+O s_catanf.os
+I s_fpclassifyf.os
+I e_atan2f.os
+I e_logf.os
+I s_nanf.os
+W catanf@@GLIBC_2.4
+
+O s_catanh.os
+I s_fpclassify.os
+I e_atan2.os
+I e_log.os
+I s_nan.os
+W catanh@@GLIBC_2.4
+W catanhl@@GLIBC_2.4
+
+O s_catanhf.os
+I s_fpclassifyf.os
+I e_atan2f.os
+I e_logf.os
+I s_nanf.os
+W catanhf@@GLIBC_2.4
+
+O s_cbrt.os
+I s_fpclassify.os
+I m_frexp.os
+I m_ldexp.os
+W cbrt@@GLIBC_2.4
+W cbrtl@@GLIBC_2.4
+
+O s_cbrtf.os
+I s_fpclassifyf.os
+I m_frexpf.os
+I m_ldexpf.os
+W cbrtf@@GLIBC_2.4
+
+O s_ccos.os
+I m_finite.os
+I m_isinf.os
+I m_isnan.os
+I fraiseexcpt.os
+I s_ccosh.os
+I s_nan.os
+W ccos@@GLIBC_2.4
+W ccosl@@GLIBC_2.4
+
+O s_ccosf.os
+I m_finitef.os
+I m_isinff.os
+I m_isnanf.os
+I fraiseexcpt.os
+I s_ccoshf.os
+I s_nanf.os
+W ccosf@@GLIBC_2.4
+
+O s_ccosh.os
+I s_fpclassify.os
+I fraiseexcpt.os
+I e_cosh.os
+I e_sinh.os
+I s_nan.os
+I s_sincos.os
+W ccosh@@GLIBC_2.4
+W ccoshl@@GLIBC_2.4
+
+O s_ccoshf.os
+I s_fpclassifyf.os
+I fraiseexcpt.os
+I e_coshf.os
+I e_sinhf.os
+I s_nanf.os
+I s_sincosf.os
+W ccoshf@@GLIBC_2.4
+
+O s_ceil.os
+W ceil@@GLIBC_2.4
+W ceill@@GLIBC_2.4
+
+O s_ceilf.os
+W ceilf@@GLIBC_2.4
+
+O s_cexp.os
+I m_finite.os
+I s_fpclassify.os
+I fraiseexcpt.os
+I e_exp.os
+I s_nan.os
+I m_signbit.os
+I s_sincos.os
+W cexp@@GLIBC_2.4
+W cexpl@@GLIBC_2.4
+
+O s_cexpf.os
+I m_finitef.os
+I s_fpclassifyf.os
+I fraiseexcpt.os
+I e_expf.os
+I s_nanf.os
+I m_signbitf.os
+I s_sincosf.os
+W cexpf@@GLIBC_2.4
+
+O s_clog.os
+I s_fpclassify.os
+I e_atan2.os
+I e_hypot.os
+I e_log.os
+I s_nan.os
+I m_signbit.os
+W clog@@GLIBC_2.4
+W clogl@@GLIBC_2.4
+
+O s_clog10.os
+I s_fpclassify.os
+I e_atan2.os
+I e_hypot.os
+I e_log10.os
+I s_nan.os
+I m_signbit.os
+D __clog10@@GLIBC_2.4
+D __clog10l@@GLIBC_2.4
+W clog10@@GLIBC_2.4
+W clog10l@@GLIBC_2.4
+
+O s_clog10f.os
+I s_fpclassifyf.os
+I e_atan2f.os
+I e_hypotf.os
+I e_log10f.os
+I s_nanf.os
+I m_signbitf.os
+D __clog10f@@GLIBC_2.4
+W clog10f@@GLIBC_2.4
+
+O s_clogf.os
+I s_fpclassifyf.os
+I e_atan2f.os
+I e_hypotf.os
+I e_logf.os
+I s_nanf.os
+I m_signbitf.os
+W clogf@@GLIBC_2.4
+
+O s_cos.os
+
+O s_cosf.os
+I e_rem_pio2f.os
+I k_cosf.os
+I k_sinf.os
+W cosf@@GLIBC_2.4
+
+O s_cpow.os
+I s_cexp.os
+I s_clog.os
+W cpow@@GLIBC_2.4
+W cpowl@@GLIBC_2.4
+
+O s_cpowf.os
+I s_cexpf.os
+I s_clogf.os
+W cpowf@@GLIBC_2.4
+
+O s_cproj.os
+I m_finite.os
+I m_isnan.os
+I m_copysign.os
+W cproj@@GLIBC_2.4
+W cprojl@@GLIBC_2.4
+
+O s_cprojf.os
+I m_finitef.os
+I m_isnanf.os
+I m_copysignf.os
+W cprojf@@GLIBC_2.4
+
+O s_csin.os
+I s_fpclassify.os
+I fraiseexcpt.os
+I e_cosh.os
+I e_sinh.os
+I s_nan.os
+I m_signbit.os
+I s_sincos.os
+W csin@@GLIBC_2.4
+W csinl@@GLIBC_2.4
+
+O s_csinf.os
+I s_fpclassifyf.os
+I fraiseexcpt.os
+I e_coshf.os
+I e_sinhf.os
+I s_nanf.os
+I m_signbitf.os
+I s_sincosf.os
+W csinf@@GLIBC_2.4
+
+O s_csinh.os
+I s_fpclassify.os
+I fraiseexcpt.os
+I e_cosh.os
+I e_sinh.os
+I s_nan.os
+I m_signbit.os
+I s_sincos.os
+W csinh@@GLIBC_2.4
+W csinhl@@GLIBC_2.4
+
+O s_csinhf.os
+I s_fpclassifyf.os
+I fraiseexcpt.os
+I e_coshf.os
+I e_sinhf.os
+I s_nanf.os
+I m_signbitf.os
+I s_sincosf.os
+W csinhf@@GLIBC_2.4
+
+O s_csqrt.os
+I s_fpclassify.os
+I e_hypot.os
+I e_sqrt.os
+I s_nan.os
+W csqrt@@GLIBC_2.4
+W csqrtl@@GLIBC_2.4
+
+O s_csqrtf.os
+I s_fpclassifyf.os
+I e_hypotf.os
+I e_sqrtf.os
+I s_nanf.os
+W csqrtf@@GLIBC_2.4
+
+O s_ctan.os
+I m_finite.os
+I m_isinf.os
+I fraiseexcpt.os
+I s_cexp.os
+I e_cosh.os
+I e_sinh.os
+I s_nan.os
+I s_sincos.os
+W ctan@@GLIBC_2.4
+W ctanl@@GLIBC_2.4
+
+O s_ctanf.os
+I m_finitef.os
+I m_isinff.os
+I fraiseexcpt.os
+I s_cexpf.os
+I e_coshf.os
+I e_sinhf.os
+I s_nanf.os
+I s_sincosf.os
+W ctanf@@GLIBC_2.4
+
+O s_ctanh.os
+I m_finite.os
+I m_isinf.os
+I fraiseexcpt.os
+I s_cexp.os
+I e_cosh.os
+I e_sinh.os
+I s_nan.os
+I s_sincos.os
+W ctanh@@GLIBC_2.4
+W ctanhl@@GLIBC_2.4
+
+O s_ctanhf.os
+I m_finitef.os
+I m_isinff.os
+I fraiseexcpt.os
+I s_cexpf.os
+I e_coshf.os
+I e_sinhf.os
+I s_nanf.os
+I s_sincosf.os
+W ctanhf@@GLIBC_2.4
+
+O s_erf.os
+I e_exp.os
+W erf@@GLIBC_2.4
+W erfc@@GLIBC_2.4
+W erfcl@@GLIBC_2.4
+W erfl@@GLIBC_2.4
+
+O s_erff.os
+I e_expf.os
+W erfcf@@GLIBC_2.4
+W erff@@GLIBC_2.4
+
+O s_expm1.os
+W expm1@@GLIBC_2.4
+W expm1l@@GLIBC_2.4
+
+O s_expm1f.os
+W expm1f@@GLIBC_2.4
+
+O s_fabs.os
+W fabs@@GLIBC_2.4
+W fabsl@@GLIBC_2.4
+
+O s_fabsf.os
+W fabsf@@GLIBC_2.4
+
+O s_fdim.os
+I s_fpclassify.os
+W fdim@@GLIBC_2.4
+W fdiml@@GLIBC_2.4
+
+O s_fdimf.os
+I s_fpclassifyf.os
+W fdimf@@GLIBC_2.4
+
+O s_floor.os
+W floor@@GLIBC_2.4
+W floorl@@GLIBC_2.4
+
+O s_floorf.os
+W floorf@@GLIBC_2.4
+
+O s_fma.os
+W fma@@GLIBC_2.4
+W fmal@@GLIBC_2.4
+
+O s_fmaf.os
+W fmaf@@GLIBC_2.4
+
+O s_fmax.os
+I m_isnan.os
+W fmax@@GLIBC_2.4
+W fmaxl@@GLIBC_2.4
+
+O s_fmaxf.os
+I m_isnanf.os
+W fmaxf@@GLIBC_2.4
+
+O s_fmin.os
+I m_isnan.os
+W fmin@@GLIBC_2.4
+W fminl@@GLIBC_2.4
+
+O s_fminf.os
+I m_isnanf.os
+W fminf@@GLIBC_2.4
+
+O s_fpclassify.os
+D __fpclassify@@GLIBC_2.4
+
+O s_fpclassifyf.os
+D __fpclassifyf@@GLIBC_2.4
+
+O s_ilogb.os
+W ilogb@@GLIBC_2.4
+W ilogbl@@GLIBC_2.4
+
+O s_ilogbf.os
+W ilogbf@@GLIBC_2.4
+
+O s_lib_version.os
+D _LIB_VERSION@@GLIBC_2.4
+
+O s_llrint.os
+W llrint@@GLIBC_2.4
+W llrintl@@GLIBC_2.4
+
+O s_llrintf.os
+W llrintf@@GLIBC_2.4
+
+O s_llround.os
+W llround@@GLIBC_2.4
+W llroundl@@GLIBC_2.4
+
+O s_llroundf.os
+W llroundf@@GLIBC_2.4
+
+O s_log1p.os
+W log1p@@GLIBC_2.4
+W log1pl@@GLIBC_2.4
+
+O s_log1pf.os
+W log1pf@@GLIBC_2.4
+
+O s_logb.os
+W logb@@GLIBC_2.4
+W logbl@@GLIBC_2.4
+
+O s_logbf.os
+W logbf@@GLIBC_2.4
+
+O s_lrint.os
+W lrint@@GLIBC_2.4
+W lrintl@@GLIBC_2.4
+
+O s_lrintf.os
+W lrintf@@GLIBC_2.4
+
+O s_lround.os
+W lround@@GLIBC_2.4
+W lroundl@@GLIBC_2.4
+
+O s_lroundf.os
+W lroundf@@GLIBC_2.4
+
+O s_matherr.os
+W matherr@@GLIBC_2.4
+
+O s_nan.os
+W nan@@GLIBC_2.4
+W nanl@@GLIBC_2.4
+U __strtod_internal@@GLIBC_2.4
+U sprintf@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+
+O s_nanf.os
+W nanf@@GLIBC_2.4
+U __strtof_internal@@GLIBC_2.4
+U sprintf@@GLIBC_2.4
+U strlen@@GLIBC_2.4
+
+O s_nearbyint.os
+I feholdexcpt.os
+I fesetenv.os
+W nearbyint@@GLIBC_2.4
+W nearbyintl@@GLIBC_2.4
+
+O s_nearbyintf.os
+I feholdexcpt.os
+I fesetenv.os
+W nearbyintf@@GLIBC_2.4
+
+O s_nextafter.os
+W nextafter@@GLIBC_2.4
+W nextafterl@@GLIBC_2.4
+W nexttoward@@GLIBC_2.4
+W nexttowardl@@GLIBC_2.4
+
+O s_nextafterf.os
+W nextafterf@@GLIBC_2.4
+
+O s_nexttoward.os
+
+O s_nexttowardf.os
+W nexttowardf@@GLIBC_2.4
+
+O s_remquo.os
+I e_fmod.os
+W remquo@@GLIBC_2.4
+W remquol@@GLIBC_2.4
+
+O s_remquof.os
+I e_fmodf.os
+W remquof@@GLIBC_2.4
+
+O s_rint.os
+W rint@@GLIBC_2.4
+W rintl@@GLIBC_2.4
+
+O s_rintf.os
+W rintf@@GLIBC_2.4
+
+O s_round.os
+W round@@GLIBC_2.4
+W roundl@@GLIBC_2.4
+
+O s_roundf.os
+W roundf@@GLIBC_2.4
+
+O s_scalbln.os
+W scalbln@@GLIBC_2.4
+W scalblnl@@GLIBC_2.4
+
+O s_scalblnf.os
+W scalblnf@@GLIBC_2.4
+
+O s_signgam.os
+D signgam@@GLIBC_2.4
+
+O s_significand.os
+I e_scalb.os
+I s_ilogb.os
+W significand@@GLIBC_2.4
+W significandl@@GLIBC_2.4
+
+O s_significandf.os
+I e_scalbf.os
+I s_ilogbf.os
+W significandf@@GLIBC_2.4
+
+O s_sin.os
+I branred.os
+I dosincos.os
+I sincos32.os
+W cos@@GLIBC_2.4
+W cosl@@GLIBC_2.4
+W sin@@GLIBC_2.4
+W sinl@@GLIBC_2.4
+
+O s_sincos.os
+I s_sin.os
+W sincos@@GLIBC_2.4
+W sincosl@@GLIBC_2.4
+
+O s_sincosf.os
+I e_rem_pio2f.os
+I k_cosf.os
+I k_sinf.os
+W sincosf@@GLIBC_2.4
+
+O s_sinf.os
+I e_rem_pio2f.os
+I k_cosf.os
+I k_sinf.os
+W sinf@@GLIBC_2.4
+
+O s_tan.os
+I branred.os
+I mpa.os
+I sincos32.os
+I mptan.os
+D tan@@GLIBC_2.4
+W tanl@@GLIBC_2.4
+
+O s_tanf.os
+I e_rem_pio2f.os
+I k_tanf.os
+W tanf@@GLIBC_2.4
+
+O s_tanh.os
+I s_expm1.os
+W tanh@@GLIBC_2.4
+W tanhl@@GLIBC_2.4
+
+O s_tanhf.os
+I s_expm1f.os
+W tanhf@@GLIBC_2.4
+
+O s_trunc.os
+W trunc@@GLIBC_2.4
+W truncl@@GLIBC_2.4
+
+O s_truncf.os
+W truncf@@GLIBC_2.4
+
+O sincos32.os
+I mpa.os
+U memset@@GLIBC_2.4
+
+O slowexp.os
+I mpa.os
+I mpexp.os
+
+O slowpow.os
+I mpa.os
+I halfulp.os
+I mpexp.os
+I mplog.os
+
+O t_exp.os
+
+O w_acos.os
+I s_lib_version.os
+I m_isnan.os
+I e_asin.os
+I k_standard.os
+W acos@@GLIBC_2.4
+W acosl@@GLIBC_2.4
+
+O w_acosf.os
+I s_lib_version.os
+I m_isnanf.os
+I e_acosf.os
+I k_standard.os
+W acosf@@GLIBC_2.4
+
+O w_acosh.os
+I s_lib_version.os
+I m_isnan.os
+I e_acosh.os
+I k_standard.os
+W acosh@@GLIBC_2.4
+W acoshl@@GLIBC_2.4
+
+O w_acoshf.os
+I s_lib_version.os
+I m_isnanf.os
+I e_acoshf.os
+I k_standard.os
+W acoshf@@GLIBC_2.4
+
+O w_asin.os
+I s_lib_version.os
+I m_isnan.os
+I e_asin.os
+I k_standard.os
+W asin@@GLIBC_2.4
+W asinl@@GLIBC_2.4
+
+O w_asinf.os
+I s_lib_version.os
+I m_isnanf.os
+I e_asinf.os
+I k_standard.os
+W asinf@@GLIBC_2.4
+
+O w_atan2.os
+I s_lib_version.os
+I m_isnan.os
+I e_atan2.os
+I k_standard.os
+W atan2@@GLIBC_2.4
+W atan2l@@GLIBC_2.4
+
+O w_atan2f.os
+I s_lib_version.os
+I m_isnanf.os
+I e_atan2f.os
+I k_standard.os
+W atan2f@@GLIBC_2.4
+
+O w_atanh.os
+I s_lib_version.os
+I m_isnan.os
+I e_atanh.os
+I k_standard.os
+W atanh@@GLIBC_2.4
+W atanhl@@GLIBC_2.4
+
+O w_atanhf.os
+I s_lib_version.os
+I m_isnanf.os
+I e_atanhf.os
+I k_standard.os
+W atanhf@@GLIBC_2.4
+
+O w_cosh.os
+I s_lib_version.os
+I m_finite.os
+I m_isnan.os
+I e_cosh.os
+I k_standard.os
+W cosh@@GLIBC_2.4
+W coshl@@GLIBC_2.4
+
+O w_coshf.os
+I s_lib_version.os
+I m_finite.os
+I m_isnanf.os
+I e_coshf.os
+I k_standard.os
+W coshf@@GLIBC_2.4
+
+O w_drem.os
+I w_remainder.os
+W drem@@GLIBC_2.4
+W dreml@@GLIBC_2.4
+
+O w_dremf.os
+I w_remainderf.os
+W dremf@@GLIBC_2.4
+
+O w_exp.os
+I s_lib_version.os
+I m_finite.os
+I e_exp.os
+I k_standard.os
+W exp@@GLIBC_2.4
+W expl@@GLIBC_2.4
+
+O w_exp10.os
+I s_lib_version.os
+I m_finite.os
+I e_exp10.os
+I k_standard.os
+I m_signbit.os
+W exp10@@GLIBC_2.4
+W exp10l@@GLIBC_2.4
+W pow10@@GLIBC_2.4
+W pow10l@@GLIBC_2.4
+
+O w_exp10f.os
+I s_lib_version.os
+I m_finitef.os
+I e_exp10f.os
+I k_standard.os
+I m_signbitf.os
+W exp10f@@GLIBC_2.4
+W pow10f@@GLIBC_2.4
+
+O w_exp2.os
+I s_lib_version.os
+I m_finite.os
+I e_exp2.os
+I k_standard.os
+W exp2@@GLIBC_2.4
+W exp2l@@GLIBC_2.4
+
+O w_exp2f.os
+I s_lib_version.os
+I m_finitef.os
+I e_exp2f.os
+I k_standard.os
+W exp2f@@GLIBC_2.4
+
+O w_expf.os
+I s_lib_version.os
+I m_finitef.os
+I e_expf.os
+I k_standard.os
+W expf@@GLIBC_2.4
+
+O w_fmod.os
+I s_lib_version.os
+I m_isnan.os
+I e_fmod.os
+I k_standard.os
+W fmod@@GLIBC_2.4
+W fmodl@@GLIBC_2.4
+
+O w_fmodf.os
+I s_lib_version.os
+I m_isnanf.os
+I e_fmodf.os
+I k_standard.os
+W fmodf@@GLIBC_2.4
+
+O w_hypot.os
+I s_lib_version.os
+I m_finite.os
+I e_hypot.os
+I k_standard.os
+W hypot@@GLIBC_2.4
+W hypotl@@GLIBC_2.4
+
+O w_hypotf.os
+I s_lib_version.os
+I m_finitef.os
+I e_hypotf.os
+I k_standard.os
+W hypotf@@GLIBC_2.4
+
+O w_j0.os
+I s_lib_version.os
+I m_isnan.os
+I e_j0.os
+I k_standard.os
+D j0@@GLIBC_2.4
+D j0l@@GLIBC_2.4
+D y0@@GLIBC_2.4
+D y0l@@GLIBC_2.4
+
+O w_j0f.os
+I s_lib_version.os
+I m_isnanf.os
+I e_j0f.os
+I k_standard.os
+D j0f@@GLIBC_2.4
+D y0f@@GLIBC_2.4
+
+O w_j1.os
+I s_lib_version.os
+I m_isnan.os
+I e_j1.os
+I k_standard.os
+D j1@@GLIBC_2.4
+D j1l@@GLIBC_2.4
+D y1@@GLIBC_2.4
+D y1l@@GLIBC_2.4
+
+O w_j1f.os
+I s_lib_version.os
+I m_isnanf.os
+I e_j1f.os
+I k_standard.os
+D j1f@@GLIBC_2.4
+D y1f@@GLIBC_2.4
+
+O w_jn.os
+I s_lib_version.os
+I m_isnan.os
+I e_jn.os
+I k_standard.os
+D jn@@GLIBC_2.4
+D jnl@@GLIBC_2.4
+D yn@@GLIBC_2.4
+D ynl@@GLIBC_2.4
+
+O w_jnf.os
+I s_lib_version.os
+I m_isnanf.os
+I e_jnf.os
+I k_standard.os
+D jnf@@GLIBC_2.4
+D ynf@@GLIBC_2.4
+
+O w_lgamma.os
+I s_lib_version.os
+I m_finite.os
+I s_floor.os
+I e_lgamma_r.os
+I k_standard.os
+I s_signgam.os
+W gamma@@GLIBC_2.4
+W gammal@@GLIBC_2.4
+W lgamma@@GLIBC_2.4
+W lgammal@@GLIBC_2.4
+
+O w_lgamma_r.os
+I s_lib_version.os
+I m_finite.os
+I s_floor.os
+I e_lgamma_r.os
+I k_standard.os
+W lgamma_r@@GLIBC_2.4
+W lgammal_r@@GLIBC_2.4
+
+O w_lgammaf.os
+I s_lib_version.os
+I m_finitef.os
+I s_floorf.os
+I e_lgammaf_r.os
+I k_standard.os
+I s_signgam.os
+W gammaf@@GLIBC_2.4
+W lgammaf@@GLIBC_2.4
+
+O w_lgammaf_r.os
+I s_lib_version.os
+I m_finitef.os
+I s_floorf.os
+I e_lgammaf_r.os
+I k_standard.os
+W lgammaf_r@@GLIBC_2.4
+
+O w_log.os
+I s_lib_version.os
+I m_isnan.os
+I e_log.os
+I k_standard.os
+W log@@GLIBC_2.4
+W logl@@GLIBC_2.4
+
+O w_log10.os
+I s_lib_version.os
+I m_isnan.os
+I e_log10.os
+I k_standard.os
+W log10@@GLIBC_2.4
+W log10l@@GLIBC_2.4
+
+O w_log10f.os
+I s_lib_version.os
+I m_isnanf.os
+I e_log10f.os
+I k_standard.os
+W log10f@@GLIBC_2.4
+
+O w_log2.os
+I s_lib_version.os
+I m_isnan.os
+I e_log2.os
+I k_standard.os
+W log2@@GLIBC_2.4
+W log2l@@GLIBC_2.4
+
+O w_log2f.os
+I s_lib_version.os
+I m_isnanf.os
+I e_log2f.os
+I k_standard.os
+W log2f@@GLIBC_2.4
+
+O w_logf.os
+I s_lib_version.os
+I m_isnanf.os
+I e_logf.os
+I k_standard.os
+W logf@@GLIBC_2.4
+
+O w_pow.os
+I s_lib_version.os
+I m_finite.os
+I m_isnan.os
+I e_pow.os
+I k_standard.os
+I m_signbit.os
+W pow@@GLIBC_2.4
+W powl@@GLIBC_2.4
+
+O w_powf.os
+I s_lib_version.os
+I m_finitef.os
+I m_isnanf.os
+I e_powf.os
+I k_standard.os
+I m_signbitf.os
+W powf@@GLIBC_2.4
+
+O w_remainder.os
+I s_lib_version.os
+I m_isnan.os
+I e_remainder.os
+I k_standard.os
+W remainder@@GLIBC_2.4
+W remainderl@@GLIBC_2.4
+
+O w_remainderf.os
+I s_lib_version.os
+I m_isnanf.os
+I e_remainderf.os
+I k_standard.os
+W remainderf@@GLIBC_2.4
+
+O w_scalb.os
+I s_lib_version.os
+I m_finite.os
+I m_isnan.os
+I e_scalb.os
+I k_standard.os
+W scalb@@GLIBC_2.4
+W scalbl@@GLIBC_2.4
+U __errno_location@@GLIBC_2.4
+
+O w_scalbf.os
+I s_lib_version.os
+I m_finitef.os
+I m_isnanf.os
+I e_scalbf.os
+I k_standard.os
+W scalbf@@GLIBC_2.4
+U __errno_location@@GLIBC_2.4
+
+O w_sinh.os
+I s_lib_version.os
+I m_finite.os
+I e_sinh.os
+I k_standard.os
+W sinh@@GLIBC_2.4
+W sinhl@@GLIBC_2.4
+
+O w_sinhf.os
+I s_lib_version.os
+I m_finitef.os
+I e_sinhf.os
+I k_standard.os
+W sinhf@@GLIBC_2.4
+
+O w_sqrt.os
+I s_lib_version.os
+I m_isnan.os
+I e_sqrt.os
+I k_standard.os
+W sqrt@@GLIBC_2.4
+W sqrtl@@GLIBC_2.4
+
+O w_sqrtf.os
+I s_lib_version.os
+I m_isnanf.os
+I e_sqrtf.os
+I k_standard.os
+W sqrtf@@GLIBC_2.4
+
+O w_tgamma.os
+I s_lib_version.os
+I m_finite.os
+I s_floor.os
+I e_gamma_r.os
+I k_standard.os
+W tgamma@@GLIBC_2.4
+W tgammal@@GLIBC_2.4
+
+O w_tgammaf.os
+I s_lib_version.os
+I m_finitef.os
+I s_floorf.os
+I e_gammaf_r.os
+I k_standard.os
+W tgammaf@@GLIBC_2.4

@@ -1,0 +1,4 @@
+#!/usr/bin/env expect
+set myboard armv7fl-montavista-linux-gnueabi
+set target_list [list armv7fl-montavista-linux-gnueabi]
+set target_alias arm_v7_vfp_le

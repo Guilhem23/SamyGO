@@ -1,0 +1,5 @@
+#define LSP_BUILD_ID   "0801795"
+#define LSP_REVISION   "1"
+#define LSP_NAME       "ti-omap3530_evm"
+#define LSP_BOARD_NAME "TI OMAP 3530 EVM (little endian)"
+#define LSP_MVL_ARCH   "arm_v7_vfp_le"

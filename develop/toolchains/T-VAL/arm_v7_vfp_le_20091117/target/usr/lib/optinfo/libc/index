@@ -1,0 +1,11035 @@
+
+R abi-note.o
+
+R interp.o
+
+R numa-note.o
+
+R sofini.o
+I divdi3.os
+
+R soinit.o
+I divdi3.os
+
+R version.o
+I write.os
+I _exit.os
+I divdi3.os
+W gnu_get_libc_release@@GLIBC_2.4
+W gnu_get_libc_version@@GLIBC_2.4
+
+O C-address.os
+I divdi3.os
+I C_name.os
+
+O C-collate.os
+I divdi3.os
+I C_name.os
+
+O C-ctype.os
+I divdi3.os
+I C_name.os
+
+O C-identification.os
+I divdi3.os
+I C_name.os
+
+O C-measurement.os
+I divdi3.os
+I C_name.os
+
+O C-messages.os
+I divdi3.os
+I C_name.os
+
+O C-monetary.os
+I divdi3.os
+I C_name.os
+
+O C-name.os
+I divdi3.os
+I C_name.os
+
+O C-numeric.os
+I divdi3.os
+I C_name.os
+
+O C-paper.os
+I divdi3.os
+I C_name.os
+
+O C-telephone.os
+I divdi3.os
+I C_name.os
+
+O C-time.os
+I divdi3.os
+I C_name.os
+
+O C_name.os
+I divdi3.os
+
+O SYS_libc.os
+I divdi3.os
+D _libc_intl_domainname@@GLIBC_2.4
+
+O __assert.os
+I assert.os
+I divdi3.os
+D __assert@@GLIBC_2.4
+
+O __fbufsize.os
+I divdi3.os
+D __fbufsize@@GLIBC_2.4
+
+O __flbf.os
+I divdi3.os
+D __flbf@@GLIBC_2.4
+
+O __fpending.os
+I divdi3.os
+D __fpending@@GLIBC_2.4
+
+O __fpurge.os
+I genops.os
+I wgenops.os
+I divdi3.os
+D __fpurge@@GLIBC_2.4
+
+O __freadable.os
+I divdi3.os
+D __freadable@@GLIBC_2.4
+
+O __freading.os
+I divdi3.os
+D __freading@@GLIBC_2.4
+
+O __fsetlocking.os
+I divdi3.os
+D __fsetlocking@@GLIBC_2.4
+
+O __fwritable.os
+I divdi3.os
+D __fwritable@@GLIBC_2.4
+
+O __fwriting.os
+I divdi3.os
+D __fwriting@@GLIBC_2.4
+
+O __longjmp.os
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O _exit.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W _Exit@@GLIBC_2.4
+D _exit@@GLIBC_2.4
+
+O _itoa.os
+I divdi3.os
+I itoa-digits.os
+I itoa-udigits.os
+
+O _itowa.os
+I divdi3.os
+I _itoa.os
+I itowa-digits.os
+
+O _strerror.os
+I dcgettext.os
+I mempcpy.os
+I SYS_libc.os
+I memcpy.os
+I strlen.os
+I divdi3.os
+I _itoa.os
+I errlist.os
+D __strerror_r@@GLIBC_2.4
+W strerror_r@@GLIBC_2.4
+
+O a64l.os
+I divdi3.os
+D a64l@@GLIBC_2.4
+
+O abort.os
+I genops.os
+I backtrace.os
+I backtracesymsfd.os
+I sigaction.os
+I _exit.os
+I memset.os
+I raise.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I fcloseall.os
+I sigprocmask.os
+I printf.os
+D abort@@GLIBC_2.4
+
+O abs.os
+I divdi3.os
+D abs@@GLIBC_2.4
+
+O accept.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W accept@@GLIBC_2.4
+
+O access.os
+I sysdep.os
+W access@@GLIBC_2.4
+
+O acct.os
+I sysdep.os
+D acct@@GLIBC_2.4
+
+O add_n.os
+I divdi3.os
+
+O addmul_1.os
+I divdi3.os
+
+O adjtime.os
+I adjtimex.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W adjtime@@GLIBC_2.4
+
+O adjtimex.os
+I sysdep.os
+D __adjtimex@@GLIBC_2.4
+W adjtimex@@GLIBC_2.4
+W ntp_adjtime@@GLIBC_2.4
+
+O aeabi_assert.os
+I assert.os
+I divdi3.os
+D __aeabi_assert@@GLIBC_2.4
+
+O aeabi_atexit.os
+I cxa_atexit.os
+I divdi3.os
+D __aeabi_atexit@@GLIBC_2.4
+
+O aeabi_errno_addr.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __aeabi_errno_addr@@GLIBC_2.4
+
+O aeabi_localeconv.os
+I divdi3.os
+I localeconv.os
+D __aeabi_localeconv@@GLIBC_2.4
+
+O aeabi_mb_cur_max.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __aeabi_MB_CUR_MAX@@GLIBC_2.4
+
+O aeabi_memclr.os
+I memset.os
+I divdi3.os
+D __aeabi_memclr@@GLIBC_2.4
+D __aeabi_memclr4@@GLIBC_2.4
+D __aeabi_memclr8@@GLIBC_2.4
+
+O aeabi_memcpy.os
+I memcpy.os
+I divdi3.os
+D __aeabi_memcpy@@GLIBC_2.4
+D __aeabi_memcpy4@@GLIBC_2.4
+D __aeabi_memcpy8@@GLIBC_2.4
+
+O aeabi_memmove.os
+I memmove.os
+I divdi3.os
+D __aeabi_memmove@@GLIBC_2.4
+D __aeabi_memmove4@@GLIBC_2.4
+D __aeabi_memmove8@@GLIBC_2.4
+
+O aeabi_memset.os
+I memset.os
+I divdi3.os
+D __aeabi_memset@@GLIBC_2.4
+D __aeabi_memset4@@GLIBC_2.4
+D __aeabi_memset8@@GLIBC_2.4
+
+O aeabi_unwind_cpp_pr1.os
+
+O alarm.os
+I divdi3.os
+I setitimer.os
+D alarm@@GLIBC_2.4
+
+O alias-lookup.os
+I nsswitch.os
+I divdi3.os
+
+O alloca_cutoff.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+
+O allocrtsig.os
+I divdi3.os
+D __libc_allocate_rtsig@@GLIBC_2.4
+D __libc_allocate_rtsig_private@@GLIBC_PRIVATE
+D __libc_current_sigrtmax@@GLIBC_2.4
+D __libc_current_sigrtmax_private@@GLIBC_PRIVATE
+D __libc_current_sigrtmin@@GLIBC_2.4
+D __libc_current_sigrtmin_private@@GLIBC_PRIVATE
+
+O alphasort.os
+I strcoll.os
+I divdi3.os
+D alphasort@@GLIBC_2.4
+
+O alphasort64.os
+I strcoll.os
+I divdi3.os
+D alphasort64@@GLIBC_2.4
+
+O alt_digit.os
+I rawmemchr.os
+I strlen.os
+I strncmp.os
+I wcschr.os
+I divdi3.os
+I setlocale.os
+I lc-time-cleanup.os
+I malloc.os
+
+O argp-ba.os
+I divdi3.os
+D argp_program_bug_address@@GLIBC_2.4
+
+O argp-eexst.os
+I divdi3.os
+D argp_err_exit_status@@GLIBC_2.4
+
+O argp-fmtstream.os
+I vsnprintf.os
+I genops.os
+I memchr.os
+I memmove.os
+I memset.os
+I putwc_u.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I fxprintf.os
+I errno.os
+I ctype-info.os
+I global-locale.os
+I malloc.os
+
+O argp-fs-xinl.os
+I memcpy.os
+I strlen.os
+I argp-fmtstream.os
+I divdi3.os
+
+O argp-help.os
+I vasprintf.os
+I assert.os
+I mempcpy.os
+I genops.os
+I strcasecmp.os
+I _strerror.os
+I strndup.os
+I strtol.os
+I exit.os
+I getenv.os
+I memcpy.os
+I memset.os
+I putwc_u.os
+I msort.os
+I strchr.os
+I strcmp.os
+I strlen.os
+I strncmp.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I argp-fmtstream.os
+I argp-parse.os
+I dcgettext.os
+I divdi3.os
+I flockfile.os
+I funlockfile.os
+I fxprintf.os
+I ctype-info.os
+I global-locale.os
+I strchrnul.os
+I argp-eexst.os
+I argp-ba.os
+I malloc.os
+I init-misc.os
+I stdio.os
+W argp_error@@GLIBC_2.4
+W argp_failure@@GLIBC_2.4
+W argp_help@@GLIBC_2.4
+W argp_state_help@@GLIBC_2.4
+
+O argp-parse.os
+I strtol.os
+I exit.os
+I fprintf.os
+I memset.os
+I strchr.os
+I strcmp.os
+I strrchr.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I argp-help.os
+I dcgettext.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+I sleep.os
+I getopt1.os
+I argp-pv.os
+I argp-pvh.os
+I malloc.os
+I init-misc.os
+I stdio.os
+W argp_parse@@GLIBC_2.4
+
+O argp-pv.os
+I divdi3.os
+D argp_program_version@@GLIBC_2.4
+
+O argp-pvh.os
+I divdi3.os
+D argp_program_version_hook@@GLIBC_2.4
+
+O argp-xinl.os
+I libc-aeabi_read_tp.os
+I argp-help.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+I stdio.os
+W argp_usage@@GLIBC_2.4
+
+O argz-addsep.os
+I strlen.os
+I divdi3.os
+I malloc.os
+W argz_add_sep@@GLIBC_2.4
+
+O argz-append.os
+I memcpy.os
+I strlen.os
+I divdi3.os
+I malloc.os
+W argz_add@@GLIBC_2.4
+W argz_append@@GLIBC_2.4
+
+O argz-count.os
+I strlen.os
+I divdi3.os
+D __argz_count@@GLIBC_2.4
+W argz_count@@GLIBC_2.4
+
+O argz-create.os
+I stpcpy.os
+I strlen.os
+I divdi3.os
+I malloc.os
+W argz_create@@GLIBC_2.4
+
+O argz-ctsep.os
+I strlen.os
+I divdi3.os
+I malloc.os
+W argz_create_sep@@GLIBC_2.4
+
+O argz-delete.os
+I memmove.os
+I strlen.os
+I divdi3.os
+I malloc.os
+D argz_delete@@GLIBC_2.4
+
+O argz-extract.os
+I strlen.os
+I divdi3.os
+W argz_extract@@GLIBC_2.4
+
+O argz-insert.os
+I memmove.os
+I strlen.os
+I argz-append.os
+I divdi3.os
+I malloc.os
+W argz_insert@@GLIBC_2.4
+
+O argz-next.os
+I rawmemchr.os
+I divdi3.os
+D __argz_next@@GLIBC_2.4
+W argz_next@@GLIBC_2.4
+
+O argz-replace.os
+I mempcpy.os
+I rawmemchr.os
+I strndup.os
+I strlen.os
+I strstr.os
+I argz-append.os
+I divdi3.os
+I malloc.os
+W argz_replace@@GLIBC_2.4
+
+O argz-stringify.os
+I divdi3.os
+I strnlen.os
+D __argz_stringify@@GLIBC_2.4
+W argz_stringify@@GLIBC_2.4
+
+O asctime.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I snprintf.os
+I C-time.os
+D asctime@@GLIBC_2.4
+W asctime_r@@GLIBC_2.4
+
+O asprintf.os
+I vasprintf.os
+I divdi3.os
+D __asprintf@@GLIBC_2.4
+W asprintf@@GLIBC_2.4
+
+O assert-perr.os
+I iofflush.os
+I dcgettext.os
+I write.os
+I _strerror.os
+I SYS_libc.os
+I abort.os
+I asprintf.os
+I divdi3.os
+I fxprintf.os
+I forward.os
+I init-misc.os
+I malloc.os
+I stdio.os
+D __assert_perror_fail@@GLIBC_2.4
+
+O assert.os
+I iofflush.os
+I dcgettext.os
+I write.os
+I SYS_libc.os
+I abort.os
+I asprintf.os
+I divdi3.os
+I fxprintf.os
+I forward.os
+I init-misc.os
+I malloc.os
+I stdio.os
+D __assert_fail@@GLIBC_2.4
+
+O atof.os
+I strtod.os
+I divdi3.os
+D atof@@GLIBC_2.4
+
+O atoi.os
+I strtol.os
+I divdi3.os
+D atoi@@GLIBC_2.4
+
+O atol.os
+I strtol.os
+I divdi3.os
+D atol@@GLIBC_2.4
+
+O atoll.os
+I strtoll.os
+I divdi3.os
+D atoll@@GLIBC_2.4
+
+O auth_des.os
+I des_crypt.os
+I netname.os
+I publickey.os
+I key_call.os
+I memcmp.os
+I memcpy.os
+I memset.os
+I rtime.os
+I strlen.os
+I divdi3.os
+I gettimeofday.os
+I malloc.os
+I authdes_prot.os
+D authdes_create@@GLIBC_2.4
+D authdes_pk_create@@GLIBC_2.4
+
+O auth_none.os
+I divdi3.os
+I forward.os
+I rpc_common.os
+I rpc_prot.os
+I xdr_mem.os
+D authnone_create@@GLIBC_2.4
+
+O auth_unix.os
+I dcgettext.os
+I SYS_libc.os
+I abort.os
+I memcpy.os
+I perror.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I fxprintf.os
+I getegid.os
+I geteuid.os
+I getgroups.os
+I gethostname.os
+I gettimeofday.os
+I errno.os
+I rpc_common.os
+I malloc.os
+I authuxprot.os
+I rpc_prot.os
+I xdr_mem.os
+D authunix_create@@GLIBC_2.4
+D authunix_create_default@@GLIBC_2.4
+
+O authdes_prot.os
+I divdi3.os
+I xdr.os
+D xdr_authdes_cred@@GLIBC_2.4
+D xdr_authdes_verf@@GLIBC_2.4
+
+O authuxprot.os
+I divdi3.os
+I xdr_array.os
+I xdr.os
+D xdr_authunix_parms@@GLIBC_2.4
+
+O backtrace.os
+I dl-libc.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I forward.os
+D __backtrace@@GLIBC_2.4
+W backtrace@@GLIBC_2.4
+U __libc_stack_end@@GLIBC_2.4
+
+O backtracesyms.os
+I assert.os
+I dl-addr.os
+I sprintf.os
+I strlen.os
+I divdi3.os
+I malloc.os
+D __backtrace_symbols@@GLIBC_2.4
+W backtrace_symbols@@GLIBC_2.4
+
+O backtracesymsfd.os
+I dl-addr.os
+I strlen.os
+I divdi3.os
+I writev.os
+I _itoa.os
+D __backtrace_symbols_fd@@GLIBC_2.4
+W backtrace_symbols_fd@@GLIBC_2.4
+
+O basename.os
+I strrchr.os
+I divdi3.os
+D basename@@GLIBC_2.4
+
+O bcopy.os
+I divdi3.os
+I wordcopy.os
+D bcopy@@GLIBC_2.4
+
+O bdflush.os
+I sysdep.os
+D bdflush@@GLIBC_2.4
+
+O bind.os
+I sysdep.os
+W bind@@GLIBC_2.4
+
+O bindrsvprt.os
+I getpid.os
+I libc-aeabi_read_tp.os
+I bind.os
+I divdi3.os
+I errno.os
+D bindresvport@@GLIBC_2.4
+
+O bindtextdom.os
+I strdup.os
+I dcigettext.os
+I memcpy.os
+I strcmp.os
+I strlen.os
+I divdi3.os
+I forward.os
+I loadmsgcat.os
+I malloc.os
+W bind_textdomain_codeset@@GLIBC_2.4
+W bindtextdomain@@GLIBC_2.4
+
+O brk.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __curbrk@@GLIBC_2.4
+W brk@@GLIBC_2.4
+
+O bsd-_setjmp.os
+I setjmp.os
+D _setjmp@@GLIBC_2.4
+
+O bsd-getpgrp.os
+I getpgid.os
+I divdi3.os
+D __bsd_getpgrp@@GLIBC_2.4
+
+O bsd-setjmp.os
+I setjmp.os
+D setjmp@@GLIBC_2.4
+
+O bsearch.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+D bsearch@@GLIBC_2.4
+
+O btowc.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+I wcsmbsload.os
+I C-ctype.os
+W btowc@@GLIBC_2.4
+
+O bzero.os
+I divdi3.os
+D __bzero@@GLIBC_2.4
+W bzero@@GLIBC_2.4
+
+O canonicalize.os
+I assert.os
+I lxstat64.os
+I mempcpy.os
+I rawmemchr.os
+I memcpy.os
+I memmove.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getcwd.os
+I errno.os
+I readlink.os
+I malloc.os
+W canonicalize_file_name@@GLIBC_2.4
+D realpath@@GLIBC_2.4
+
+O capget.os
+I sysdep.os
+D capget@@GLIBC_2.4
+
+O capset.os
+I sysdep.os
+D capset@@GLIBC_2.4
+
+O catgets.os
+I open_catalog.os
+I stpcpy.os
+I getenv.os
+I setlocale.os
+I strchr.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I munmap.os
+I malloc.os
+D catclose@@GLIBC_2.4
+D catgets@@GLIBC_2.4
+D catopen@@GLIBC_2.4
+U __libc_enable_secure@@GLIBC_PRIVATE
+
+O cfmakeraw.os
+I divdi3.os
+D cfmakeraw@@GLIBC_2.4
+
+O cfsetspeed.os
+I speed.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D cfsetspeed@@GLIBC_2.4
+
+O chdir.os
+I sysdep.os
+W chdir@@GLIBC_2.4
+
+O check_fds.os
+I fxstat64.os
+I fcntl.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+
+O check_pf.os
+I close.os
+I getpagesize.os
+I memcpy.os
+I time.os
+I libc-aeabi_read_tp.os
+I bind.os
+I divdi3.os
+I getsockname.os
+I alloca_cutoff.os
+I errno.os
+I recvmsg.os
+I sendto.os
+I socket.os
+I malloc.os
+
+O chflags.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D chflags@@GLIBC_2.4
+
+O chk_fail.os
+I divdi3.os
+I init-first.os
+I libc_fatal.os
+D __chk_fail@@GLIBC_2.4
+
+O chmod.os
+I sysdep.os
+W chmod@@GLIBC_2.4
+
+O chown.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W chown@@GLIBC_2.4
+
+O chroot.os
+I sysdep.os
+D chroot@@GLIBC_2.4
+
+O clearerr.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D clearerr@@GLIBC_2.4
+
+O clearerr_u.os
+I divdi3.os
+D clearerr_unlocked@@GLIBC_2.4
+
+O clnt_gen.os
+I rpc_thread.os
+I memcpy.os
+I memset.os
+I strcmp.os
+I strcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I gethstbynm_r.os
+I getprtname_r.os
+I errno.os
+I clnt_tcp.os
+I clnt_udp.os
+I clnt_unix.os
+D clnt_create@@GLIBC_2.4
+
+O clnt_perr.os
+I dcgettext.os
+I rpc_thread.os
+I _strerror.os
+I SYS_libc.os
+I memcpy.os
+I sprintf.os
+I stpcpy.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I fxprintf.os
+I malloc.os
+D clnt_pcreateerror@@GLIBC_2.4
+D clnt_perrno@@GLIBC_2.4
+D clnt_perror@@GLIBC_2.4
+D clnt_spcreateerror@@GLIBC_2.4
+D clnt_sperrno@@GLIBC_2.4
+D clnt_sperror@@GLIBC_2.4
+
+O clnt_raw.os
+I dcgettext.os
+I SYS_libc.os
+I rpc_prot.os
+I perror.os
+I divdi3.os
+I rpc_thread.os
+I rpc_common.os
+I auth_none.os
+I malloc.os
+I svc.os
+I xdr_mem.os
+D clntraw_create@@GLIBC_2.4
+
+O clnt_simp.os
+I close.os
+I rpc_thread.os
+I memcpy.os
+I strcmp.os
+I strncpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I gethstbynm_r.os
+I errno.os
+I malloc.os
+I clnt_udp.os
+D callrpc@@GLIBC_2.4
+
+O clnt_tcp.os
+I close.os
+I dcgettext.os
+I poll.os
+I read.os
+I rpc_thread.os
+I write.os
+I SYS_libc.os
+I rpc_prot.os
+I bindrsvprt.os
+I pm_getport.os
+I libc-aeabi_read_tp.os
+I connect.os
+I divdi3.os
+I fxprintf.os
+I errno.os
+I socket.os
+I create_xid.os
+I rpc_common.os
+I auth_none.os
+I malloc.os
+I xdr.os
+I xdr_mem.os
+I xdr_rec.os
+D clnttcp_create@@GLIBC_2.4
+
+O clnt_udp.os
+I close.os
+I dcgettext.os
+I poll.os
+I rpc_thread.os
+I SYS_libc.os
+I rpc_prot.os
+I bindrsvprt.os
+I ifaddrs.os
+I memcmp.os
+I pm_getport.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I fxprintf.os
+I ioctl.os
+I errno.os
+I recvfrom.os
+I recvmsg.os
+I sendto.os
+I setsockopt.os
+I socket.os
+I create_xid.os
+I rpc_common.os
+I auth_none.os
+I malloc.os
+I xdr_mem.os
+D clntudp_bufcreate@@GLIBC_2.4
+D clntudp_create@@GLIBC_2.4
+
+O clnt_unix.os
+I close.os
+I dcgettext.os
+I getpid.os
+I poll.os
+I rpc_thread.os
+I SYS_libc.os
+I rpc_prot.os
+I memcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I connect.os
+I divdi3.os
+I fxprintf.os
+I getegid.os
+I geteuid.os
+I errno.os
+I recvmsg.os
+I sendmsg.os
+I setsockopt.os
+I socket.os
+I create_xid.os
+I rpc_common.os
+I auth_none.os
+I malloc.os
+I xdr.os
+I xdr_mem.os
+I xdr_rec.os
+D clntunix_create@@GLIBC_2.4
+
+O clock.os
+I sysconf.os
+I divdi3.os
+I times.os
+D clock@@GLIBC_2.4
+
+O clone.os
+I sysdep.os
+I _exit.os
+D __clone@@GLIBC_2.4
+W clone@@GLIBC_2.4
+
+O close.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W __close@@GLIBC_2.4
+W close@@GLIBC_2.4
+
+O closedir.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I malloc.os
+W closedir@@GLIBC_2.4
+
+O cmp.os
+I divdi3.os
+
+O cmsg_nxthdr.os
+I divdi3.os
+D __cmsg_nxthdr@@GLIBC_2.4
+
+O coll-lookup.os
+I divdi3.os
+
+O confstr.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D confstr@@GLIBC_2.4
+
+O confstr_chk.os
+I chk_fail.os
+I confstr.os
+I divdi3.os
+D __confstr_chk@@GLIBC_2.4
+
+O connect.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W __connect@@GLIBC_2.4
+W connect@@GLIBC_2.4
+
+O creat.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W creat@@GLIBC_2.4
+
+O creat64.os
+I open64.os
+I divdi3.os
+D creat64@@GLIBC_2.4
+
+O create_xid.os
+I lrand48_r.os
+I divdi3.os
+I gettimeofday.os
+I srand48_r.os
+
+O ctermid.os
+I memcpy.os
+I divdi3.os
+D ctermid@@GLIBC_2.4
+
+O ctime.os
+I asctime.os
+I localtime.os
+I divdi3.os
+D ctime@@GLIBC_2.4
+
+O ctime_r.os
+I asctime.os
+I divdi3.os
+I localtime.os
+D ctime_r@@GLIBC_2.4
+
+O ctype-extn.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+W __isascii_l@@GLIBC_2.4
+D __isblank_l@@GLIBC_2.4
+W __toascii_l@@GLIBC_2.4
+D _tolower@@GLIBC_2.4
+D _toupper@@GLIBC_2.4
+D isascii@@GLIBC_2.4
+D isblank@@GLIBC_2.4
+W isblank_l@@GLIBC_2.4
+D toascii@@GLIBC_2.4
+
+O ctype-info.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+I C-ctype.os
+D __ctype32_b@@GLIBC_2.4
+D __ctype32_tolower@@GLIBC_2.4
+D __ctype32_toupper@@GLIBC_2.4
+D __ctype_b@@GLIBC_2.4
+D __ctype_b_loc@@GLIBC_2.4
+D __ctype_tolower@@GLIBC_2.4
+D __ctype_tolower_loc@@GLIBC_2.4
+D __ctype_toupper@@GLIBC_2.4
+D __ctype_toupper_loc@@GLIBC_2.4
+
+O ctype.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+D isalnum@@GLIBC_2.4
+D isalpha@@GLIBC_2.4
+D iscntrl@@GLIBC_2.4
+D isdigit@@GLIBC_2.4
+D isgraph@@GLIBC_2.4
+D islower@@GLIBC_2.4
+D isprint@@GLIBC_2.4
+D ispunct@@GLIBC_2.4
+D isspace@@GLIBC_2.4
+D isupper@@GLIBC_2.4
+D isxdigit@@GLIBC_2.4
+D tolower@@GLIBC_2.4
+D toupper@@GLIBC_2.4
+
+O ctype_l.os
+I divdi3.os
+D __isalnum_l@@GLIBC_2.4
+D __isalpha_l@@GLIBC_2.4
+D __iscntrl_l@@GLIBC_2.4
+D __isdigit_l@@GLIBC_2.4
+D __isgraph_l@@GLIBC_2.4
+D __islower_l@@GLIBC_2.4
+D __isprint_l@@GLIBC_2.4
+D __ispunct_l@@GLIBC_2.4
+D __isspace_l@@GLIBC_2.4
+D __isupper_l@@GLIBC_2.4
+D __isxdigit_l@@GLIBC_2.4
+D __tolower_l@@GLIBC_2.4
+D __toupper_l@@GLIBC_2.4
+W isalnum_l@@GLIBC_2.4
+W isalpha_l@@GLIBC_2.4
+W iscntrl_l@@GLIBC_2.4
+W isdigit_l@@GLIBC_2.4
+W isgraph_l@@GLIBC_2.4
+W islower_l@@GLIBC_2.4
+W isprint_l@@GLIBC_2.4
+W ispunct_l@@GLIBC_2.4
+W isspace_l@@GLIBC_2.4
+W isupper_l@@GLIBC_2.4
+W isxdigit_l@@GLIBC_2.4
+W tolower_l@@GLIBC_2.4
+W toupper_l@@GLIBC_2.4
+
+O cuserid.os
+I strncpy.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I geteuid.os
+I getpwuid_r.os
+D cuserid@@GLIBC_2.4
+
+O cxa_atexit.os
+I assert.os
+I divdi3.os
+I malloc.os
+D __cxa_atexit@@GLIBC_2.4
+
+O cxa_finalize.os
+I divdi3.os
+I cxa_atexit.os
+I unregister-atfork.os
+D __cxa_finalize@@GLIBC_2.4
+
+O daemon.os
+I close.os
+I dup2.os
+I fork.os
+I fxstat64.os
+I _exit.os
+I libc-aeabi_read_tp.os
+I chdir.os
+I divdi3.os
+I errno.os
+I setsid.os
+D daemon@@GLIBC_2.4
+
+O dbl2mpn.os
+I mp_clz_tab.os
+I divdi3.os
+
+O dcgettext.os
+I dcigettext.os
+I divdi3.os
+D __dcgettext@@GLIBC_2.4
+W dcgettext@@GLIBC_2.4
+
+O dcigettext.os
+I mempcpy.os
+I rawmemchr.os
+I stpcpy.os
+I strdup.os
+I getenv.os
+I memcpy.os
+I strchr.os
+I strcmp.os
+I strcpy.os
+I strlen.os
+I strstr.os
+I libc-aeabi_read_tp.os
+I localename.os
+I divdi3.os
+I gconv.os
+I gconv_open.os
+I getcwd.os
+I hash-string.os
+I errno.os
+I forward.os
+I global-locale.os
+I tsearch.os
+I xlocale.os
+I setlocale.os
+I finddomain.os
+I loadmsgcat.os
+I malloc.os
+D _nl_default_dirname@@GLIBC_2.4
+D _nl_domain_bindings@@GLIBC_2.4
+U __libc_enable_secure@@GLIBC_PRIVATE
+
+O dcngettext.os
+I dcigettext.os
+I divdi3.os
+W dcngettext@@GLIBC_2.4
+
+O delete_module.os
+I sysdep.os
+D delete_module@@GLIBC_2.4
+
+O des_crypt.os
+I divdi3.os
+I des_impl.os
+D cbc_crypt@@GLIBC_2.4
+D ecb_crypt@@GLIBC_2.4
+
+O des_impl.os
+I memset.os
+I divdi3.os
+
+O des_soft.os
+I divdi3.os
+D des_setparity@@GLIBC_2.4
+
+O dgettext.os
+I dcgettext.os
+I divdi3.os
+D __dgettext@@GLIBC_2.4
+W dgettext@@GLIBC_2.4
+
+O difftime.os
+I divdi3.os
+D difftime@@GLIBC_2.4
+
+O digits_dots.os
+I assert.os
+I inet_addr.os
+I res_libc.os
+I inet_pton.os
+I memcpy.os
+I memset.os
+I strchr.os
+I strcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I ctype-info.os
+I global-locale.os
+I malloc.os
+D __nss_hostname_digits_dots@@GLIBC_2.4
+
+O dirfd.os
+I divdi3.os
+D dirfd@@GLIBC_2.4
+
+O dirname.os
+I strrchr.os
+I divdi3.os
+I memrchr.os
+D dirname@@GLIBC_2.4
+
+O div.os
+I divdi3.os
+D div@@GLIBC_2.4
+
+O divdi3.os
+I mp_clz_tab.os
+
+O divmod_1.os
+I mp_clz_tab.os
+I divdi3.os
+
+O divrem.os
+I divdi3.os
+I add_n.os
+I cmp.os
+I sub_n.os
+I submul_1.os
+
+O dl-addr.os
+I divdi3.os
+D _dl_addr@@GLIBC_PRIVATE
+U _dl_argv@@GLIBC_PRIVATE
+U _rtld_global@@GLIBC_PRIVATE
+
+O dl-iteratephdr.os
+I divdi3.os
+W dl_iterate_phdr@@GLIBC_2.4
+U _dl_tls_get_addr_soft@@GLIBC_PRIVATE
+U _rtld_global@@GLIBC_PRIVATE
+
+O dl-libc.os
+I divdi3.os
+I environ.os
+I init-first.os
+I malloc.os
+D __internal_libc_dlopen@@GLIBC_PRIVATE
+D __libc_dlclose@@GLIBC_PRIVATE
+D __libc_dlopen_mode@@GLIBC_PRIVATE
+D __libc_dlsym@@GLIBC_PRIVATE
+D _dl_open_hook@@GLIBC_PRIVATE
+U _rtld_global@@GLIBC_PRIVATE
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O dl-profstub.os
+I divdi3.os
+D _dl_mcount_wrapper@@GLIBC_2.4
+D _dl_mcount_wrapper_check@@GLIBC_2.4
+U _rtld_global@@GLIBC_PRIVATE
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O dl-sym.os
+I memcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I malloc.os
+D _dl_sym@@GLIBC_PRIVATE
+D _dl_vsym@@GLIBC_PRIVATE
+U __tls_get_addr@@GLIBC_2.4
+U _rtld_global@@GLIBC_PRIVATE
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O dl-tsd.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D __libc_dl_error_tsd@@GLIBC_PRIVATE
+
+O dngettext.os
+I dcngettext.os
+I divdi3.os
+W dngettext@@GLIBC_2.4
+
+O dprintf.os
+I iovdprintf.os
+I divdi3.os
+D dprintf@@GLIBC_2.4
+
+O drand48-iter.os
+I divdi3.os
+
+O drand48.os
+I divdi3.os
+I erand48_r.os
+I drand48-iter.os
+D drand48@@GLIBC_2.4
+
+O drand48_r.os
+I divdi3.os
+I erand48_r.os
+D drand48_r@@GLIBC_2.4
+
+O dso_handle.os
+I divdi3.os
+
+O dup.os
+I sysdep.os
+W dup@@GLIBC_2.4
+
+O dup2.os
+I sysdep.os
+D __dup2@@GLIBC_2.4
+W dup2@@GLIBC_2.4
+
+O duplocale.os
+I stpcpy.os
+I strlen.os
+I divdi3.os
+I setlocale.os
+I xlocale.os
+I C_name.os
+I malloc.os
+D __duplocale@@GLIBC_2.4
+W duplocale@@GLIBC_2.4
+
+O dysize.os
+I divdi3.os
+D dysize@@GLIBC_2.4
+
+O efgcvt.os
+I sprintf.os
+I divdi3.os
+I efgcvt_r.os
+I malloc.os
+D ecvt@@GLIBC_2.4
+D fcvt@@GLIBC_2.4
+D gcvt@@GLIBC_2.4
+
+O efgcvt_r.os
+I s_finite.os
+I memmove.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I s_signbit.os
+I snprintf.os
+D ecvt_r@@GLIBC_2.4
+D fcvt_r@@GLIBC_2.4
+
+O endutxent.os
+I divdi3.os
+I getutent_r.os
+D endutxent@@GLIBC_2.4
+
+O environ.os
+I divdi3.os
+D __environ@@GLIBC_2.4
+W _environ@@GLIBC_2.4
+W environ@@GLIBC_2.4
+
+O envz.os
+I argz-delete.os
+I memcpy.os
+I memmove.os
+I strchr.os
+I strlen.os
+I argz-append.os
+I divdi3.os
+I malloc.os
+D envz_add@@GLIBC_2.4
+D envz_entry@@GLIBC_2.4
+D envz_get@@GLIBC_2.4
+D envz_merge@@GLIBC_2.4
+D envz_remove@@GLIBC_2.4
+D envz_strip@@GLIBC_2.4
+
+O epoll_create.os
+I sysdep.os
+D epoll_create@@GLIBC_2.4
+
+O epoll_ctl.os
+I sysdep.os
+D epoll_ctl@@GLIBC_2.4
+
+O epoll_wait.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+D epoll_wait@@GLIBC_2.4
+
+O era.os
+I rawmemchr.os
+I memcpy.os
+I wcschr.os
+I divdi3.os
+I setlocale.os
+I lc-time-cleanup.os
+I malloc.os
+
+O erand48.os
+I divdi3.os
+I erand48_r.os
+I drand48-iter.os
+D erand48@@GLIBC_2.4
+
+O erand48_r.os
+I divdi3.os
+I drand48-iter.os
+W erand48_r@@GLIBC_2.4
+
+O err.os
+I genops.os
+I exit.os
+I fprintf.os
+I iofputws_u.os
+I iofwrite_u.os
+I putwc_u.os
+I strlen.os
+I vfprintf.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I fwprintf.os
+I errno.os
+I mbsrtowcs.os
+I init-misc.os
+I vfwprintf.os
+I malloc.os
+I stdio.os
+D err@@GLIBC_2.4
+D errx@@GLIBC_2.4
+D verr@@GLIBC_2.4
+D verrx@@GLIBC_2.4
+D vwarn@@GLIBC_2.4
+D vwarnx@@GLIBC_2.4
+D warn@@GLIBC_2.4
+D warnx@@GLIBC_2.4
+
+O errlist.os
+I divdi3.os
+D _sys_errlist@@GLIBC_2.4
+D _sys_nerr@@GLIBC_2.4
+D sys_errlist@@GLIBC_2.4
+D sys_nerr@@GLIBC_2.4
+
+O errno-loc.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __errno_location@@GLIBC_2.4
+
+O errno.os
+I divdi3.os
+D errno@@GLIBC_PRIVATE
+
+O error.os
+I iofflush.os
+I _strerror.os
+I exit.os
+I iofputws_u.os
+I strcmp.os
+I strlen.os
+I vfprintf.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I fxprintf.os
+I alloca_cutoff.os
+I forward.os
+I mbsrtowcs.os
+I vfwprintf.os
+I malloc.os
+I init-misc.os
+I stdio.os
+W error@@GLIBC_2.4
+W error_at_line@@GLIBC_2.4
+D error_message_count@@GLIBC_2.4
+D error_one_per_line@@GLIBC_2.4
+D error_print_progname@@GLIBC_2.4
+
+O ether_aton.os
+I ether_aton_r.os
+I divdi3.os
+D ether_aton@@GLIBC_2.4
+
+O ether_aton_r.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+D ether_aton_r@@GLIBC_2.4
+
+O ether_hton.os
+I nsswitch.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I ethers-lookup.os
+D ether_hostton@@GLIBC_2.4
+
+O ether_line.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+I strchrnul.os
+D ether_line@@GLIBC_2.4
+
+O ether_ntoa.os
+I ether_ntoa_r.os
+I divdi3.os
+D ether_ntoa@@GLIBC_2.4
+
+O ether_ntoa_r.os
+I sprintf.os
+I divdi3.os
+D ether_ntoa_r@@GLIBC_2.4
+
+O ether_ntoh.os
+I nsswitch.os
+I strcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I ethers-lookup.os
+D ether_ntohost@@GLIBC_2.4
+
+O ethers-lookup.os
+I nsswitch.os
+I divdi3.os
+
+O euidaccess.os
+I xstat64.os
+I access.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getegid.os
+I geteuid.os
+I getgid.os
+I getuid.os
+I group_member.os
+I errno.os
+W eaccess@@GLIBC_2.4
+W euidaccess@@GLIBC_2.4
+
+O execl.os
+I memcpy.os
+I divdi3.os
+I environ.os
+I execve.os
+I malloc.os
+D execl@@GLIBC_2.4
+
+O execle.os
+I memcpy.os
+I divdi3.os
+I execve.os
+I malloc.os
+D execle@@GLIBC_2.4
+
+O execlp.os
+I execvp.os
+I memcpy.os
+I divdi3.os
+I malloc.os
+D execlp@@GLIBC_2.4
+
+O execv.os
+I divdi3.os
+I environ.os
+I execve.os
+D execv@@GLIBC_2.4
+
+O execve.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W execve@@GLIBC_2.4
+
+O execvp.os
+I confstr.os
+I getenv.os
+I memcpy.os
+I strchr.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I environ.os
+I execve.os
+I alloca_cutoff.os
+I errno.os
+I strchrnul.os
+I malloc.os
+D execvp@@GLIBC_2.4
+
+O exit-thread.os
+
+O exit.os
+I _exit.os
+I divdi3.os
+I cxa_atexit.os
+I malloc.os
+D exit@@GLIBC_2.4
+
+O explodename.os
+I rawmemchr.os
+I strcmp.os
+I divdi3.os
+I l10nflist.os
+I malloc.os
+
+O faccessat.os
+I fxstatat64.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getegid.os
+I geteuid.os
+I getgid.os
+I getuid.os
+I group_member.os
+I errno.os
+D faccessat@@GLIBC_2.4
+U __libc_enable_secure@@GLIBC_PRIVATE
+
+O fattach.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D fattach@@GLIBC_2.4
+
+O fchdir.os
+I sysdep.os
+W fchdir@@GLIBC_2.4
+
+O fchflags.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D fchflags@@GLIBC_2.4
+
+O fchmod.os
+I sysdep.os
+W fchmod@@GLIBC_2.4
+
+O fchmodat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D fchmodat@@GLIBC_2.4
+
+O fchown.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W fchown@@GLIBC_2.4
+
+O fchownat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D fchownat@@GLIBC_2.4
+
+O fcloseall.os
+I genops.os
+I divdi3.os
+W fcloseall@@GLIBC_2.4
+
+O fcntl.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+W __fcntl@@GLIBC_2.4
+W fcntl@@GLIBC_2.4
+
+O fdatasync.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+D fdatasync@@GLIBC_2.4
+
+O fdetach.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D fdetach@@GLIBC_2.4
+
+O fdopendir.os
+I fcntl.os
+I fxstat64.os
+I libc-aeabi_read_tp.os
+I opendir.os
+I divdi3.os
+I errno.os
+W fdopendir@@GLIBC_2.4
+
+O feof.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_feof@@GLIBC_2.4
+W feof@@GLIBC_2.4
+
+O feof_u.os
+I divdi3.os
+D feof_unlocked@@GLIBC_2.4
+
+O ferror.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_ferror@@GLIBC_2.4
+W ferror@@GLIBC_2.4
+
+O ferror_u.os
+I divdi3.os
+D ferror_unlocked@@GLIBC_2.4
+
+O fexecve.os
+I xstat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I execve.os
+I errno.os
+I snprintf.os
+D fexecve@@GLIBC_2.4
+
+O ffs.os
+I divdi3.os
+D __ffs@@GLIBC_2.4
+D ffs@@GLIBC_2.4
+W ffsl@@GLIBC_2.4
+
+O ffsll.os
+I divdi3.os
+D ffsll@@GLIBC_2.4
+
+O fgetgrent.os
+I iofgetpos.os
+I iofsetpos.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I fgetgrent_r.os
+I errno.os
+I malloc.os
+D fgetgrent@@GLIBC_2.4
+
+O fgetgrent_r.os
+I rawmemchr.os
+I strtoul.os
+I iofgets_u.os
+I strchr.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I ctype-info.os
+I global-locale.os
+D _nss_files_parse_grent@@GLIBC_PRIVATE
+W fgetgrent_r@@GLIBC_2.4
+
+O fgetpwent.os
+I iofgetpos.os
+I iofsetpos.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I fgetpwent_r.os
+I errno.os
+I malloc.os
+D fgetpwent@@GLIBC_2.4
+
+O fgetpwent_r.os
+I strtoul.os
+I iofgets_u.os
+I strchr.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I ctype-info.os
+I global-locale.os
+D _nss_files_parse_pwent@@GLIBC_PRIVATE
+W fgetpwent_r@@GLIBC_2.4
+
+O fgets_chk.os
+I iogetline.os
+I unwind-resume.os
+I chk_fail.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __fgets_chk@@GLIBC_2.4
+
+O fgets_u_chk.os
+I iogetline.os
+I chk_fail.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+D __fgets_unlocked_chk@@GLIBC_2.4
+
+O fgetspent.os
+I iofgetpos.os
+I iofsetpos.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I fgetspent_r.os
+I errno.os
+I malloc.os
+D fgetspent@@GLIBC_2.4
+
+O fgetspent_r.os
+I sgetspent_r.os
+I iofgets_u.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I ctype-info.os
+I global-locale.os
+W fgetspent_r@@GLIBC_2.4
+
+O fgetws_chk.os
+I iogetwline.os
+I unwind-resume.os
+I chk_fail.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __fgetws_chk@@GLIBC_2.4
+
+O fgetws_u_chk.os
+I iogetwline.os
+I chk_fail.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+D __fgetws_unlocked_chk@@GLIBC_2.4
+
+O fgetxattr.os
+I sysdep.os
+D fgetxattr@@GLIBC_2.4
+
+O filedoalloc.os
+I genops.os
+I divdi3.os
+I isatty.os
+I mmap.os
+D _IO_file_doallocate@@GLIBC_2.4
+
+O fileno.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D fileno@@GLIBC_2.4
+W fileno_unlocked@@GLIBC_2.4
+
+O fileops.os
+I genops.os
+I filedoalloc.os
+I wgenops.os
+I stdio.os
+I wfileops.os
+I unwind-resume.os
+I assert.os
+I fxstat64.os
+I getpagesize.os
+I mempcpy.os
+I open.os
+I read.os
+I write.os
+I memcpy.os
+I strstr.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I iofwide.os
+I llseek.os
+I mmap64.os
+I mremap.os
+I munmap.os
+I strchrnul.os
+I wcsmbsload.os
+I xlocale.os
+I malloc.os
+D _IO_do_write@@GLIBC_2.4
+D _IO_file_attach@@GLIBC_2.4
+D _IO_file_close@@GLIBC_2.4
+D _IO_file_close_it@@GLIBC_2.4
+D _IO_file_finish@@GLIBC_2.4
+D _IO_file_fopen@@GLIBC_2.4
+D _IO_file_init@@GLIBC_2.4
+D _IO_file_jumps@@GLIBC_2.4
+D _IO_file_open@@GLIBC_2.4
+D _IO_file_overflow@@GLIBC_2.4
+D _IO_file_read@@GLIBC_2.4
+D _IO_file_seek@@GLIBC_2.4
+D _IO_file_seekoff@@GLIBC_2.4
+D _IO_file_setbuf@@GLIBC_2.4
+D _IO_file_stat@@GLIBC_2.4
+D _IO_file_sync@@GLIBC_2.4
+D _IO_file_underflow@@GLIBC_2.4
+D _IO_file_write@@GLIBC_2.4
+D _IO_file_xsputn@@GLIBC_2.4
+
+O find_exidx.os
+I divdi3.os
+I dl-iteratephdr.os
+D __gnu_Unwind_Find_exidx@@GLIBC_2.4
+
+O finddomain.os
+I memcpy.os
+I strlen.os
+I divdi3.os
+I forward.os
+I localealias.os
+I explodename.os
+I loadmsgcat.os
+I l10nflist.os
+I malloc.os
+
+O findlocale.os
+I assert.os
+I strcasecmp.os
+I strndup.os
+I getenv.os
+I memcpy.os
+I strchr.os
+I strcmp.os
+I strlen.os
+I strrchr.os
+I divdi3.os
+I gconv_db.os
+I xlocale.os
+I C_name.os
+I setlocale.os
+I localealias.os
+I explodename.os
+I loadlocale.os
+I loadarchive.os
+I l10nflist.os
+I malloc.os
+U __libc_enable_secure@@GLIBC_PRIVATE
+
+O flistxattr.os
+I sysdep.os
+D flistxattr@@GLIBC_2.4
+
+O flock.os
+I sysdep.os
+W flock@@GLIBC_2.4
+
+O flockfile.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_flockfile@@GLIBC_2.4
+W flockfile@@GLIBC_2.4
+
+O fmemopen.os
+I iofopncook.os
+I memcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I malloc.os
+D fmemopen@@GLIBC_2.4
+
+O fmtmsg.os
+I strndup.os
+I strtol.os
+I getenv.os
+I memcmp.os
+I strchr.os
+I strlen.os
+I syslog.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I fxprintf.os
+I forward.os
+I strchrnul.os
+I malloc.os
+I stdio.os
+D addseverity@@GLIBC_2.4
+D fmtmsg@@GLIBC_2.4
+
+O fnmatch.os
+I assert.os
+I iswctype.os
+I mempcpy.os
+I getenv.os
+I memchr.os
+I memcmp.os
+I strcat.os
+I strlen.os
+I strnlen.os
+I wcfuncs.os
+I wmemchr.os
+I libc-aeabi_read_tp.os
+I coll-lookup.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+I mbsrtowcs.os
+I wcscat.os
+I wcslen.os
+I wctype.os
+I wmempcpy.os
+D fnmatch@@GLIBC_2.4
+
+O fork.os
+I genops.os
+I assert.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I register-atfork.os
+I errno.os
+D __fork@@GLIBC_2.4
+D __libc_fork@@GLIBC_2.4
+W fork@@GLIBC_2.4
+U _rtld_global@@GLIBC_PRIVATE
+
+O forward.os
+I exit.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+D pthread_attr_destroy@@GLIBC_2.4
+D pthread_attr_getdetachstate@@GLIBC_2.4
+D pthread_attr_getinheritsched@@GLIBC_2.4
+D pthread_attr_getschedparam@@GLIBC_2.4
+D pthread_attr_getschedpolicy@@GLIBC_2.4
+D pthread_attr_getscope@@GLIBC_2.4
+D pthread_attr_init@@GLIBC_2.4
+D pthread_attr_setdetachstate@@GLIBC_2.4
+D pthread_attr_setinheritsched@@GLIBC_2.4
+D pthread_attr_setschedparam@@GLIBC_2.4
+D pthread_attr_setschedpolicy@@GLIBC_2.4
+D pthread_attr_setscope@@GLIBC_2.4
+D pthread_cond_broadcast@@GLIBC_2.4
+D pthread_cond_destroy@@GLIBC_2.4
+D pthread_cond_init@@GLIBC_2.4
+D pthread_cond_signal@@GLIBC_2.4
+D pthread_cond_timedwait@@GLIBC_2.4
+D pthread_cond_wait@@GLIBC_2.4
+D pthread_condattr_destroy@@GLIBC_2.4
+D pthread_condattr_init@@GLIBC_2.4
+D pthread_equal@@GLIBC_2.4
+D pthread_exit@@GLIBC_2.4
+D pthread_getschedparam@@GLIBC_2.4
+D pthread_mutex_destroy@@GLIBC_2.4
+D pthread_mutex_init@@GLIBC_2.4
+D pthread_mutex_lock@@GLIBC_2.4
+D pthread_mutex_unlock@@GLIBC_2.4
+D pthread_self@@GLIBC_2.4
+W pthread_setcancelstate@@GLIBC_2.4
+D pthread_setcanceltype@@GLIBC_2.4
+D pthread_setschedparam@@GLIBC_2.4
+
+O fpathconf.os
+I fxstat64.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I fstatfs.os
+I fstatvfs64.os
+I errno.os
+I pathconf.os
+W fpathconf@@GLIBC_2.4
+
+O fpioconst.os
+I divdi3.os
+
+O fprintf.os
+I vfprintf.os
+I divdi3.os
+W _IO_fprintf@@GLIBC_2.4
+D fprintf@@GLIBC_2.4
+
+O fprintf_chk.os
+I vfprintf.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+D __fprintf_chk@@GLIBC_2.4
+
+O fpu_control.os
+I divdi3.os
+D __fpu_control@@GLIBC_2.4
+
+O fputc.os
+I unwind-resume.os
+I genops.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D fputc@@GLIBC_2.4
+
+O fputc_u.os
+I genops.os
+I divdi3.os
+D fputc_unlocked@@GLIBC_2.4
+
+O fputwc.os
+I iofwide.os
+I unwind-resume.os
+I wgenops.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D fputwc@@GLIBC_2.4
+
+O fputwc_u.os
+I iofwide.os
+I wgenops.os
+I divdi3.os
+D fputwc_unlocked@@GLIBC_2.4
+
+O freelocale.os
+I divdi3.os
+I setlocale.os
+I xlocale.os
+I findlocale.os
+I malloc.os
+D __freelocale@@GLIBC_2.4
+W freelocale@@GLIBC_2.4
+
+O fremovexattr.os
+I sysdep.os
+D fremovexattr@@GLIBC_2.4
+
+O freopen.os
+I fileops.os
+I unwind-resume.os
+I wfileops.os
+I close.os
+I lxstat64.os
+I stpcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I dup.os
+I iofopen.os
+I _itoa.os
+I malloc.os
+D freopen@@GLIBC_2.4
+
+O freopen64.os
+I fileops.os
+I unwind-resume.os
+I wfileops.os
+I close.os
+I lxstat64.os
+I stpcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I dup.os
+I iofopen.os
+I _itoa.os
+I malloc.os
+D freopen64@@GLIBC_2.4
+
+O fscanf.os
+I vfscanf.os
+I divdi3.os
+D fscanf@@GLIBC_2.4
+
+O fseek.os
+I ioseekoff.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D fseek@@GLIBC_2.4
+
+O fseeko.os
+I ioseekoff.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D fseeko@@GLIBC_2.4
+
+O fseeko64.os
+I ioseekoff.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D fseeko64@@GLIBC_2.4
+
+O fsetxattr.os
+I sysdep.os
+D fsetxattr@@GLIBC_2.4
+
+O fstab.os
+I rewind.os
+I strcmp.os
+I divdi3.os
+I mntent_r.os
+I malloc.os
+D endfsent@@GLIBC_2.4
+D getfsent@@GLIBC_2.4
+D getfsfile@@GLIBC_2.4
+D getfsspec@@GLIBC_2.4
+D setfsent@@GLIBC_2.4
+
+O fstatfs.os
+I sysdep.os
+W fstatfs@@GLIBC_2.4
+
+O fstatfs64.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I fstatfs.os
+I errno.os
+I statfs64.os
+W fstatfs64@@GLIBC_2.4
+
+O fstatvfs.os
+I fxstat64.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I fstatfs.os
+I internal_statvfs.os
+D fstatvfs@@GLIBC_2.4
+
+O fstatvfs64.os
+I fxstat64.os
+I divdi3.os
+I fstatfs64.os
+I internal_statvfs64.os
+W fstatvfs64@@GLIBC_2.4
+
+O fsync.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W fsync@@GLIBC_2.4
+
+O ftello.os
+I ioseekoff.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D ftello@@GLIBC_2.4
+
+O ftello64.os
+I ioseekoff.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D ftello64@@GLIBC_2.4
+
+O ftime.os
+I divdi3.os
+I gettimeofday.os
+D ftime@@GLIBC_2.4
+
+O ftok.os
+I xstat64.os
+I divdi3.os
+D ftok@@GLIBC_2.4
+
+O ftruncate.os
+I sysdep.os
+W ftruncate@@GLIBC_2.4
+
+O ftruncate64.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W ftruncate64@@GLIBC_2.4
+
+O ftrylockfile.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_ftrylockfile@@GLIBC_2.4
+W ftrylockfile@@GLIBC_2.4
+
+O fts.os
+I close.os
+I fxstat64.os
+I lxstat.os
+I open.os
+I xstat.os
+I memmove.os
+I memset.os
+I msort.os
+I strlen.os
+I strrchr.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I closedir.os
+I divdi3.os
+I fchdir.os
+I errno.os
+I opendir.os
+I readdir.os
+I malloc.os
+D fts_children@@GLIBC_2.4
+D fts_close@@GLIBC_2.4
+D fts_open@@GLIBC_2.4
+D fts_read@@GLIBC_2.4
+D fts_set@@GLIBC_2.4
+
+O ftw.os
+I assert.os
+I fxstatat.os
+I lxstat.os
+I mempcpy.os
+I open.os
+I rawmemchr.os
+I stpcpy.os
+I xstat.os
+I memset.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I chdir.os
+I closedir.os
+I divdi3.os
+I fchdir.os
+I fdopendir.os
+I getcwd.os
+I errno.os
+I openat64.os
+I opendir.os
+I readdir64.os
+I tsearch.os
+I malloc.os
+D ftw@@GLIBC_2.4
+D nftw@@GLIBC_2.4
+
+O ftw64.os
+I assert.os
+I fxstatat64.os
+I lxstat64.os
+I mempcpy.os
+I open.os
+I rawmemchr.os
+I stpcpy.os
+I xstat64.os
+I memset.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I chdir.os
+I closedir.os
+I divdi3.os
+I fchdir.os
+I fdopendir.os
+I getcwd.os
+I errno.os
+I openat64.os
+I opendir.os
+I readdir64.os
+I tsearch.os
+I malloc.os
+D ftw64@@GLIBC_2.4
+D nftw64@@GLIBC_2.4
+
+O funlockfile.os
+I divdi3.os
+D _IO_funlockfile@@GLIBC_2.4
+W funlockfile@@GLIBC_2.4
+
+O futimens.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D futimens@@GLIBC_2.6
+
+O futimes.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I _itoa.os
+W futimes@@GLIBC_2.4
+
+O futimesat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I futimes.os
+I errno.os
+D futimesat@@GLIBC_2.4
+
+O fwide.os
+I iofwide.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+D fwide@@GLIBC_2.4
+
+O fwprintf.os
+I divdi3.os
+I vfwprintf.os
+W fwprintf@@GLIBC_2.4
+
+O fwprintf_chk.os
+I vfwprintf.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D __fwprintf_chk@@GLIBC_2.4
+
+O fwscanf.os
+I divdi3.os
+I vfwscanf.os
+D fwscanf@@GLIBC_2.4
+
+O fxprintf.os
+I vfprintf.os
+I assert.os
+I strlen.os
+I divdi3.os
+I vfwprintf.os
+I stdio.os
+
+O fxstat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I xstatconv.os
+D __fxstat@@GLIBC_2.4
+
+O fxstat64.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __fxstat64@@GLIBC_2.4
+
+O fxstatat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I xstatconv.os
+D __fxstatat@@GLIBC_2.4
+
+O fxstatat64.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __fxstatat64@@GLIBC_2.4
+
+O gai_sigqueue.os
+I memset.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getuid.os
+I errno.os
+D __gai_sigqueue@@GLIBC_PRIVATE
+
+O gai_strerror.os
+I dcgettext.os
+I SYS_libc.os
+I divdi3.os
+D gai_strerror@@GLIBC_2.4
+
+O gconv.os
+I assert.os
+I dl-profstub.os
+I divdi3.os
+
+O gconv_builtin.os
+I assert.os
+I strcmp.os
+I divdi3.os
+I gconv_simple.os
+
+O gconv_cache.os
+I fxstat64.os
+I mempcpy.os
+I read.os
+I dl-profstub.os
+I getenv.os
+I memcpy.os
+I strcmp.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I gconv_dl.os
+I gconv_builtin.os
+I gconv_conf.os
+I gconv_db.os
+I hash-string.os
+I errno.os
+I mmap.os
+I munmap.os
+I malloc.os
+D __gconv_get_cache@@GLIBC_PRIVATE
+
+O gconv_close.os
+I divdi3.os
+I gconv_db.os
+I malloc.os
+
+O gconv_conf.os
+I iogetdelim.os
+I iofclose.os
+I iofopen.os
+I assert.os
+I mempcpy.os
+I rawmemchr.os
+I stpcpy.os
+I strtol.os
+I memcmp.os
+I memcpy.os
+I strchr.os
+I strcmp.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I __fsetlocking.os
+I gconv_db.os
+I gconv_cache.os
+I getcwd.os
+I errno.os
+I strnlen.os
+I tsearch.os
+I xlocale.os
+I malloc.os
+
+O gconv_db.os
+I assert.os
+I mempcpy.os
+I strdup.os
+I dl-profstub.os
+I memcpy.os
+I strcmp.os
+I strlen.os
+I divdi3.os
+I gconv_cache.os
+I gconv_dl.os
+I gconv_builtin.os
+I gconv_conf.os
+I forward.os
+I tsearch.os
+I finddomain.os
+I setlocale.os
+I malloc.os
+D __gconv_get_alias_db@@GLIBC_PRIVATE
+D __gconv_get_modules_db@@GLIBC_PRIVATE
+
+O gconv_dl.os
+I assert.os
+I dl-libc.os
+I memcpy.os
+I strcmp.os
+I strlen.os
+I divdi3.os
+I tsearch.os
+I malloc.os
+
+O gconv_open.os
+I mempcpy.os
+I strcasecmp_l.os
+I memcpy.os
+I memset.os
+I strchr.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I gconv_db.os
+I gconv_trans.os
+I errno.os
+I global-locale.os
+I xlocale.os
+I malloc.os
+
+O gconv_simple.os
+I assert.os
+I mempcpy.os
+I dl-profstub.os
+I divdi3.os
+
+O gconv_trans.os
+I assert.os
+I dl-libc.os
+I mempcpy.os
+I stpcpy.os
+I dl-profstub.os
+I memcmp.os
+I memcpy.os
+I strcmp.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I gconv_conf.os
+I global-locale.os
+I tsearch.os
+I malloc.os
+
+O genops.os
+I stdfiles.os
+I mempcpy.os
+I sched_yield.os
+I memcpy.os
+I memmove.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I forward.os
+I mmap.os
+I munmap.os
+I malloc.os
+D _IO_adjust_column@@GLIBC_2.4
+D _IO_default_doallocate@@GLIBC_2.4
+D _IO_default_finish@@GLIBC_2.4
+D _IO_default_pbackfail@@GLIBC_2.4
+D _IO_default_uflow@@GLIBC_2.4
+D _IO_default_xsgetn@@GLIBC_2.4
+D _IO_default_xsputn@@GLIBC_2.4
+D _IO_doallocbuf@@GLIBC_2.4
+D _IO_flush_all@@GLIBC_2.4
+D _IO_flush_all_linebuffered@@GLIBC_2.4
+D _IO_free_backup_area@@GLIBC_2.4
+D _IO_init@@GLIBC_2.4
+D _IO_init_marker@@GLIBC_2.4
+D _IO_iter_begin@@GLIBC_2.4
+D _IO_iter_end@@GLIBC_2.4
+D _IO_iter_file@@GLIBC_2.4
+D _IO_iter_next@@GLIBC_2.4
+D _IO_link_in@@GLIBC_2.4
+D _IO_list_lock@@GLIBC_2.4
+D _IO_list_resetlock@@GLIBC_2.4
+D _IO_list_unlock@@GLIBC_2.4
+D _IO_marker_delta@@GLIBC_2.4
+D _IO_marker_difference@@GLIBC_2.4
+D _IO_remove_marker@@GLIBC_2.4
+D _IO_seekmark@@GLIBC_2.4
+D _IO_setb@@GLIBC_2.4
+D _IO_sgetn@@GLIBC_2.4
+D _IO_sputbackc@@GLIBC_2.4
+D _IO_sungetc@@GLIBC_2.4
+D _IO_switch_to_get_mode@@GLIBC_2.4
+D _IO_un_link@@GLIBC_2.4
+D _IO_unsave_markers@@GLIBC_2.4
+D __overflow@@GLIBC_2.4
+D __uflow@@GLIBC_2.4
+D __underflow@@GLIBC_2.4
+W _flushlbf@@GLIBC_2.4
+
+O get_child_max.os
+I divdi3.os
+I getrlimit.os
+
+O get_mempolicy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+
+O get_myaddr.os
+I exit.os
+I ifaddrs.os
+I perror.os
+I divdi3.os
+D get_myaddress@@GLIBC_2.4
+
+O getaddrinfo.os
+I iofclose.os
+I iofopen.os
+I assert.os
+I fxstat64.os
+I inet_addr.os
+I mempcpy.os
+I nsswitch.os
+I res_libc.os
+I strdup.os
+I strtoul.os
+I xstat64.os
+I dl-profstub.os
+I bsearch.os
+I fileno.os
+I if_index.os
+I in6_addr.os
+I inet_pton.os
+I memcmp.os
+I memcpy.os
+I msort.os
+I strchr.os
+I strcmp.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I check_pf.os
+I connect.os
+I divdi3.os
+I __fsetlocking.os
+I gethstbyad_r.os
+I gethstbynm2_r.os
+I getline.os
+I getsrvbynm_r.os
+I getsockname.os
+I idn-stub.os
+I errno.os
+I herrno.os
+I forward.os
+I ctype-info.os
+I global-locale.os
+I nscd_getai.os
+I hosts-lookup.os
+I nscd_gethst_r.os
+I socket.os
+I malloc.os
+D freeaddrinfo@@GLIBC_2.4
+D getaddrinfo@@GLIBC_2.4
+
+O getaliasent.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getaliasent_r.os
+I errno.os
+I getnssent.os
+D getaliasent@@GLIBC_2.4
+
+O getaliasent_r.os
+I alias-lookup.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I getnssent_r.os
+D endaliasent@@GLIBC_2.4
+D getaliasent_r@@GLIBC_2.4
+D setaliasent@@GLIBC_2.4
+
+O getaliasname.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getaliasname_r.os
+I errno.os
+I malloc.os
+D getaliasbyname@@GLIBC_2.4
+
+O getaliasname_r.os
+I alias-lookup.os
+I nsswitch.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D getaliasbyname_r@@GLIBC_2.4
+
+O getc.os
+I unwind-resume.os
+I genops.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_getc@@GLIBC_2.4
+W fgetc@@GLIBC_2.4
+W getc@@GLIBC_2.4
+
+O getc_u.os
+I genops.os
+I divdi3.os
+W fgetc_unlocked@@GLIBC_2.4
+W getc_unlocked@@GLIBC_2.4
+
+O getchar.os
+I stdio.os
+I unwind-resume.os
+I genops.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D getchar@@GLIBC_2.4
+
+O getchar_u.os
+I stdio.os
+I genops.os
+I divdi3.os
+D getchar_unlocked@@GLIBC_2.4
+
+O getclktck.os
+I divdi3.os
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O getcontext.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D getcontext@@GLIBC_2.4
+
+O getcwd.os
+I assert.os
+I getpagesize.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I malloc.os
+W getcwd@@GLIBC_2.4
+
+O getcwd_chk.os
+I chk_fail.os
+I divdi3.os
+I getcwd.os
+D __getcwd_chk@@GLIBC_2.4
+
+O getdate.os
+I iofclose.os
+I iofopen.os
+I xstat64.os
+I getenv.os
+I mktime.os
+I strptime.os
+I time.os
+I access.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I __fsetlocking.os
+I getline.os
+I localtime.os
+I malloc.os
+D getdate@@GLIBC_2.4
+D getdate_err@@GLIBC_2.4
+W getdate_r@@GLIBC_2.4
+
+O getdents.os
+I memmove.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+
+O getdents64.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+
+O getdirentries.os
+I lseek.os
+I divdi3.os
+I getdents.os
+D getdirentries@@GLIBC_2.4
+
+O getdirentries64.os
+I divdi3.os
+I getdents64.os
+I llseek.os
+D getdirentries64@@GLIBC_2.4
+
+O getdirname.os
+I strdup.os
+I xstat64.os
+I getenv.os
+I divdi3.os
+I getcwd.os
+D get_current_dir_name@@GLIBC_2.4
+
+O getdomain.os
+I memcpy.os
+I strlen.os
+I uname.os
+I divdi3.os
+D getdomainname@@GLIBC_2.4
+
+O getdomainname_chk.os
+I chk_fail.os
+I getdomain.os
+I divdi3.os
+D __getdomainname_chk@@GLIBC_2.4
+
+O getdtsz.os
+I divdi3.os
+I getrlimit.os
+W getdtablesize@@GLIBC_2.4
+
+O getegid.os
+I divdi3.os
+W getegid@@GLIBC_2.4
+
+O getenv.os
+I strlen.os
+I strncmp.os
+I divdi3.os
+I environ.os
+D getenv@@GLIBC_2.4
+
+O geteuid.os
+I divdi3.os
+W geteuid@@GLIBC_2.4
+
+O getgid.os
+I divdi3.os
+W getgid@@GLIBC_2.4
+
+O getgrent.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getgrent_r.os
+I errno.os
+I getnssent.os
+D getgrent@@GLIBC_2.4
+
+O getgrent_r.os
+I grp-lookup.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I getnssent_r.os
+D endgrent@@GLIBC_2.4
+D getgrent_r@@GLIBC_2.4
+D setgrent@@GLIBC_2.4
+
+O getgrgid.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getgrgid_r.os
+I errno.os
+I malloc.os
+D getgrgid@@GLIBC_2.4
+
+O getgrgid_r.os
+I grp-lookup.os
+I nsswitch.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I nscd_getgr_r.os
+D getgrgid_r@@GLIBC_2.4
+
+O getgrnam.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getgrnam_r.os
+I errno.os
+I malloc.os
+D getgrnam@@GLIBC_2.4
+
+O getgrnam_r.os
+I grp-lookup.os
+I nsswitch.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I nscd_getgr_r.os
+D getgrnam_r@@GLIBC_2.4
+
+O getgroups.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W getgroups@@GLIBC_2.4
+
+O getgroups_chk.os
+I chk_fail.os
+I divdi3.os
+I getgroups.os
+D __getgroups_chk@@GLIBC_2.4
+
+O gethostid.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I gethstbynm_r.os
+I gethostname.os
+I errno.os
+D gethostid@@GLIBC_2.4
+
+O gethostname.os
+I memcpy.os
+I strlen.os
+I uname.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W gethostname@@GLIBC_2.4
+
+O gethostname_chk.os
+I chk_fail.os
+I divdi3.os
+I gethostname.os
+D __gethostname_chk@@GLIBC_2.4
+
+O gethstbyad.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I gethstbyad_r.os
+I errno.os
+I herrno.os
+I malloc.os
+D gethostbyaddr@@GLIBC_2.4
+
+O gethstbyad_r.os
+I hosts-lookup.os
+I nsswitch.os
+I res_libc.os
+I dl-profstub.os
+I in6_addr.os
+I memcmp.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I nscd_gethst_r.os
+I res_hconf.os
+D gethostbyaddr_r@@GLIBC_2.4
+
+O gethstbynm.os
+I digits_dots.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I gethstbynm_r.os
+I errno.os
+I herrno.os
+I malloc.os
+D gethostbyname@@GLIBC_2.4
+
+O gethstbynm2.os
+I digits_dots.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I gethstbynm2_r.os
+I errno.os
+I herrno.os
+I malloc.os
+D gethostbyname2@@GLIBC_2.4
+
+O gethstbynm2_r.os
+I digits_dots.os
+I hosts-lookup.os
+I nsswitch.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I nscd_gethst_r.os
+I res_hconf.os
+D gethostbyname2_r@@GLIBC_2.4
+
+O gethstbynm_r.os
+I digits_dots.os
+I hosts-lookup.os
+I nsswitch.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I nscd_gethst_r.os
+I res_hconf.os
+D gethostbyname_r@@GLIBC_2.4
+
+O gethstent.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I gethstent_r.os
+I errno.os
+I herrno.os
+I getnssent.os
+D gethostent@@GLIBC_2.4
+
+O gethstent_r.os
+I hosts-lookup.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I herrno.os
+I getnssent_r.os
+D endhostent@@GLIBC_2.4
+D gethostent_r@@GLIBC_2.4
+D sethostent@@GLIBC_2.4
+
+O getipv4sourcefilter.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getsockopt.os
+I alloca_cutoff.os
+I errno.os
+I malloc.os
+D getipv4sourcefilter@@GLIBC_2.4
+
+O getitimer.os
+I sysdep.os
+W getitimer@@GLIBC_2.4
+
+O getline.os
+I iogetdelim.os
+I divdi3.os
+W getline@@GLIBC_2.4
+
+O getloadavg.os
+I strtod_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I xlocale.os
+D getloadavg@@GLIBC_2.4
+
+O getlogin.os
+I strncpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getutent_r.os
+I getutline_r.os
+I errno.os
+I ttyname_r.os
+D getlogin@@GLIBC_2.4
+
+O getlogin_r.os
+I memcpy.os
+I strlen.os
+I strncpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I getutent_r.os
+I ttyname_r.os
+D getlogin_r@@GLIBC_2.4
+
+O getlogin_r_chk.os
+I chk_fail.os
+I getlogin_r.os
+I divdi3.os
+D __getlogin_r_chk@@GLIBC_2.4
+
+O getmsg.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D getmsg@@GLIBC_2.4
+
+O getnameinfo.os
+I strdup.os
+I if_index.os
+I inet_ntop.os
+I memcpy.os
+I strchr.os
+I strlen.os
+I strncpy.os
+I strstr.os
+I uname.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I gethstbyad_r.os
+I gethstbynm_r.os
+I gethostname.os
+I getsrvbypt_r.os
+I idn-stub.os
+I errno.os
+I herrno.os
+I snprintf.os
+I strnlen.os
+I malloc.os
+D getnameinfo@@GLIBC_2.4
+
+O getnetbyad.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getnetbyad_r.os
+I errno.os
+I herrno.os
+I malloc.os
+D getnetbyaddr@@GLIBC_2.4
+
+O getnetbyad_r.os
+I network-lookup.os
+I nsswitch.os
+I res_libc.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+D getnetbyaddr_r@@GLIBC_2.4
+
+O getnetbynm.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getnetbynm_r.os
+I errno.os
+I herrno.os
+I malloc.os
+D getnetbyname@@GLIBC_2.4
+
+O getnetbynm_r.os
+I network-lookup.os
+I nsswitch.os
+I res_libc.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+D getnetbyname_r@@GLIBC_2.4
+
+O getnetent.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getnetent_r.os
+I errno.os
+I herrno.os
+I getnssent.os
+D getnetent@@GLIBC_2.4
+
+O getnetent_r.os
+I network-lookup.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I herrno.os
+I getnssent_r.os
+D endnetent@@GLIBC_2.4
+D getnetent_r@@GLIBC_2.4
+D setnetent@@GLIBC_2.4
+
+O getnetgrent.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getnetgrent_r.os
+I errno.os
+I forward.os
+I malloc.os
+D getnetgrent@@GLIBC_2.4
+
+O getnetgrent_r.os
+I assert.os
+I nsswitch.os
+I strcasecmp.os
+I memcpy.os
+I strcmp.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I netgrp-lookup.os
+I malloc.os
+D __internal_endnetgrent@@GLIBC_PRIVATE
+D __internal_getnetgrent_r@@GLIBC_PRIVATE
+D __internal_setnetgrent@@GLIBC_PRIVATE
+D endnetgrent@@GLIBC_2.4
+W getnetgrent_r@@GLIBC_2.4
+D innetgr@@GLIBC_2.4
+D setnetgrent@@GLIBC_2.4
+
+O getnssent.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I malloc.os
+
+O getnssent_r.os
+I nsswitch.os
+I res_libc.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I herrno.os
+
+O getopt.os
+I dcgettext.os
+I SYS_libc.os
+I getenv.os
+I strchr.os
+I strlen.os
+I strncmp.os
+I aeabi_unwind_cpp_pr1.os
+I asprintf.os
+I divdi3.os
+I fxprintf.os
+I malloc.os
+I stdio.os
+D getopt@@GLIBC_2.4
+D optarg@@GLIBC_2.4
+D opterr@@GLIBC_2.4
+D optind@@GLIBC_2.4
+D optopt@@GLIBC_2.4
+
+O getopt1.os
+I divdi3.os
+I getopt.os
+D getopt_long@@GLIBC_2.4
+D getopt_long_only@@GLIBC_2.4
+
+O getopt_init.os
+I divdi3.os
+
+O getpagesize.os
+I divdi3.os
+D __getpagesize@@GLIBC_2.4
+W getpagesize@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O getpass.os
+I iofclose.os
+I iofopen.os
+I unwind-resume.os
+I iofflush_u.os
+I fileno.os
+I tcsetattr.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I __fsetlocking.os
+I fxprintf.os
+I getline.os
+I tcgetattr.os
+I stdio.os
+D getpass@@GLIBC_2.4
+
+O getpeername.os
+I sysdep.os
+W getpeername@@GLIBC_2.4
+
+O getpgid.os
+I sysdep.os
+D __getpgid@@GLIBC_2.4
+W getpgid@@GLIBC_2.4
+
+O getpgrp.os
+D getpgrp@@GLIBC_2.4
+
+O getpid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D __getpid@@GLIBC_2.4
+D getpid@@GLIBC_2.4
+
+O getpmsg.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D getpmsg@@GLIBC_2.4
+
+O getppid.os
+W getppid@@GLIBC_2.4
+
+O getpriority.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D getpriority@@GLIBC_2.4
+
+O getproto.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getproto_r.os
+I errno.os
+I malloc.os
+D getprotobynumber@@GLIBC_2.4
+
+O getproto_r.os
+I nsswitch.os
+I proto-lookup.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D getprotobynumber_r@@GLIBC_2.4
+
+O getprtent.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getprtent_r.os
+I errno.os
+I getnssent.os
+D getprotoent@@GLIBC_2.4
+
+O getprtent_r.os
+I proto-lookup.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I getnssent_r.os
+D endprotoent@@GLIBC_2.4
+D getprotoent_r@@GLIBC_2.4
+D setprotoent@@GLIBC_2.4
+
+O getprtname.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getprtname_r.os
+I errno.os
+I malloc.os
+D getprotobyname@@GLIBC_2.4
+
+O getprtname_r.os
+I nsswitch.os
+I proto-lookup.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D getprotobyname_r@@GLIBC_2.4
+
+O getpt.os
+I close.os
+I mempcpy.os
+I open.os
+I statfs.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+W getpt@@GLIBC_2.4
+W posix_openpt@@GLIBC_2.4
+
+O getpw.os
+I sysconf.os
+I sprintf.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getpwuid_r.os
+I errno.os
+W getpw@@GLIBC_2.4
+
+O getpwent.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getpwent_r.os
+I errno.os
+I getnssent.os
+D getpwent@@GLIBC_2.4
+
+O getpwent_r.os
+I pwd-lookup.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I getnssent_r.os
+D endpwent@@GLIBC_2.4
+D getpwent_r@@GLIBC_2.4
+D setpwent@@GLIBC_2.4
+
+O getpwnam.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getpwnam_r.os
+I errno.os
+I malloc.os
+D getpwnam@@GLIBC_2.4
+
+O getpwnam_r.os
+I nsswitch.os
+I pwd-lookup.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I nscd_getpw_r.os
+D getpwnam_r@@GLIBC_2.4
+
+O getpwuid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getpwuid_r.os
+I errno.os
+I malloc.os
+D getpwuid@@GLIBC_2.4
+
+O getpwuid_r.os
+I nsswitch.os
+I pwd-lookup.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I nscd_getpw_r.os
+D getpwuid_r@@GLIBC_2.4
+
+O getresgid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W getresgid@@GLIBC_2.4
+
+O getresuid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W getresuid@@GLIBC_2.4
+
+O getrlimit.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D getrlimit@@GLIBC_2.4
+
+O getrlimit64.os
+I divdi3.os
+I getrlimit.os
+D getrlimit64@@GLIBC_2.4
+
+O getrpcbyname.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getrpcbyname_r.os
+I errno.os
+I malloc.os
+D getrpcbyname@@GLIBC_2.4
+
+O getrpcbyname_r.os
+I nsswitch.os
+I rpc-lookup.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D getrpcbyname_r@@GLIBC_2.4
+
+O getrpcbynumber.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getrpcbynumber_r.os
+I errno.os
+I malloc.os
+D getrpcbynumber@@GLIBC_2.4
+
+O getrpcbynumber_r.os
+I nsswitch.os
+I rpc-lookup.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D getrpcbynumber_r@@GLIBC_2.4
+
+O getrpcent.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getrpcent_r.os
+I errno.os
+I getnssent.os
+D getrpcent@@GLIBC_2.4
+
+O getrpcent_r.os
+I rpc-lookup.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I getnssent_r.os
+D endrpcent@@GLIBC_2.4
+D getrpcent_r@@GLIBC_2.4
+D setrpcent@@GLIBC_2.4
+
+O getrpcport.os
+I memcpy.os
+I pm_getport.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I gethstbynm_r.os
+I errno.os
+D getrpcport@@GLIBC_2.4
+
+O getrusage.os
+I sysdep.os
+W getrusage@@GLIBC_2.4
+
+O gets_chk.os
+I iogetline.os
+I stdio.os
+I unwind-resume.os
+I chk_fail.os
+I genops.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D __gets_chk@@GLIBC_2.4
+
+O getservent.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getservent_r.os
+I errno.os
+I getnssent.os
+D getservent@@GLIBC_2.4
+
+O getservent_r.os
+I service-lookup.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I getnssent_r.os
+D endservent@@GLIBC_2.4
+D getservent_r@@GLIBC_2.4
+D setservent@@GLIBC_2.4
+
+O getsid.os
+I sysdep.os
+D getsid@@GLIBC_2.4
+
+O getsockname.os
+I sysdep.os
+W getsockname@@GLIBC_2.4
+
+O getsockopt.os
+I sysdep.os
+W getsockopt@@GLIBC_2.4
+
+O getsourcefilter.os
+I assert.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getsockopt.os
+I alloca_cutoff.os
+I errno.os
+I malloc.os
+D getsourcefilter@@GLIBC_2.4
+
+O getspent.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getspent_r.os
+I errno.os
+I getnssent.os
+D getspent@@GLIBC_2.4
+
+O getspent_r.os
+I spwd-lookup.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I getnssent_r.os
+D endspent@@GLIBC_2.4
+D getspent_r@@GLIBC_2.4
+D setspent@@GLIBC_2.4
+
+O getspnam.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getspnam_r.os
+I errno.os
+I malloc.os
+D getspnam@@GLIBC_2.4
+
+O getspnam_r.os
+I nsswitch.os
+I spwd-lookup.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+D getspnam_r@@GLIBC_2.4
+
+O getsrvbynm.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getsrvbynm_r.os
+I errno.os
+I malloc.os
+D getservbyname@@GLIBC_2.4
+
+O getsrvbynm_r.os
+I nsswitch.os
+I service-lookup.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I nscd_getserv_r.os
+D getservbyname_r@@GLIBC_2.4
+
+O getsrvbypt.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getsrvbypt_r.os
+I errno.os
+I malloc.os
+D getservbyport@@GLIBC_2.4
+
+O getsrvbypt_r.os
+I nsswitch.os
+I service-lookup.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I nscd_getserv_r.os
+D getservbyport_r@@GLIBC_2.4
+
+O getsubopt.os
+I memchr.os
+I strncmp.os
+I divdi3.os
+I strchrnul.os
+D getsubopt@@GLIBC_2.4
+
+O getsysstats.os
+I iofclose.os
+I iofopen.os
+I getpagesize.os
+I iofgets_u.os
+I sscanf.os
+I strncmp.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I __fsetlocking.os
+I errno.os
+W get_avphys_pages@@GLIBC_2.4
+W get_nprocs@@GLIBC_2.4
+W get_nprocs_conf@@GLIBC_2.4
+W get_phys_pages@@GLIBC_2.4
+
+O gettext.os
+I dcgettext.os
+I divdi3.os
+W gettext@@GLIBC_2.4
+
+O gettimeofday.os
+I sysdep.os
+D __gettimeofday@@GLIBC_2.4
+W gettimeofday@@GLIBC_2.4
+
+O getttyent.os
+I iofclose.os
+I iofopen.os
+I genops.os
+I iofgets_u.os
+I rewind.os
+I strchr.os
+I strcmp.os
+I strncmp.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I __fsetlocking.os
+I ctype-info.os
+I global-locale.os
+D endttyent@@GLIBC_2.4
+D getttyent@@GLIBC_2.4
+D getttynam@@GLIBC_2.4
+D setttyent@@GLIBC_2.4
+
+O getuid.os
+I divdi3.os
+W getuid@@GLIBC_2.4
+
+O getusershell.os
+I iofclose.os
+I iofopen.os
+I fxstat64.os
+I iofgets_u.os
+I fileno.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+I malloc.os
+D endusershell@@GLIBC_2.4
+D getusershell@@GLIBC_2.4
+D setusershell@@GLIBC_2.4
+
+O getutent.os
+I divdi3.os
+I getutent_r.os
+I malloc.os
+W getutent@@GLIBC_2.4
+
+O getutent_r.os
+I divdi3.os
+I utmp_file.os
+W endutent@@GLIBC_2.4
+W getutent_r@@GLIBC_2.4
+W pututline@@GLIBC_2.4
+W setutent@@GLIBC_2.4
+
+O getutid.os
+I divdi3.os
+I getutid_r.os
+I malloc.os
+W getutid@@GLIBC_2.4
+
+O getutid_r.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I getutent_r.os
+W getutid_r@@GLIBC_2.4
+
+O getutline.os
+I divdi3.os
+I getutline_r.os
+I malloc.os
+W getutline@@GLIBC_2.4
+
+O getutline_r.os
+I divdi3.os
+I getutent_r.os
+W getutline_r@@GLIBC_2.4
+
+O getutmp.os
+I memcpy.os
+I divdi3.os
+D getutmp@@GLIBC_2.4
+D getutmpx@@GLIBC_2.4
+
+O getutmpx.os
+I divdi3.os
+
+O getutxent.os
+I divdi3.os
+I getutent.os
+D getutxent@@GLIBC_2.4
+
+O getutxid.os
+I divdi3.os
+I getutid.os
+D getutxid@@GLIBC_2.4
+
+O getutxline.os
+I divdi3.os
+I getutline.os
+D getutxline@@GLIBC_2.4
+
+O getw.os
+I iofread.os
+I divdi3.os
+D getw@@GLIBC_2.4
+
+O getwc.os
+I unwind-resume.os
+I wgenops.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+W fgetwc@@GLIBC_2.4
+W getwc@@GLIBC_2.4
+
+O getwc_u.os
+I wgenops.os
+I divdi3.os
+W fgetwc_unlocked@@GLIBC_2.4
+W getwc_unlocked@@GLIBC_2.4
+
+O getwchar.os
+I stdio.os
+I unwind-resume.os
+I wgenops.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D getwchar@@GLIBC_2.4
+
+O getwchar_u.os
+I stdio.os
+I wgenops.os
+I divdi3.os
+D getwchar_unlocked@@GLIBC_2.4
+
+O getwd.os
+I _strerror.os
+I strcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getcwd.os
+I errno.os
+D getwd@@GLIBC_2.4
+
+O getwd_chk.os
+I chk_fail.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getcwd.os
+I errno.os
+D __getwd_chk@@GLIBC_2.4
+
+O getxattr.os
+I sysdep.os
+D getxattr@@GLIBC_2.4
+
+O glob.os
+I assert.os
+I rawmemchr.os
+I strdup.os
+I sysconf.os
+I xstat64.os
+I fnmatch.os
+I getenv.os
+I getlogin_r.os
+I memchr.os
+I memcpy.os
+I mempcpy.os
+I msort.os
+I strchr.os
+I strcoll.os
+I strlen.os
+I strrchr.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I closedir.os
+I divdi3.os
+I getpwnam_r.os
+I alloca_cutoff.os
+I errno.os
+I opendir.os
+I readdir64.os
+I malloc.os
+D glob@@GLIBC_2.4
+W glob_pattern_p@@GLIBC_2.4
+D globfree@@GLIBC_2.4
+
+O glob64.os
+I assert.os
+I rawmemchr.os
+I strdup.os
+I sysconf.os
+I xstat64.os
+I fnmatch.os
+I getenv.os
+I getlogin_r.os
+I memchr.os
+I memcpy.os
+I mempcpy.os
+I msort.os
+I strchr.os
+I strcoll.os
+I strlen.os
+I strrchr.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I closedir.os
+I divdi3.os
+I getpwnam_r.os
+I glob.os
+I alloca_cutoff.os
+I errno.os
+I opendir.os
+I readdir64.os
+I malloc.os
+D glob64@@GLIBC_2.4
+D globfree64@@GLIBC_2.4
+
+O global-locale.os
+I divdi3.os
+I C-address.os
+I C-collate.os
+I C-ctype.os
+I C-identification.os
+I C-measurement.os
+I C-messages.os
+I C-monetary.os
+I C-name.os
+I C-numeric.os
+I C-paper.os
+I C-telephone.os
+I C-time.os
+I C_name.os
+
+O gmon.os
+I getpid.os
+I prof-freq.os
+I _strerror.os
+I getenv.os
+I memcpy.os
+I strlen.os
+I strncpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I fxprintf.os
+I errno.os
+I profil.os
+I snprintf.os
+I malloc.os
+D __monstartup@@GLIBC_2.4
+D _mcleanup@@GLIBC_2.4
+W moncontrol@@GLIBC_2.4
+W monstartup@@GLIBC_2.4
+U __libc_enable_secure@@GLIBC_PRIVATE
+
+O gmtime.os
+I divdi3.os
+I tzset.os
+I localtime.os
+D __gmtime_r@@GLIBC_2.4
+D gmtime@@GLIBC_2.4
+W gmtime_r@@GLIBC_2.4
+
+O grantpt.os
+I assert.os
+I chown.os
+I dup2.os
+I fork.os
+I fcntl.os
+I statfs.os
+I sysconf.os
+I waitpid.os
+I xstat64.os
+I _exit.os
+I basename.os
+I execle.os
+I memchr.os
+I libc-aeabi_read_tp.os
+I chmod.os
+I divdi3.os
+I getgid.os
+I getgrnam_r.os
+I getuid.os
+I errno.os
+I ptsname.os
+I setrlimit.os
+I malloc.os
+D grantpt@@GLIBC_2.4
+
+O group_member.os
+I divdi3.os
+I getgroups.os
+W group_member@@GLIBC_2.4
+
+O grouping.os
+I strlen.os
+I divdi3.os
+
+O groupingwc.os
+I divdi3.os
+
+O grp-lookup.os
+I nsswitch.os
+I divdi3.os
+D __nss_group_lookup@@GLIBC_2.4
+
+O gtty.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D gtty@@GLIBC_2.4
+
+O hash-string.os
+I divdi3.os
+
+O herrno-loc.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I herrno.os
+D __h_errno_location@@GLIBC_2.4
+
+O herrno.os
+I divdi3.os
+D h_errno@@GLIBC_PRIVATE
+
+O herror.os
+I dcgettext.os
+I SYS_libc.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I herrno.os
+D h_errlist@@GLIBC_2.4
+D h_nerr@@GLIBC_2.4
+D herror@@GLIBC_2.4
+D hstrerror@@GLIBC_2.4
+
+O hosts-lookup.os
+I nsswitch.os
+I divdi3.os
+D __nss_hosts_lookup@@GLIBC_2.4
+
+O hsearch.os
+I hsearch_r.os
+I divdi3.os
+D hcreate@@GLIBC_2.4
+W hdestroy@@GLIBC_2.4
+D hsearch@@GLIBC_2.4
+
+O hsearch_r.os
+I strcmp.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I malloc.os
+D hcreate_r@@GLIBC_2.4
+D hdestroy_r@@GLIBC_2.4
+D hsearch_r@@GLIBC_2.4
+
+O htonl.os
+I divdi3.os
+D htonl@@GLIBC_2.4
+W ntohl@@GLIBC_2.4
+
+O htons.os
+I divdi3.os
+D htons@@GLIBC_2.4
+W ntohs@@GLIBC_2.4
+
+O iconv.os
+I assert.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I gconv.os
+I errno.os
+D iconv@@GLIBC_2.4
+
+O iconv_close.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I gconv_close.os
+I errno.os
+D iconv_close@@GLIBC_2.4
+
+O iconv_open.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I gconv_open.os
+I errno.os
+I xlocale.os
+D iconv_open@@GLIBC_2.4
+
+O idn-stub.os
+I dl-libc.os
+I strncmp.os
+I divdi3.os
+I strchrnul.os
+
+O if_index.os
+I strndup.os
+I strncpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ioctl.os
+I errno.os
+I ifaddrs.os
+I opensock.os
+I malloc.os
+D if_freenameindex@@GLIBC_2.4
+D if_indextoname@@GLIBC_2.4
+D if_nameindex@@GLIBC_2.4
+D if_nametoindex@@GLIBC_2.4
+
+O ifaddrs.os
+I assert.os
+I getpagesize.os
+I mempcpy.os
+I abort.os
+I memcpy.os
+I memset.os
+I time.os
+I libc-aeabi_read_tp.os
+I bind.os
+I divdi3.os
+I getsockname.os
+I alloca_cutoff.os
+I errno.os
+I recvmsg.os
+I sendto.os
+I socket.os
+I malloc.os
+D freeifaddrs@@GLIBC_2.4
+D getifaddrs@@GLIBC_2.4
+
+O ifreq.os
+I close.os
+I divdi3.os
+I ioctl.os
+I opensock.os
+I malloc.os
+
+O in6_addr.os
+I divdi3.os
+D in6addr_any@@GLIBC_2.4
+D in6addr_loopback@@GLIBC_2.4
+
+O inet6_opt.os
+I memcpy.os
+I memset.os
+I divdi3.os
+D inet6_opt_append@@GLIBC_2.5
+D inet6_opt_find@@GLIBC_2.5
+D inet6_opt_finish@@GLIBC_2.5
+D inet6_opt_get_val@@GLIBC_2.5
+D inet6_opt_init@@GLIBC_2.5
+D inet6_opt_next@@GLIBC_2.5
+D inet6_opt_set_val@@GLIBC_2.5
+
+O inet6_option.os
+I assert.os
+I memcpy.os
+I memset.os
+I divdi3.os
+D inet6_option_alloc@@GLIBC_2.4
+D inet6_option_append@@GLIBC_2.4
+D inet6_option_find@@GLIBC_2.4
+D inet6_option_init@@GLIBC_2.4
+D inet6_option_next@@GLIBC_2.4
+D inet6_option_space@@GLIBC_2.4
+
+O inet6_rth.os
+I memcpy.os
+I memmove.os
+I memset.os
+I divdi3.os
+D inet6_rth_add@@GLIBC_2.5
+D inet6_rth_getaddr@@GLIBC_2.5
+D inet6_rth_init@@GLIBC_2.5
+D inet6_rth_reverse@@GLIBC_2.5
+D inet6_rth_segments@@GLIBC_2.5
+D inet6_rth_space@@GLIBC_2.5
+
+O inet_addr.os
+I strtoul.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I ctype-info.os
+I global-locale.os
+D inet_addr@@GLIBC_2.4
+W inet_aton@@GLIBC_2.4
+
+O inet_lnaof.os
+I divdi3.os
+D inet_lnaof@@GLIBC_2.4
+
+O inet_mkadr.os
+I divdi3.os
+D inet_makeaddr@@GLIBC_2.4
+
+O inet_net.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+D inet_network@@GLIBC_2.4
+
+O inet_netof.os
+I divdi3.os
+D inet_netof@@GLIBC_2.4
+
+O inet_ntoa.os
+I divdi3.os
+I snprintf.os
+D inet_ntoa@@GLIBC_2.4
+U __tls_get_addr@@GLIBC_2.4
+
+O inet_ntop.os
+I sprintf.os
+I strcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D inet_ntop@@GLIBC_2.4
+
+O inet_pton.os
+I memcpy.os
+I strchr.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I ctype-info.os
+I global-locale.os
+D inet_pton@@GLIBC_2.4
+
+O init-first.os
+I abort.os
+I divdi3.os
+I environ.os
+I fpu_control.os
+I init-misc.os
+I setfpucw.os
+D __libc_init_first@@GLIBC_2.4
+u _dl_starting_up
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O init-misc.os
+I strrchr.os
+I divdi3.os
+D __progname@@GLIBC_2.4
+D __progname_full@@GLIBC_2.4
+W program_invocation_name@@GLIBC_2.4
+W program_invocation_short_name@@GLIBC_2.4
+
+O init-posix.os
+I divdi3.os
+
+O init_module.os
+I sysdep.os
+D init_module@@GLIBC_2.4
+
+O initgroups.os
+I assert.os
+I libc_fatal.os
+I nsswitch.os
+I sysconf.os
+I dl-profstub.os
+I memcpy.os
+I setgroups.os
+I strcmp.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I nscd_initgroups.os
+I grp-lookup.os
+I nscd_getgr_r.os
+I malloc.os
+D getgrouplist@@GLIBC_2.4
+D initgroups@@GLIBC_2.4
+
+O inlines.os
+I divdi3.os
+I add_n.os
+I sub_n.os
+
+O inotify_add_watch.os
+I sysdep.os
+D inotify_add_watch@@GLIBC_2.4
+
+O inotify_init.os
+I sysdep.os
+D inotify_init@@GLIBC_2.4
+
+O inotify_rm_watch.os
+I sysdep.os
+D inotify_rm_watch@@GLIBC_2.4
+
+O insremque.os
+I divdi3.os
+D insque@@GLIBC_2.4
+D remque@@GLIBC_2.4
+
+O internal_statvfs.os
+I assert.os
+I xstat64.os
+I rewind.os
+I strchr.os
+I strcmp.os
+I divdi3.os
+I mntent_r.os
+I __fsetlocking.os
+
+O internal_statvfs64.os
+I divdi3.os
+I internal_statvfs.os
+
+O ioctl.os
+I sysdep.os
+W ioctl@@GLIBC_2.4
+
+O iofclose.os
+I fileops.os
+I genops.os
+I stdio.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I gconv_db.os
+I malloc.os
+D _IO_fclose@@GLIBC_2.4
+D fclose@@GLIBC_2.4
+
+O iofdopen.os
+I fileops.os
+I genops.os
+I wfileops.os
+I fcntl.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I malloc.os
+D _IO_fdopen@@GLIBC_2.4
+D fdopen@@GLIBC_2.4
+
+O iofflush.os
+I genops.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_fflush@@GLIBC_2.4
+W fflush@@GLIBC_2.4
+
+O iofflush_u.os
+I genops.os
+I divdi3.os
+D fflush_unlocked@@GLIBC_2.4
+
+O iofgetpos.os
+I ioseekoff.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D _IO_fgetpos@@GLIBC_2.4
+D fgetpos@@GLIBC_2.4
+
+O iofgetpos64.os
+I ioseekoff.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D _IO_fgetpos64@@GLIBC_2.4
+D fgetpos64@@GLIBC_2.4
+
+O iofgets.os
+I iogetline.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D _IO_fgets@@GLIBC_2.4
+W fgets@@GLIBC_2.4
+
+O iofgets_u.os
+I iogetline.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D fgets_unlocked@@GLIBC_2.4
+
+O iofgetws.os
+I iogetwline.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D fgetws@@GLIBC_2.4
+
+O iofgetws_u.os
+I iogetwline.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D fgetws_unlocked@@GLIBC_2.4
+
+O iofopen.os
+I fileops.os
+I genops.os
+I wfileops.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I malloc.os
+D _IO_fopen@@GLIBC_2.4
+D fopen@@GLIBC_2.4
+
+O iofopen64.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I iofopen.os
+W fopen64@@GLIBC_2.4
+
+O iofopncook.os
+I genops.os
+I filedoalloc.os
+I fileops.os
+I divdi3.os
+I malloc.os
+D fopencookie@@GLIBC_2.4
+
+O iofputs.os
+I unwind-resume.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_fputs@@GLIBC_2.4
+W fputs@@GLIBC_2.4
+
+O iofputs_u.os
+I strlen.os
+I divdi3.os
+D fputs_unlocked@@GLIBC_2.4
+
+O iofputws.os
+I iofwide.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I wcslen.os
+D fputws@@GLIBC_2.4
+
+O iofputws_u.os
+I iofwide.os
+I divdi3.os
+I wcslen.os
+D fputws_unlocked@@GLIBC_2.4
+
+O iofread.os
+I genops.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_fread@@GLIBC_2.4
+W fread@@GLIBC_2.4
+
+O iofread_u.os
+I genops.os
+I divdi3.os
+D fread_unlocked@@GLIBC_2.4
+
+O iofsetpos.os
+I ioseekpos.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D _IO_fsetpos@@GLIBC_2.4
+D fsetpos@@GLIBC_2.4
+
+O iofsetpos64.os
+I ioseekpos.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D _IO_fsetpos64@@GLIBC_2.4
+D fsetpos64@@GLIBC_2.4
+
+O ioftell.os
+I ioseekoff.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D _IO_ftell@@GLIBC_2.4
+W ftell@@GLIBC_2.4
+
+O iofwide.os
+I assert.os
+I dl-profstub.os
+I memcpy.os
+I divdi3.os
+I gconv_trans.os
+I wcsmbsload.os
+
+O iofwrite.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_fwrite@@GLIBC_2.4
+W fwrite@@GLIBC_2.4
+
+O iofwrite_u.os
+I divdi3.os
+D fwrite_unlocked@@GLIBC_2.4
+
+O iogetdelim.os
+I unwind-resume.os
+I genops.os
+I memchr.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I malloc.os
+W __getdelim@@GLIBC_2.4
+W getdelim@@GLIBC_2.4
+
+O iogetline.os
+I genops.os
+I memchr.os
+I memcpy.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+D _IO_getline@@GLIBC_2.4
+D _IO_getline_info@@GLIBC_2.4
+
+O iogets.os
+I iogetline.os
+I stdio.os
+I unwind-resume.os
+I genops.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_gets@@GLIBC_2.4
+W gets@@GLIBC_2.4
+
+O iogetwline.os
+I iofwide.os
+I genops.os
+I wgenops.os
+I wmemchr.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I wmemcpy.os
+
+O iopadn.os
+I divdi3.os
+D _IO_padn@@GLIBC_2.4
+
+O ioperm.os
+I iofclose.os
+I iofopen.os
+I iofwrite.os
+I sscanf.os
+I strcmp.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I mmap.os
+I close.os
+I iofgets.os
+I fscanf.os
+I open.os
+I readlink.os
+I stdio.os
+I sysctl.os
+W inb@@GLIBC_2.4
+W inl@@GLIBC_2.4
+W inw@@GLIBC_2.4
+W ioperm@@GLIBC_2.4
+W iopl@@GLIBC_2.4
+W outb@@GLIBC_2.4
+W outl@@GLIBC_2.4
+W outw@@GLIBC_2.4
+
+O iopopen.os
+I genops.os
+I filedoalloc.os
+I fileops.os
+I dup2.os
+I fork.os
+I pipe.os
+I _exit.os
+I execl.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I forward.os
+I malloc.os
+D _IO_popen@@GLIBC_2.4
+D _IO_proc_close@@GLIBC_2.4
+D _IO_proc_open@@GLIBC_2.4
+D popen@@GLIBC_2.4
+
+O ioputs.os
+I stdio.os
+I unwind-resume.os
+I genops.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_puts@@GLIBC_2.4
+W puts@@GLIBC_2.4
+
+O ioseekoff.os
+I genops.os
+I wgenops.os
+I unwind-resume.os
+I abort.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+D _IO_seekoff@@GLIBC_2.4
+
+O ioseekpos.os
+I genops.os
+I wgenops.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+D _IO_seekpos@@GLIBC_2.4
+
+O iosetbuffer.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_setbuffer@@GLIBC_2.4
+W setbuffer@@GLIBC_2.4
+
+O iosetvbuf.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_setvbuf@@GLIBC_2.4
+W setvbuf@@GLIBC_2.4
+
+O ioungetc.os
+I genops.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+D _IO_ungetc@@GLIBC_2.4
+W ungetc@@GLIBC_2.4
+
+O ioungetwc.os
+I iofwide.os
+I wgenops.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+D ungetwc@@GLIBC_2.4
+
+O iovdprintf.os
+I fileops.os
+I genops.os
+I vfprintf.os
+I wfileops.os
+I divdi3.os
+W vdprintf@@GLIBC_2.4
+
+O iovsprintf.os
+I genops.os
+I strops.os
+I vfprintf.os
+I divdi3.os
+D _IO_vsprintf@@GLIBC_2.4
+W vsprintf@@GLIBC_2.4
+
+O iovsscanf.os
+I genops.os
+I strops.os
+I vfscanf.os
+I divdi3.os
+W __vsscanf@@GLIBC_2.4
+W vsscanf@@GLIBC_2.4
+
+O iovswscanf.os
+I iofwide.os
+I genops.os
+I vfwscanf.os
+I wstrops.os
+I divdi3.os
+D vswscanf@@GLIBC_2.4
+
+O iowpadn.os
+I divdi3.os
+
+O isastream.os
+I fcntl.os
+I divdi3.os
+D isastream@@GLIBC_2.4
+
+O isatty.os
+I divdi3.os
+I tcgetattr.os
+W isatty@@GLIBC_2.4
+
+O isctype.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __isctype@@GLIBC_2.4
+W isctype@@GLIBC_2.4
+
+O isfdtype.os
+I fxstat64.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D isfdtype@@GLIBC_2.4
+
+O iswctype.os
+I divdi3.os
+D __iswctype@@GLIBC_2.4
+W iswctype@@GLIBC_2.4
+
+O iswctype_l.os
+I divdi3.os
+D __iswctype_l@@GLIBC_2.4
+W iswctype_l@@GLIBC_2.4
+
+O itoa-digits.os
+I divdi3.os
+D _itoa_lower_digits@@GLIBC_PRIVATE
+
+O itoa-udigits.os
+I divdi3.os
+
+O itowa-digits.os
+I divdi3.os
+
+O jmp-unwind.os
+I divdi3.os
+I forward.os
+
+O jrand48.os
+I divdi3.os
+I jrand48_r.os
+I drand48-iter.os
+D jrand48@@GLIBC_2.4
+
+O jrand48_r.os
+I divdi3.os
+I drand48-iter.os
+W jrand48_r@@GLIBC_2.4
+
+O key-lookup.os
+I nsswitch.os
+I divdi3.os
+
+O key_call.os
+I close.os
+I fcntl.os
+I getpid.os
+I memset.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I geteuid.os
+I getpeername.os
+I rpc_thread.os
+I auth_unix.os
+I clnt_gen.os
+I clnt_udp.os
+I malloc.os
+I key_prot.os
+I rpc_prot.os
+I xdr.os
+D __key_decryptsession_pk_LOCAL@@GLIBC_2.4
+D __key_encryptsession_pk_LOCAL@@GLIBC_2.4
+D __key_gendes_LOCAL@@GLIBC_2.4
+D key_decryptsession@@GLIBC_2.4
+D key_decryptsession_pk@@GLIBC_2.4
+D key_encryptsession@@GLIBC_2.4
+D key_encryptsession_pk@@GLIBC_2.4
+D key_gendes@@GLIBC_2.4
+D key_get_conv@@GLIBC_2.4
+D key_secretkey_is_set@@GLIBC_2.4
+D key_setnet@@GLIBC_2.4
+D key_setsecret@@GLIBC_2.4
+
+O key_prot.os
+I divdi3.os
+I xdr_array.os
+I rpc_prot.os
+I xdr.os
+D xdr_cryptkeyarg@@GLIBC_2.4
+D xdr_cryptkeyarg2@@GLIBC_2.4
+D xdr_cryptkeyres@@GLIBC_2.4
+D xdr_getcredres@@GLIBC_2.4
+D xdr_key_netstarg@@GLIBC_2.4
+D xdr_key_netstres@@GLIBC_2.4
+D xdr_keybuf@@GLIBC_2.4
+D xdr_keystatus@@GLIBC_2.4
+D xdr_netnamestr@@GLIBC_2.4
+D xdr_unixcred@@GLIBC_2.4
+
+O kill.os
+I sysdep.os
+W kill@@GLIBC_2.4
+
+O killpg.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I kill.os
+I errno.os
+D killpg@@GLIBC_2.4
+
+O klogctl.os
+I sysdep.os
+D klogctl@@GLIBC_2.4
+
+O l10nflist.os
+I rawmemchr.os
+I stpcpy.os
+I memcpy.os
+I strcmp.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I argz-count.os
+I argz-stringify.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+I malloc.os
+
+O l64a.os
+I divdi3.os
+D l64a@@GLIBC_2.4
+
+O labs.os
+I divdi3.os
+D labs@@GLIBC_2.4
+
+O lc-address.os
+I divdi3.os
+
+O lc-collate.os
+I divdi3.os
+
+O lc-ctype.os
+I libc-aeabi_read_tp.os
+I ctype-info.os
+I divdi3.os
+I global-locale.os
+
+O lc-identification.os
+I divdi3.os
+
+O lc-measurement.os
+I divdi3.os
+
+O lc-messages.os
+I divdi3.os
+
+O lc-monetary.os
+I divdi3.os
+
+O lc-name.os
+I divdi3.os
+
+O lc-numeric.os
+I divdi3.os
+
+O lc-paper.os
+I divdi3.os
+
+O lc-telephone.os
+I divdi3.os
+
+O lc-time-cleanup.os
+I divdi3.os
+I malloc.os
+
+O lc-time.os
+I divdi3.os
+
+O lchmod.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D lchmod@@GLIBC_2.4
+
+O lchown.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W lchown@@GLIBC_2.4
+
+O lckpwdf.os
+I close.os
+I fcntl.os
+I open.os
+I sigaction.os
+I alarm.os
+I memset.os
+I divdi3.os
+I sigprocmask.os
+W lckpwdf@@GLIBC_2.4
+W ulckpwdf@@GLIBC_2.4
+
+O lcong48.os
+I divdi3.os
+I lcong48_r.os
+I drand48-iter.os
+D lcong48@@GLIBC_2.4
+
+O lcong48_r.os
+I memcpy.os
+I divdi3.os
+W lcong48_r@@GLIBC_2.4
+
+O ldbl2mpn.os
+I divdi3.os
+
+O ldiv.os
+I divdi3.os
+D ldiv@@GLIBC_2.4
+
+O lgetxattr.os
+I sysdep.os
+D lgetxattr@@GLIBC_2.4
+
+O libc-aeabi_read_tp.os
+
+O libc-cancellation.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I forward.os
+
+O libc-lowlevellock.os
+I divdi3.os
+I gettimeofday.os
+
+O libc-start.os
+I bsd-_setjmp.os
+I exit.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I cxa_atexit.os
+I divdi3.os
+I environ.os
+I exit-thread.os
+I init-first.os
+I forward.os
+D __libc_start_main@@GLIBC_2.4
+u _dl_starting_up
+U _rtld_global@@GLIBC_PRIVATE
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O libc_fatal.os
+I backtrace.os
+I backtracesymsfd.os
+I secure-getenv.os
+I abort.os
+I strlen.os
+I syslog.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I strchrnul.os
+D __libc_fatal@@GLIBC_PRIVATE
+
+O libc_multiple_threads.os
+I divdi3.os
+
+O libc_pthread_init.os
+I register-atfork.os
+I divdi3.os
+I fork.os
+I libc_multiple_threads.os
+I forward.os
+D __libc_pthread_init@@GLIBC_PRIVATE
+
+O link.os
+I sysdep.os
+W link@@GLIBC_2.4
+
+O linkat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D linkat@@GLIBC_2.4
+
+O listen.os
+I sysdep.os
+W listen@@GLIBC_2.4
+
+O listxattr.os
+I sysdep.os
+D listxattr@@GLIBC_2.4
+
+O llabs.os
+I divdi3.os
+W imaxabs@@GLIBC_2.4
+D llabs@@GLIBC_2.4
+
+O lldiv.os
+I divdi3.os
+W imaxdiv@@GLIBC_2.4
+D lldiv@@GLIBC_2.4
+
+O llistxattr.os
+I sysdep.os
+D llistxattr@@GLIBC_2.4
+
+O llseek.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W llseek@@GLIBC_2.4
+W lseek64@@GLIBC_2.4
+
+O loadarchive.os
+I assert.os
+I fxstat64.os
+I mempcpy.os
+I strdup.os
+I sysconf.os
+I memcpy.os
+I msort.os
+I strchr.os
+I strcmp.os
+I strlen.os
+I strncmp.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I mmap64.os
+I munmap.os
+I strchrnul.os
+I loadlocale.os
+I l10nflist.os
+I malloc.os
+
+O loadlocale.os
+I assert.os
+I fxstat64.os
+I mempcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I mmap.os
+I munmap.os
+I setlocale.os
+I malloc.os
+
+O loadmsgcat.os
+I fxstat64.os
+I abort.os
+I memcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I gconv_close.os
+I plural-exp.os
+I plural.os
+I hash-string.os
+I errno.os
+I mmap.os
+I munmap.os
+I dcigettext.os
+I malloc.os
+D _nl_msg_cat_cntr@@GLIBC_2.4
+
+O localealias.os
+I iofclose.os
+I iofopen.os
+I mempcpy.os
+I strcasecmp.os
+I bsearch.os
+I iofgets_u.os
+I memcpy.os
+I msort.os
+I strchr.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I __fsetlocking.os
+I ctype-info.os
+I global-locale.os
+I malloc.os
+
+O localeconv.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D localeconv@@GLIBC_2.4
+
+O localename.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+
+O localtime.os
+I divdi3.os
+I tzset.os
+D localtime@@GLIBC_2.4
+W localtime_r@@GLIBC_2.4
+
+O lockf.os
+I fcntl.os
+I getpid.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+D lockf@@GLIBC_2.4
+
+O lockf64.os
+I getpid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D lockf64@@GLIBC_2.4
+
+O longjmp.os
+I divdi3.os
+I __longjmp.os
+I sigprocmask.os
+I jmp-unwind.os
+D __libc_longjmp@@GLIBC_PRIVATE
+D __libc_siglongjmp@@GLIBC_PRIVATE
+W _longjmp@@GLIBC_2.4
+W longjmp@@GLIBC_2.4
+W siglongjmp@@GLIBC_2.4
+
+O lrand48.os
+I divdi3.os
+I drand48-iter.os
+I nrand48_r.os
+D lrand48@@GLIBC_2.4
+
+O lrand48_r.os
+I divdi3.os
+I nrand48_r.os
+D lrand48_r@@GLIBC_2.4
+
+O lremovexattr.os
+I sysdep.os
+D lremovexattr@@GLIBC_2.4
+
+O lsearch.os
+I memcpy.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+D lfind@@GLIBC_2.4
+D lsearch@@GLIBC_2.4
+
+O lseek.os
+I sysdep.os
+W __lseek@@GLIBC_2.4
+W lseek@@GLIBC_2.4
+
+O lseek64.os
+I divdi3.os
+
+O lsetxattr.os
+I sysdep.os
+D lsetxattr@@GLIBC_2.4
+
+O lshift.os
+I divdi3.os
+
+O lutimes.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D lutimes@@GLIBC_2.4
+
+O lxstat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I xstatconv.os
+D __lxstat@@GLIBC_2.4
+
+O lxstat64.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __lxstat64@@GLIBC_2.4
+
+O madvise.os
+I sysdep.os
+D madvise@@GLIBC_2.4
+
+O makecontext.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D makecontext@@GLIBC_2.4
+
+O makedev.os
+I divdi3.os
+D gnu_dev_major@@GLIBC_2.4
+D gnu_dev_makedev@@GLIBC_2.4
+D gnu_dev_minor@@GLIBC_2.4
+
+O malloc.os
+I morecore.os
+I getpagesize.os
+I register-atfork.os
+I strtol.os
+I dl-addr.os
+I dl-libc.os
+I abort.os
+I fprintf.os
+I iofwrite.os
+I madvise.os
+I memcmp.os
+I memcpy.os
+I memset.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I dso_handle.os
+I init-first.os
+I errno.os
+I libc_fatal.os
+I mmap.os
+I mprotect.os
+I mremap.os
+I munmap.os
+I environ.os
+I _itoa.os
+I stdio.os
+W __after_morecore_hook@@GLIBC_2.4
+W __free_hook@@GLIBC_2.4
+W __free_trace@@GLIBC_2.10
+D __libc_calloc@@GLIBC_2.4
+D __libc_free@@GLIBC_2.4
+D __libc_mallinfo@@GLIBC_2.4
+D __libc_malloc@@GLIBC_2.4
+D __libc_mallopt@@GLIBC_2.4
+D __libc_memalign@@GLIBC_2.4
+D __libc_pvalloc@@GLIBC_2.4
+D __libc_realloc@@GLIBC_2.4
+D __libc_valloc@@GLIBC_2.4
+W __malloc_hook@@GLIBC_2.4
+W __malloc_initialize_hook@@GLIBC_2.4
+W __malloc_trace@@GLIBC_2.10
+W __memalign_hook@@GLIBC_2.4
+W __memalign_trace@@GLIBC_2.10
+D __morecore@@GLIBC_2.4
+W __realloc_hook@@GLIBC_2.4
+W __realloc_trace@@GLIBC_2.10
+W calloc@@GLIBC_2.4
+W cfree@@GLIBC_2.4
+D free@@GLIBC_2.4
+W mallinfo@@GLIBC_2.4
+D malloc@@GLIBC_2.4
+W malloc_get_state@@GLIBC_2.4
+W malloc_set_state@@GLIBC_2.4
+W malloc_stats@@GLIBC_2.4
+W malloc_trim@@GLIBC_2.4
+W malloc_usable_size@@GLIBC_2.4
+W mallopt@@GLIBC_2.4
+W memalign@@GLIBC_2.4
+W posix_memalign@@GLIBC_2.4
+W pvalloc@@GLIBC_2.4
+D realloc@@GLIBC_2.4
+W valloc@@GLIBC_2.4
+U __libc_enable_secure@@GLIBC_PRIVATE
+
+O mb_cur_max.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+W __ctype_get_mb_cur_max@@GLIBC_2.4
+
+O mbind.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+
+O mblen.os
+I mbrtowc.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+I wcsmbsload.os
+I C-ctype.os
+D mblen@@GLIBC_2.4
+
+O mbrlen.os
+I mbrtowc.os
+I divdi3.os
+D __mbrlen@@GLIBC_2.4
+W mbrlen@@GLIBC_2.4
+
+O mbrtowc.os
+I assert.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I global-locale.os
+I wcsmbsload.os
+I C-ctype.os
+D __mbrtowc@@GLIBC_2.4
+W mbrtowc@@GLIBC_2.4
+
+O mbsinit.os
+I divdi3.os
+W mbsinit@@GLIBC_2.4
+
+O mbsnrtowcs.os
+I assert.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I global-locale.os
+I strnlen.os
+I wcsmbsload.os
+I C-ctype.os
+W mbsnrtowcs@@GLIBC_2.4
+
+O mbsnrtowcs_chk.os
+I chk_fail.os
+I divdi3.os
+I mbsnrtowcs.os
+D __mbsnrtowcs_chk@@GLIBC_2.4
+
+O mbsrtowcs.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+I mbsrtowcs_l.os
+W mbsrtowcs@@GLIBC_2.4
+
+O mbsrtowcs_chk.os
+I chk_fail.os
+I divdi3.os
+I mbsrtowcs.os
+D __mbsrtowcs_chk@@GLIBC_2.4
+
+O mbsrtowcs_l.os
+I assert.os
+I dl-profstub.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I strnlen.os
+I wcsmbsload.os
+I C-ctype.os
+
+O mbstowcs.os
+I divdi3.os
+I mbsrtowcs.os
+D mbstowcs@@GLIBC_2.4
+
+O mbstowcs_chk.os
+I chk_fail.os
+I divdi3.os
+I mbsrtowcs.os
+D __mbstowcs_chk@@GLIBC_2.4
+
+O mbtowc.os
+I mbrtowc.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+I wcsmbsload.os
+I C-ctype.os
+D mbtowc@@GLIBC_2.4
+
+O mcheck.os
+I dcgettext.os
+I libc_fatal.os
+I SYS_libc.os
+I memset.os
+I divdi3.os
+I malloc.os
+D mcheck@@GLIBC_2.4
+D mcheck_check_all@@GLIBC_2.4
+D mcheck_pedantic@@GLIBC_2.4
+D mprobe@@GLIBC_2.4
+
+O mcount.os
+I divdi3.os
+I gmon.os
+D __gnu_mcount_nc@@GLIBC_2.8
+D _mcount@@GLIBC_2.4
+W mcount@@GLIBC_2.4
+
+O memccpy.os
+I divdi3.os
+W memccpy@@GLIBC_2.4
+
+O memchr.os
+I divdi3.os
+D memchr@@GLIBC_2.4
+
+O memcmp.os
+I divdi3.os
+W bcmp@@GLIBC_2.4
+D memcmp@@GLIBC_2.4
+
+O memcpy.os
+D memcpy@@GLIBC_2.4
+
+O memcpy_chk.os
+I chk_fail.os
+I divdi3.os
+I wordcopy.os
+D __memcpy_chk@@GLIBC_2.4
+
+O memfrob.os
+I divdi3.os
+D memfrob@@GLIBC_2.4
+
+O memmem.os
+I memcmp.os
+I divdi3.os
+D memmem@@GLIBC_2.4
+
+O memmove.os
+I memcpy.os
+D memmove@@GLIBC_2.4
+
+O memmove_chk.os
+I chk_fail.os
+I divdi3.os
+I wordcopy.os
+D __memmove_chk@@GLIBC_2.4
+
+O mempcpy.os
+I divdi3.os
+I wordcopy.os
+D __mempcpy@@GLIBC_2.4
+D mempcpy@@GLIBC_2.4
+
+O mempcpy_chk.os
+I chk_fail.os
+I divdi3.os
+I wordcopy.os
+D __mempcpy_chk@@GLIBC_2.4
+
+O memrchr.os
+I divdi3.os
+W memrchr@@GLIBC_2.4
+
+O memset.os
+D memset@@GLIBC_2.4
+
+O memset_chk.os
+I chk_fail.os
+I divdi3.os
+D __memset_chk@@GLIBC_2.4
+
+O memstream.os
+I genops.os
+I strops.os
+I divdi3.os
+I malloc.os
+D open_memstream@@GLIBC_2.4
+
+O mincore.os
+I sysdep.os
+D mincore@@GLIBC_2.4
+
+O mkdir.os
+I sysdep.os
+W mkdir@@GLIBC_2.4
+
+O mkdirat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D mkdirat@@GLIBC_2.4
+
+O mkdtemp.os
+I divdi3.os
+I tempname.os
+D mkdtemp@@GLIBC_2.4
+
+O mkfifo.os
+I xmknod.os
+I divdi3.os
+D mkfifo@@GLIBC_2.4
+
+O mkfifoat.os
+I xmknodat.os
+I divdi3.os
+D mkfifoat@@GLIBC_2.4
+
+O mkstemp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I tempname.os
+D mkstemp@@GLIBC_2.4
+
+O mkstemp64.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I tempname.os
+D mkstemp64@@GLIBC_2.4
+
+O mktemp.os
+I divdi3.os
+I tempname.os
+D mktemp@@GLIBC_2.4
+
+O mktime.os
+I divdi3.os
+I localtime.os
+I tzset.os
+D mktime@@GLIBC_2.4
+W timelocal@@GLIBC_2.4
+
+O mlock.os
+I sysdep.os
+W mlock@@GLIBC_2.4
+
+O mlockall.os
+I sysdep.os
+D mlockall@@GLIBC_2.4
+
+O mmap.os
+I sysdep.os
+W mmap@@GLIBC_2.4
+
+O mmap64.os
+I sysdep.os
+W mmap64@@GLIBC_2.4
+
+O mntent.os
+I divdi3.os
+I mntent_r.os
+I forward.os
+I malloc.os
+D getmntent@@GLIBC_2.4
+
+O mntent_r.os
+I iofclose.os
+I iofopen.os
+I iofgets_u.os
+I fprintf.os
+I fseek.os
+I memcpy.os
+I mempcpy.os
+I sscanf.os
+I strchr.os
+I strlen.os
+I strstr.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I __fsetlocking.os
+D __endmntent@@GLIBC_2.4
+D __getmntent_r@@GLIBC_2.4
+D __setmntent@@GLIBC_2.4
+W addmntent@@GLIBC_2.4
+W endmntent@@GLIBC_2.4
+W getmntent_r@@GLIBC_2.4
+W hasmntopt@@GLIBC_2.4
+W setmntent@@GLIBC_2.4
+
+O mod_1.os
+I mp_clz_tab.os
+I divdi3.os
+
+O morecore.os
+I sbrk.os
+I divdi3.os
+D __default_morecore@@GLIBC_2.4
+
+O mount.os
+I sysdep.os
+W mount@@GLIBC_2.4
+
+O mp_clz_tab.os
+I divdi3.os
+
+O mpn2dbl.os
+I divdi3.os
+
+O mpn2flt.os
+I divdi3.os
+
+O mpn2ldbl.os
+I divdi3.os
+
+O mprotect.os
+I sysdep.os
+W mprotect@@GLIBC_2.4
+
+O mrand48.os
+I divdi3.os
+I jrand48_r.os
+I drand48-iter.os
+D mrand48@@GLIBC_2.4
+
+O mrand48_r.os
+I divdi3.os
+I jrand48_r.os
+D mrand48_r@@GLIBC_2.4
+
+O mremap.os
+I sysdep.os
+W mremap@@GLIBC_2.4
+
+O msgctl.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D msgctl@@GLIBC_2.4
+
+O msgget.os
+I sysdep.os
+W msgget@@GLIBC_2.4
+
+O msgrcv.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W msgrcv@@GLIBC_2.4
+
+O msgsnd.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W msgsnd@@GLIBC_2.4
+
+O msort.os
+I mempcpy.os
+I sysconf.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I qsort.os
+I malloc.os
+D qsort@@GLIBC_2.4
+
+O msync.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W msync@@GLIBC_2.4
+
+O mtrace.os
+I iofclose.os
+I iofopen.os
+I iosetvbuf.os
+I fcntl.os
+I set-freeres.os
+I mempcpy.os
+I secure-getenv.os
+I stpcpy.os
+I dl-addr.os
+I fileno.os
+I fprintf.os
+I iofwrite.os
+I strlen.os
+I cxa_atexit.os
+I divdi3.os
+I dso_handle.os
+I malloc.os
+I _itoa.os
+D mallwatch@@GLIBC_2.4
+D mtrace@@GLIBC_2.4
+D muntrace@@GLIBC_2.4
+D tr_break@@GLIBC_2.4
+
+O mul.os
+I divdi3.os
+I add_n.os
+I addmul_1.os
+I mul_n.os
+I mul_1.os
+
+O mul_1.os
+I divdi3.os
+
+O mul_n.os
+I divdi3.os
+I add_n.os
+I addmul_1.os
+I cmp.os
+I mul_1.os
+I sub_n.os
+
+O munlock.os
+I sysdep.os
+D munlock@@GLIBC_2.4
+
+O munlockall.os
+I sysdep.os
+D munlockall@@GLIBC_2.4
+
+O munmap.os
+I sysdep.os
+W munmap@@GLIBC_2.4
+
+O nanosleep.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W __nanosleep@@GLIBC_2.4
+W nanosleep@@GLIBC_2.4
+
+O netgrp-lookup.os
+I nsswitch.os
+I divdi3.os
+
+O netname.os
+I nsswitch.os
+I getdomain.os
+I sprintf.os
+I strchr.os
+I strlen.os
+I strncpy.os
+I divdi3.os
+I geteuid.os
+I gethostname.os
+I key-lookup.os
+D getnetname@@GLIBC_2.4
+D host2netname@@GLIBC_2.4
+D netname2host@@GLIBC_2.4
+D netname2user@@GLIBC_2.4
+D user2netname@@GLIBC_2.4
+
+O network-lookup.os
+I nsswitch.os
+I divdi3.os
+
+O newlocale.os
+I stpcpy.os
+I getenv.os
+I memcmp.os
+I memcpy.os
+I strchr.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I argz-addsep.os
+I argz-ctsep.os
+I divdi3.os
+I errno.os
+I setlocale.os
+I xlocale.os
+I C_name.os
+I findlocale.os
+I malloc.os
+D __newlocale@@GLIBC_2.4
+W newlocale@@GLIBC_2.4
+
+O nfsservctl.os
+I sysdep.os
+D nfsservctl@@GLIBC_2.4
+
+O ngettext.os
+I dcngettext.os
+I divdi3.os
+W ngettext@@GLIBC_2.4
+
+O nice.os
+I getpriority.os
+I setpriority.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D nice@@GLIBC_2.4
+
+O nis_hash.os
+I divdi3.os
+
+O nl_langinfo.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D nl_langinfo@@GLIBC_2.4
+
+O nl_langinfo_l.os
+I divdi3.os
+D __nl_langinfo_l@@GLIBC_2.4
+W nl_langinfo_l@@GLIBC_2.4
+
+O noophooks.os
+I divdi3.os
+D __cyg_profile_func_enter@@GLIBC_2.4
+D __cyg_profile_func_exit@@GLIBC_2.4
+
+O nrand48.os
+I divdi3.os
+I drand48-iter.os
+I nrand48_r.os
+D nrand48@@GLIBC_2.4
+
+O nrand48_r.os
+I divdi3.os
+I drand48-iter.os
+W nrand48_r@@GLIBC_2.4
+
+O nsap_addr.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+D inet_nsap_addr@@GLIBC_2.4
+D inet_nsap_ntoa@@GLIBC_2.4
+
+O nscd_getai.os
+I assert.os
+I memcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I nscd_gethst_r.os
+I errno.os
+I nscd_helper.os
+I malloc.os
+
+O nscd_getgr_r.os
+I assert.os
+I memcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I nscd_helper.os
+I _itoa.os
+I malloc.os
+
+O nscd_gethst_r.os
+I memcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I res_libc.os
+I nscd_helper.os
+I malloc.os
+
+O nscd_getpw_r.os
+I memcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I nscd_helper.os
+I _itoa.os
+I malloc.os
+
+O nscd_getserv_r.os
+I mempcpy.os
+I memcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I nscd_helper.os
+I _itoa.os
+I malloc.os
+
+O nscd_helper.os
+I assert.os
+I close.os
+I fcntl.os
+I fxstat64.os
+I poll.os
+I read.os
+I send.os
+I memcmp.os
+I memcpy.os
+I strcmp.os
+I strlen.os
+I time.os
+I libc-aeabi_read_tp.os
+I connect.os
+I divdi3.os
+I gettimeofday.os
+I errno.os
+I mmap.os
+I munmap.os
+I nis_hash.os
+I pread.os
+I readv.os
+I recvmsg.os
+I socket.os
+I malloc.os
+
+O nscd_initgroups.os
+I assert.os
+I memcpy.os
+I strlen.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I nscd_getgr_r.os
+I nscd_helper.os
+I malloc.os
+
+O nsswitch.os
+I iofclose.os
+I iofopen.os
+I dl-libc.os
+I libc_fatal.os
+I mempcpy.os
+I stpcpy.os
+I memcpy.os
+I strcmp.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I __fsetlocking.os
+I getline.os
+I errno.os
+I ctype-info.os
+I global-locale.os
+I alias-lookup.os
+I ethers-lookup.os
+I grp-lookup.os
+I hosts-lookup.os
+I netgrp-lookup.os
+I network-lookup.os
+I nscd_getgr_r.os
+I nscd_gethst_r.os
+I nscd_getpw_r.os
+I nscd_getserv_r.os
+I pwd-lookup.os
+I proto-lookup.os
+I key-lookup.os
+I rpc-lookup.os
+I service-lookup.os
+I spwd-lookup.os
+I strchrnul.os
+I strncase.os
+I tsearch.os
+I malloc.os
+D __nss_configure_lookup@@GLIBC_2.4
+D __nss_database_lookup@@GLIBC_2.4
+D __nss_disable_nscd@@GLIBC_PRIVATE
+D __nss_lookup_function@@GLIBC_PRIVATE
+D __nss_next@@GLIBC_2.4
+
+O ntp_gettime.os
+I adjtimex.os
+I divdi3.os
+D ntp_gettime@@GLIBC_2.4
+
+O obprintf.os
+I genops.os
+I strops.os
+I vfprintf.os
+I assert.os
+I mempcpy.os
+I obstack.os
+I memcpy.os
+I divdi3.os
+W obstack_printf@@GLIBC_2.4
+W obstack_vprintf@@GLIBC_2.4
+
+O obstack.os
+I dcgettext.os
+I SYS_libc.os
+I abort.os
+I exit.os
+I divdi3.os
+I fxprintf.os
+D _obstack_allocated_p@@GLIBC_2.4
+D _obstack_begin@@GLIBC_2.4
+D _obstack_begin_1@@GLIBC_2.4
+D _obstack_free@@GLIBC_2.4
+D _obstack_memory_used@@GLIBC_2.4
+D _obstack_newchunk@@GLIBC_2.4
+D obstack_alloc_failed_handler@@GLIBC_2.4
+D obstack_exit_failure@@GLIBC_2.4
+D obstack_free@@GLIBC_2.4
+
+O offtime.os
+I divdi3.os
+I mktime.os
+
+O old_atexit.os
+I divdi3.os
+
+O oldfileops.os
+I divdi3.os
+
+O oldgetrlimit64.os
+I divdi3.os
+
+O oldiofclose.os
+I divdi3.os
+
+O oldiofdopen.os
+I divdi3.os
+
+O oldiofgetpos.os
+I divdi3.os
+
+O oldiofgetpos64.os
+I divdi3.os
+
+O oldiofopen.os
+I divdi3.os
+
+O oldiofsetpos.os
+I divdi3.os
+
+O oldiofsetpos64.os
+I divdi3.os
+
+O oldiopopen.os
+I divdi3.os
+
+O oldpclose.os
+I divdi3.os
+
+O oldstdfiles.os
+I divdi3.os
+
+O oldtmpfile.os
+I divdi3.os
+
+O on_exit.os
+I divdi3.os
+I cxa_atexit.os
+W on_exit@@GLIBC_2.4
+
+O open.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W __open@@GLIBC_2.4
+W open@@GLIBC_2.4
+
+O open64.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+W __open64@@GLIBC_2.4
+W open64@@GLIBC_2.4
+
+O open_catalog.os
+I fxstat64.os
+I memcpy.os
+I strchr.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I mmap.os
+I munmap.os
+I malloc.os
+D __open_catalog@@GLIBC_PRIVATE
+
+O openat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+W openat@@GLIBC_2.4
+
+O openat64.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+W openat64@@GLIBC_2.4
+
+O openchild.os
+I iofdopen.os
+I iofflush.os
+I close.os
+I fork.os
+I pipe.os
+I _exit.os
+I rpc_dtable.os
+I execlp.os
+I perror.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I dup.os
+I stdio.os
+
+O opendir.os
+I fcntl.os
+I fxstat64.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I malloc.os
+W opendir@@GLIBC_2.4
+
+O opensock.os
+I assert.os
+I memcpy.os
+I strcpy.os
+I access.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I socket.os
+
+O pathconf.os
+I statfs.os
+I xstat64.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I statvfs64.os
+W pathconf@@GLIBC_2.4
+
+O pause.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W pause@@GLIBC_2.4
+
+O pclose.os
+I iofclose.os
+I divdi3.os
+D pclose@@GLIBC_2.4
+
+O peekc.os
+I unwind-resume.os
+I genops.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_peekc_locked@@GLIBC_2.4
+
+O perror.os
+I iofclose.os
+I iofdopen.os
+I close.os
+I _strerror.os
+I fileno.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I dup.os
+I fxprintf.os
+I errno.os
+I stdio.os
+D perror@@GLIBC_2.4
+
+O personality.os
+I sysdep.os
+W personality@@GLIBC_2.4
+
+O pipe.os
+I sysdep.os
+D __pipe@@GLIBC_2.4
+W pipe@@GLIBC_2.4
+
+O pivot_root.os
+I sysdep.os
+D pivot_root@@GLIBC_2.4
+
+O plural-exp.os
+I strtoul.os
+I strstr.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I plural.os
+I ctype-info.os
+I global-locale.os
+
+O plural.os
+I memcpy.os
+I divdi3.os
+I malloc.os
+
+O pm_getmaps.os
+I close.os
+I dcgettext.os
+I SYS_libc.os
+I clnt_perr.os
+I divdi3.os
+I pm_getport.os
+I clnt_tcp.os
+I pmap_prot2.os
+I xdr.os
+D pmap_getmaps@@GLIBC_2.4
+
+O pm_getport.os
+I close.os
+I rpc_thread.os
+I bind.os
+I connect.os
+I divdi3.os
+I socket.os
+I clnt_tcp.os
+I clnt_udp.os
+I pmap_prot.os
+I xdr.os
+D pmap_getport@@GLIBC_2.4
+
+O pmap_clnt.os
+I dcgettext.os
+I SYS_libc.os
+I clnt_perr.os
+I exit.os
+I ifaddrs.os
+I perror.os
+I divdi3.os
+I clnt_udp.os
+I xdr.os
+I pmap_prot.os
+D pmap_set@@GLIBC_2.4
+D pmap_unset@@GLIBC_2.4
+
+O pmap_prot.os
+I divdi3.os
+I xdr.os
+D xdr_pmap@@GLIBC_2.4
+
+O pmap_prot2.os
+I divdi3.os
+I xdr.os
+I pmap_prot.os
+I xdr_ref.os
+D xdr_pmaplist@@GLIBC_2.4
+
+O pmap_rmt.os
+I close.os
+I dcgettext.os
+I poll.os
+I SYS_libc.os
+I ifaddrs.os
+I perror.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I recvfrom.os
+I sendto.os
+I setsockopt.os
+I socket.os
+I create_xid.os
+I rpc_common.os
+I auth_unix.os
+I clnt_udp.os
+I rpc_cmsg.os
+I xdr_ref.os
+I rpc_prot.os
+I xdr.os
+I xdr_mem.os
+D clnt_broadcast@@GLIBC_2.4
+D pmap_rmtcall@@GLIBC_2.4
+D xdr_rmtcall_args@@GLIBC_2.4
+D xdr_rmtcallres@@GLIBC_2.4
+
+O poll.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+D __poll@@GLIBC_2.4
+W poll@@GLIBC_2.4
+
+O posix_fadvise.os
+I divdi3.os
+I posix_fadvise64.os
+D posix_fadvise@@GLIBC_2.4
+
+O posix_fadvise64.os
+I divdi3.os
+D posix_fadvise64@@GLIBC_2.4
+
+O posix_fallocate.os
+I fxstat64.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I fstatfs.os
+I ftruncate.os
+I errno.os
+I pread.os
+I pwrite.os
+D posix_fallocate@@GLIBC_2.4
+
+O posix_fallocate64.os
+I fxstat64.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I fstatfs64.os
+I ftruncate64.os
+I errno.os
+I pread64.os
+I pwrite64.os
+D posix_fallocate64@@GLIBC_2.4
+
+O posix_madvise.os
+I divdi3.os
+D posix_madvise@@GLIBC_2.4
+
+O ppoll.os
+I poll.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I sigprocmask.os
+D ppoll@@GLIBC_2.4
+
+O prctl.os
+I sysdep.os
+W prctl@@GLIBC_2.4
+
+O pread.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+W pread@@GLIBC_2.4
+
+O pread64.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+W __pread64@@GLIBC_2.4
+W pread64@@GLIBC_2.4
+
+O pread64_chk.os
+I chk_fail.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I pread64.os
+D __pread64_chk@@GLIBC_2.4
+
+O pread_chk.os
+I chk_fail.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I pread.os
+D __pread_chk@@GLIBC_2.4
+
+O printf-parsemb.os
+I mbrlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+I reg-printf.os
+
+O printf-parsewc.os
+I divdi3.os
+I reg-printf.os
+I wcschrnul.os
+
+O printf-prs.os
+I divdi3.os
+I printf-parsemb.os
+I reg-printf.os
+D parse_printf_format@@GLIBC_2.4
+
+O printf.os
+I vfprintf.os
+I divdi3.os
+I stdio.os
+D _IO_printf@@GLIBC_2.4
+D printf@@GLIBC_2.4
+
+O printf_chk.os
+I vfprintf.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I stdio.os
+D __printf_chk@@GLIBC_2.4
+
+O printf_fp.os
+I iopadn.os
+I iowpadn.os
+I assert.os
+I s_isinf.os
+I s_isnan.os
+I mempcpy.os
+I genops.os
+I towctrans.os
+I wgenops.os
+I memcpy.os
+I strlen.os
+I wmemset.os
+I libc-aeabi_read_tp.os
+I mp_clz_tab.os
+I divdi3.os
+I alloca_cutoff.os
+I ctype-info.os
+I global-locale.os
+I cmp.os
+I divrem.os
+I dbl2mpn.os
+I lshift.os
+I mul.os
+I mul_1.os
+I rshift.os
+I fpioconst.os
+I wcrtomb.os
+I wctrans.os
+I wmemcpy.os
+I wmemmove.os
+I malloc.os
+D __printf_fp@@GLIBC_2.4
+
+O printf_fphex.os
+I iopadn.os
+I iowpadn.os
+I assert.os
+I s_isinf.os
+I s_isnan.os
+I genops.os
+I wgenops.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+I s_signbit.os
+I _itoa.os
+I _itowa.os
+I itowa-digits.os
+
+O printf_size.os
+I iopadn.os
+I iowpadn.os
+I s_isinf.os
+I s_isnan.os
+I genops.os
+I printf_fp.os
+I wgenops.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+D printf_size@@GLIBC_2.4
+D printf_size_info@@GLIBC_2.4
+
+O prof-freq.os
+I divdi3.os
+D __profile_frequency@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O profil.os
+I prof-freq.os
+I sigaction.os
+I divdi3.os
+I setitimer.os
+W profil@@GLIBC_2.4
+D profil_counter@@GLIBC_2.4
+
+O proto-lookup.os
+I nsswitch.os
+I divdi3.os
+
+O pselect.os
+I select.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I sigprocmask.os
+W pselect@@GLIBC_2.4
+
+O psignal.os
+I dcgettext.os
+I SYS_libc.os
+I aeabi_unwind_cpp_pr1.os
+I asprintf.os
+I divdi3.os
+I fxprintf.os
+I siglist.os
+I malloc.os
+D psignal@@GLIBC_2.4
+
+O ptrace.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D ptrace@@GLIBC_2.4
+
+O ptsname.os
+I fxstat64.os
+I stpcpy.os
+I xstat64.os
+I memcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ioctl.os
+I isatty.os
+I errno.os
+I getpt.os
+I _itoa.os
+D ptsname@@GLIBC_2.4
+W ptsname_r@@GLIBC_2.4
+
+O ptsname_r_chk.os
+I chk_fail.os
+I divdi3.os
+I ptsname.os
+D __ptsname_r_chk@@GLIBC_2.4
+
+O publickey.os
+I nsswitch.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I key-lookup.os
+D getpublickey@@GLIBC_2.4
+D getsecretkey@@GLIBC_2.4
+
+O putc.os
+I unwind-resume.os
+I genops.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D _IO_putc@@GLIBC_2.4
+W putc@@GLIBC_2.4
+
+O putc_u.os
+I genops.os
+I divdi3.os
+D putc_unlocked@@GLIBC_2.4
+
+O putchar.os
+I stdio.os
+I unwind-resume.os
+I genops.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D putchar@@GLIBC_2.4
+
+O putchar_u.os
+I stdio.os
+I genops.os
+I divdi3.os
+D putchar_unlocked@@GLIBC_2.4
+
+O putenv.os
+I memcpy.os
+I strchr.os
+I setenv.os
+I divdi3.os
+I strnlen.os
+D putenv@@GLIBC_2.4
+
+O putgrent.os
+I genops.os
+I fprintf.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+D putgrent@@GLIBC_2.4
+
+O putmsg.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D putmsg@@GLIBC_2.4
+
+O putpmsg.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D putpmsg@@GLIBC_2.4
+
+O putpwent.os
+I fprintf.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D putpwent@@GLIBC_2.4
+
+O putspent.os
+I genops.os
+I fprintf.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+D putspent@@GLIBC_2.4
+
+O pututxline.os
+I divdi3.os
+I getutent_r.os
+D pututxline@@GLIBC_2.4
+
+O putw.os
+I iofwrite.os
+I divdi3.os
+D putw@@GLIBC_2.4
+
+O putwc.os
+I unwind-resume.os
+I wgenops.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D putwc@@GLIBC_2.4
+
+O putwc_u.os
+I wgenops.os
+I divdi3.os
+D putwc_unlocked@@GLIBC_2.4
+
+O putwchar.os
+I stdio.os
+I unwind-resume.os
+I wgenops.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D putwchar@@GLIBC_2.4
+
+O putwchar_u.os
+I stdio.os
+I wgenops.os
+I divdi3.os
+D putwchar_unlocked@@GLIBC_2.4
+
+O pwd-lookup.os
+I nsswitch.os
+I divdi3.os
+D __nss_passwd_lookup@@GLIBC_2.4
+
+O pwrite.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+D __libc_pwrite@@GLIBC_PRIVATE
+W pwrite@@GLIBC_2.4
+
+O pwrite64.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+W __pwrite64@@GLIBC_2.4
+W pwrite64@@GLIBC_2.4
+
+O qefgcvt.os
+I sprintf.os
+I divdi3.os
+I qefgcvt_r.os
+I malloc.os
+D qecvt@@GLIBC_2.4
+D qfcvt@@GLIBC_2.4
+D qgcvt@@GLIBC_2.4
+
+O qefgcvt_r.os
+I s_finite.os
+I memmove.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I s_signbit.os
+I snprintf.os
+D qecvt_r@@GLIBC_2.4
+D qfcvt_r@@GLIBC_2.4
+
+O qsort.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+
+O quotactl.os
+I sysdep.os
+D quotactl@@GLIBC_2.4
+
+O raise.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W gsignal@@GLIBC_2.4
+D raise@@GLIBC_2.4
+
+O rand.os
+I divdi3.os
+I random.os
+D rand@@GLIBC_2.4
+
+O rand_r.os
+I divdi3.os
+D rand_r@@GLIBC_2.4
+
+O random.os
+I divdi3.os
+I random_r.os
+W initstate@@GLIBC_2.4
+W random@@GLIBC_2.4
+W setstate@@GLIBC_2.4
+W srand@@GLIBC_2.4
+W srandom@@GLIBC_2.4
+
+O random_r.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W initstate_r@@GLIBC_2.4
+W random_r@@GLIBC_2.4
+W setstate_r@@GLIBC_2.4
+W srandom_r@@GLIBC_2.4
+
+O rawmemchr.os
+I divdi3.os
+D __rawmemchr@@GLIBC_2.4
+W rawmemchr@@GLIBC_2.4
+
+O rcmd.os
+I iofclose.os
+I iofopen.os
+I close.os
+I dcgettext.os
+I fcntl.os
+I fxstat64.os
+I getpid.os
+I lxstat64.os
+I mempcpy.os
+I poll.os
+I read.os
+I strdup.os
+I _strerror.os
+I sysconf.os
+I write.os
+I SYS_libc.os
+I accept.os
+I fileno.os
+I getaddrinfo.os
+I gai_strerror.os
+I getnameinfo.os
+I getnetgrent_r.os
+I memcmp.os
+I memcpy.os
+I memset.os
+I perror.os
+I seteuid.os
+I strcmp.os
+I strlen.os
+I strncmp.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I asprintf.os
+I bind.os
+I connect.os
+I divdi3.os
+I __fsetlocking.os
+I fxprintf.os
+I geteuid.os
+I getline.os
+I getpwnam_r.os
+I errno.os
+I ctype-info.os
+I global-locale.os
+I listen.os
+I sigblock.os
+I sigsetmask.os
+I sleep.os
+I snprintf.os
+I socket.os
+I writev.os
+I malloc.os
+D __check_rhosts_file@@GLIBC_2.4
+D __ivaliduser@@GLIBC_2.4
+D __rcmd_errstr@@GLIBC_2.4
+D iruserok@@GLIBC_2.4
+D iruserok_af@@GLIBC_2.4
+D rcmd@@GLIBC_2.4
+D rcmd_af@@GLIBC_2.4
+D rresvport@@GLIBC_2.4
+D rresvport_af@@GLIBC_2.4
+D ruserok@@GLIBC_2.4
+D ruserok_af@@GLIBC_2.4
+
+O read.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W __read@@GLIBC_2.4
+W read@@GLIBC_2.4
+
+O read_chk.os
+I chk_fail.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+D __read_chk@@GLIBC_2.4
+
+O readahead.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W readahead@@GLIBC_2.4
+
+O readdir.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getdents.os
+I errno.os
+W readdir@@GLIBC_2.4
+
+O readdir64.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getdents64.os
+I errno.os
+D readdir64@@GLIBC_2.4
+
+O readdir64_r.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getdents64.os
+I errno.os
+D readdir64_r@@GLIBC_2.4
+
+O readdir_r.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getdents.os
+I errno.os
+W readdir_r@@GLIBC_2.4
+
+O readlink.os
+I sysdep.os
+W readlink@@GLIBC_2.4
+
+O readlink_chk.os
+I chk_fail.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __readlink_chk@@GLIBC_2.4
+
+O readlinkat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D readlinkat@@GLIBC_2.4
+
+O readlinkat_chk.os
+I chk_fail.os
+I readlinkat.os
+I divdi3.os
+D __readlinkat_chk@@GLIBC_2.5
+
+O readonly-area.os
+I iogetdelim.os
+I iofclose.os
+I iofopen.os
+I strtoul.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I __fsetlocking.os
+I errno.os
+I malloc.os
+
+O readv.os
+I read.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I alloca_cutoff.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+I malloc.os
+W readv@@GLIBC_2.4
+
+O realpath_chk.os
+I chk_fail.os
+I divdi3.os
+I canonicalize.os
+D __realpath_chk@@GLIBC_2.4
+
+O reboot.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D reboot@@GLIBC_2.4
+
+O recv.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W recv@@GLIBC_2.4
+
+O recv_chk.os
+I chk_fail.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I recv.os
+D __recv_chk@@GLIBC_2.4
+
+O recvfrom.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W recvfrom@@GLIBC_2.4
+
+O recvfrom_chk.os
+I chk_fail.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I recvfrom.os
+D __recvfrom_chk@@GLIBC_2.4
+
+O recvmsg.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W recvmsg@@GLIBC_2.4
+
+O reg-printf.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I malloc.os
+W register_printf_function@@GLIBC_2.4
+
+O regex.os
+I assert.os
+I iswctype.os
+I mempcpy.os
+I SYS_libc.os
+I abort.os
+I wcfuncs.os
+I mbrtowc.os
+I memcmp.os
+I memcpy.os
+I memmove.os
+I memset.os
+I strcmp.os
+I strlen.os
+I wcrtomb.os
+I wcscoll.os
+I libc-aeabi_read_tp.os
+I btowc.os
+I coll-lookup.os
+I dcgettext.os
+I divdi3.os
+I alloca_cutoff.os
+I ctype-info.os
+I global-locale.os
+I wctype.os
+I malloc.os
+W re_comp@@GLIBC_2.4
+W re_compile_fastmap@@GLIBC_2.4
+W re_compile_pattern@@GLIBC_2.4
+W re_exec@@GLIBC_2.4
+W re_match@@GLIBC_2.4
+W re_match_2@@GLIBC_2.4
+W re_search@@GLIBC_2.4
+W re_search_2@@GLIBC_2.4
+W re_set_registers@@GLIBC_2.4
+W re_set_syntax@@GLIBC_2.4
+D re_syntax_options@@GLIBC_2.4
+W regcomp@@GLIBC_2.4
+W regerror@@GLIBC_2.4
+D regexec@@GLIBC_2.4
+W regfree@@GLIBC_2.4
+
+O regexp.os
+I divdi3.os
+I regex.os
+W advance@@GLIBC_2.4
+D loc1@@GLIBC_2.4
+D loc2@@GLIBC_2.4
+D locs@@GLIBC_2.4
+W step@@GLIBC_2.4
+
+O register-atfork.os
+I memset.os
+I divdi3.os
+I fork.os
+I malloc.os
+D __register_atfork@@GLIBC_2.4
+
+O remap_file_pages.os
+I sysdep.os
+W remap_file_pages@@GLIBC_2.4
+
+O remove.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I rmdir.os
+I unlink.os
+D remove@@GLIBC_2.4
+
+O removexattr.os
+I sysdep.os
+D removexattr@@GLIBC_2.4
+
+O rename.os
+I sysdep.os
+D rename@@GLIBC_2.4
+
+O renameat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D renameat@@GLIBC_2.4
+
+O res-state.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I res_libc.os
+D __res_state@@GLIBC_2.4
+
+O res_hconf.os
+I iofclose.os
+I iofopen.os
+I assert.os
+I close.os
+I dcgettext.os
+I strcasecmp.os
+I strndup.os
+I SYS_libc.os
+I iofgets_u.os
+I getenv.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I asprintf.os
+I divdi3.os
+I __fsetlocking.os
+I fxprintf.os
+I ifreq.os
+I ioctl.os
+I forward.os
+I ctype-info.os
+I global-locale.os
+I socket.os
+I strchrnul.os
+I strncase.os
+I malloc.os
+D _res_hconf@@GLIBC_2.4
+
+O res_init.os
+I iofclose.os
+I iofopen.os
+I getpid.os
+I inet_addr.os
+I strtol.os
+I iofgets_u.os
+I getenv.os
+I inet_pton.os
+I strchr.os
+I strcpy.os
+I strncmp.os
+I strncpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I __fsetlocking.os
+I gethostname.os
+I res_libc.os
+I ctype-info.os
+I global-locale.os
+I malloc.os
+D __res_iclose@@GLIBC_PRIVATE
+D __res_nclose@@GLIBC_2.4
+D __res_ninit@@GLIBC_2.4
+D __res_randomid@@GLIBC_2.4
+
+O res_libc.os
+I res_init.os
+I divdi3.os
+D __res_init@@GLIBC_2.4
+D __res_maybe_init@@GLIBC_PRIVATE
+D __resp@@GLIBC_PRIVATE
+D _res@@GLIBC_2.4
+U __tls_get_addr@@GLIBC_2.4
+
+O revoke.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D revoke@@GLIBC_2.4
+
+O rewind.os
+I ioseekoff.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D rewind@@GLIBC_2.4
+
+O rewinddir.os
+I lseek.os
+I divdi3.os
+D rewinddir@@GLIBC_2.4
+
+O rexec.os
+I close.os
+I read.os
+I strdup.os
+I strtol.os
+I write.os
+I accept.os
+I getaddrinfo.os
+I getnameinfo.os
+I perror.os
+I ruserpass.os
+I sprintf.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I connect.os
+I divdi3.os
+I getsockname.os
+I errno.os
+I sa_len.os
+I listen.os
+I sleep.os
+I snprintf.os
+I socket.os
+I writev.os
+I malloc.os
+D rexec@@GLIBC_2.4
+D rexec_af@@GLIBC_2.4
+D rexecoptions@@GLIBC_2.4
+
+O rmdir.os
+I sysdep.os
+W rmdir@@GLIBC_2.4
+
+O rpc-lookup.os
+I nsswitch.os
+I divdi3.os
+
+O rpc_cmsg.os
+I memcpy.os
+I divdi3.os
+I malloc.os
+I xdr.os
+I rpc_prot.os
+D xdr_callmsg@@GLIBC_2.4
+
+O rpc_common.os
+I divdi3.os
+D _null_auth@@GLIBC_2.4
+D rpc_createerr@@GLIBC_2.4
+D svc_fdset@@GLIBC_2.4
+D svc_max_pollfd@@GLIBC_2.4
+D svc_pollfd@@GLIBC_2.4
+
+O rpc_dtable.os
+I divdi3.os
+I getdtsz.os
+D _rpc_dtablesize@@GLIBC_2.4
+
+O rpc_prot.os
+I divdi3.os
+I xdr.os
+D _seterr_reply@@GLIBC_2.4
+D xdr_accepted_reply@@GLIBC_2.4
+D xdr_callhdr@@GLIBC_2.4
+D xdr_des_block@@GLIBC_2.4
+D xdr_opaque_auth@@GLIBC_2.4
+D xdr_rejected_reply@@GLIBC_2.4
+D xdr_replymsg@@GLIBC_2.4
+
+O rpc_thread.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I forward.os
+I clnt_simp.os
+I key_call.os
+I svc.os
+I malloc.os
+I rpc_common.os
+D __rpc_thread_createerr@@GLIBC_2.4
+D __rpc_thread_svc_fdset@@GLIBC_2.4
+D __rpc_thread_svc_max_pollfd@@GLIBC_2.4
+D __rpc_thread_svc_pollfd@@GLIBC_2.4
+
+O rpmatch.os
+I nl_langinfo.os
+I divdi3.os
+I regex.os
+D rpmatch@@GLIBC_2.4
+
+O rshift.os
+I divdi3.os
+
+O rtime.os
+I close.os
+I poll.os
+I read.os
+I libc-aeabi_read_tp.os
+I connect.os
+I divdi3.os
+I errno.os
+I recvfrom.os
+I sendto.os
+I socket.os
+D rtime@@GLIBC_2.4
+
+O ruserpass.os
+I iofclose.os
+I iofopen.os
+I dcgettext.os
+I fxstat64.os
+I secure-getenv.os
+I stpcpy.os
+I strcasecmp.os
+I genops.os
+I SYS_libc.os
+I fileno.os
+I strchr.os
+I strcmp.os
+I strcpy.os
+I strlen.os
+I err.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I __fsetlocking.os
+I gethostname.os
+I errno.os
+I strchrnul.os
+I strncase.os
+I malloc.os
+D ruserpass@@GLIBC_2.4
+
+O s_copysign.os
+I divdi3.os
+W copysign@@GLIBC_2.4
+W copysignl@@GLIBC_2.4
+
+O s_copysignf.os
+I divdi3.os
+W copysignf@@GLIBC_2.4
+
+O s_finite.os
+I divdi3.os
+D __finite@@GLIBC_2.4
+D __finitel@@GLIBC_2.4
+W finite@@GLIBC_2.4
+W finitel@@GLIBC_2.4
+
+O s_finitef.os
+I divdi3.os
+D __finitef@@GLIBC_2.4
+W finitef@@GLIBC_2.4
+
+O s_frexp.os
+I divdi3.os
+W frexp@@GLIBC_2.4
+W frexpl@@GLIBC_2.4
+
+O s_frexpf.os
+I divdi3.os
+W frexpf@@GLIBC_2.4
+
+O s_isinf.os
+I divdi3.os
+D __isinf@@GLIBC_2.4
+D __isinfl@@GLIBC_2.4
+W isinf@@GLIBC_2.4
+W isinfl@@GLIBC_2.4
+
+O s_isinff.os
+I divdi3.os
+D __isinff@@GLIBC_2.4
+W isinff@@GLIBC_2.4
+
+O s_isnan.os
+I divdi3.os
+D __isnan@@GLIBC_2.4
+D __isnanl@@GLIBC_2.4
+W isnan@@GLIBC_2.4
+W isnanl@@GLIBC_2.4
+
+O s_isnanf.os
+I divdi3.os
+D __isnanf@@GLIBC_2.4
+W isnanf@@GLIBC_2.4
+
+O s_ldexp.os
+I s_finite.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I s_scalbn.os
+W ldexp@@GLIBC_2.4
+W ldexpl@@GLIBC_2.4
+
+O s_ldexpf.os
+I s_finitef.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I s_scalbnf.os
+W ldexpf@@GLIBC_2.4
+
+O s_modf.os
+I divdi3.os
+W modf@@GLIBC_2.4
+W modfl@@GLIBC_2.4
+
+O s_modff.os
+I divdi3.os
+W modff@@GLIBC_2.4
+
+O s_scalbn.os
+I divdi3.os
+W scalbn@@GLIBC_2.4
+W scalbnl@@GLIBC_2.4
+
+O s_scalbnf.os
+I divdi3.os
+W scalbnf@@GLIBC_2.4
+
+O s_signbit.os
+I divdi3.os
+D __signbit@@GLIBC_2.4
+
+O s_signbitf.os
+I divdi3.os
+D __signbitf@@GLIBC_2.4
+
+O sa_len.os
+I divdi3.os
+D __libc_sa_len@@GLIBC_2.4
+
+O sbrk.os
+I brk.os
+I divdi3.os
+I init-first.os
+D __sbrk@@GLIBC_2.4
+W sbrk@@GLIBC_2.4
+
+O scandir.os
+I unwind-resume.os
+I memcpy.os
+I msort.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I closedir.os
+I divdi3.os
+I errno.os
+I opendir.os
+I readdir.os
+I malloc.os
+D scandir@@GLIBC_2.4
+
+O scandir64.os
+I unwind-resume.os
+I memcpy.os
+I msort.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I closedir.os
+I divdi3.os
+I errno.os
+I opendir.os
+I readdir64.os
+I malloc.os
+D scandir64@@GLIBC_2.4
+
+O scanf.os
+I vfscanf.os
+I divdi3.os
+I stdio.os
+D scanf@@GLIBC_2.4
+
+O sched_cpucount.os
+I divdi3.os
+D __sched_cpucount@@GLIBC_2.6
+
+O sched_getaffinity.os
+I memset.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sched_getaffinity@@GLIBC_2.4
+
+O sched_getcpu.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sched_getcpu@@GLIBC_2.6
+
+O sched_getp.os
+I sysdep.os
+D __sched_getparam@@GLIBC_2.4
+W sched_getparam@@GLIBC_2.4
+
+O sched_gets.os
+I sysdep.os
+D __sched_getscheduler@@GLIBC_2.4
+W sched_getscheduler@@GLIBC_2.4
+
+O sched_primax.os
+I sysdep.os
+D __sched_get_priority_max@@GLIBC_2.4
+W sched_get_priority_max@@GLIBC_2.4
+
+O sched_primin.os
+I sysdep.os
+D __sched_get_priority_min@@GLIBC_2.4
+W sched_get_priority_min@@GLIBC_2.4
+
+O sched_rr_gi.os
+I sysdep.os
+W sched_rr_get_interval@@GLIBC_2.4
+
+O sched_setaffinity.os
+I getpid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sched_setaffinity@@GLIBC_2.4
+
+O sched_setp.os
+I sysdep.os
+W sched_setparam@@GLIBC_2.4
+
+O sched_sets.os
+I sysdep.os
+D __sched_setscheduler@@GLIBC_2.4
+W sched_setscheduler@@GLIBC_2.4
+
+O sched_yield.os
+I sysdep.os
+D __sched_yield@@GLIBC_2.4
+W sched_yield@@GLIBC_2.4
+
+O secure-getenv.os
+I getenv.os
+I divdi3.os
+D __secure_getenv@@GLIBC_2.4
+U __libc_enable_secure@@GLIBC_PRIVATE
+
+O seed48.os
+I divdi3.os
+I drand48-iter.os
+I seed48_r.os
+D seed48@@GLIBC_2.4
+
+O seed48_r.os
+I memcpy.os
+I divdi3.os
+W seed48_r@@GLIBC_2.4
+
+O seekdir.os
+I lseek.os
+I divdi3.os
+D seekdir@@GLIBC_2.4
+
+O select.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+D __select@@GLIBC_2.4
+W select@@GLIBC_2.4
+
+O semctl.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D semctl@@GLIBC_2.4
+
+O semget.os
+I sysdep.os
+W semget@@GLIBC_2.4
+
+O semop.os
+I sysdep.os
+W semop@@GLIBC_2.4
+
+O semtimedop.os
+I sysdep.os
+D semtimedop@@GLIBC_2.4
+
+O send.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W __send@@GLIBC_2.4
+W send@@GLIBC_2.4
+
+O sendfile.os
+I sysdep.os
+D sendfile@@GLIBC_2.4
+
+O sendfile64.os
+I sysdep.os
+D sendfile64@@GLIBC_2.4
+
+O sendmsg.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W sendmsg@@GLIBC_2.4
+
+O sendto.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W sendto@@GLIBC_2.4
+
+O service-lookup.os
+I nsswitch.os
+I divdi3.os
+D __nss_services_lookup@@GLIBC_PRIVATE
+
+O set-freeres.os
+I genops.os
+I divdi3.os
+I malloc.os
+D __libc_freeres@@GLIBC_2.4
+
+O set_mempolicy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+
+O setbuf.os
+I iosetbuffer.os
+I divdi3.os
+D setbuf@@GLIBC_2.4
+
+O setcontext.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D setcontext@@GLIBC_2.4
+
+O setdomain.os
+I sysdep.os
+D setdomainname@@GLIBC_2.4
+
+O setegid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I forward.os
+D setegid@@GLIBC_2.4
+
+O setenv.os
+I mempcpy.os
+I memcpy.os
+I strchr.os
+I strcmp.os
+I strlen.os
+I strncmp.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I environ.os
+I errno.os
+I tsearch.os
+I malloc.os
+W clearenv@@GLIBC_2.4
+W setenv@@GLIBC_2.4
+W unsetenv@@GLIBC_2.4
+
+O seteuid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I forward.os
+D seteuid@@GLIBC_2.4
+
+O setfpucw.os
+I divdi3.os
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O setfsgid.os
+I divdi3.os
+D setfsgid@@GLIBC_2.4
+
+O setfsuid.os
+I divdi3.os
+D setfsuid@@GLIBC_2.4
+
+O setgid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I forward.os
+W setgid@@GLIBC_2.4
+
+O setgroups.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D setgroups@@GLIBC_2.4
+
+O sethostid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sethostid@@GLIBC_2.4
+U __libc_enable_secure@@GLIBC_PRIVATE
+
+O sethostname.os
+I sysdep.os
+D sethostname@@GLIBC_2.4
+
+O setipv4sourcefilter.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I alloca_cutoff.os
+I errno.os
+I setsockopt.os
+I malloc.os
+D setipv4sourcefilter@@GLIBC_2.4
+
+O setitimer.os
+I sysdep.os
+W setitimer@@GLIBC_2.4
+
+O setjmp.os
+I sigjmp.os
+D __sigsetjmp@@GLIBC_2.4
+U _rtld_global_ro@@GLIBC_PRIVATE
+
+O setlinebuf.os
+I iosetvbuf.os
+I divdi3.os
+D setlinebuf@@GLIBC_2.4
+
+O setlocale.os
+I stpcpy.os
+I strdup.os
+I getenv.os
+I memcmp.os
+I memcpy.os
+I strchr.os
+I strcmp.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I argz-addsep.os
+I argz-ctsep.os
+I divdi3.os
+I errno.os
+I global-locale.os
+I xlocale.os
+I C_name.os
+I loadarchive.os
+I findlocale.os
+I loadmsgcat.os
+I lc-ctype.os
+I loadlocale.os
+I malloc.os
+D setlocale@@GLIBC_2.4
+
+O setlogin.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D setlogin@@GLIBC_2.4
+
+O setpgid.os
+I sysdep.os
+D __setpgid@@GLIBC_2.4
+W setpgid@@GLIBC_2.4
+
+O setpgrp.os
+I setpgid.os
+I divdi3.os
+D setpgrp@@GLIBC_2.4
+
+O setpriority.os
+I sysdep.os
+D setpriority@@GLIBC_2.4
+
+O setregid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I forward.os
+W setregid@@GLIBC_2.4
+
+O setresgid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I forward.os
+W setresgid@@GLIBC_2.4
+
+O setresuid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I forward.os
+W setresuid@@GLIBC_2.4
+
+O setreuid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I forward.os
+W setreuid@@GLIBC_2.4
+
+O setrlimit.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D setrlimit@@GLIBC_2.4
+
+O setrlimit64.os
+I divdi3.os
+I setrlimit.os
+D setrlimit64@@GLIBC_2.4
+
+O setsid.os
+I sysdep.os
+W setsid@@GLIBC_2.4
+
+O setsockopt.os
+I sysdep.os
+W setsockopt@@GLIBC_2.4
+
+O setsourcefilter.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getsourcefilter.os
+I alloca_cutoff.os
+I errno.os
+I setsockopt.os
+I malloc.os
+D setsourcefilter@@GLIBC_2.4
+
+O settimeofday.os
+I sysdep.os
+W settimeofday@@GLIBC_2.4
+
+O setuid.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I forward.os
+W setuid@@GLIBC_2.4
+
+O setutxent.os
+I divdi3.os
+I getutent_r.os
+D setutxent@@GLIBC_2.4
+
+O setxattr.os
+I sysdep.os
+D setxattr@@GLIBC_2.4
+
+O sgetspent.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I sgetspent_r.os
+I malloc.os
+D sgetspent@@GLIBC_2.4
+
+O sgetspent_r.os
+I strtoul.os
+I strchr.os
+I strncpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I ctype-info.os
+I global-locale.os
+D _nss_files_parse_spent@@GLIBC_PRIVATE
+W sgetspent_r@@GLIBC_2.4
+
+O shmat.os
+I sysdep.os
+W shmat@@GLIBC_2.4
+
+O shmctl.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D shmctl@@GLIBC_2.4
+
+O shmdt.os
+I sysdep.os
+W shmdt@@GLIBC_2.4
+
+O shmget.os
+I sysdep.os
+W shmget@@GLIBC_2.4
+
+O shutdown.os
+I sysdep.os
+W shutdown@@GLIBC_2.4
+
+O sigaction.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I sigrestorer.os
+I divdi3.os
+I errno.os
+W __sigaction@@GLIBC_2.4
+W sigaction@@GLIBC_2.4
+
+O sigaddset.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sigaddset@@GLIBC_2.4
+
+O sigaltstack.os
+I sysdep.os
+W sigaltstack@@GLIBC_2.4
+
+O sigandset.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sigandset@@GLIBC_2.4
+
+O sigblock.os
+I divdi3.os
+I sigprocmask.os
+W sigblock@@GLIBC_2.4
+
+O sigdelset.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sigdelset@@GLIBC_2.4
+
+O sigempty.os
+I memset.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sigemptyset@@GLIBC_2.4
+
+O sigfillset.os
+I memset.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sigfillset@@GLIBC_2.4
+
+O siggetmask.os
+I divdi3.os
+I sigblock.os
+D siggetmask@@GLIBC_2.4
+
+O sighold.os
+I sigaddset.os
+I divdi3.os
+I sigprocmask.os
+D sighold@@GLIBC_2.4
+
+O sigignore.os
+I sigaction.os
+I memset.os
+I divdi3.os
+D sigignore@@GLIBC_2.4
+
+O sigintr.os
+I sigaction.os
+I divdi3.os
+I signal.os
+D siginterrupt@@GLIBC_2.4
+
+O sigisempty.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sigisemptyset@@GLIBC_2.4
+
+O sigismem.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sigismember@@GLIBC_2.4
+
+O sigjmp.os
+I divdi3.os
+I sigprocmask.os
+
+O siglist.os
+I divdi3.os
+D _sys_siglist@@GLIBC_2.4
+D sys_sigabbrev@@GLIBC_2.4
+D sys_siglist@@GLIBC_2.4
+
+O signal.os
+I sigaction.os
+I memset.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W bsd_signal@@GLIBC_2.4
+W signal@@GLIBC_2.4
+W ssignal@@GLIBC_2.4
+
+O sigorset.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sigorset@@GLIBC_2.4
+
+O sigpause.os
+I sigsuspend.os
+I sigdelset.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sigprocmask.os
+D __sigpause@@GLIBC_2.4
+W __xpg_sigpause@@GLIBC_2.4
+W sigpause@@GLIBC_2.4
+
+O sigpending.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sigpending@@GLIBC_2.4
+
+O sigprocmask.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W sigprocmask@@GLIBC_2.4
+
+O sigqueue.os
+I getpid.os
+I memset.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getuid.os
+I errno.os
+W sigqueue@@GLIBC_2.4
+
+O sigrelse.os
+I sigdelset.os
+I divdi3.os
+I sigprocmask.os
+D sigrelse@@GLIBC_2.4
+
+O sigrestorer.os
+I aeabi_unwind_cpp_pr1.os
+D __default_rt_sa_restorer_v1@@GLIBC_PRIVATE
+D __default_rt_sa_restorer_v2@@GLIBC_PRIVATE
+D __default_sa_restorer_v1@@GLIBC_PRIVATE
+D __default_sa_restorer_v2@@GLIBC_PRIVATE
+
+O sigreturn.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W sigreturn@@GLIBC_2.4
+
+O sigset.os
+I sigaction.os
+I memset.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I sigprocmask.os
+D sigset@@GLIBC_2.4
+
+O sigsetmask.os
+I divdi3.os
+I sigprocmask.os
+W sigsetmask@@GLIBC_2.4
+
+O sigsetops.os
+I divdi3.os
+D __sigaddset@@GLIBC_2.4
+D __sigdelset@@GLIBC_2.4
+D __sigismember@@GLIBC_2.4
+
+O sigstack.os
+I divdi3.os
+I sigaltstack.os
+D sigstack@@GLIBC_2.4
+
+O sigsuspend.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+D __sigsuspend@@GLIBC_2.4
+W sigsuspend@@GLIBC_2.4
+
+O sigtimedwait.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+W sigtimedwait@@GLIBC_2.4
+
+O sigvec.os
+I sigaction.os
+I divdi3.os
+W sigvec@@GLIBC_2.4
+
+O sigwait.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+W sigwait@@GLIBC_2.4
+
+O sigwaitinfo.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+W sigwaitinfo@@GLIBC_2.4
+
+O sleep.os
+I nanosleep.os
+I sigaction.os
+I memset.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I forward.os
+I sigprocmask.os
+W sleep@@GLIBC_2.4
+
+O snprintf.os
+I vsnprintf.os
+I divdi3.os
+W snprintf@@GLIBC_2.4
+
+O snprintf_chk.os
+I vsnprintf_chk.os
+I divdi3.os
+D __snprintf_chk@@GLIBC_2.4
+
+O sockatmark.os
+I divdi3.os
+I ioctl.os
+D sockatmark@@GLIBC_2.4
+
+O socket.os
+I sysdep.os
+W socket@@GLIBC_2.4
+
+O socketpair.os
+I sysdep.os
+W socketpair@@GLIBC_2.4
+
+O spawn.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I spawni.os
+D posix_spawn@@GLIBC_2.4
+
+O spawn_faction_addclose.os
+I sysconf.os
+I divdi3.os
+I spawn_faction_init.os
+D posix_spawn_file_actions_addclose@@GLIBC_2.4
+
+O spawn_faction_adddup2.os
+I sysconf.os
+I divdi3.os
+I spawn_faction_init.os
+D posix_spawn_file_actions_adddup2@@GLIBC_2.4
+
+O spawn_faction_addopen.os
+I sysconf.os
+I divdi3.os
+I spawn_faction_init.os
+D posix_spawn_file_actions_addopen@@GLIBC_2.4
+
+O spawn_faction_destroy.os
+I divdi3.os
+I malloc.os
+D posix_spawn_file_actions_destroy@@GLIBC_2.4
+
+O spawn_faction_init.os
+I memset.os
+I divdi3.os
+I malloc.os
+D posix_spawn_file_actions_init@@GLIBC_2.4
+
+O spawnattr_destroy.os
+I divdi3.os
+D posix_spawnattr_destroy@@GLIBC_2.4
+
+O spawnattr_getdefault.os
+I memcpy.os
+I divdi3.os
+D posix_spawnattr_getsigdefault@@GLIBC_2.4
+
+O spawnattr_getflags.os
+I divdi3.os
+D posix_spawnattr_getflags@@GLIBC_2.4
+
+O spawnattr_getpgroup.os
+I divdi3.os
+D posix_spawnattr_getpgroup@@GLIBC_2.4
+
+O spawnattr_getschedparam.os
+I memcpy.os
+I divdi3.os
+D posix_spawnattr_getschedparam@@GLIBC_2.4
+
+O spawnattr_getschedpolicy.os
+I divdi3.os
+D posix_spawnattr_getschedpolicy@@GLIBC_2.4
+
+O spawnattr_getsigmask.os
+I memcpy.os
+I divdi3.os
+D posix_spawnattr_getsigmask@@GLIBC_2.4
+
+O spawnattr_init.os
+I memset.os
+I divdi3.os
+D posix_spawnattr_init@@GLIBC_2.4
+
+O spawnattr_setdefault.os
+I memcpy.os
+I divdi3.os
+D posix_spawnattr_setsigdefault@@GLIBC_2.4
+
+O spawnattr_setflags.os
+I divdi3.os
+D posix_spawnattr_setflags@@GLIBC_2.4
+
+O spawnattr_setpgroup.os
+I divdi3.os
+D posix_spawnattr_setpgroup@@GLIBC_2.4
+
+O spawnattr_setschedparam.os
+I divdi3.os
+D posix_spawnattr_setschedparam@@GLIBC_2.4
+
+O spawnattr_setschedpolicy.os
+I divdi3.os
+D posix_spawnattr_setschedpolicy@@GLIBC_2.4
+
+O spawnattr_setsigmask.os
+I memcpy.os
+I divdi3.os
+D posix_spawnattr_setsigmask@@GLIBC_2.4
+
+O spawni.os
+I dup2.os
+I fork.os
+I sched_sets.os
+I setpgid.os
+I sigaction.os
+I vfork.os
+I _exit.os
+I confstr.os
+I getenv.os
+I memcpy.os
+I memset.os
+I strchr.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I execve.os
+I getgid.os
+I getuid.os
+I errno.os
+I sched_setp.os
+I sigprocmask.os
+I strchrnul.os
+
+O spawnp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I spawni.os
+D posix_spawnp@@GLIBC_2.4
+
+O speed.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D cfgetispeed@@GLIBC_2.4
+D cfgetospeed@@GLIBC_2.4
+D cfsetispeed@@GLIBC_2.4
+D cfsetospeed@@GLIBC_2.4
+
+O splice.os
+I sysdep.os
+D splice@@GLIBC_2.5
+
+O sprintf.os
+I iovsprintf.os
+I divdi3.os
+D _IO_sprintf@@GLIBC_2.4
+D sprintf@@GLIBC_2.4
+
+O sprintf_chk.os
+I vsprintf_chk.os
+I divdi3.os
+D __sprintf_chk@@GLIBC_2.4
+
+O sprofil.os
+I assert.os
+I prof-freq.os
+I sigaction.os
+I memmove.os
+I msort.os
+I divdi3.os
+I setitimer.os
+I malloc.os
+W sprofil@@GLIBC_2.4
+
+O spwd-lookup.os
+I nsswitch.os
+I divdi3.os
+
+O srand48.os
+I divdi3.os
+I drand48-iter.os
+I srand48_r.os
+D srand48@@GLIBC_2.4
+
+O srand48_r.os
+I divdi3.os
+W srand48_r@@GLIBC_2.4
+
+O sscanf.os
+I iovsscanf.os
+I divdi3.os
+D _IO_sscanf@@GLIBC_2.4
+D sscanf@@GLIBC_2.4
+
+O sstk.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sstk@@GLIBC_2.4
+
+O stack_chk_fail.os
+I divdi3.os
+I init-first.os
+I libc_fatal.os
+D __stack_chk_fail@@GLIBC_2.4
+
+O statfs.os
+I sysdep.os
+D __statfs@@GLIBC_2.4
+W statfs@@GLIBC_2.4
+
+O statfs64.os
+I statfs.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W statfs64@@GLIBC_2.4
+
+O statvfs.os
+I statfs.os
+I xstat64.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I internal_statvfs.os
+D statvfs@@GLIBC_2.4
+
+O statvfs64.os
+I xstat64.os
+I divdi3.os
+I internal_statvfs64.os
+I statfs64.os
+W statvfs64@@GLIBC_2.4
+
+O stdfiles.os
+I fileops.os
+I wfileops.os
+I divdi3.os
+D _IO_2_1_stderr_@@GLIBC_2.4
+D _IO_2_1_stdin_@@GLIBC_2.4
+D _IO_2_1_stdout_@@GLIBC_2.4
+D _IO_list_all@@GLIBC_2.4
+
+O stdio.os
+I stdfiles.os
+I divdi3.os
+D stderr@@GLIBC_2.4
+D stdin@@GLIBC_2.4
+D stdout@@GLIBC_2.4
+
+O stime.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I settimeofday.os
+D stime@@GLIBC_2.4
+
+O stpcpy.os
+I divdi3.os
+D __stpcpy@@GLIBC_2.4
+D stpcpy@@GLIBC_2.4
+
+O stpcpy_chk.os
+I chk_fail.os
+I divdi3.os
+D __stpcpy_chk@@GLIBC_2.4
+
+O stpncpy.os
+I divdi3.os
+D __stpncpy@@GLIBC_2.4
+W stpncpy@@GLIBC_2.4
+
+O stpncpy_chk.os
+I chk_fail.os
+I divdi3.os
+D __stpncpy_chk@@GLIBC_2.4
+
+O strcasecmp.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __strcasecmp@@GLIBC_2.4
+W strcasecmp@@GLIBC_2.4
+
+O strcasecmp_l.os
+I divdi3.os
+D __strcasecmp_l@@GLIBC_2.4
+W strcasecmp_l@@GLIBC_2.4
+
+O strcasestr.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __strcasestr@@GLIBC_2.4
+W strcasestr@@GLIBC_2.4
+
+O strcat.os
+I divdi3.os
+D strcat@@GLIBC_2.4
+
+O strcat_chk.os
+I chk_fail.os
+I divdi3.os
+D __strcat_chk@@GLIBC_2.4
+
+O strchr.os
+I divdi3.os
+W index@@GLIBC_2.4
+D strchr@@GLIBC_2.4
+
+O strchrnul.os
+I divdi3.os
+W strchrnul@@GLIBC_2.4
+
+O strcmp.os
+I divdi3.os
+D strcmp@@GLIBC_2.4
+
+O strcoll.os
+I strcoll_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D strcoll@@GLIBC_2.4
+
+O strcoll_l.os
+I assert.os
+I strcmp.os
+I strlen.os
+I divdi3.os
+I alloca_cutoff.os
+I malloc.os
+D __strcoll_l@@GLIBC_2.4
+W strcoll_l@@GLIBC_2.4
+
+O strcpy.os
+I divdi3.os
+D strcpy@@GLIBC_2.4
+
+O strcpy_chk.os
+I chk_fail.os
+I divdi3.os
+D __strcpy_chk@@GLIBC_2.4
+
+O strcspn.os
+I strchr.os
+I divdi3.os
+D strcspn@@GLIBC_2.4
+
+O strdup.os
+I memcpy.os
+I strlen.os
+I divdi3.os
+I malloc.os
+D __strdup@@GLIBC_2.4
+W strdup@@GLIBC_2.4
+
+O strerror.os
+I dcgettext.os
+I _strerror.os
+I SYS_libc.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I malloc.os
+D strerror@@GLIBC_2.4
+
+O strerror_l.os
+I dcgettext.os
+I uselocale.os
+I SYS_libc.os
+I asprintf.os
+I divdi3.os
+I errlist.os
+I malloc.os
+D strerror_l@@GLIBC_2.6
+U __tls_get_addr@@GLIBC_2.4
+
+O strfmon.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+I strfmon_l.os
+D strfmon@@GLIBC_2.4
+
+O strfmon_l.os
+I genops.os
+I strops.os
+I printf_fp.os
+I strlen.os
+I strncpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __strfmon_l@@GLIBC_2.4
+W strfmon_l@@GLIBC_2.4
+
+O strfry.os
+I getpid.os
+I strlen.os
+I time.os
+I divdi3.os
+I random_r.os
+D strfry@@GLIBC_2.4
+
+O strftime.os
+I strftime_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D strftime@@GLIBC_2.4
+
+O strftime_l.os
+I memcpy.os
+I memset.os
+I mktime.os
+I strlen.os
+I divdi3.os
+I tzset.os
+I alt_digit.os
+I era.os
+D __strftime_l@@GLIBC_2.4
+W strftime_l@@GLIBC_2.4
+
+O string-inlines.os
+I memcpy.os
+I strchr.os
+I divdi3.os
+D __mempcpy_small@@GLIBC_2.4
+D __stpcpy_small@@GLIBC_2.4
+D __strcpy_small@@GLIBC_2.4
+D __strcspn_c1@@GLIBC_2.4
+D __strcspn_c2@@GLIBC_2.4
+D __strcspn_c3@@GLIBC_2.4
+D __strpbrk_c2@@GLIBC_2.4
+D __strpbrk_c3@@GLIBC_2.4
+D __strsep_1c@@GLIBC_2.4
+D __strsep_2c@@GLIBC_2.4
+D __strsep_3c@@GLIBC_2.4
+D __strspn_c1@@GLIBC_2.4
+D __strspn_c2@@GLIBC_2.4
+D __strspn_c3@@GLIBC_2.4
+D __strtok_r_1c@@GLIBC_2.4
+
+O strlen.os
+D strlen@@GLIBC_2.4
+
+O strncase.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+W strncasecmp@@GLIBC_2.4
+
+O strncase_l.os
+I divdi3.os
+D __strncasecmp_l@@GLIBC_2.4
+W strncasecmp_l@@GLIBC_2.4
+
+O strncat.os
+I divdi3.os
+D strncat@@GLIBC_2.4
+
+O strncat_chk.os
+I chk_fail.os
+I divdi3.os
+D __strncat_chk@@GLIBC_2.4
+
+O strncmp.os
+I divdi3.os
+D strncmp@@GLIBC_2.4
+
+O strncpy.os
+I divdi3.os
+D strncpy@@GLIBC_2.4
+
+O strncpy_chk.os
+I chk_fail.os
+I divdi3.os
+D __strncpy_chk@@GLIBC_2.4
+
+O strndup.os
+I memcpy.os
+I divdi3.os
+I strnlen.os
+I malloc.os
+D __strndup@@GLIBC_2.4
+W strndup@@GLIBC_2.4
+
+O strnlen.os
+I divdi3.os
+D strnlen@@GLIBC_2.4
+
+O strops.os
+I genops.os
+I assert.os
+I rawmemchr.os
+I memcpy.os
+I memset.os
+I divdi3.os
+D _IO_str_init_readonly@@GLIBC_2.4
+D _IO_str_init_static@@GLIBC_2.4
+D _IO_str_overflow@@GLIBC_2.4
+D _IO_str_pbackfail@@GLIBC_2.4
+D _IO_str_seekoff@@GLIBC_2.4
+D _IO_str_underflow@@GLIBC_2.4
+
+O strpbrk.os
+I divdi3.os
+D strpbrk@@GLIBC_2.4
+
+O strptime.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+I strptime_l.os
+D strptime@@GLIBC_2.4
+
+O strptime_l.os
+I assert.os
+I strncase_l.os
+I strcmp.os
+I strlen.os
+I divdi3.os
+I localtime.os
+I mktime.os
+I C-time.os
+I alt_digit.os
+I era.os
+W strptime_l@@GLIBC_2.4
+
+O strrchr.os
+I rawmemchr.os
+I strchr.os
+I divdi3.os
+W rindex@@GLIBC_2.4
+D strrchr@@GLIBC_2.4
+
+O strsep.os
+I strchr.os
+I strpbrk.os
+I divdi3.os
+D __strsep_g@@GLIBC_2.4
+W strsep@@GLIBC_2.4
+
+O strsignal.os
+I dcgettext.os
+I allocrtsig.os
+I SYS_libc.os
+I divdi3.os
+I forward.os
+I snprintf.os
+I siglist.os
+I malloc.os
+D strsignal@@GLIBC_2.4
+
+O strspn.os
+I divdi3.os
+D strspn@@GLIBC_2.4
+
+O strstr.os
+I divdi3.os
+D strstr@@GLIBC_2.4
+
+O strtod.os
+I strtod_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __strtod_internal@@GLIBC_2.4
+W strtod@@GLIBC_2.4
+
+O strtod_l.os
+I strtoull_l.os
+I strncase_l.os
+I memcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I mp_clz_tab.os
+I grouping.os
+I divdi3.os
+I errno.os
+I add_n.os
+I cmp.os
+I mpn2dbl.os
+I lshift.os
+I mul.os
+I mul_1.os
+I rshift.os
+I submul_1.os
+I fpioconst.os
+I xlocale.os
+W __strtod_l@@GLIBC_2.4
+W strtod_l@@GLIBC_2.4
+
+O strtof.os
+I strtof_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __strtof_internal@@GLIBC_2.4
+W strtof@@GLIBC_2.4
+
+O strtof_l.os
+I strtoull_l.os
+I strncase_l.os
+I memcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I mp_clz_tab.os
+I grouping.os
+I divdi3.os
+I errno.os
+I add_n.os
+I cmp.os
+I mpn2flt.os
+I lshift.os
+I mul.os
+I mul_1.os
+I rshift.os
+I submul_1.os
+I fpioconst.os
+I xlocale.os
+W __strtof_l@@GLIBC_2.4
+W strtof_l@@GLIBC_2.4
+
+O strtoimax.os
+I strtoll.os
+I divdi3.os
+D strtoimax@@GLIBC_2.4
+
+O strtok.os
+I rawmemchr.os
+I strpbrk.os
+I strspn.os
+I divdi3.os
+D strtok@@GLIBC_2.4
+
+O strtok_r.os
+I rawmemchr.os
+I strpbrk.os
+I strspn.os
+I divdi3.os
+D __strtok_r@@GLIBC_2.4
+W strtok_r@@GLIBC_2.4
+
+O strtol.os
+I strtol_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __strtol_internal@@GLIBC_2.4
+D strtol@@GLIBC_2.4
+
+O strtol_l.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I grouping.os
+I divdi3.os
+I errno.os
+W __strtol_l@@GLIBC_2.4
+W strtol_l@@GLIBC_2.4
+
+O strtold.os
+I strtold_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __strtold_internal@@GLIBC_2.4
+W strtold@@GLIBC_2.4
+
+O strtold_l.os
+I strtod_l.os
+I divdi3.os
+W __strtold_l@@GLIBC_2.4
+W strtold_l@@GLIBC_2.4
+
+O strtoll.os
+I strtoll_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __strtoll_internal@@GLIBC_2.4
+D strtoll@@GLIBC_2.4
+W strtoq@@GLIBC_2.4
+
+O strtoll_l.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I grouping.os
+I divdi3.os
+I errno.os
+I strtol_l.os
+W __strtoll_l@@GLIBC_2.4
+W strtoll_l@@GLIBC_2.4
+
+O strtoul.os
+I strtoul_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __strtoul_internal@@GLIBC_2.4
+D strtoul@@GLIBC_2.4
+
+O strtoul_l.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I grouping.os
+I divdi3.os
+I errno.os
+I strtol_l.os
+W __strtoul_l@@GLIBC_2.4
+W strtoul_l@@GLIBC_2.4
+
+O strtoull.os
+I strtoull_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __strtoull_internal@@GLIBC_2.4
+D strtoull@@GLIBC_2.4
+W strtouq@@GLIBC_2.4
+
+O strtoull_l.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I grouping.os
+I divdi3.os
+I errno.os
+I strtol_l.os
+I strtoll_l.os
+W __strtoull_l@@GLIBC_2.4
+W strtoull_l@@GLIBC_2.4
+
+O strtoumax.os
+I strtoull.os
+I divdi3.os
+D strtoumax@@GLIBC_2.4
+
+O strverscmp.os
+I divdi3.os
+D __strverscmp@@GLIBC_2.4
+W strverscmp@@GLIBC_2.4
+
+O strxfrm.os
+I strxfrm_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D strxfrm@@GLIBC_2.4
+
+O strxfrm_l.os
+I assert.os
+I stpncpy.os
+I strlen.os
+I divdi3.os
+I alloca_cutoff.os
+I malloc.os
+D __strxfrm_l@@GLIBC_2.4
+W strxfrm_l@@GLIBC_2.4
+
+O stty.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D stty@@GLIBC_2.4
+
+O stub-syscalls.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W create_module@@GLIBC_2.4
+W epoll_pwait@@GLIBC_2.6
+W get_kernel_syms@@GLIBC_2.4
+W query_module@@GLIBC_2.4
+
+O sub_n.os
+I divdi3.os
+
+O submul_1.os
+I divdi3.os
+
+O svc.os
+I rpc_thread.os
+I rpc_dtable.os
+I pmap_clnt.os
+I divdi3.os
+I svc_auth.os
+I rpc_common.os
+I malloc.os
+D svc_getreq@@GLIBC_2.4
+D svc_getreq_common@@GLIBC_2.4
+D svc_getreq_poll@@GLIBC_2.4
+D svc_getreqset@@GLIBC_2.4
+D svc_register@@GLIBC_2.4
+D svc_sendreply@@GLIBC_2.4
+D svc_unregister@@GLIBC_2.4
+D svcerr_auth@@GLIBC_2.4
+D svcerr_decode@@GLIBC_2.4
+D svcerr_noproc@@GLIBC_2.4
+D svcerr_noprog@@GLIBC_2.4
+D svcerr_progvers@@GLIBC_2.4
+D svcerr_systemerr@@GLIBC_2.4
+D svcerr_weakauth@@GLIBC_2.4
+D xprt_register@@GLIBC_2.4
+D xprt_unregister@@GLIBC_2.4
+
+O svc_auth.os
+I divdi3.os
+I rpc_common.os
+I svcauth_des.os
+I svc_authux.os
+D _authenticate@@GLIBC_2.4
+
+O svc_authux.os
+I memcpy.os
+I divdi3.os
+I authuxprot.os
+I xdr_mem.os
+
+O svc_raw.os
+I divdi3.os
+I rpc_thread.os
+I malloc.os
+I rpc_cmsg.os
+I rpc_prot.os
+I xdr_mem.os
+D svcraw_create@@GLIBC_2.4
+
+O svc_run.os
+I dcgettext.os
+I poll.os
+I rpc_thread.os
+I SYS_libc.os
+I perror.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I malloc.os
+I svc.os
+D svc_exit@@GLIBC_2.4
+D svc_run@@GLIBC_2.4
+
+O svc_simple.os
+I dcgettext.os
+I strdup.os
+I write.os
+I SYS_libc.os
+I exit.os
+I memset.os
+I pmap_clnt.os
+I svc.os
+I asprintf.os
+I divdi3.os
+I fxprintf.os
+I rpc_thread.os
+I malloc.os
+I svc_udp.os
+I xdr.os
+D registerrpc@@GLIBC_2.4
+
+O svc_tcp.os
+I close.os
+I dcgettext.os
+I poll.os
+I read.os
+I write.os
+I SYS_libc.os
+I abort.os
+I accept.os
+I bindrsvprt.os
+I perror.os
+I svc.os
+I libc-aeabi_read_tp.os
+I bind.os
+I divdi3.os
+I fxprintf.os
+I getsockname.os
+I errno.os
+I listen.os
+I socket.os
+I rpc_common.os
+I malloc.os
+I rpc_cmsg.os
+I rpc_prot.os
+I xdr_rec.os
+D svcfd_create@@GLIBC_2.4
+D svctcp_create@@GLIBC_2.4
+
+O svc_udp.os
+I close.os
+I dcgettext.os
+I SYS_libc.os
+I bindrsvprt.os
+I memcmp.os
+I memset.os
+I perror.os
+I svc.os
+I libc-aeabi_read_tp.os
+I bind.os
+I divdi3.os
+I fxprintf.os
+I getsockname.os
+I errno.os
+I recvfrom.os
+I recvmsg.os
+I sendmsg.os
+I sendto.os
+I setsockopt.os
+I socket.os
+I malloc.os
+I rpc_cmsg.os
+I rpc_prot.os
+I xdr_mem.os
+D svcudp_bufcreate@@GLIBC_2.4
+D svcudp_create@@GLIBC_2.4
+D svcudp_enablecache@@GLIBC_2.4
+
+O svc_unix.os
+I close.os
+I dcgettext.os
+I getpid.os
+I poll.os
+I SYS_libc.os
+I abort.os
+I accept.os
+I memcpy.os
+I memset.os
+I perror.os
+I strlen.os
+I svc.os
+I libc-aeabi_read_tp.os
+I bind.os
+I divdi3.os
+I fxprintf.os
+I getegid.os
+I geteuid.os
+I getsockname.os
+I errno.os
+I listen.os
+I recvmsg.os
+I sendmsg.os
+I setsockopt.os
+I socket.os
+I rpc_common.os
+I malloc.os
+I rpc_cmsg.os
+I rpc_prot.os
+I xdr_rec.os
+D svcunix_create@@GLIBC_2.4
+D svcunixfd_create@@GLIBC_2.4
+
+O svcauth_des.os
+I des_crypt.os
+I publickey.os
+I key_call.os
+I memcmp.os
+I memcpy.os
+I netname.os
+I strlen.os
+I divdi3.os
+I gettimeofday.os
+I rpc_thread.os
+I malloc.os
+D authdes_getucred@@GLIBC_2.4
+D svcauthdes_stats@@GLIBC_2.4
+
+O swab.os
+I divdi3.os
+D swab@@GLIBC_2.4
+
+O swapcontext.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D swapcontext@@GLIBC_2.4
+
+O swapoff.os
+I sysdep.os
+W swapoff@@GLIBC_2.4
+
+O swapon.os
+I sysdep.os
+W swapon@@GLIBC_2.4
+
+O swprintf.os
+I divdi3.os
+I vswprintf.os
+D swprintf@@GLIBC_2.4
+
+O swprintf_chk.os
+I vswprintf_chk.os
+I divdi3.os
+D __swprintf_chk@@GLIBC_2.4
+
+O swscanf.os
+I iovswscanf.os
+I divdi3.os
+D swscanf@@GLIBC_2.4
+
+O symlink.os
+I sysdep.os
+W symlink@@GLIBC_2.4
+
+O symlinkat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D symlinkat@@GLIBC_2.4
+
+O sync.os
+I sysdep.os
+D sync@@GLIBC_2.4
+
+O sync_file_range.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D sync_file_range@@GLIBC_2.6
+
+O syscall.os
+I sysdep.os
+D syscall@@GLIBC_2.4
+
+O sysconf.os
+I getpagesize.os
+I strtol.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I getsysstats.os
+I get_child_max.os
+I getclktck.os
+I getdtsz.os
+I errno.os
+I tzset.os
+D __sysconf@@GLIBC_2.4
+W sysconf@@GLIBC_2.4
+
+O sysctl.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __sysctl@@GLIBC_2.4
+W sysctl@@GLIBC_2.4
+
+O sysdep.os
+I errno.os
+
+O sysinfo.os
+I sysdep.os
+D sysinfo@@GLIBC_2.4
+
+O syslog.os
+I ioftell.os
+I iofclose.os
+I unwind-resume.os
+I close.os
+I fcntl.os
+I getpid.os
+I mempcpy.os
+I open.os
+I genops.os
+I send.os
+I stpcpy.os
+I strftime_l.os
+I vfprintf_chk.os
+I dprintf.os
+I fprintf.os
+I iofputs_u.os
+I memstream.os
+I strncpy.os
+I time.os
+I vfprintf.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I connect.os
+I divdi3.os
+I __fsetlocking.os
+I errno.os
+I localtime.os
+I init-misc.os
+I socket.os
+I writev.os
+I xlocale.os
+I malloc.os
+D __syslog_chk@@GLIBC_2.4
+D __vsyslog_chk@@GLIBC_2.4
+D closelog@@GLIBC_2.4
+D openlog@@GLIBC_2.4
+D setlogmask@@GLIBC_2.4
+D syslog@@GLIBC_2.4
+D vsyslog@@GLIBC_2.4
+
+O system.os
+I fork.os
+I sigaction.os
+I waitpid.os
+I _exit.os
+I memset.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I environ.os
+I execve.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+I forward.os
+I sigprocmask.os
+D __libc_system@@GLIBC_PRIVATE
+W system@@GLIBC_2.4
+
+O sysv_signal.os
+I sigaction.os
+I memset.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __sysv_signal@@GLIBC_2.4
+W sysv_signal@@GLIBC_2.4
+
+O tcdrain.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+W tcdrain@@GLIBC_2.4
+
+O tcflow.os
+I divdi3.os
+I ioctl.os
+D tcflow@@GLIBC_2.4
+
+O tcflush.os
+I divdi3.os
+I ioctl.os
+D tcflush@@GLIBC_2.4
+
+O tcgetattr.os
+I mempcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W tcgetattr@@GLIBC_2.4
+
+O tcgetpgrp.os
+I divdi3.os
+I ioctl.os
+D tcgetpgrp@@GLIBC_2.4
+
+O tcgetsid.os
+I getsid.os
+I tcgetpgrp.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ioctl.os
+I errno.os
+D tcgetsid@@GLIBC_2.4
+
+O tcsendbrk.os
+I divdi3.os
+I ioctl.os
+D tcsendbreak@@GLIBC_2.4
+
+O tcsetattr.os
+I memcpy.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D tcsetattr@@GLIBC_2.4
+
+O tcsetpgrp.os
+I divdi3.os
+I ioctl.os
+D tcsetpgrp@@GLIBC_2.4
+
+O tee.os
+I sysdep.os
+D tee@@GLIBC_2.5
+
+O telldir.os
+I divdi3.os
+D telldir@@GLIBC_2.4
+
+O tempnam.os
+I strdup.os
+I divdi3.os
+I tempname.os
+D tempnam@@GLIBC_2.4
+
+O tempname.os
+I assert.os
+I getpid.os
+I lxstat64.os
+I open.os
+I open64.os
+I secure-getenv.os
+I xstat64.os
+I sprintf.os
+I strcmp.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I gettimeofday.os
+I errno.os
+I mkdir.os
+
+O textdomain.os
+I strdup.os
+I strcmp.os
+I divdi3.os
+I forward.os
+I dcigettext.os
+I loadmsgcat.os
+I malloc.os
+W textdomain@@GLIBC_2.4
+
+O thread-freeres.os
+I divdi3.os
+D __libc_thread_freeres@@GLIBC_PRIVATE
+
+O time.os
+I divdi3.os
+I gettimeofday.os
+D time@@GLIBC_2.4
+
+O timegm.os
+I gmtime.os
+I divdi3.os
+I mktime.os
+D timegm@@GLIBC_2.4
+
+O times.os
+I divdi3.os
+W times@@GLIBC_2.4
+
+O tmpfile.os
+I iofdopen.os
+I close.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I tempname.os
+I unlink.os
+D tmpfile@@GLIBC_2.4
+
+O tmpfile64.os
+I iofdopen.os
+I close.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I tempname.os
+I unlink.os
+D tmpfile64@@GLIBC_2.4
+
+O tmpnam.os
+I memcpy.os
+I divdi3.os
+I tempname.os
+D tmpnam@@GLIBC_2.4
+
+O tmpnam_r.os
+I divdi3.os
+I tempname.os
+D tmpnam_r@@GLIBC_2.4
+
+O towctrans.os
+I divdi3.os
+D __towctrans@@GLIBC_2.4
+W towctrans@@GLIBC_2.4
+
+O towctrans_l.os
+I divdi3.os
+D __towctrans_l@@GLIBC_2.4
+W towctrans_l@@GLIBC_2.4
+
+O truncate.os
+I sysdep.os
+W truncate@@GLIBC_2.4
+
+O truncate64.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D truncate64@@GLIBC_2.4
+
+O tsearch.os
+I memcpy.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I malloc.os
+W tdelete@@GLIBC_2.4
+W tdestroy@@GLIBC_2.4
+W tfind@@GLIBC_2.4
+W tsearch@@GLIBC_2.4
+W twalk@@GLIBC_2.4
+
+O ttyname.os
+I fxstat64.os
+I mempcpy.os
+I stpcpy.os
+I xstat64.os
+I memcpy.os
+I strcmp.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I closedir.os
+I divdi3.os
+I errno.os
+I opendir.os
+I readdir64.os
+I readlink.os
+I tcgetattr.os
+I _itoa.os
+I malloc.os
+D ttyname@@GLIBC_2.4
+
+O ttyname_r.os
+I fxstat64.os
+I stpcpy.os
+I stpncpy.os
+I xstat64.os
+I memcpy.os
+I strcmp.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I closedir.os
+I divdi3.os
+I errno.os
+I opendir.os
+I readdir64.os
+I readlink.os
+I tcgetattr.os
+I _itoa.os
+W ttyname_r@@GLIBC_2.4
+
+O ttyname_r_chk.os
+I chk_fail.os
+I divdi3.os
+I ttyname_r.os
+D __ttyname_r_chk@@GLIBC_2.4
+
+O ttyslot.os
+I sysconf.os
+I getttyent.os
+I strcmp.os
+I strrchr.os
+I divdi3.os
+I ttyname_r.os
+D ttyslot@@GLIBC_2.4
+
+O tzfile.os
+I iofclose.os
+I iofopen.os
+I assert.os
+I fxstat64.os
+I mempcpy.os
+I genops.os
+I xstat64.os
+I fileno.os
+I iofread_u.os
+I getenv.os
+I memcmp.os
+I memcpy.os
+I strlen.os
+I strstr.os
+I tzset.os
+I divdi3.os
+I __fsetlocking.os
+I malloc.os
+U __libc_enable_secure@@GLIBC_PRIVATE
+
+O tzset.os
+I strdup.os
+I strtoul.os
+I getenv.os
+I memcpy.os
+I memset.os
+I sscanf.os
+I strcmp.os
+I strcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I mktime.os
+I offtime.os
+I tzfile.os
+I localtime.os
+I malloc.os
+D __daylight@@GLIBC_2.4
+D __timezone@@GLIBC_2.4
+D __tzname@@GLIBC_2.4
+W daylight@@GLIBC_2.4
+W timezone@@GLIBC_2.4
+W tzname@@GLIBC_2.4
+W tzset@@GLIBC_2.4
+
+O ualarm.os
+I divdi3.os
+I setitimer.os
+D ualarm@@GLIBC_2.4
+
+O udiv_qrnnd.os
+I divdi3.os
+
+O ulimit.os
+I sysconf.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getrlimit.os
+I errno.os
+I setrlimit.os
+W ulimit@@GLIBC_2.4
+
+O umask.os
+W umask@@GLIBC_2.4
+
+O umount.os
+I divdi3.os
+I umount2.os
+W umount@@GLIBC_2.4
+
+O umount2.os
+I sysdep.os
+W umount2@@GLIBC_2.4
+
+O uname.os
+I sysdep.os
+W uname@@GLIBC_2.4
+
+O unlink.os
+I sysdep.os
+W unlink@@GLIBC_2.4
+
+O unlinkat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D unlinkat@@GLIBC_2.4
+
+O unlockpt.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ioctl.os
+I errno.os
+D unlockpt@@GLIBC_2.4
+
+O unregister-atfork.os
+I divdi3.os
+I fork.os
+I register-atfork.os
+
+O unshare.os
+I sysdep.os
+D unshare@@GLIBC_2.4
+
+O unwind-resume.os
+I dl-libc.os
+I libc_fatal.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+
+O updwtmp.os
+I strcmp.os
+I access.os
+I divdi3.os
+I utmp_file.os
+W updwtmp@@GLIBC_2.4
+
+O updwtmpx.os
+I divdi3.os
+I updwtmp.os
+D updwtmpx@@GLIBC_2.4
+
+O uselib.os
+I sysdep.os
+D uselib@@GLIBC_2.4
+
+O uselocale.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+D __uselocale@@GLIBC_2.4
+W uselocale@@GLIBC_2.4
+
+O usleep.os
+I nanosleep.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+D usleep@@GLIBC_2.4
+
+O ustat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D ustat@@GLIBC_2.4
+
+O utime.os
+I divdi3.os
+I utimes.os
+D utime@@GLIBC_2.4
+
+O utimensat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D utimensat@@GLIBC_2.6
+
+O utimes.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+W utimes@@GLIBC_2.4
+
+O utmp_file.os
+I assert.os
+I sigaction.os
+I alarm.os
+I memcpy.os
+I memset.os
+I strcmp.os
+I strncmp.os
+I access.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I fcntl.os
+I ftruncate64.os
+I errno.os
+I utmpname.os
+I llseek.os
+
+O utmpname.os
+I strdup.os
+I strcmp.os
+I divdi3.os
+I getutent_r.os
+I malloc.os
+W utmpname@@GLIBC_2.4
+
+O utmpxname.os
+I divdi3.os
+I utmpname.os
+D utmpxname@@GLIBC_2.4
+
+O vasprintf.os
+I genops.os
+I strops.os
+I vfprintf.os
+I memcpy.os
+I divdi3.os
+I malloc.os
+W vasprintf@@GLIBC_2.4
+
+O versionsort.os
+I strverscmp.os
+I divdi3.os
+D versionsort@@GLIBC_2.4
+
+O versionsort64.os
+I strverscmp.os
+I divdi3.os
+D versionsort64@@GLIBC_2.4
+
+O vfork.os
+I sysdep.os
+D __vfork@@GLIBC_2.4
+W vfork@@GLIBC_2.4
+
+O vfprintf.os
+I genops.os
+I funlockfile.os
+I iopadn.os
+I assert.os
+I libc_fatal.os
+I mempcpy.os
+I printf_fp.os
+I _strerror.os
+I towctrans.os
+I memcpy.os
+I memset.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I printf-parsemb.os
+I alloca_cutoff.os
+I errno.os
+I forward.os
+I global-locale.os
+I mbsnrtowcs.os
+I reg-printf.os
+I printf_fphex.os
+I readonly-area.os
+I strnlen.os
+I wcrtomb.os
+I wcsrtombs.os
+I wctrans.os
+I _itoa.os
+I abort.os
+I malloc.os
+D _IO_vfprintf@@GLIBC_2.4
+D vfprintf@@GLIBC_2.4
+
+O vfprintf_chk.os
+I vfprintf.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+D __vfprintf_chk@@GLIBC_2.4
+
+O vfscanf.os
+I funlockfile.os
+I genops.os
+I assert.os
+I mbrlen.os
+I mbrtowc.os
+I mempcpy.os
+I rawmemchr.os
+I strtod.os
+I strtof.os
+I strtol.os
+I strtold.os
+I strtoll.os
+I strtoul.os
+I strtoull.os
+I towctrans.os
+I memcpy.os
+I memset.os
+I strcmp.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I forward.os
+I global-locale.os
+I wcrtomb.os
+I wctrans.os
+I malloc.os
+D _IO_vfscanf@@GLIBC_2.4
+D __vfscanf@@GLIBC_2.4
+W vfscanf@@GLIBC_2.4
+
+O vfwprintf.os
+I genops.os
+I funlockfile.os
+I iofwide.os
+I wgenops.os
+I iowpadn.os
+I assert.os
+I libc_fatal.os
+I mempcpy.os
+I printf_fp.os
+I _strerror.os
+I towctrans.os
+I memcpy.os
+I memset.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I btowc.os
+I divdi3.os
+I printf-parsewc.os
+I alloca_cutoff.os
+I errno.os
+I forward.os
+I global-locale.os
+I mbsrtowcs.os
+I reg-printf.os
+I printf_fphex.os
+I readonly-area.os
+I strnlen.os
+I wcslen.os
+I wcsnlen.os
+I wctrans.os
+I _itowa.os
+I itowa-digits.os
+I abort.os
+I malloc.os
+W vfwprintf@@GLIBC_2.4
+
+O vfwprintf_chk.os
+I vfwprintf.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+D __vfwprintf_chk@@GLIBC_2.4
+
+O vfwscanf.os
+I funlockfile.os
+I iofwide.os
+I wgenops.os
+I assert.os
+I mempcpy.os
+I towctrans.os
+I wcstod.os
+I wcstof.os
+I wcstol.os
+I wcstold.os
+I wcstoll.os
+I wcstoul.os
+I wcstoull.os
+I wcfuncs.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I forward.os
+I global-locale.os
+I wcrtomb.os
+I wctrans.os
+I wmemcpy.os
+I malloc.os
+W vfwscanf@@GLIBC_2.4
+
+O vhangup.os
+I sysdep.os
+D vhangup@@GLIBC_2.4
+
+O vlimit.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I getrlimit.os
+I errno.os
+I setrlimit.os
+D vlimit@@GLIBC_2.4
+
+O vmsplice.os
+I sysdep.os
+D vmsplice@@GLIBC_2.5
+
+O vprintf.os
+I vfprintf.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I stdio.os
+D vprintf@@GLIBC_2.4
+
+O vprintf_chk.os
+I vfprintf.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I stdio.os
+D __vprintf_chk@@GLIBC_2.4
+
+O vscanf.os
+I stdio.os
+I vfscanf.os
+I divdi3.os
+W vscanf@@GLIBC_2.4
+
+O vsnprintf.os
+I genops.os
+I strops.os
+I vfprintf.os
+I divdi3.os
+W __vsnprintf@@GLIBC_2.4
+W vsnprintf@@GLIBC_2.4
+
+O vsnprintf_chk.os
+I genops.os
+I strops.os
+I vsnprintf.os
+I vfprintf.os
+I chk_fail.os
+I divdi3.os
+D __vsnprintf_chk@@GLIBC_2.4
+
+O vsprintf_chk.os
+I genops.os
+I strops.os
+I vfprintf.os
+I chk_fail.os
+I divdi3.os
+D __vsprintf_chk@@GLIBC_2.4
+
+O vswprintf.os
+I genops.os
+I iofwide.os
+I vfwprintf.os
+I wgenops.os
+I wstrops.os
+I divdi3.os
+W vswprintf@@GLIBC_2.4
+
+O vswprintf_chk.os
+I iofwide.os
+I genops.os
+I vfwprintf.os
+I wstrops.os
+I vswprintf.os
+I chk_fail.os
+I divdi3.os
+D __vswprintf_chk@@GLIBC_2.4
+
+O vtimes.os
+I divdi3.os
+I getrusage.os
+D vtimes@@GLIBC_2.4
+
+O vwprintf.os
+I divdi3.os
+I vfwprintf.os
+I stdio.os
+D vwprintf@@GLIBC_2.4
+
+O vwprintf_chk.os
+I vfwprintf.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I stdio.os
+D __vwprintf_chk@@GLIBC_2.4
+
+O vwscanf.os
+I stdio.os
+I vfwscanf.os
+I divdi3.os
+D vwscanf@@GLIBC_2.4
+
+O wait.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+D __libc_wait@@GLIBC_2.4
+W __wait@@GLIBC_2.4
+W wait@@GLIBC_2.4
+
+O wait3.os
+I divdi3.os
+I wait4.os
+W wait3@@GLIBC_2.4
+
+O wait4.os
+I sysdep.os
+W wait4@@GLIBC_2.4
+
+O waitid.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+W waitid@@GLIBC_2.4
+
+O waitpid.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+D __libc_waitpid@@GLIBC_2.4
+W __waitpid@@GLIBC_2.4
+W waitpid@@GLIBC_2.4
+
+O wcfuncs.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+W iswalnum@@GLIBC_2.4
+W iswalpha@@GLIBC_2.4
+W iswblank@@GLIBC_2.4
+W iswcntrl@@GLIBC_2.4
+W iswdigit@@GLIBC_2.4
+W iswgraph@@GLIBC_2.4
+W iswlower@@GLIBC_2.4
+W iswprint@@GLIBC_2.4
+W iswpunct@@GLIBC_2.4
+W iswspace@@GLIBC_2.4
+W iswupper@@GLIBC_2.4
+W iswxdigit@@GLIBC_2.4
+D towlower@@GLIBC_2.4
+D towupper@@GLIBC_2.4
+
+O wcfuncs_l.os
+I divdi3.os
+D __iswalnum_l@@GLIBC_2.4
+D __iswalpha_l@@GLIBC_2.4
+D __iswblank_l@@GLIBC_2.4
+D __iswcntrl_l@@GLIBC_2.4
+D __iswdigit_l@@GLIBC_2.4
+D __iswgraph_l@@GLIBC_2.4
+D __iswlower_l@@GLIBC_2.4
+D __iswprint_l@@GLIBC_2.4
+D __iswpunct_l@@GLIBC_2.4
+D __iswspace_l@@GLIBC_2.4
+D __iswupper_l@@GLIBC_2.4
+D __iswxdigit_l@@GLIBC_2.4
+D __towlower_l@@GLIBC_2.4
+D __towupper_l@@GLIBC_2.4
+W iswalnum_l@@GLIBC_2.4
+W iswalpha_l@@GLIBC_2.4
+W iswblank_l@@GLIBC_2.4
+W iswcntrl_l@@GLIBC_2.4
+W iswdigit_l@@GLIBC_2.4
+W iswgraph_l@@GLIBC_2.4
+W iswlower_l@@GLIBC_2.4
+W iswprint_l@@GLIBC_2.4
+W iswpunct_l@@GLIBC_2.4
+W iswspace_l@@GLIBC_2.4
+W iswupper_l@@GLIBC_2.4
+W iswxdigit_l@@GLIBC_2.4
+W towlower_l@@GLIBC_2.4
+W towupper_l@@GLIBC_2.4
+
+O wcpcpy.os
+I divdi3.os
+W wcpcpy@@GLIBC_2.4
+
+O wcpcpy_chk.os
+I chk_fail.os
+I divdi3.os
+D __wcpcpy_chk@@GLIBC_2.4
+
+O wcpncpy.os
+I divdi3.os
+W wcpncpy@@GLIBC_2.4
+
+O wcpncpy_chk.os
+I chk_fail.os
+I divdi3.os
+I wcpncpy.os
+D __wcpncpy_chk@@GLIBC_2.4
+
+O wcrtomb.os
+I assert.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I global-locale.os
+I wcsmbsload.os
+I C-ctype.os
+W wcrtomb@@GLIBC_2.4
+
+O wcrtomb_chk.os
+I chk_fail.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+I wcrtomb.os
+D __wcrtomb_chk@@GLIBC_2.4
+
+O wcscasecmp.os
+I wcfuncs.os
+I divdi3.os
+W wcscasecmp@@GLIBC_2.4
+
+O wcscasecmp_l.os
+I wcfuncs_l.os
+I divdi3.os
+D __wcscasecmp_l@@GLIBC_2.4
+W wcscasecmp_l@@GLIBC_2.4
+
+O wcscat.os
+I divdi3.os
+W wcscat@@GLIBC_2.4
+
+O wcscat_chk.os
+I chk_fail.os
+I divdi3.os
+D __wcscat_chk@@GLIBC_2.4
+
+O wcschr.os
+I divdi3.os
+D wcschr@@GLIBC_2.4
+
+O wcschrnul.os
+I divdi3.os
+W wcschrnul@@GLIBC_2.4
+
+O wcscmp.os
+I divdi3.os
+D wcscmp@@GLIBC_2.4
+
+O wcscoll.os
+I wcscoll_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+W wcscoll@@GLIBC_2.4
+
+O wcscoll_l.os
+I assert.os
+I wcscmp.os
+I coll-lookup.os
+I divdi3.os
+I alloca_cutoff.os
+I wcslen.os
+I malloc.os
+D __wcscoll_l@@GLIBC_2.4
+W wcscoll_l@@GLIBC_2.4
+
+O wcscpy.os
+I divdi3.os
+D wcscpy@@GLIBC_2.4
+
+O wcscpy_chk.os
+I chk_fail.os
+I divdi3.os
+D __wcscpy_chk@@GLIBC_2.4
+
+O wcscspn.os
+I wcschr.os
+I divdi3.os
+D wcscspn@@GLIBC_2.4
+
+O wcsdup.os
+I memcpy.os
+I divdi3.os
+I wcslen.os
+I malloc.os
+D wcsdup@@GLIBC_2.4
+
+O wcsftime.os
+I wcsftime_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D wcsftime@@GLIBC_2.4
+
+O wcsftime_l.os
+I wcfuncs_l.os
+I mktime.os
+I wmemset.os
+I divdi3.os
+I mbsrtowcs_l.os
+I tzset.os
+I wcslen.os
+I wmemcpy.os
+I era.os
+I alt_digit.os
+D __wcsftime_l@@GLIBC_2.4
+W wcsftime_l@@GLIBC_2.4
+
+O wcslen.os
+I divdi3.os
+W wcslen@@GLIBC_2.4
+
+O wcsmbsload.os
+I mempcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I gconv_simple.os
+I gconv_db.os
+I setlocale.os
+I global-locale.os
+I C-ctype.os
+I xlocale.os
+I malloc.os
+
+O wcsncase.os
+I wcfuncs.os
+I divdi3.os
+W wcsncasecmp@@GLIBC_2.4
+
+O wcsncase_l.os
+I wcfuncs_l.os
+I divdi3.os
+D __wcsncasecmp_l@@GLIBC_2.4
+W wcsncasecmp_l@@GLIBC_2.4
+
+O wcsncat.os
+I divdi3.os
+D wcsncat@@GLIBC_2.4
+
+O wcsncat_chk.os
+I chk_fail.os
+I divdi3.os
+D __wcsncat_chk@@GLIBC_2.4
+
+O wcsncmp.os
+I divdi3.os
+D wcsncmp@@GLIBC_2.4
+
+O wcsncpy.os
+I divdi3.os
+W wcsncpy@@GLIBC_2.4
+
+O wcsncpy_chk.os
+I chk_fail.os
+I divdi3.os
+I wcsncpy.os
+D __wcsncpy_chk@@GLIBC_2.4
+
+O wcsnlen.os
+I divdi3.os
+W wcsnlen@@GLIBC_2.4
+
+O wcsnrtombs.os
+I assert.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I global-locale.os
+I wcsmbsload.os
+I wcsnlen.os
+I C-ctype.os
+W wcsnrtombs@@GLIBC_2.4
+
+O wcsnrtombs_chk.os
+I chk_fail.os
+I divdi3.os
+I wcsnrtombs.os
+D __wcsnrtombs_chk@@GLIBC_2.4
+
+O wcspbrk.os
+I wcschr.os
+I divdi3.os
+D wcspbrk@@GLIBC_2.4
+
+O wcsrchr.os
+I divdi3.os
+D wcsrchr@@GLIBC_2.4
+
+O wcsrtombs.os
+I assert.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I global-locale.os
+I wcslen.os
+I wcsmbsload.os
+I wcsnlen.os
+I C-ctype.os
+W wcsrtombs@@GLIBC_2.4
+
+O wcsrtombs_chk.os
+I chk_fail.os
+I divdi3.os
+I wcsrtombs.os
+D __wcsrtombs_chk@@GLIBC_2.4
+
+O wcsspn.os
+I divdi3.os
+D wcsspn@@GLIBC_2.4
+
+O wcsstr.os
+I divdi3.os
+D wcsstr@@GLIBC_2.4
+W wcswcs@@GLIBC_2.4
+
+O wcstod.os
+I wcstod_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __wcstod_internal@@GLIBC_2.4
+W wcstod@@GLIBC_2.4
+
+O wcstod_l.os
+I wcfuncs_l.os
+I wcsncase_l.os
+I memcpy.os
+I wcstoull_l.os
+I libc-aeabi_read_tp.os
+I mp_clz_tab.os
+I groupingwc.os
+I divdi3.os
+I errno.os
+I add_n.os
+I cmp.os
+I mpn2dbl.os
+I lshift.os
+I mul.os
+I mul_1.os
+I rshift.os
+I submul_1.os
+I fpioconst.os
+I xlocale.os
+W __wcstod_l@@GLIBC_2.4
+W wcstod_l@@GLIBC_2.4
+
+O wcstof.os
+I wcstof_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __wcstof_internal@@GLIBC_2.4
+W wcstof@@GLIBC_2.4
+
+O wcstof_l.os
+I wcfuncs_l.os
+I wcsncase_l.os
+I memcpy.os
+I wcstoull_l.os
+I libc-aeabi_read_tp.os
+I mp_clz_tab.os
+I groupingwc.os
+I divdi3.os
+I errno.os
+I add_n.os
+I cmp.os
+I mpn2flt.os
+I lshift.os
+I mul.os
+I mul_1.os
+I rshift.os
+I submul_1.os
+I fpioconst.os
+I xlocale.os
+W __wcstof_l@@GLIBC_2.4
+W wcstof_l@@GLIBC_2.4
+
+O wcstoimax.os
+I wcstoll.os
+I divdi3.os
+D wcstoimax@@GLIBC_2.4
+
+O wcstok.os
+I wcspbrk.os
+I wcsspn.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D wcstok@@GLIBC_2.4
+
+O wcstol.os
+I wcstol_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __wcstol_internal@@GLIBC_2.4
+D wcstol@@GLIBC_2.4
+
+O wcstol_l.os
+I wcfuncs_l.os
+I libc-aeabi_read_tp.os
+I groupingwc.os
+I divdi3.os
+I errno.os
+I strtol_l.os
+W __wcstol_l@@GLIBC_2.4
+W wcstol_l@@GLIBC_2.4
+
+O wcstold.os
+I wcstold_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __wcstold_internal@@GLIBC_2.4
+W wcstold@@GLIBC_2.4
+
+O wcstold_l.os
+I wcstod_l.os
+I divdi3.os
+W __wcstold_l@@GLIBC_2.4
+W wcstold_l@@GLIBC_2.4
+
+O wcstoll.os
+I wcstoll_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __wcstoll_internal@@GLIBC_2.4
+D wcstoll@@GLIBC_2.4
+W wcstoq@@GLIBC_2.4
+
+O wcstoll_l.os
+I wcfuncs_l.os
+I libc-aeabi_read_tp.os
+I groupingwc.os
+I divdi3.os
+I errno.os
+I strtol_l.os
+I strtoll_l.os
+W __wcstoll_l@@GLIBC_2.4
+W wcstoll_l@@GLIBC_2.4
+
+O wcstombs.os
+I divdi3.os
+I wcsrtombs.os
+D wcstombs@@GLIBC_2.4
+
+O wcstombs_chk.os
+I chk_fail.os
+I divdi3.os
+I wcsrtombs.os
+D __wcstombs_chk@@GLIBC_2.4
+
+O wcstoul.os
+I wcstoul_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __wcstoul_internal@@GLIBC_2.4
+D wcstoul@@GLIBC_2.4
+
+O wcstoul_l.os
+I wcfuncs_l.os
+I libc-aeabi_read_tp.os
+I groupingwc.os
+I divdi3.os
+I errno.os
+I strtol_l.os
+W __wcstoul_l@@GLIBC_2.4
+W wcstoul_l@@GLIBC_2.4
+
+O wcstoull.os
+I wcstoull_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D __wcstoull_internal@@GLIBC_2.4
+D wcstoull@@GLIBC_2.4
+W wcstouq@@GLIBC_2.4
+
+O wcstoull_l.os
+I wcfuncs_l.os
+I libc-aeabi_read_tp.os
+I groupingwc.os
+I divdi3.os
+I errno.os
+I strtol_l.os
+I strtoll_l.os
+W __wcstoull_l@@GLIBC_2.4
+W wcstoull_l@@GLIBC_2.4
+
+O wcstoumax.os
+I wcstoull.os
+I divdi3.os
+D wcstoumax@@GLIBC_2.4
+
+O wcswidth.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D wcswidth@@GLIBC_2.4
+
+O wcsxfrm.os
+I wcsxfrm_l.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D wcsxfrm@@GLIBC_2.4
+
+O wcsxfrm_l.os
+I assert.os
+I coll-lookup.os
+I divdi3.os
+I alloca_cutoff.os
+I wcpncpy.os
+I wcslen.os
+I malloc.os
+D __wcsxfrm_l@@GLIBC_2.4
+W wcsxfrm_l@@GLIBC_2.4
+
+O wctob.os
+I dl-profstub.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+I wcsmbsload.os
+I C-ctype.os
+D wctob@@GLIBC_2.4
+
+O wctomb.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+I mbtowc.os
+I wcrtomb.os
+I wcsmbsload.os
+I C-ctype.os
+D wctomb@@GLIBC_2.4
+
+O wctomb_chk.os
+I chk_fail.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+I mbtowc.os
+I wcrtomb.os
+D __wctomb_chk@@GLIBC_2.4
+
+O wctrans.os
+I rawmemchr.os
+I strcmp.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+W wctrans@@GLIBC_2.4
+
+O wctrans_l.os
+I rawmemchr.os
+I strcmp.os
+I divdi3.os
+D __wctrans_l@@GLIBC_2.4
+W wctrans_l@@GLIBC_2.4
+
+O wctype.os
+I memcmp.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+W wctype@@GLIBC_2.4
+
+O wctype_l.os
+I memcmp.os
+I strlen.os
+I divdi3.os
+D __wctype_l@@GLIBC_2.4
+W wctype_l@@GLIBC_2.4
+
+O wcwidth.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I global-locale.os
+D wcwidth@@GLIBC_2.4
+
+O wfiledoalloc.os
+I filedoalloc.os
+I wgenops.os
+I divdi3.os
+I mmap.os
+
+O wfileops.os
+I genops.os
+I fileops.os
+I stdio.os
+I wgenops.os
+I wfiledoalloc.os
+I unwind-resume.os
+I assert.os
+I memmove.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I errno.os
+I wmempcpy.os
+I malloc.os
+D _IO_wdo_write@@GLIBC_2.4
+D _IO_wfile_jumps@@GLIBC_2.4
+D _IO_wfile_overflow@@GLIBC_2.4
+D _IO_wfile_seekoff@@GLIBC_2.4
+D _IO_wfile_sync@@GLIBC_2.4
+D _IO_wfile_underflow@@GLIBC_2.4
+D _IO_wfile_xsputn@@GLIBC_2.4
+
+O wgenops.os
+I iofwide.os
+I genops.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I mmap.os
+I munmap.os
+I wmemcpy.os
+I wmemmove.os
+I wmempcpy.os
+I malloc.os
+D _IO_adjust_wcolumn@@GLIBC_2.4
+D _IO_free_wbackup_area@@GLIBC_2.4
+D _IO_init_wmarker@@GLIBC_2.4
+D _IO_least_wmarker@@GLIBC_2.4
+D _IO_seekwmark@@GLIBC_2.4
+D _IO_sputbackwc@@GLIBC_2.4
+D _IO_sungetwc@@GLIBC_2.4
+D _IO_switch_to_main_wget_area@@GLIBC_2.4
+D _IO_switch_to_wbackup_area@@GLIBC_2.4
+D _IO_switch_to_wget_mode@@GLIBC_2.4
+D _IO_unsave_wmarkers@@GLIBC_2.4
+D _IO_wdefault_doallocate@@GLIBC_2.4
+D _IO_wdefault_finish@@GLIBC_2.4
+D _IO_wdefault_pbackfail@@GLIBC_2.4
+D _IO_wdefault_uflow@@GLIBC_2.4
+D _IO_wdefault_xsgetn@@GLIBC_2.4
+D _IO_wdefault_xsputn@@GLIBC_2.4
+D _IO_wdoallocbuf@@GLIBC_2.4
+D _IO_wmarker_delta@@GLIBC_2.4
+D _IO_wsetb@@GLIBC_2.4
+D __woverflow@@GLIBC_2.4
+D __wuflow@@GLIBC_2.4
+D __wunderflow@@GLIBC_2.4
+
+O wmemchr.os
+I divdi3.os
+D wmemchr@@GLIBC_2.4
+
+O wmemcmp.os
+I divdi3.os
+D wmemcmp@@GLIBC_2.4
+
+O wmemcpy.os
+I memcpy.os
+I divdi3.os
+W wmemcpy@@GLIBC_2.4
+
+O wmemcpy_chk.os
+I chk_fail.os
+I memcpy.os
+I divdi3.os
+D __wmemcpy_chk@@GLIBC_2.4
+
+O wmemmove.os
+I memmove.os
+I divdi3.os
+W wmemmove@@GLIBC_2.4
+
+O wmemmove_chk.os
+I chk_fail.os
+I memmove.os
+I divdi3.os
+D __wmemmove_chk@@GLIBC_2.4
+
+O wmempcpy.os
+I mempcpy.os
+I divdi3.os
+W wmempcpy@@GLIBC_2.4
+
+O wmempcpy_chk.os
+I chk_fail.os
+I mempcpy.os
+I divdi3.os
+D __wmempcpy_chk@@GLIBC_2.4
+
+O wmemset.os
+I divdi3.os
+D wmemset@@GLIBC_2.4
+
+O wmemset_chk.os
+I chk_fail.os
+I wmemset.os
+I divdi3.os
+D __wmemset_chk@@GLIBC_2.4
+
+O wmemstream.os
+I genops.os
+I iofwide.os
+I wgenops.os
+I wstrops.os
+I divdi3.os
+I malloc.os
+D open_wmemstream@@GLIBC_2.4
+
+O wordcopy.os
+I divdi3.os
+
+O wordexp.os
+I assert.os
+I close.os
+I dcgettext.os
+I dup2.os
+I fork.os
+I fxstat64.os
+I getpid.os
+I mempcpy.os
+I open.os
+I pipe.os
+I read.os
+I stpcpy.os
+I strdup.os
+I strtol.os
+I waitpid.os
+I _exit.os
+I SYS_libc.os
+I abort.os
+I fnmatch.os
+I getenv.os
+I glob.os
+I memcpy.os
+I strchr.os
+I strcspn.os
+I strlen.os
+I strspn.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I environ.os
+I execve.os
+I fxprintf.os
+I getpwnam_r.os
+I getpwuid_r.os
+I getuid.os
+I kill.os
+I init-first.os
+I errno.os
+I forward.os
+I ctype-info.os
+I global-locale.os
+I setenv.os
+I strnlen.os
+I _itoa.os
+I malloc.os
+D wordexp@@GLIBC_2.4
+D wordfree@@GLIBC_2.4
+
+O wprintf.os
+I divdi3.os
+I vfwprintf.os
+I stdio.os
+D wprintf@@GLIBC_2.4
+
+O wprintf_chk.os
+I vfwprintf.os
+I unwind-resume.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I stdio.os
+D __wprintf_chk@@GLIBC_2.4
+
+O write.os
+I aeabi_unwind_cpp_pr1.os
+I libc-cancellation.os
+I libc_multiple_threads.os
+I sysdep.os
+W __write@@GLIBC_2.4
+W write@@GLIBC_2.4
+
+O writev.os
+I mempcpy.os
+I write.os
+I libc-aeabi_read_tp.os
+I aeabi_unwind_cpp_pr1.os
+I divdi3.os
+I alloca_cutoff.os
+I libc-cancellation.os
+I errno.os
+I libc_multiple_threads.os
+I malloc.os
+W writev@@GLIBC_2.4
+
+O wscanf.os
+I vfwscanf.os
+I divdi3.os
+I stdio.os
+D wscanf@@GLIBC_2.4
+
+O wstrops.os
+I genops.os
+I wgenops.os
+I assert.os
+I wmemset.os
+I divdi3.os
+I wcslen.os
+I wmemcpy.os
+
+O xcrypt.os
+I des_crypt.os
+I des_soft.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I ctype-info.os
+I global-locale.os
+I malloc.os
+D passwd2des@@GLIBC_2.4
+D xdecrypt@@GLIBC_2.4
+D xencrypt@@GLIBC_2.4
+
+O xdr.os
+I dcgettext.os
+I SYS_libc.os
+I strlen.os
+I divdi3.os
+I fxprintf.os
+I malloc.os
+D xdr_bool@@GLIBC_2.4
+D xdr_bytes@@GLIBC_2.4
+D xdr_char@@GLIBC_2.4
+D xdr_enum@@GLIBC_2.4
+D xdr_free@@GLIBC_2.4
+D xdr_hyper@@GLIBC_2.4
+D xdr_int@@GLIBC_2.4
+D xdr_long@@GLIBC_2.4
+D xdr_longlong_t@@GLIBC_2.4
+D xdr_netobj@@GLIBC_2.4
+D xdr_opaque@@GLIBC_2.4
+D xdr_short@@GLIBC_2.4
+D xdr_string@@GLIBC_2.4
+D xdr_u_char@@GLIBC_2.4
+D xdr_u_hyper@@GLIBC_2.4
+D xdr_u_int@@GLIBC_2.4
+D xdr_u_long@@GLIBC_2.4
+D xdr_u_longlong_t@@GLIBC_2.4
+D xdr_u_short@@GLIBC_2.4
+D xdr_union@@GLIBC_2.4
+D xdr_void@@GLIBC_2.4
+D xdr_wrapstring@@GLIBC_2.4
+
+O xdr_array.os
+I dcgettext.os
+I SYS_libc.os
+I divdi3.os
+I fxprintf.os
+I malloc.os
+I xdr.os
+D xdr_array@@GLIBC_2.4
+D xdr_vector@@GLIBC_2.4
+
+O xdr_float.os
+I divdi3.os
+D xdr_double@@GLIBC_2.4
+D xdr_float@@GLIBC_2.4
+
+O xdr_intXX_t.os
+I divdi3.os
+D xdr_int16_t@@GLIBC_2.4
+D xdr_int32_t@@GLIBC_2.4
+D xdr_int64_t@@GLIBC_2.4
+D xdr_int8_t@@GLIBC_2.4
+D xdr_quad_t@@GLIBC_2.4
+D xdr_u_quad_t@@GLIBC_2.4
+D xdr_uint16_t@@GLIBC_2.4
+D xdr_uint32_t@@GLIBC_2.4
+D xdr_uint64_t@@GLIBC_2.4
+D xdr_uint8_t@@GLIBC_2.4
+
+O xdr_mem.os
+I memcpy.os
+I divdi3.os
+D xdrmem_create@@GLIBC_2.4
+
+O xdr_rec.os
+I dcgettext.os
+I lseek.os
+I SYS_libc.os
+I memcpy.os
+I divdi3.os
+I fxprintf.os
+I malloc.os
+D xdrrec_create@@GLIBC_2.4
+D xdrrec_endofrecord@@GLIBC_2.4
+D xdrrec_eof@@GLIBC_2.4
+D xdrrec_skiprecord@@GLIBC_2.4
+
+O xdr_ref.os
+I dcgettext.os
+I SYS_libc.os
+I divdi3.os
+I fxprintf.os
+I malloc.os
+I xdr.os
+D xdr_pointer@@GLIBC_2.4
+D xdr_reference@@GLIBC_2.4
+
+O xdr_sizeof.os
+I divdi3.os
+I malloc.os
+D xdr_sizeof@@GLIBC_2.4
+
+O xdr_stdio.os
+I iofflush.os
+I iofread.os
+I ioftell.os
+I iofwrite.os
+I fseek.os
+I divdi3.os
+D xdrstdio_create@@GLIBC_2.4
+
+O xlocale.os
+I divdi3.os
+I C-address.os
+I C-collate.os
+I C-ctype.os
+I C-identification.os
+I C-measurement.os
+I C-messages.os
+I C-monetary.os
+I C-name.os
+I C-numeric.os
+I C-paper.os
+I C-telephone.os
+I C-time.os
+I C_name.os
+
+O xmknod.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __xmknod@@GLIBC_2.4
+
+O xmknodat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __xmknodat@@GLIBC_2.4
+
+O xpg-strerror.os
+I dcgettext.os
+I SYS_libc.os
+I memcpy.os
+I strlen.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I errlist.os
+D __xpg_strerror_r@@GLIBC_2.4
+
+O xpg_basename.os
+I strrchr.os
+I divdi3.os
+D __xpg_basename@@GLIBC_2.4
+
+O xstat.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+I xstatconv.os
+D __xstat@@GLIBC_2.4
+
+O xstat64.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
+D __xstat64@@GLIBC_2.4
+
+O xstatconv.os
+I libc-aeabi_read_tp.os
+I divdi3.os
+I errno.os
