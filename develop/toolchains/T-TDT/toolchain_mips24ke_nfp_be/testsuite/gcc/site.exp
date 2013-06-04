@@ -1,0 +1,13 @@
+#!/usr/bin/env expect
+set myboard mips-montavista-linux-gnu
+set target_list [list mips-montavista-linux-gnu]
+set target_alias    mips24ke_nfp_be
+set CC             $target_alias-gcc
+set CXX            $target_alias-g++
+set GCC_UNDER_TEST $CC
+set GXX_UNDER_TEST $CXX
+set cxxfilt        $target_alias-c++filt
+set HOSTCC	   gcc
+set HOSTCFLAGS     ""
+set libiconv       ""
+set builddir       [pwd]
