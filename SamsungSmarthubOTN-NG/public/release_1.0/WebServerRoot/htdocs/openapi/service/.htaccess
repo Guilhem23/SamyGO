@@ -6,5 +6,10 @@ ForceType text/plain
         Allow from 172.16.0.0/12
         Allow from 127.0.0.0/8
         Allow from 169.254.0.0/16
+
+# if your apache 2.4 use new authz syntax
+# Require ip 10.0.0.0/8
+# etc...
+
 </FilesMatch>
 

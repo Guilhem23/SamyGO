@@ -4,5 +4,9 @@ ForceType application/x-httpd-php
 </FilesMatch>
 <FilesMatch "openapi.php">
 Deny From All
+
+# if your apache 2.4 use new authz syntax
+# Require all denied
+
 ErrorDocument 403 "Maybe not found."
 </FilesMatch>
